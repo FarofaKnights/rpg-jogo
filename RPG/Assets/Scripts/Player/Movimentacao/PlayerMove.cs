@@ -2,33 +2,45 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    private CharacterController controller;
-    private Vector3 playerVelocity;
-    private bool groundedPlayer;
-    private float playerSpeed = 4.0f;
-    private float gravityValue = -9.8f;
-    void Start()
+    [SerializeField] private float speedPlayer;
+    private CharacterController characterPlayer;
+    private Animator animationPlayer;    
+    private Vector3 movementPlayer;
+
+    void Awake()
     {
-        controller = gameObject.GetComponent<CharacterController>();
+        animationPlayer = GetComponent<Animator>();
+        characterPlayer = gameObject.GetComponent<CharacterController>();
     }
 
     void Update()
     {
-        groundedPlayer = controller.isGrounded;
-        if(groundedPlayer && playerVelocity.y < 0)
+        PlayerMovement();
+        Gravity();
+    }
+
+    private void PlayerMovement()
+    {
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        movementPlayer = (transform.right * horizontal) + (transform.forward * vertical);
+        characterPlayer.Move(movementPlayer.normalized * speedPlayer * Time.deltaTime);
+        PlayerAnimation(horizontal, vertical);
+    }
+
+    private void Gravity()
+    {
+        movementPlayer = Vector3.zero;
+        if (characterPlayer.isGrounded == false)
         {
-            playerVelocity.y = 0;
+            movementPlayer += Physics.gravity; 
         }
+        characterPlayer.Move(movementPlayer * Time.deltaTime);
+    }
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        controller.Move(move * Time.deltaTime * playerSpeed);
-        if(move != Vector3.zero)
-        {
-            gameObject.transform.forward = move;
-        }
-
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
-
+    private void PlayerAnimation(float x, float z)
+    {
+        animationPlayer.SetFloat("inputX", x);
+        animationPlayer.SetFloat("inputZ", z);
     }
 }
