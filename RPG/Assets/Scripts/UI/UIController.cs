@@ -6,6 +6,11 @@ public class UIController : MonoBehaviour {
 
     void Awake() {
         if (instance == null) instance = this;
-        else Destroy(gameObject);
+        else {
+            Destroy(gameObject);
+            return;
+        }
+
+        HUD = GetComponentInChildren<HUDController>();
     }
 }

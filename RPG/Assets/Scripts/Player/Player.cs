@@ -18,10 +18,15 @@ public class Player : MonoBehaviour {
         else Destroy(gameObject);
     }
 
+    void Start() {
+        UpdateHUD();
+    }
+
     public void UpdateHUD() {
         UIController.HUD.UpdateVida(vida, vidaMax);
         UIController.HUD.UpdateCalor(calor, calorMax);
         UIController.HUD.UpdateAtributos(dano, defesa, velocidade);
+        UIController.HUD.UpdatePecas(pecas);
     }
 
     public void TomarDano(int danoTomado) {
@@ -77,14 +82,15 @@ public class Player : MonoBehaviour {
 
 
     void OnTriggerEnter(Collider other) {
+        Debug.Log(other.tag);
         if (other.CompareTag("Item")) {
             // TEMPORARIO
             ItemDropado itemDropado = other.GetComponent<ItemDropado>();
             Item item = itemDropado.item;
 
-            if (item is Consumivel) {
-                Consumivel consumivel = (Consumivel)item;
-                consumivel.Use();
+            if (item.tipo == Item.Tipo.Consumivel) {
+                Consumivel consumivel = item.GetConsumivel();
+                if (consumivel != null) consumivel.Use();
                 Destroy(other.gameObject);
             }
         }
