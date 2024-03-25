@@ -1,9 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Inventario {
-    public List<Slot> slots;
+    List<Slot> slots;
+    public Action<Item, int> onItemChange;
+
+    public Inventario() {
+        slots = new List<Slot>();
+    }
 
     public bool AddItem(Item item) {
         Slot slot;
@@ -12,6 +18,9 @@ public class Inventario {
             slot = GetSlotWithItem(item);
             if (slot != null) {
                 slot.AddItem(item);
+                
+                if (onItemChange != null)  onItemChange(item, slot.quantidade);
+
                 return true;
             }
         }
@@ -19,6 +28,9 @@ public class Inventario {
         slot = GetEmptySlot();
         if (slot != null) {
             slot.AddItem(item);
+
+            if (onItemChange != null)  onItemChange(item, slot.quantidade);
+
             return true;
         }
 
@@ -29,12 +41,28 @@ public class Inventario {
         Slot slot = GetSlotWithItem(item);
         if (slot != null) {
             slot.RemoveItem();
+            
+            if (onItemChange != null)  onItemChange(item, slot.quantidade);
+
             return true;
         }
         return false;
     }
 
+    public int GetSlotIndex(Item item) {
+        for (int i = 0; i < slots.Count; i++) {
+            if (slots[i].item == item) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public Item GetItemInSlot(int index) {
+        if (index < 0 || index >= slots.Count) {
+            return null;
+        }
+
         return slots[index].item;
     }
 
@@ -49,6 +77,14 @@ public class Inventario {
             return slot.quantidade;
         }
         return 0;
+    }
+
+    public void ForEach(Action<Item, int> action) {
+        foreach (Slot slot in slots) {
+            if (slot.item != null) {
+                action(slot.item, slot.quantidade);
+            }
+        }
     }
 
     // Utility
@@ -69,6 +105,11 @@ public class Inventario {
                 return slot;
             }
         }
-        return null;
+
+        Slot newSlot = new Slot();
+        newSlot.quantidade = 0;
+        slots.Add(newSlot);
+
+        return newSlot;
     }
 }

@@ -3,6 +3,8 @@ using UnityEngine;
 public class UIController : MonoBehaviour {
     public static UIController instance;
     public static HUDController HUD;
+    public static InventarioUI inventarioUI;
+    public InventarioUI inventarioUIRef;
 
     void Awake() {
         if (instance == null) instance = this;
@@ -12,5 +14,6 @@ public class UIController : MonoBehaviour {
         }
 
         HUD = GetComponentInChildren<HUDController>();
+        inventarioUI = inventarioUIRef; // Pode haver mais de um inventarioUI, por enquanto especificamos ele aqui
     }
 }

@@ -12,14 +12,31 @@ public class Player : MonoBehaviour {
     public int dano = 1, defesa = 1, velocidade = 1;
     public int pecas = 0;
 
+    [Header("Inventario")]
+    public Inventario inventario;
+
 
     void Awake() {
         if (instance == null) instance = this;
-        else Destroy(gameObject);
+        else {
+            Destroy(gameObject);
+            return;
+        }
     }
 
     void Start() {
         UpdateHUD();
+
+        inventario = new Inventario();
+        UIController.inventarioUI.SetupUI(inventario);
+        UIController.inventarioUI.onSlotClick += HandleSlotClick;
+    }
+
+    void HandleSlotClick(Item item) {
+        if (item != null && inventario.RemoveItem(item)) {
+            TipoAbstrato tp = item.GetTipo();
+            tp.FazerAcao();
+        }
     }
 
     public void UpdateHUD() {
@@ -79,19 +96,17 @@ public class Player : MonoBehaviour {
         this.pecas -= pecas;
         UIController.HUD.UpdatePecas(pecas);
     }
-
-
     void OnTriggerEnter(Collider other) {
         Debug.Log(other.tag);
         if (other.CompareTag("Item")) {
             // TEMPORARIO
             ItemDropado itemDropado = other.GetComponent<ItemDropado>();
             Item item = itemDropado.item;
+            int quant = itemDropado.quantidade; // Lembrar de adicionar quantidade no inventário XD
 
-            if (item.tipo == Item.Tipo.Consumivel) {
-                Consumivel consumivel = item.GetConsumivel();
-                if (consumivel != null) consumivel.Use();
-                Destroy(other.gameObject);
+            if (item != null) {
+                if (inventario.AddItem(item))
+                    Destroy(other.gameObject);
             }
         }
     }
