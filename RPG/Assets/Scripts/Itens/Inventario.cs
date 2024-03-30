@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class Inventario {
     List<Slot> slots;
-    public Action<Item, int> onItemChange;
+    public Action<ItemData, int> onItemChange;
 
     public Inventario() {
         slots = new List<Slot>();
     }
 
-    public bool AddItem(Item item) {
+    public bool AddItem(ItemData item) {
         Slot slot;
 
         if (item.empilhavel) {
@@ -37,7 +37,7 @@ public class Inventario {
         return false;
     }
 
-    public bool RemoveItem(Item item) {
+    public bool RemoveItem(ItemData item) {
         Slot slot = GetSlotWithItem(item);
         if (slot != null) {
             slot.RemoveItem();
@@ -49,7 +49,7 @@ public class Inventario {
         return false;
     }
 
-    public int GetSlotIndex(Item item) {
+    public int GetSlotIndex(ItemData item) {
         for (int i = 0; i < slots.Count; i++) {
             if (slots[i].item == item) {
                 return i;
@@ -58,7 +58,7 @@ public class Inventario {
         return -1;
     }
 
-    public Item GetItemInSlot(int index) {
+    public ItemData GetItemInSlot(int index) {
         if (index < 0 || index >= slots.Count) {
             return null;
         }
@@ -66,12 +66,12 @@ public class Inventario {
         return slots[index].item;
     }
 
-    public bool ContainsItem(Item item) {
+    public bool ContainsItem(ItemData item) {
         Slot slot = GetSlotWithItem(item);
         return slot != null;
     }
 
-    public int GetQuantidade(Item item) {
+    public int GetQuantidade(ItemData item) {
         Slot slot = GetSlotWithItem(item);
         if (slot != null) {
             return slot.quantidade;
@@ -79,7 +79,7 @@ public class Inventario {
         return 0;
     }
 
-    public void ForEach(Action<Item, int> action) {
+    public void ForEach(Action<ItemData, int> action) {
         foreach (Slot slot in slots) {
             if (slot.item != null) {
                 action(slot.item, slot.quantidade);
@@ -89,7 +89,7 @@ public class Inventario {
 
     // Utility
 
-    Slot GetSlotWithItem(Item item) {
+    Slot GetSlotWithItem(ItemData item) {
         foreach (Slot slot in slots) {
             if (slot.item == item) {
                 return slot;

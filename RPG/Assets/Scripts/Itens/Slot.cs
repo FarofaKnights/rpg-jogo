@@ -1,10 +1,10 @@
 using UnityEngine;
 
 public class Slot {
-    public Item item;
+    public ItemData item;
     public int quantidade = 1;
 
-    public void AddItem(Item novoItem, int quant = 1) {
+    public void AddItem(ItemData novoItem, int quant = 1) {
         if (novoItem == null) {
             Debug.LogWarning("Tentativa de adicionar item nulo ao slot");
             return;

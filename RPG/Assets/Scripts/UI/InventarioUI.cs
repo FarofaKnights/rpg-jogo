@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 public class InventarioUI : MonoBehaviour {
-    public Action<Item> onSlotClick;
+    public Action<ItemData> onSlotClick;
     public GameObject slotPrefab;
     List<SlotUI> slotsUI;
     Inventario inventario;
@@ -35,7 +35,7 @@ public class InventarioUI : MonoBehaviour {
         inventario.onItemChange += UpdateSlot;
     }
 
-    public void UpdateSlot(Item item, int quantidade) {
+    public void UpdateSlot(ItemData item, int quantidade) {
         SlotUI slotUI = slotsUI.Find(slot => slot.item == item);
 
         if (slotUI == null) CreateSlotUI(item, quantidade);
@@ -48,14 +48,14 @@ public class InventarioUI : MonoBehaviour {
         }
     }
 
-    public void HandleSlotClick(Item item) {
+    public void HandleSlotClick(ItemData item) {
         if (item != null) {
             onSlotClick?.Invoke(item);
         }
     }
 
     // Utility
-    void CreateSlotUI(Item item, int quantidade) {
+    void CreateSlotUI(ItemData item, int quantidade) {
         GameObject slotGO = Instantiate(slotPrefab, transform);
         SlotUI slotUI = slotGO.GetComponent<SlotUI>();
         slotUI.Setup(this);

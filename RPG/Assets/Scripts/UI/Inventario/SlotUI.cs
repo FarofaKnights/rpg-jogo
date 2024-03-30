@@ -7,7 +7,7 @@ public class SlotUI : MonoBehaviour {
     public Text texto;
     public Image imagem;
     public GameObject textoHolder;
-    [HideInInspector] public Item item;
+    [HideInInspector] public ItemData item;
     [HideInInspector] public int quantidade;
 
     InventarioUI inventarioUI;
@@ -16,7 +16,7 @@ public class SlotUI : MonoBehaviour {
         this.inventarioUI = inventarioUI;
     }
 
-    public void SetSlot(Item item, int quantidade) {
+    public void SetSlot(ItemData item, int quantidade) {
         this.item = item;
         this.quantidade = quantidade;
 

@@ -14,6 +14,8 @@ public class Player : MonoBehaviour {
 
     [Header("Inventario")]
     public Inventario inventario;
+    [HideInInspector] public Arma arma;
+    public Transform mao;
 
 
     void Awake() {
@@ -32,8 +34,10 @@ public class Player : MonoBehaviour {
         UIController.inventarioUI.onSlotClick += HandleSlotClick;
     }
 
-    void HandleSlotClick(Item item) {
-        if (item != null && inventario.RemoveItem(item)) {
+    void HandleSlotClick(ItemData itemData) {
+        if (itemData != null && inventario.RemoveItem(itemData)) {
+            GameObject obj = itemData.CreateInstance();
+            Item item = obj.GetComponent<Item>();
             TipoAbstrato tp = item.GetTipo();
             tp.FazerAcao();
         }
@@ -46,6 +50,7 @@ public class Player : MonoBehaviour {
         UIController.HUD.UpdatePecas(pecas);
     }
 
+    #region Stats
     public void TomarDano(int danoTomado) {
         int danoFinal = danoTomado - defesa;
         if (danoFinal < 0) danoFinal = 0;
@@ -87,6 +92,8 @@ public class Player : MonoBehaviour {
         UIController.HUD.UpdateAtributos(this.dano, this.defesa, this.velocidade);
     }
 
+    #endregion
+
     public void AddPecas(int pecas) {
         this.pecas += pecas;
         UIController.HUD.UpdatePecas(pecas);
@@ -96,6 +103,9 @@ public class Player : MonoBehaviour {
         this.pecas -= pecas;
         UIController.HUD.UpdatePecas(pecas);
     }
+
+    
+
     void OnTriggerEnter(Collider other) {
         Debug.Log(other.tag);
         if (other.CompareTag("Item")) {
@@ -105,9 +115,24 @@ public class Player : MonoBehaviour {
             int quant = itemDropado.quantidade; // Lembrar de adicionar quantidade no inventário XD
 
             if (item != null) {
-                if (inventario.AddItem(item))
+                if (inventario.AddItem(item.data))
                     Destroy(other.gameObject);
             }
         }
+    }
+
+    public void EquiparArma(Arma arma) {
+        if (this.arma != null) DesequiparArma();
+        this.arma = arma;
+        arma.transform.SetParent(mao);
+        arma.transform.localPosition = Vector3.zero;
+    }
+
+    public void DesequiparArma() {
+        if (arma == null) return;
+
+        inventario.AddItem(arma.GetComponent<Item>().data);
+        Destroy(arma.gameObject);
+        arma = null;
     }
 }
