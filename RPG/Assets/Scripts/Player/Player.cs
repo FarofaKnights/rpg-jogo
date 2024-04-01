@@ -35,11 +35,21 @@ public class Player : MonoBehaviour {
     }
 
     void HandleSlotClick(ItemData itemData) {
-        if (itemData != null && inventario.RemoveItem(itemData)) {
-            GameObject obj = itemData.CreateInstance();
-            Item item = obj.GetComponent<Item>();
-            TipoAbstrato tp = item.GetTipo();
-            tp.FazerAcao();
+        if (itemData == null) return;
+
+        TipoAbstrato especificacoes = itemData.prefab.GetComponent<TipoAbstrato>();
+        if (!especificacoes.IsUsavel) return;
+
+        if (inventario.RemoveItem(itemData)) {
+            TipoAbstrato instancia = especificacoes;
+
+            if (especificacoes.IsInstanciavel) {
+                GameObject obj = itemData.CreateInstance();
+                Item item = obj.GetComponent<Item>();
+                instancia = item.GetTipo();
+            }
+
+            instancia.FazerAcao();
         }
     }
 
