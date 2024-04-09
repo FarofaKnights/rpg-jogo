@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PossuiVida))]
 public class Player : MonoBehaviour {
     public static Player instance;
 
     [Header("Atributos do Jogador")]
-    public float vida;
-    public float vidaMax;
-    public float calor, calorMax;
+    public float calor;
+    public float calorMax;
     public int dano = 1, defesa = 1, velocidade = 1;
     public int pecas = 0;
 
@@ -18,20 +18,46 @@ public class Player : MonoBehaviour {
     public Transform mao;
 
 
+    PossuiVida vidaController;
+
+
     void Awake() {
         if (instance == null) instance = this;
         else {
             Destroy(gameObject);
             return;
         }
+
+        vidaController = GetComponent<PossuiVida>();
     }
 
     void Start() {
+
+        vidaController.modificadorDeDano = (dano) => {
+            return dano - defesa;
+        };
+
+        vidaController.onChange += (vida) => {
+            UIController.HUD.UpdateVida(vida, vidaController.VidaMax);
+        };
+
+        vidaController.onDeath += () => {
+            Debug.Log("Game Over");
+        };
+        
         UpdateHUD();
 
         inventario = new Inventario();
         UIController.inventarioUI.SetupUI(inventario);
         UIController.inventarioUI.onSlotClick += HandleSlotClick;
+    }
+
+    void Update() {
+        if (Input.GetMouseButtonDown(0)) {
+            if (arma != null) {
+                arma.Atacar();
+            }
+        }
     }
 
     void HandleSlotClick(ItemData itemData) {
@@ -54,7 +80,7 @@ public class Player : MonoBehaviour {
     }
 
     public void UpdateHUD() {
-        UIController.HUD.UpdateVida(vida, vidaMax);
+        UIController.HUD.UpdateVida(vidaController.Vida, vidaController.VidaMax);
         UIController.HUD.UpdateCalor(calor, calorMax);
         UIController.HUD.UpdateAtributos(dano, defesa, velocidade);
         UIController.HUD.UpdatePecas(pecas);
@@ -62,22 +88,11 @@ public class Player : MonoBehaviour {
 
     #region Stats
     public void TomarDano(int danoTomado) {
-        int danoFinal = danoTomado - defesa;
-        if (danoFinal < 0) danoFinal = 0;
-        vida -= danoFinal;
-        if (vida <= 0) {
-            vida = 0;
-            Debug.Log("Game Over");
-        }
-
-        UIController.HUD.UpdateVida(vida, vidaMax);
+        GetComponent<PossuiVida>().LevarDano(danoTomado);
     }
 
     public void CurarVida(int cura) {
-        vida += cura;
-        if (vida > vidaMax) vida = vidaMax;
-
-        UIController.HUD.UpdateVida(vida, vidaMax);
+        GetComponent<PossuiVida>().Curar(cura);
     }
 
     public void AumentarCalor(int calor) {
@@ -106,7 +121,7 @@ public class Player : MonoBehaviour {
 
     public void AddPecas(int pecas) {
         this.pecas += pecas;
-        UIController.HUD.UpdatePecas(pecas);
+        UIController.HUD.UpdatePecas(this.pecas);
     }
 
     public void RemovePecas(int pecas) {
@@ -117,7 +132,6 @@ public class Player : MonoBehaviour {
     
 
     void OnTriggerEnter(Collider other) {
-        Debug.Log(other.tag);
         if (other.CompareTag("Item")) {
             // TEMPORARIO
             ItemDropado itemDropado = other.GetComponent<ItemDropado>();
