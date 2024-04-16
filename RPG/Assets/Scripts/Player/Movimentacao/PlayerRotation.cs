@@ -5,6 +5,7 @@ public class PlayerRotation : MonoBehaviour
 {
     [SerializeField] private float sensitivy = 150f;
     private float rotationX;
+    public float mouseX, mouseY;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -14,12 +15,14 @@ public class PlayerRotation : MonoBehaviour
     void Update()
     {
         RotatePlayer();
+        Cam.instance.CameraActions();
     }
 
     private void RotatePlayer()
     {
-        float mouseX = Input.GetAxis("Mouse X") ;
-        rotationX += mouseX * sensitivy * Time.deltaTime;
-        transform.rotation = Quaternion.Euler(0, rotationX, 0);        
+        mouseX = Input.GetAxis("Mouse X") ;
+        mouseY = Input.GetAxis("Mouse Y");
+        //rotationX += mouseX * sensitivy * Time.deltaTime;
+        //transform.rotation = Quaternion.Euler(0, rotationX, 0);        
     }
 }
