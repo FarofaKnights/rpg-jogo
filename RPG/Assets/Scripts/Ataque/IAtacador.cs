@@ -7,4 +7,5 @@ public interface IAtacador {
 
     Animator GetAnimator();
     GameObject GetAttackHitboxHolder();
+    string AttackTriggerName();
 }

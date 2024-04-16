@@ -11,6 +11,15 @@ public class EnemyAttackState : IEnemyState {
     }
 
     public void Enter() {
+        GameManager.instance.StartCoroutine(Attack());
+    }
+
+    IEnumerator Attack() {
+        yield return new WaitForSeconds(0.25f);
+        StartAttack();
+    }
+
+    void StartAttack() {
         inimigo.animator.SetTrigger("Attack");
         ataqueInstance = inimigo.ataque.Atacar(inimigo);
         ataqueInstance.onHitFinish += ReturnToIdle;

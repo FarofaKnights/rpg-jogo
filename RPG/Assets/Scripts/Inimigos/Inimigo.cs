@@ -23,6 +23,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     [SerializeField] GameObject attackHitboxHolder;
     public GameObject GetAttackHitboxHolder() { return attackHitboxHolder; }
     public Animator GetAnimator() { return animator; }
+    public string AttackTriggerName() { return "Attack"; }
     
     
 
@@ -30,6 +31,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public EnemyIdleState idleState;
     public EnemyAttackState attackState;
     public EnemyWalkState walkState;
+    public EnemyHittedState hittedState;
     
 
     void Awake() {
@@ -38,6 +40,8 @@ public class Inimigo : MonoBehaviour, IAtacador {
         vidaController.onChange += (vida) => {
             float porcentagem = vida / vidaController.VidaMax;
             vidaText.text = (porcentagem * 100).ToString("0") + "%";
+
+            stateMachine.SetState(hittedState);
         };
 
         vidaController.onDeath += () => {
@@ -50,6 +54,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
         idleState = new EnemyIdleState(this);
         attackState = new EnemyAttackState(this);
         walkState = new EnemyWalkState(this);
+        hittedState = new EnemyHittedState(this);
 
         stateMachine.SetState(idleState);
     }

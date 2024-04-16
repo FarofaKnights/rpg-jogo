@@ -2,31 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Arma : Equipamento {
+public class Arma : Equipamento, IAtacador {
     public int dano;
     public float hitboxDuration; // temp
     public GameObject hitbox;
+
+    public Ataque ataque;
 
     public System.Action onAttackHit;
     
     public override void Equip() {
         Player.instance.EquiparArma(this);
-        hitbox.SetActive(false);
-        hitbox.GetComponent<OnTrigger>().onTriggerEnter += OnHit;
     }
 
     public override void Unequip() {
         Player.instance.DesequiparArma();
-        hitbox.SetActive(false);
-        hitbox.GetComponent<OnTrigger>().onTriggerEnter -= OnHit;
     }
 
     public virtual void Atacar() {
-        hitbox.SetActive(false);
-        hitbox.SetActive(true);
-
-        // Após um tempo, desativar a hitbox
-        StartCoroutine(DesativarHitbox());
+        ataque.Atacar(this);
     }
 
     IEnumerator DesativarHitbox() {
@@ -34,9 +28,16 @@ public class Arma : Equipamento {
         hitbox.SetActive(false);
     }
 
+    public Animator GetAnimator() { return Player.instance.animator; }
+    public GameObject GetAttackHitboxHolder() { return Player.instance.meio; }
+    public string AttackTriggerName() { return "Ataque"; }
+
+
     // Quando o ataque da arma colide com um inimigo
-    public virtual void OnHit(GameObject inimigo) {
+    public virtual void OnAtaqueHit(GameObject inimigo) {
+        if (!inimigo.CompareTag("Inimigo")) return;
+
         Player.instance.AumentarCalor(2);
-        inimigo.GetComponent<PossuiVida>().LevarDano(dano);
+        inimigo.GetComponent<PossuiVida>().LevarDano(ataque.dano);
     }
 }

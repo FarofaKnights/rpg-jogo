@@ -26,6 +26,8 @@ public class EnemyWalkState : IEnemyState {
 
     public void Exit() {
         navMeshAgent.enabled = false;
+        inimigo.animator.SetFloat("Vertical", 0);
+        inimigo.animator.SetFloat("Horizontal", 0);
     }
 
     public void Execute() {

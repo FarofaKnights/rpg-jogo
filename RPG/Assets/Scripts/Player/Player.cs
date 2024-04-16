@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PossuiVida))]
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour, IAtacador {
     public static Player instance;
 
     [Header("Atributos do Jogador")]
@@ -19,7 +19,8 @@ public class Player : MonoBehaviour {
 
 
     PossuiVida vidaController;
-
+    public Animator animator;
+    public GameObject meio;
 
     void Awake() {
         if (instance == null) instance = this;
@@ -42,7 +43,7 @@ public class Player : MonoBehaviour {
         };
 
         vidaController.onDeath += () => {
-            Debug.Log("Game Over");
+            GameManager.instance.GameOver();
         };
         
         UpdateHUD();
@@ -159,4 +160,12 @@ public class Player : MonoBehaviour {
         Destroy(arma.gameObject);
         arma = null;
     }
+
+    public Animator GetAnimator() { return animator; }
+
+    public GameObject GetAttackHitboxHolder() { return meio; }
+    public virtual void OnAtaqueHit(GameObject inimigo) {
+        Debug.Log("Linha desnecessaria!");
+    }
+    public string AttackTriggerName() { return "Ataque"; }
 }

@@ -8,21 +8,21 @@ public class PlayerRotation : MonoBehaviour
     public float mouseX, mouseY;
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
     }
 
     void Update()
     {
         RotatePlayer();
-        Cam.instance.CameraActions();
+        //Cam.instance.CameraActions();
     }
 
     private void RotatePlayer()
     {
         mouseX = Input.GetAxis("Mouse X") ;
         mouseY = Input.GetAxis("Mouse Y");
-        //rotationX += mouseX * sensitivy * Time.deltaTime;
-        //transform.rotation = Quaternion.Euler(0, rotationX, 0);        
+        rotationX += mouseX * sensitivy * Time.deltaTime;
+        transform.rotation = Quaternion.Euler(0, rotationX, 0);        
     }
 }

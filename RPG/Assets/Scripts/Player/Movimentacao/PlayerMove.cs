@@ -8,11 +8,13 @@ public class PlayerMove : MonoBehaviour
     private int layerIndex = 1;
     private float layerHeight;
     private Vector3 movementPlayer;
+    public GameObject modelo;
 
     void Awake()
     {
-        animationPlayer = GetComponent<Animator>();
-        characterPlayer = gameObject.GetComponent<CharacterController>();
+        if (modelo == null) modelo = gameObject;
+        animationPlayer = modelo.GetComponent<Animator>();
+        characterPlayer = GetComponent<CharacterController>();
     }
 
     void Update()
@@ -36,17 +38,17 @@ public class PlayerMove : MonoBehaviour
         {
             animationPlayer.SetBool("Correr", false);
         }
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            animationPlayer.SetBool("Ataque", true);         
+            animationPlayer.SetTrigger("Ataque");         
             layerHeight = 1f;
             animationPlayer.SetLayerWeight(layerIndex, layerHeight);
         }
         else
-        {
+        {/*
             animationPlayer.SetBool("Ataque", false);
             layerHeight = 0f;
-            animationPlayer.SetLayerWeight(layerIndex, layerHeight);
+            animationPlayer.SetLayerWeight(layerIndex, layerHeight);*/
         }
         characterPlayer.Move(movementPlayer.normalized * speedPlayer * Time.deltaTime);
 

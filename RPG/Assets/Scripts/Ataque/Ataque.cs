@@ -44,8 +44,8 @@ public class AtaqueInstance {
             atacador.OnAtaqueHit(hit);
         };
 
-        animator.runtimeAnimatorController = ataque.animatorOverride;
-        animator.SetTrigger("Attack");
+        // animator.runtimeAnimatorController = ataque.animatorOverride;
+        animator.SetTrigger(atacador.AttackTriggerName());
 
         hitbox.SetActive(true);
         
