@@ -6,6 +6,8 @@ public class Arma : Equipamento {
     public int dano;
     public float hitboxDuration; // temp
     public GameObject hitbox;
+
+    public System.Action onAttackHit;
     
     public override void Equip() {
         Player.instance.EquiparArma(this);
@@ -35,6 +37,6 @@ public class Arma : Equipamento {
     // Quando o ataque da arma colide com um inimigo
     public virtual void OnHit(GameObject inimigo) {
         Player.instance.AumentarCalor(2);
-        inimigo.GetComponent<Inimigo>().TomarDano(dano);
+        inimigo.GetComponent<PossuiVida>().LevarDano(dano);
     }
 }

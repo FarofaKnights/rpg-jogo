@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Novo Item", menuName = "Inventario/ItemData")]
+[CreateAssetMenu(fileName = "Novo Item", menuName = "RPG/ItemData")]
 public class ItemData : ScriptableObject {
     public enum Tipo {Consumivel, Equipamento, Quest }
 
