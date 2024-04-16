@@ -11,6 +11,7 @@ public class Cam : MonoBehaviour
 
     [Header("Configuracoes da Camera")]
     Vector3 cameraVelocity;
+    Vector3 cameraObjectPosition;
     float cameraSmoothSpeed = 1;
     [SerializeField] float upAndDownRotationSpeed = 220;
     [SerializeField] float leftAndRightRotationSpeed = 220;
@@ -19,10 +20,17 @@ public class Cam : MonoBehaviour
     [SerializeField] float minimunPivot = -30;
     [SerializeField] float maximunPivot = 60;
     [SerializeField] Transform cameraPivotTransform;
+    [SerializeField] LayerMask collideWithLayer;
+
+    [SerializeField] float cameraCollisionRadius = 0.2f;
+    float cameraZPosition;
+    float targetCameraZPosition;
+
 
     private void Awake()
     {
         instance = this;
+        cameraZPosition = cameraObject.transform.localPosition.z;
     }
     public void CameraActions()
     {
@@ -30,6 +38,7 @@ public class Cam : MonoBehaviour
         {
             FollowTarget();
             Rotations();
+            Colisoes();
         }
     }
     void FollowTarget()
@@ -56,5 +65,24 @@ public class Cam : MonoBehaviour
         targetRotation = Quaternion.Euler(cameraRotation);
         cameraPivotTransform.localRotation = targetRotation;
 
+    }
+    void Colisoes()
+    {
+        targetCameraZPosition = cameraZPosition;
+        RaycastHit hit;
+        Vector3 direction = cameraObject.transform.position - cameraPivotTransform.position;
+        direction.Normalize();
+
+        if(Physics.SphereCast(cameraPivotTransform.position, cameraCollisionRadius, direction, out hit, Mathf.Abs(targetCameraZPosition), collideWithLayer))
+        {
+            float distanceFromHitObject = Vector3.Distance(cameraPivotTransform.position, hit.point);
+            targetCameraZPosition = -(distanceFromHitObject - cameraCollisionRadius);
+        }
+        if(Mathf.Abs(targetCameraZPosition) < cameraCollisionRadius)
+        {
+            targetCameraZPosition = -cameraCollisionRadius;
+        }
+        cameraObjectPosition.z = Mathf.Lerp(cameraObject.transform.localPosition.z, targetCameraZPosition, 0.2f);
+        cameraObject.transform.localPosition = cameraObjectPosition;
     }
 }
