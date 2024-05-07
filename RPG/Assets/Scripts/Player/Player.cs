@@ -15,7 +15,8 @@ public class Player : MonoBehaviour, IAtacador {
     [Header("Inventario")]
     public Inventario inventario;
     [HideInInspector] public Arma arma;
-    public Transform mao;
+    [HideInInspector] public Braco braco;
+    public Transform mao, bracoHolder, pe;
 
 
     PossuiVida vidaController;
@@ -57,6 +58,13 @@ public class Player : MonoBehaviour, IAtacador {
         if (Input.GetMouseButtonDown(0)) {
             if (arma != null) {
                 arma.Atacar();
+            }
+        }
+
+        if (Input.GetMouseButtonDown(1)) {
+            Debug.Log("Ataque especial: " + braco);
+            if (braco != null) {
+                braco.Ativar();
             }
         }
     }
@@ -159,6 +167,22 @@ public class Player : MonoBehaviour, IAtacador {
         inventario.AddItem(arma.GetComponent<Item>().data);
         Destroy(arma.gameObject);
         arma = null;
+    }
+
+    public void EquiparBraco(Braco braco) {
+        if (this.braco != null) DesequiparBraco();
+        this.braco = braco;
+        braco.transform.SetParent(bracoHolder);
+        braco.transform.localPosition = Vector3.zero;
+        braco.transform.localRotation = Quaternion.identity;
+    }
+
+    public void DesequiparBraco() {
+        if (braco == null) return;
+
+        inventario.AddItem(braco.GetComponent<Item>().data);
+        Destroy(braco.gameObject);
+        braco = null;
     }
 
     public Animator GetAnimator() { return animator; }

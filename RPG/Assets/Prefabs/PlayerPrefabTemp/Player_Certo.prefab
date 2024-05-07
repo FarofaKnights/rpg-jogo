@@ -94,6 +94,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3781352503518224305}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &485833427697710085
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1218434404944544560}
+  m_Layer: 0
+  m_Name: pe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1218434404944544560
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485833427697710085}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9189059411048936434}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &643094391044211162
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,6 +1061,7 @@ Transform:
   - {fileID: 1518153304902360506}
   - {fileID: 6591351138635863401}
   - {fileID: 2204149033344789522}
+  - {fileID: 1218434404944544560}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2502078481447245441
@@ -1051,7 +1083,10 @@ MonoBehaviour:
   velocidade: 1
   pecas: 10
   arma: {fileID: 0}
+  braco: {fileID: 0}
   mao: {fileID: 2065043298372953063}
+  bracoHolder: {fileID: 1236719978978506757}
+  pe: {fileID: 1218434404944544560}
   animator: {fileID: 9117082731273499191}
   meio: {fileID: 8012124986562185902}
 --- !u!114 &126188001019165496
@@ -2360,6 +2395,37 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.00000059604645, y: -0.025347501, z: -0.015955776}
     m_Extent: {x: 0.62936056, y: 0.97257686, z: 0.21857432}
   m_DirtyAABB: 0
+--- !u!1 &8332415911095644325
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1236719978978506757}
+  m_Layer: 0
+  m_Name: bracoHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1236719978978506757
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332415911095644325}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 435210579708705384}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8339071450173240178
 GameObject:
   m_ObjectHideFlags: 0
@@ -2389,6 +2455,7 @@ Transform:
   m_LocalScale: {x: 0.99999994, y: 1.0000002, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1236719978978506757}
   - {fileID: 4855995404546342953}
   - {fileID: 4256592291310325793}
   m_Father: {fileID: 399227331754403218}
