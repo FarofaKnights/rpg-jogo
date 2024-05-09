@@ -16,9 +16,9 @@ public class PlayerMoviment : MonoBehaviour
 
     [Header("Stats")]
     [SerializeField]
-    float movementSpeed = 5;
+    int movementSpeed = 5;
     [SerializeField]
-    float sprintSpeed;
+    float sprintSpeed = 7;
     [SerializeField]
     float rotationSpeed = 10;
 
@@ -84,6 +84,7 @@ public class PlayerMoviment : MonoBehaviour
 
         float speed = movementSpeed;
 
+
         if (inputHandler.sprintFlag)
         {
             speed = sprintSpeed;
@@ -93,7 +94,6 @@ public class PlayerMoviment : MonoBehaviour
         else
         {
             moveDirection *= speed;
-
         }
 
         Vector3 projectedVelocity = Vector3.ProjectOnPlane(moveDirection, normalVector);
@@ -125,7 +125,7 @@ public class PlayerMoviment : MonoBehaviour
             }
             else
             {
-                animatorHandler.PlayTargetAnimation("Backstep", true);
+                animatorHandler.PlayTargetAnimation("BackStep", true);
             }
         }
     }

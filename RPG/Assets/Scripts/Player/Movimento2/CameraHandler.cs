@@ -4,7 +4,7 @@ public class CameraHandler : MonoBehaviour
 {
     public Transform targetTransform;
     public Transform cameraTransform;
-    public Transform CameraPivotTransform;
+    public Transform cameraPivotTransform;
     private Transform myTransform;
     private Vector3 cameraTransformPosition;
     private LayerMask ignoreLayers;
@@ -37,7 +37,8 @@ public class CameraHandler : MonoBehaviour
 
     public void FollowTarget(float delta)
     {
-        Vector3 targerPosition = Vector3.SmoothDamp(myTransform.position, targetTransform.position, ref cameraFollowVelocity, delta / followSpeed);
+        Vector3 targerPosition = Vector3.SmoothDamp
+            (myTransform.position, targetTransform.position, ref cameraFollowVelocity, delta / followSpeed);
         myTransform.position = targerPosition;
 
         HandleCameraCollision(delta);
@@ -58,18 +59,18 @@ public class CameraHandler : MonoBehaviour
         rotation.x = pivotAngle;
 
         targerRotation = Quaternion.Euler(rotation);
-        CameraPivotTransform.localRotation = targerRotation;
+        cameraPivotTransform.localRotation = targerRotation;
     }
 
     private void HandleCameraCollision(float delta)
     {
         targetPosition = defaultPosition;
         RaycastHit hit;
-        Vector3 direciton = cameraTransform.position - CameraPivotTransform.position;
+        Vector3 direciton = cameraTransform.position - cameraPivotTransform.position;
         direciton.Normalize();
-        if(Physics.SphereCast(CameraPivotTransform.position, cameraSphereRadius, direciton, out hit, Mathf.Abs(targetPosition), ignoreLayers))
+        if(Physics.SphereCast(cameraPivotTransform.position, cameraSphereRadius, direciton, out hit, Mathf.Abs(targetPosition), ignoreLayers))
         {
-            float dis = Vector3.Distance(CameraPivotTransform.position, hit.point);
+            float dis = Vector3.Distance(cameraPivotTransform.position, hit.point);
             targetPosition = -(dis - cameraCollisionOffset);
         }
         if(Mathf.Abs(targetPosition) < minimumCollisionOffset)

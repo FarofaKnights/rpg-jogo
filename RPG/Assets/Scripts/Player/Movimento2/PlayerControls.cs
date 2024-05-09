@@ -127,13 +127,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""Player Action"",
+            ""name"": ""PlayerAction"",
             ""id"": ""6e8f9b63-ed6e-4954-abe5-1188e260495a"",
             ""actions"": [
                 {
                     ""name"": ""Roll"",
                     ""type"": ""Button"",
-                    ""id"": ""2c2e57ca-59cf-43d9-b850-271df5ae3c6c"",
+                    ""id"": ""d2db5a8b-b25d-42c8-8ad9-96945dfa210a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -143,7 +143,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""95838891-df4d-4218-99fd-9ab1748a692c"",
+                    ""id"": ""defe5aaa-6089-4047-8c15-ac91d497f07c"",
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -154,8 +154,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""aeea2945-bc77-476e-80d2-85ae5c29fa54"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""id"": ""3259b789-dd17-48e1-9674-a5150bba6fd4"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -172,8 +172,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_PlayerMovement = asset.FindActionMap("Player Movement", throwIfNotFound: true);
         m_PlayerMovement_Movement = m_PlayerMovement.FindAction("Movement", throwIfNotFound: true);
         m_PlayerMovement_Camera = m_PlayerMovement.FindAction("Camera", throwIfNotFound: true);
-        // Player Action
-        m_PlayerAction = asset.FindActionMap("Player Action", throwIfNotFound: true);
+        // PlayerAction
+        m_PlayerAction = asset.FindActionMap("PlayerAction", throwIfNotFound: true);
         m_PlayerAction_Roll = m_PlayerAction.FindAction("Roll", throwIfNotFound: true);
     }
 
@@ -287,7 +287,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     }
     public PlayerMovementActions @PlayerMovement => new PlayerMovementActions(this);
 
-    // Player Action
+    // PlayerAction
     private readonly InputActionMap m_PlayerAction;
     private List<IPlayerActionActions> m_PlayerActionActionsCallbackInterfaces = new List<IPlayerActionActions>();
     private readonly InputAction m_PlayerAction_Roll;

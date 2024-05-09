@@ -70,8 +70,7 @@ public class InputHandler : MonoBehaviour
 
     private void HandleRollInput(float delta)
     {
-        b_Input = inputActions.PlayerAction.Roll.phase == UnityEngine.InputSystem.InputActionPhase.Performed;
-            
+        b_Input = inputActions.PlayerAction.Roll.phase == UnityEngine.InputSystem.InputActionPhase.Performed; 
         if (b_Input)
         {
             rollInputTimer += delta;
