@@ -209,13 +209,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.92, z: -2.54}
+  m_LocalRotation: {x: 0.020322064, y: -0, z: -0, w: 0.99979347}
+  m_LocalPosition: {x: 0.27, y: 0.08, z: -3.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1471382461}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 2.329, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1036,9 +1036,11 @@ MonoBehaviour:
   moveAmout: 0
   mouseX: 0
   mouseY: 0
-  b_Input: 0
-  rollFlag: 0
-  isInteracting: 0
+  b_Input: 1
+  rollFlag: 1
+  sprintFlag: 1
+  rollInputTimer: 0
+  isInteracting: 1
 --- !u!114 &869691375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1056,7 +1058,9 @@ MonoBehaviour:
   rigidbody: {fileID: 0}
   normalCamera: {fileID: 0}
   movementSpeed: 5
+  sprintSpeed: 0
   rotationSpeed: 10
+  isSprinting: 1
 --- !u!114 &869691376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1186,7 +1190,7 @@ GameObject:
   - component: {fileID: 1607646361}
   - component: {fileID: 1607646362}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: CameraHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
