@@ -16,7 +16,7 @@ public class PlayerMoviment : MonoBehaviour
 
     [Header("Stats")]
     [SerializeField]
-    int movementSpeed = 5;
+    float movementSpeed = 5;
     [SerializeField]
     float sprintSpeed = 7;
     [SerializeField]
@@ -36,7 +36,7 @@ public class PlayerMoviment : MonoBehaviour
         animatorHandler.Initialize();
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         float delta = Time.deltaTime;
 
