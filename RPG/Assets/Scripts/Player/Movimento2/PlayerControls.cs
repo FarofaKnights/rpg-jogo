@@ -44,6 +44,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lock On Targert Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""2f1b95da-2ebc-4f08-8b1c-95fb061326f3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lock on Targert Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""2edc740b-5dfa-497a-b2df-b45c60ff58bc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -123,6 +141,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Camera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""124d3eaf-8b39-4de7-b036-ee94de10880d"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Lock On Targert Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""327fe236-96b3-4b37-987c-87fb168cb891"",
+                    ""path"": ""<Keyboard>/f2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Lock on Targert Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -134,6 +174,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Roll"",
                     ""type"": ""Button"",
                     ""id"": ""d2db5a8b-b25d-42c8-8ad9-96945dfa210a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""lockOnInput"",
+                    ""type"": ""Button"",
+                    ""id"": ""9bea92b6-2d38-4794-8aab-648e3da5a195"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -162,6 +211,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Roll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""667bf8fa-be39-44f7-8eeb-9a4a0e21da43"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""lockOnInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -172,9 +232,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_PlayerMovement = asset.FindActionMap("Player Movement", throwIfNotFound: true);
         m_PlayerMovement_Movement = m_PlayerMovement.FindAction("Movement", throwIfNotFound: true);
         m_PlayerMovement_Camera = m_PlayerMovement.FindAction("Camera", throwIfNotFound: true);
+        m_PlayerMovement_LockOnTargertLeft = m_PlayerMovement.FindAction("Lock On Targert Left", throwIfNotFound: true);
+        m_PlayerMovement_LockonTargertRight = m_PlayerMovement.FindAction("Lock on Targert Right", throwIfNotFound: true);
         // PlayerAction
         m_PlayerAction = asset.FindActionMap("PlayerAction", throwIfNotFound: true);
         m_PlayerAction_Roll = m_PlayerAction.FindAction("Roll", throwIfNotFound: true);
+        m_PlayerAction_lockOnInput = m_PlayerAction.FindAction("lockOnInput", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -238,12 +301,16 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IPlayerMovementActions> m_PlayerMovementActionsCallbackInterfaces = new List<IPlayerMovementActions>();
     private readonly InputAction m_PlayerMovement_Movement;
     private readonly InputAction m_PlayerMovement_Camera;
+    private readonly InputAction m_PlayerMovement_LockOnTargertLeft;
+    private readonly InputAction m_PlayerMovement_LockonTargertRight;
     public struct PlayerMovementActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerMovementActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_PlayerMovement_Movement;
         public InputAction @Camera => m_Wrapper.m_PlayerMovement_Camera;
+        public InputAction @LockOnTargertLeft => m_Wrapper.m_PlayerMovement_LockOnTargertLeft;
+        public InputAction @LockonTargertRight => m_Wrapper.m_PlayerMovement_LockonTargertRight;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -259,6 +326,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Camera.started += instance.OnCamera;
             @Camera.performed += instance.OnCamera;
             @Camera.canceled += instance.OnCamera;
+            @LockOnTargertLeft.started += instance.OnLockOnTargertLeft;
+            @LockOnTargertLeft.performed += instance.OnLockOnTargertLeft;
+            @LockOnTargertLeft.canceled += instance.OnLockOnTargertLeft;
+            @LockonTargertRight.started += instance.OnLockonTargertRight;
+            @LockonTargertRight.performed += instance.OnLockonTargertRight;
+            @LockonTargertRight.canceled += instance.OnLockonTargertRight;
         }
 
         private void UnregisterCallbacks(IPlayerMovementActions instance)
@@ -269,6 +342,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Camera.started -= instance.OnCamera;
             @Camera.performed -= instance.OnCamera;
             @Camera.canceled -= instance.OnCamera;
+            @LockOnTargertLeft.started -= instance.OnLockOnTargertLeft;
+            @LockOnTargertLeft.performed -= instance.OnLockOnTargertLeft;
+            @LockOnTargertLeft.canceled -= instance.OnLockOnTargertLeft;
+            @LockonTargertRight.started -= instance.OnLockonTargertRight;
+            @LockonTargertRight.performed -= instance.OnLockonTargertRight;
+            @LockonTargertRight.canceled -= instance.OnLockonTargertRight;
         }
 
         public void RemoveCallbacks(IPlayerMovementActions instance)
@@ -291,11 +370,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerAction;
     private List<IPlayerActionActions> m_PlayerActionActionsCallbackInterfaces = new List<IPlayerActionActions>();
     private readonly InputAction m_PlayerAction_Roll;
+    private readonly InputAction m_PlayerAction_lockOnInput;
     public struct PlayerActionActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActionActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Roll => m_Wrapper.m_PlayerAction_Roll;
+        public InputAction @lockOnInput => m_Wrapper.m_PlayerAction_lockOnInput;
         public InputActionMap Get() { return m_Wrapper.m_PlayerAction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -308,6 +389,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Roll.started += instance.OnRoll;
             @Roll.performed += instance.OnRoll;
             @Roll.canceled += instance.OnRoll;
+            @lockOnInput.started += instance.OnLockOnInput;
+            @lockOnInput.performed += instance.OnLockOnInput;
+            @lockOnInput.canceled += instance.OnLockOnInput;
         }
 
         private void UnregisterCallbacks(IPlayerActionActions instance)
@@ -315,6 +399,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Roll.started -= instance.OnRoll;
             @Roll.performed -= instance.OnRoll;
             @Roll.canceled -= instance.OnRoll;
+            @lockOnInput.started -= instance.OnLockOnInput;
+            @lockOnInput.performed -= instance.OnLockOnInput;
+            @lockOnInput.canceled -= instance.OnLockOnInput;
         }
 
         public void RemoveCallbacks(IPlayerActionActions instance)
@@ -336,9 +423,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnCamera(InputAction.CallbackContext context);
+        void OnLockOnTargertLeft(InputAction.CallbackContext context);
+        void OnLockonTargertRight(InputAction.CallbackContext context);
     }
     public interface IPlayerActionActions
     {
         void OnRoll(InputAction.CallbackContext context);
+        void OnLockOnInput(InputAction.CallbackContext context);
     }
 }

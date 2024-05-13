@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : CharacterManager
 {
     InputHandler inputHandler;
     Animator anim;
@@ -27,7 +27,6 @@ public class PlayerManager : MonoBehaviour
         float delta = Time.deltaTime;
         isInteracting = anim.GetBool("isInteracting");  
 
-        inputHandler.TickInput(delta);
         playerMoviment.HandleMovement(delta);
         playerMoviment.HandleRollingAndSprinting(delta);
         playerMoviment.HandleFalling(delta, playerMoviment.moveDirection);
@@ -35,6 +34,8 @@ public class PlayerManager : MonoBehaviour
     private void FixedUpdate()
     {
         float delta = Time.fixedDeltaTime;
+        inputHandler.TickInput(delta);
+
         if (cameraHandler != null)
         {
             cameraHandler.FollowTarget(delta);

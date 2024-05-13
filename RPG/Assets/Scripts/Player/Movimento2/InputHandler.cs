@@ -9,16 +9,26 @@ public class InputHandler : MonoBehaviour
     public float mouseY;
 
     public bool b_Input;
+    public bool lockOnInput;
+    public bool right_Stick_Right_Input;
+    public bool right_Stic_Left_Input;
 
     public bool rollFlag;
     public bool sprintFlag;
     public float rollInputTimer;
+    public bool LockOnFlag;
 
     PlayerControls inputActions;
     CameraHandler cameraHandler;
+    
 
     Vector2 movementInput;
     Vector2 cameraInput;
+
+    private void Awake()
+    {
+        cameraHandler = FindAnyObjectByType<CameraHandler>();
+    }
 
     public void OnEnable()
     {
@@ -27,6 +37,10 @@ public class InputHandler : MonoBehaviour
             inputActions = new PlayerControls();
             inputActions.PlayerMovement.Movement.performed += inputActions => movementInput = inputActions.ReadValue<Vector2>();
             inputActions.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
+            inputActions.PlayerAction.lockOnInput.performed += i => lockOnInput = true;
+            inputActions.PlayerMovement.LockonTargertRight.performed += i => right_Stick_Right_Input = true;
+            inputActions.PlayerMovement.LockOnTargertLeft.performed += i => right_Stic_Left_Input = true;
+
         }
         inputActions.Enable();
     }
@@ -40,6 +54,7 @@ public class InputHandler : MonoBehaviour
     {
         MoveInput(delta);
         HandleRollInput(delta);
+        HandleLockOnInput();
     }
 
     private void MoveInput(float delta)
@@ -67,6 +82,45 @@ public class InputHandler : MonoBehaviour
                 rollFlag = true;
             }
             rollInputTimer = 0;
+        }
+    }
+
+    private void HandleLockOnInput()
+    {
+        if(lockOnInput && LockOnFlag == false)
+        {
+            lockOnInput = false;
+            cameraHandler.HandleLockOn();
+            if(cameraHandler.nearestLockOnTarget != null)
+            {
+                cameraHandler.currentLockOnTarget = cameraHandler.nearestLockOnTarget;
+                LockOnFlag = true;
+            }
+        }
+        else if(lockOnInput && LockOnFlag)
+        {
+            lockOnInput = false;
+            LockOnFlag = false;
+            cameraHandler.ClearLockTargets();
+        }
+
+        if(LockOnFlag && right_Stic_Left_Input)
+        {
+            right_Stic_Left_Input = false;
+            cameraHandler.HandleLockOn();
+            if(cameraHandler.leftLockTarget != null)
+            {
+                cameraHandler.currentLockOnTarget = cameraHandler.leftLockTarget;
+            }
+        }
+        if(LockOnFlag && right_Stick_Right_Input)
+        {
+            right_Stick_Right_Input = false;
+            cameraHandler.HandleLockOn();
+            if(cameraHandler.RightLockTarget != null)
+            {
+                cameraHandler.currentLockOnTarget = cameraHandler.RightLockTarget;
+            }
         }
     }
 }
