@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class AnimatorHandle : MonoBehaviour
 {
+    PlayerManager playerManager;
     public Animator anim;
     public InputHandler inputHandler;
     public PlayerMoviment playerMoviment;
@@ -11,6 +12,7 @@ public class AnimatorHandle : MonoBehaviour
 
     public void Initialize()
     {
+        playerManager = GetComponentInParent<PlayerManager>();
         anim = GetComponent<Animator>();
         inputHandler = GetComponentInParent<InputHandler>();
         playerMoviment = GetComponentInParent<PlayerMoviment>();
@@ -99,7 +101,7 @@ public class AnimatorHandle : MonoBehaviour
 
     private void OnAnimatorMove()
     {
-        if (inputHandler.isInteracting == false)
+        if (playerManager.isInteracting == false)
             return;
 
         float delta = Time.deltaTime;
