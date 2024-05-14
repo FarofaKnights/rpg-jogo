@@ -6,8 +6,8 @@ public class CameraHandler : MonoBehaviour
 {
     InputHandler inputHandler;
     public Transform targetTransform;
-    public Transform cameraTransform;
-    public Transform cameraPivotTransform;
+    [HideInInspector] public Transform cameraTransform;
+    [HideInInspector] public Transform cameraPivotTransform;
     private Transform myTransform;
     private Vector3 cameraTransformPosition;
     private LayerMask ignoreLayers;
@@ -48,6 +48,9 @@ public class CameraHandler : MonoBehaviour
         defaultPosition = cameraTransform.localPosition.z;
         ignoreLayers = ~(1 << 8 | 1 << 9 | 1 << 10);
         inputHandler = FindAnyObjectByType<InputHandler>();
+
+        cameraPivotTransform = transform.GetChild(0);
+        cameraTransform = cameraPivotTransform.GetChild(0);
     }
     public void FollowTarget(float delta)
     {

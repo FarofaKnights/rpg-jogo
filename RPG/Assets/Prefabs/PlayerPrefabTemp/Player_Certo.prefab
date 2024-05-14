@@ -1035,7 +1035,6 @@ GameObject:
   - component: {fileID: 9189059411048936434}
   - component: {fileID: 2502078481447245441}
   - component: {fileID: 126188001019165496}
-  - component: {fileID: 1487250012326359498}
   - component: {fileID: 2833072860334999336}
   - component: {fileID: 2091930848684756047}
   m_Layer: 0
@@ -1082,6 +1081,7 @@ MonoBehaviour:
   defesa: 1
   velocidade: 1
   pecas: 10
+  moveSpeed: 3
   arma: {fileID: 0}
   braco: {fileID: 0}
   mao: {fileID: 2065043298372953063}
@@ -1103,20 +1103,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vida: 100
   vidaMax: 100
---- !u!114 &1487250012326359498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3996182911501185834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23fc04c1f4083084ea1151204f1a8a4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedPlayer: 3
-  modelo: {fileID: 6138921755961778502}
 --- !u!114 &2833072860334999336
 MonoBehaviour:
   m_ObjectHideFlags: 0

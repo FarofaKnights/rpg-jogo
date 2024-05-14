@@ -36,6 +36,11 @@ public class PlayerMoviment : MonoBehaviour
 
 
 
+    // unico jeito plausivel de mexer com esse código
+    public bool podeAndar = true;
+
+
+
 
     private void Start()
     {
@@ -79,6 +84,8 @@ public class PlayerMoviment : MonoBehaviour
 
     public void HandleMovement(float delta)
     {
+        if (!podeAndar) return;
+
         if (inputHandler.rollFlag)
             return;
 
@@ -117,6 +124,8 @@ public class PlayerMoviment : MonoBehaviour
 
     public void HandleRollingAndSprinting(float delta)
     {
+        if (!podeAndar) return;
+
         if (animatorHandler.anim.GetBool("isInteracting"))
             return;
         if (inputHandler.rollFlag)
