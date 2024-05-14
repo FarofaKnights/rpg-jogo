@@ -8,8 +8,10 @@ public class Arma : Equipamento, IAtacador {
     public GameObject hitbox;
 
     public Ataque ataque;
+    public Ataque[] ataques;
+    int ataqueIndex = 0;
 
-    public System.Action onAttackHit;
+    public System.Action onAttackHit, onAttackEnd;
     
     public override void Equip() {
         Player.instance.EquiparArma(this);
@@ -19,8 +21,17 @@ public class Arma : Equipamento, IAtacador {
         Player.instance.DesequiparArma();
     }
 
-    public virtual void Atacar() {
-        ataque.Atacar(this);
+    public virtual void Atacar(int index = -1) {
+        if (index != -1) ataqueIndex = index;
+        ataque = ataques[ataqueIndex];
+        ataque.Atacar(this).onHitFinish += () => {
+            onAttackEnd?.Invoke();
+        };
+        ataqueIndex = (ataqueIndex + 1) % ataques.Length;
+    }
+
+    public void Resetar() {
+        ataqueIndex = 0;
     }
 
     IEnumerator DesativarHitbox() {

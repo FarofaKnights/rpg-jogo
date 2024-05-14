@@ -33,10 +33,13 @@ public class AtaqueInstance {
     Animator animator;
     public System.Action onHitFinish;
 
+    bool entrouNoEstado = false;
+
     public AtaqueInstance(Ataque ataque, IAtacador atacador) {
         this.ataque = ataque;
         this.atacador = atacador;
         animator = atacador.GetAnimator();
+        
 
         hitbox = CreateHitbox();
         hitbox.SetActive(false);
@@ -44,13 +47,14 @@ public class AtaqueInstance {
             atacador.OnAtaqueHit(hit);
         };
 
-        // animator.runtimeAnimatorController = ataque.animatorOverride;
+        animator.runtimeAnimatorController = ataque.animatorOverride;
+        animator.applyRootMotion = true;
         animator.SetTrigger(atacador.AttackTriggerName());
 
         hitbox.SetActive(true);
         
         coroutineHitbox = DesativarHitbox(ataque.hitboxDuration);
-        coroutineAnimation = AnimacaoAcabou();
+        coroutineAnimation = Update();
         GameManager.instance.StartCoroutine(coroutineHitbox);
         GameManager.instance.StartCoroutine(coroutineAnimation);
     }
@@ -71,9 +75,22 @@ public class AtaqueInstance {
         Parar();
     }
 
-    IEnumerator AnimacaoAcabou() {
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+    IEnumerator Update() {
+        while (true) {
+            if (!entrouNoEstado && animator.GetCurrentAnimatorStateInfo(0).IsName("AtaquePlayer")) {
+                entrouNoEstado = true;
+                float animationTime = animator.GetCurrentAnimatorStateInfo(0).length;
+                yield return new WaitForSeconds(animationTime);
+                OnAnimacaoAcabou();
+                yield break;
+            }
+            yield return null;
+        }
+    }
+
+    void OnAnimacaoAcabou() {
         Parar();
+        animator.applyRootMotion = false;
         GameManager.instance.StopCoroutine(coroutineHitbox);
         if (onHitFinish != null) onHitFinish();
     }

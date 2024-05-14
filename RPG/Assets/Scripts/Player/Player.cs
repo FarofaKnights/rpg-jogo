@@ -11,12 +11,18 @@ public class Player : MonoBehaviour, IAtacador {
     public float calorMax;
     public int dano = 1, defesa = 1, velocidade = 1;
     public int pecas = 0;
+    public float moveSpeed = 3f;
 
     [Header("Inventario")]
     public Inventario inventario;
     [HideInInspector] public Arma arma;
     [HideInInspector] public Braco braco;
     public Transform mao, bracoHolder, pe;
+
+    // State Machine
+    public StateMachine stateMachine;
+    public PlayerMoveState moveState;
+    public PlayerAttackState attackState;
 
 
     PossuiVida vidaController;
@@ -52,12 +58,22 @@ public class Player : MonoBehaviour, IAtacador {
         inventario = new Inventario();
         UIController.inventarioUI.SetupUI(inventario);
         UIController.inventarioUI.onSlotClick += HandleSlotClick;
+
+        stateMachine = new StateMachine();
+        moveState = new PlayerMoveState(this);
+        attackState = new PlayerAttackState(this);
+
+        stateMachine.SetState(moveState);
     }
 
     void Update() {
+        stateMachine.Execute();
+        
+        if (stateMachine.GetCurrentState() == attackState) return;
+
         if (Input.GetMouseButtonDown(0)) {
             if (arma != null) {
-                arma.Atacar();
+                stateMachine.SetState(attackState);
             }
         }
 
@@ -67,6 +83,8 @@ public class Player : MonoBehaviour, IAtacador {
                 braco.Ativar();
             }
         }
+
+        
     }
 
     void HandleSlotClick(ItemData itemData) {
@@ -159,14 +177,19 @@ public class Player : MonoBehaviour, IAtacador {
         this.arma = arma;
         arma.transform.SetParent(mao);
         arma.transform.localPosition = Vector3.zero;
+        arma.transform.localRotation = Quaternion.identity;
+        arma.onAttackEnd += OnAttackEnded;
     }
 
     public void DesequiparArma() {
         if (arma == null) return;
 
+        arma.onAttackEnd -= OnAttackEnded;
         inventario.AddItem(arma.GetComponent<Item>().data);
         Destroy(arma.gameObject);
         arma = null;
+
+        if (stateMachine.GetCurrentState() == attackState) stateMachine.SetState(moveState);
     }
 
     public void EquiparBraco(Braco braco) {
@@ -183,6 +206,13 @@ public class Player : MonoBehaviour, IAtacador {
         inventario.AddItem(braco.GetComponent<Item>().data);
         Destroy(braco.gameObject);
         braco = null;
+    }
+
+    // GAMBIARRA FEIA
+    void OnAttackEnded() {
+        if (stateMachine.GetCurrentState() == attackState) {
+            attackState.onAttackEnd();
+        }
     }
 
     public Animator GetAnimator() { return animator; }

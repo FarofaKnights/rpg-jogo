@@ -44,7 +44,7 @@ public class AtaqueEditor : Editor {
 
             // Cria botão de testar animação do visualizador
             if (visualizer != null && animator != null) {
-                string attackTriggerName = "Attack";
+                string attackTriggerName = "Ataque";
 
                 // Create a label and input for the attack trigger name
                 EditorGUILayout.BeginHorizontal();
