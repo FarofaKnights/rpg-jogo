@@ -1,10 +1,16 @@
 using UnityEngine;
 
+public interface UITab {
+    void Show();
+    void Hide();
+}
+
 public class UIController : MonoBehaviour {
     public static UIController instance;
     public static HUDController HUD;
-    public static InventarioUI inventarioUI;
-    public InventarioUI inventarioUIRef;
+    public static AreaEquipamentosUI equipamentos;
+    public static ConfiguracoesUI configuracoes;
+    public GameObject menu;
 
     void Awake() {
         if (instance == null) instance = this;
@@ -13,15 +19,59 @@ public class UIController : MonoBehaviour {
             return;
         }
 
-        HUD = GetComponentInChildren<HUDController>();
-        inventarioUI = inventarioUIRef; // Pode haver mais de um inventarioUI, por enquanto especificamos ele aqui
+        HUD = GetComponentInChildren<HUDController>(true);
+        equipamentos = GetComponentInChildren<AreaEquipamentosUI>(true);
+        configuracoes = GetComponentInChildren<ConfiguracoesUI>(true);
+
+        HideMenu();
     }
 
-    public void ShowInventario(bool show) {
-        inventarioUI.gameObject.SetActive(show);
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.E)) {
+            ToggleMenu();
+
+            if (menu.activeSelf) SetTab("Equipamentos");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            ToggleMenu();
+            if (menu.activeSelf)  SetTab("Configuracoes");
+        }
     }
 
-    public void ToggleInventario() {
-        inventarioUI.gameObject.SetActive(!inventarioUI.gameObject.activeSelf);
+    public void ShowMenu() {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 0;
+
+        menu.SetActive(true);
+        equipamentos.Show();
+    }
+
+    public void HideMenu() {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Time.timeScale = 1;
+
+        menu.SetActive(false);
+        equipamentos.Hide();
+    }
+
+    public void ToggleMenu() {
+        if (menu.activeSelf) HideMenu();
+        else ShowMenu();
+    }
+
+    public void SetTab(string nome) {
+        switch (nome) {
+            case "Equipamentos":
+                equipamentos.Show();
+                configuracoes.Hide();
+                break;
+            case "Configuracoes":
+                configuracoes.Show();
+                equipamentos.Hide();
+                break;
+        }
     }
 }

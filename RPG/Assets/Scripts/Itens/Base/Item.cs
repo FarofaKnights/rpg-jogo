@@ -5,7 +5,7 @@ public class Item : MonoBehaviour {
 
     public TipoAbstrato GetTipo() {
         if (data.tipo == ItemData.Tipo.Consumivel) return GetComponent<Consumivel>();
-        else if (data.tipo == ItemData.Tipo.Equipamento) return GetComponent<Equipamento>();
+        else if (data.tipo == ItemData.Tipo.Arma || data.tipo == ItemData.Tipo.Braco) return GetComponent<Equipamento>();
         else if (data.tipo == ItemData.Tipo.Quest) return GetComponent<QuestItem>();
         else return null;
     }

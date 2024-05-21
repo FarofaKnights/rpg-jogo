@@ -23,6 +23,6 @@ public class HUDController : MonoBehaviour {
     }
 
     public void UpdatePecas(int pecas) {
-        pecasText.text = "Pecas: " + pecas;
+        pecasText.text = "" + pecas;
     }
 }

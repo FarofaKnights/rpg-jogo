@@ -77,6 +77,7 @@ public class AtaqueInstance {
 
     IEnumerator Update() {
         while (true) {
+            if (animator == null) yield break;
             if (!entrouNoEstado && animator.GetCurrentAnimatorStateInfo(0).IsName("AtaquePlayer")) {
                 entrouNoEstado = true;
                 float animationTime = animator.GetCurrentAnimatorStateInfo(0).length;

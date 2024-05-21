@@ -18,7 +18,7 @@ public class Porta : MonoBehaviour {
     }
 
     public bool Abrir() {
-        Inventario inv = Player.instance.inventario;
+        IInventario inv = Player.instance.inventario;
         ItemData chave = this.chave.GetComponent<Item>().data;
         if (inv.RemoveItem(chave)) {
             barreira.SetActive(false);

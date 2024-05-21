@@ -14,7 +14,7 @@ public class Player : MonoBehaviour, IAtacador {
     public float moveSpeed = 3f;
 
     [Header("Inventario")]
-    public Inventario inventario;
+    public InventarioManager inventario;
     [HideInInspector] public Arma arma;
     [HideInInspector] public Braco braco;
     public Transform mao, bracoHolder, pe;
@@ -55,9 +55,7 @@ public class Player : MonoBehaviour, IAtacador {
         
         UpdateHUD();
 
-        inventario = new Inventario();
-        UIController.inventarioUI.SetupUI(inventario);
-        UIController.inventarioUI.onSlotClick += HandleSlotClick;
+        inventario = new InventarioManager();
 
         stateMachine = new StateMachine();
         moveState = new PlayerMoveState(this);
@@ -67,6 +65,8 @@ public class Player : MonoBehaviour, IAtacador {
     }
 
     void Update() {
+        if (GameManager.instance.IsPaused()) return;
+
         stateMachine.Execute();
         
         if (stateMachine.GetCurrentState() == attackState) return;
@@ -85,25 +85,6 @@ public class Player : MonoBehaviour, IAtacador {
         }
 
         
-    }
-
-    void HandleSlotClick(ItemData itemData) {
-        if (itemData == null) return;
-
-        TipoAbstrato especificacoes = itemData.prefab.GetComponent<TipoAbstrato>();
-        if (!especificacoes.IsUsavel) return;
-
-        if (inventario.RemoveItem(itemData)) {
-            TipoAbstrato instancia = especificacoes;
-
-            if (especificacoes.IsInstanciavel) {
-                GameObject obj = itemData.CreateInstance();
-                Item item = obj.GetComponent<Item>();
-                instancia = item.GetTipo();
-            }
-
-            instancia.FazerAcao();
-        }
     }
 
     public void UpdateHUD() {
@@ -166,8 +147,14 @@ public class Player : MonoBehaviour, IAtacador {
             int quant = itemDropado.quantidade; // Lembrar de adicionar quantidade no inventário XD
 
             if (item != null) {
-                if (inventario.AddItem(item.data))
+                if (inventario.AddItem(item.data)) {
                     Destroy(other.gameObject);
+
+                    // Se tiver vazio, equipa arma ou braço
+                    if ((item.data.tipo == ItemData.Tipo.Arma && arma == null) || (item.data.tipo == ItemData.Tipo.Braco && braco == null)) {
+                        inventario.HandleSlotClick(item.data);
+                    }
+                }          
             }
         }
     }
@@ -179,15 +166,17 @@ public class Player : MonoBehaviour, IAtacador {
         arma.transform.localPosition = Vector3.zero;
         arma.transform.localRotation = Quaternion.identity;
         arma.onAttackEnd += OnAttackEnded;
+
+        UIController.equipamentos.RefreshUI();
     }
 
     public void DesequiparArma() {
         if (arma == null) return;
 
         arma.onAttackEnd -= OnAttackEnded;
-        inventario.AddItem(arma.GetComponent<Item>().data);
         Destroy(arma.gameObject);
         arma = null;
+        UIController.equipamentos.RefreshUI();
 
         if (stateMachine.GetCurrentState() == attackState) stateMachine.SetState(moveState);
     }
@@ -198,14 +187,17 @@ public class Player : MonoBehaviour, IAtacador {
         braco.transform.SetParent(bracoHolder);
         braco.transform.localPosition = Vector3.zero;
         braco.transform.localRotation = Quaternion.identity;
+
+        UIController.equipamentos.RefreshUI();
     }
 
     public void DesequiparBraco() {
         if (braco == null) return;
 
-        inventario.AddItem(braco.GetComponent<Item>().data);
         Destroy(braco.gameObject);
         braco = null;
+
+        UIController.equipamentos.RefreshUI();
     }
 
     // GAMBIARRA FEIA

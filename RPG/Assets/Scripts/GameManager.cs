@@ -5,9 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
-    bool mostrando = false;
-
-    public string gameOverSceneName;
+    
+    public string gameOverSceneName, startSceneName = "Start";
 
 
     void Awake() {
@@ -18,24 +17,30 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    void Update() {
-        // Check if [E] key is pressed
-        if (Input.GetKeyDown(KeyCode.E)) {
-            UIController.instance.ToggleInventario();
-            if (!mostrando) {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            } else {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-            
-        }
-    }
-
     public void GameOver(){
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 1;
         SceneManager.LoadScene(gameOverSceneName);
     }
 
-    // o StartCoroutine e o StopCoroutine de classes não monobehaviour referenciam o GameManager.instance
+    public void GameStart(){
+        if (startSceneName == null || startSceneName == ""){
+            startSceneName = "Start";
+            Debug.LogWarning("Bota o nome da cena de inicio no GameManager fazendo o favor >:(");
+        }
+        SceneManager.LoadScene(startSceneName);
+    }
+
+    public void Pausar(){
+        Time.timeScale = 0;
+    }
+
+    public void Despausar(){
+        Time.timeScale = 1;
+    }
+
+    public bool IsPaused(){
+        return Time.timeScale == 0;
+    }
 }

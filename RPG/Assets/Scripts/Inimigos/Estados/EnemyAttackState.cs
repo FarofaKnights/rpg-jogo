@@ -30,7 +30,8 @@ public class EnemyAttackState : IEnemyState {
     }
 
     public void Exit() {
-        ataqueInstance.onHitFinish -= ReturnToIdle;
+        if (ataqueInstance != null)
+            ataqueInstance.onHitFinish -= ReturnToIdle;
     }
 
     public void Execute() { }

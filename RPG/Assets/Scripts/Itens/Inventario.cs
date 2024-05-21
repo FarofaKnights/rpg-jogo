@@ -3,7 +3,15 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public class Inventario {
+public interface IInventario {
+    bool AddItem(ItemData item);
+    bool RemoveItem(ItemData item);
+    bool ContainsItem(ItemData item);
+    int GetQuantidade(ItemData item);
+    void ForEach(Action<ItemData, int> action);
+}
+
+public class Inventario : IInventario{
     List<Slot> slots;
     public Action<ItemData, int> onItemChange;
 
