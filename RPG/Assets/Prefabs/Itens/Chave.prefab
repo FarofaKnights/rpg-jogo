@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 9044092805138277041}
   - component: {fileID: -3082008076279298558}
   - component: {fileID: -5668133442038082257}
+  - component: {fileID: -3799663273786263915}
+  - component: {fileID: 7303708636612448754}
   m_Layer: 0
   m_Name: Chave
   m_TagString: Item
@@ -62,6 +64,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17bcbbeb6943f624f92441f65db571ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-3799663273786263915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804775939338189376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a01b5ebce833e742af2b3edcc59acae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: -3082008076279298558}
+  quantidade: 1
+--- !u!65 &7303708636612448754
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804775939338189376}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &846597750931128559
 GameObject:
   m_ObjectHideFlags: 0
