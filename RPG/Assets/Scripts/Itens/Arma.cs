@@ -7,8 +7,8 @@ public class Arma : Equipamento, IAtacador {
     public float hitboxDuration; // temp
     public GameObject hitbox;
 
-    public Ataque ataque;
-    public Ataque[] ataques;
+    public AtaqueInfo ataque;
+    public AtaqueInfo[] ataques;
     int ataqueIndex = 0;
 
     public System.Action onAttackHit, onAttackEnd;

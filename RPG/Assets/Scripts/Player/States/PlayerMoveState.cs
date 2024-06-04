@@ -42,8 +42,6 @@ public class PlayerMoveState : IPlayerState {
         float horizontal = directions.x;
         float vertical = directions.y;
 
-        Debug.Log(directions);
-
         movementPlayer = (player.transform.right * horizontal) + (player.transform.forward * vertical);      
         if (Input.GetKey(KeyCode.LeftShift))
         {

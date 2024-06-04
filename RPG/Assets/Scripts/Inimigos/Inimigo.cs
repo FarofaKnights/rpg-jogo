@@ -19,7 +19,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
 
 
     [Header("Configurações de Ataque")]
-    public Ataque ataque;
+    public AtaqueInfo ataque;
     [SerializeField] GameObject attackHitboxHolder;
     public GameObject GetAttackHitboxHolder() { return attackHitboxHolder; }
     public Animator GetAnimator() { return animator; }

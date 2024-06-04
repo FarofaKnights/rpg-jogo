@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-[CreateAssetMenu(fileName = "Novo Ataque", menuName = "RPG/Ataque")]
-public class Ataque : ScriptableObject {
+[CreateAssetMenu(fileName = "Novo AtaqueInfo", menuName = "RPG/AtaqueInfo")]
+public class AtaqueInfo : ScriptableObject {
     public AnimatorOverrideController animatorOverride;
 
     [Header("Configurações do Hitbox")]
@@ -12,31 +12,41 @@ public class Ataque : ScriptableObject {
     public float hitboxDelay;
     public float hitboxDuration;
 
+    [Header("Timing")]
+    public int antecipacaoFrames;
+    public int hitFrames;
+    public int recoveryFrames;
+
     [Header("Configurações do Dano")]
     public int dano;
 
     public AtaqueInstance Atacar(IAtacador atacador) {
-        return Ataque.Atacar(this, atacador);
+        return AtaqueInfo.Atacar(this, atacador);
     }
 
-    public static AtaqueInstance Atacar(Ataque ataque, IAtacador atacador) {
-        return new AtaqueInstance(ataque, atacador);
+    public static AtaqueInstance Atacar(AtaqueInfo AtaqueInfo, IAtacador atacador) {
+        return new AtaqueInstance(AtaqueInfo, atacador);
     }
 
 }
 
 public class AtaqueInstance {
-    public Ataque ataque;
+    public AtaqueInfo info;
     public IAtacador atacador;
     public GameObject hitbox;
     IEnumerator coroutineHitbox, coroutineAnimation;
     Animator animator;
     public System.Action onHitFinish;
+    public StateMachine stateMachine;
+
+    public AntecipacaoState antecipacaoState;
+    public HitState hitState;
+    public RecoveryState recoveryState;
 
     bool entrouNoEstado = false;
 
-    public AtaqueInstance(Ataque ataque, IAtacador atacador) {
-        this.ataque = ataque;
+    public AtaqueInstance(AtaqueInfo info, IAtacador atacador) {
+        this.info = info;
         this.atacador = atacador;
         animator = atacador.GetAnimator();
         
@@ -47,13 +57,13 @@ public class AtaqueInstance {
             atacador.OnAtaqueHit(hit);
         };
 
-        animator.runtimeAnimatorController = ataque.animatorOverride;
+        animator.runtimeAnimatorController = info.animatorOverride;
         animator.applyRootMotion = true;
         animator.SetTrigger(atacador.AttackTriggerName());
 
         hitbox.SetActive(true);
         
-        coroutineHitbox = DesativarHitbox(ataque.hitboxDuration);
+        coroutineHitbox = DesativarHitbox(info.hitboxDuration);
         coroutineAnimation = Update();
         GameManager.instance.StartCoroutine(coroutineHitbox);
         GameManager.instance.StartCoroutine(coroutineAnimation);
@@ -62,9 +72,9 @@ public class AtaqueInstance {
     GameObject CreateHitbox() {
         GameObject hitbox = new GameObject("AttackHitbox");
         hitbox.transform.SetParent(atacador.GetAttackHitboxHolder().transform);
-        hitbox.transform.localPosition = ataque.hitboxOffset;
-        hitbox.transform.localScale = ataque.hitboxSize;
-        hitbox.transform.localEulerAngles = ataque.hitboxRotation;
+        hitbox.transform.localPosition = info.hitboxOffset;
+        hitbox.transform.localScale = info.hitboxSize;
+        hitbox.transform.localEulerAngles = info.hitboxRotation;
         hitbox.AddComponent<BoxCollider>().isTrigger = true;
         hitbox.AddComponent<OnTrigger>();
         return hitbox;
