@@ -102,10 +102,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8719590740856670497}
-  - component: {fileID: 8355186242060370844}
   - component: {fileID: 9113995207997235637}
   - component: {fileID: 1180056943382147313}
+  - component: {fileID: 364081682399367941}
   - component: {fileID: 4500022446936026695}
+  - component: {fileID: 7386943823575744139}
   m_Layer: 10
   m_Name: Player_Final
   m_TagString: Player
@@ -132,29 +133,6 @@ Transform:
   - {fileID: 8261884267196364219}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &8355186242060370844
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5653510514411805471}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.2
-  m_Height: 1.94
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.97, z: 0}
 --- !u!54 &9113995207997235637
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -196,6 +174,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vida: 100
   vidaMax: 100
+--- !u!143 &364081682399367941
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5653510514411805471}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.94
+  m_Radius: 0.2
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.97, z: 0}
 --- !u!114 &4500022446936026695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,6 +226,31 @@ MonoBehaviour:
   pe: {fileID: 4768553250798216170}
   animator: {fileID: 6099656907061205125}
   meio: {fileID: 4619151227152912200}
+--- !u!114 &7386943823575744139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5653510514411805471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d063d231ce4337499e1ffe2aaa9bb06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horizontal: 0
+  vertical: 0
+  moveAmout: 0
+  mouseX: 0
+  mouseY: 0
+  b_Input: 0
+  lockOnInput: 0
+  right_Stick_Right_Input: 0
+  right_Stic_Left_Input: 0
+  rollFlag: 0
+  sprintFlag: 0
+  rollInputTimer: 0
+  LockOnFlag: 0
 --- !u!1 &8314438373413144545
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,6 +701,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8729327035527635809, guid: 2b28d1f63ff60bb47a5faa362eed35a8,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 38fbd81b5a958bc4b8517ae48d2a182c, type: 2}
     - target: {fileID: 8834614063029777235, guid: 2b28d1f63ff60bb47a5faa362eed35a8,
         type: 3}
       propertyPath: m_Layer

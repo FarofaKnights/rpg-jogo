@@ -83,8 +83,15 @@ public class Player : MonoBehaviour, IAtacador {
                 braco.Ativar();
             }
         }
+    }
 
-        
+    void FixedUpdate() {
+        float delta = Time.fixedDeltaTime;
+        float mouseX = Input.GetAxis("Mouse X") ;
+        float mouseY = Input.GetAxis("Mouse Y");
+
+        CameraHandler.singleton.FollowTarget(delta);
+        CameraHandler.singleton.HandleCameraRotation(delta, mouseX, mouseY);
     }
 
     public void UpdateHUD() {
