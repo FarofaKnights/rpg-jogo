@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
     
     public string gameOverSceneName, startSceneName = "Start";
+
+    public Controls controls;
 
 
     void Awake() {
@@ -15,6 +18,12 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
             return;
         }
+
+        controls = new Controls();
+    }
+
+    void Start() {
+        controls.Player.Enable();
     }
 
     public void GameOver(){

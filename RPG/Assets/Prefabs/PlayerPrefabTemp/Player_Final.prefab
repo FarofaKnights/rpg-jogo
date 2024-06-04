@@ -104,9 +104,6 @@ GameObject:
   - component: {fileID: 8719590740856670497}
   - component: {fileID: 8355186242060370844}
   - component: {fileID: 9113995207997235637}
-  - component: {fileID: 7384085241622959255}
-  - component: {fileID: 4587079171454852730}
-  - component: {fileID: 5848022842055225300}
   - component: {fileID: 1180056943382147313}
   - component: {fileID: 4500022446936026695}
   m_Layer: 10
@@ -185,74 +182,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &7384085241622959255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5653510514411805471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d063d231ce4337499e1ffe2aaa9bb06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  horizontal: 0
-  vertical: 0
-  moveAmout: 0
-  mouseX: 0
-  mouseY: 0
-  b_Input: 1
-  lockOnInput: 0
-  right_Stick_Right_Input: 0
-  right_Stic_Left_Input: 0
-  rollFlag: 1
-  sprintFlag: 1
-  rollInputTimer: 0
-  LockOnFlag: 0
---- !u!114 &4587079171454852730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5653510514411805471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 610fb50967624394181168ea0c893ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveDirection: {x: 0, y: 0, z: 0}
-  myTransform: {fileID: 0}
-  animatorHandler: {fileID: 0}
-  rigidbody: {fileID: 0}
-  normalCamera: {fileID: 0}
-  groundDetectionRayStartPoit: 0.5
-  minimumDistanceNeededToBeginFall: 1
-  groundDirectionRayDistance: 0.2
-  inAirTimer: 0
-  movementSpeed: 3
-  sprintSpeed: 10
-  rotationSpeed: 10
-  fallingSpeed: 45
-  podeAndar: 1
---- !u!114 &5848022842055225300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5653510514411805471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47cbcbcc5ff820844a854997d57ea256, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lockOnTransform: {fileID: 765050848177855406}
-  isInteracting: 0
-  isSprinting: 0
-  isInAir: 0
-  isGrounded: 0
 --- !u!114 &1180056943382147313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -755,6 +684,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5285100163326911416, guid: 2b28d1f63ff60bb47a5faa362eed35a8, type: 3}
+    - {fileID: 3161689111666759774, guid: 2b28d1f63ff60bb47a5faa362eed35a8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 960766884753330943, guid: 2b28d1f63ff60bb47a5faa362eed35a8,
