@@ -24,6 +24,10 @@ public class Player : MonoBehaviour, IAtacador {
     public PlayerMoveState moveState;
     public PlayerAttackState attackState;
 
+    [Header("Referências")]
+    public Camera camera;
+    public float cameraSpeed = 10f;
+
 
     PossuiVida vidaController;
     public Animator animator;
@@ -37,6 +41,7 @@ public class Player : MonoBehaviour, IAtacador {
         }
 
         vidaController = GetComponent<PossuiVida>();
+        if (camera == null) camera = Camera.main;
     }
 
     void Start() {

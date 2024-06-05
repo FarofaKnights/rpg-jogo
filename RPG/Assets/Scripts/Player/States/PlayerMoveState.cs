@@ -28,6 +28,7 @@ public class PlayerMoveState : IPlayerState {
     }
 
     public void Execute() {
+        HandleRotation();
         PlayerMovement();
         Gravity();
     }
@@ -42,22 +43,36 @@ public class PlayerMoveState : IPlayerState {
         float horizontal = directions.x;
         float vertical = directions.y;
 
-        Debug.Log(directions);
+        movementPlayer = (player.camera.transform.right * horizontal) + (player.camera.transform.forward * vertical);
+        movementPlayer.Normalize();
+        movementPlayer.y = 0;
 
-        movementPlayer = (player.transform.right * horizontal) + (player.transform.forward * vertical);      
+        float speed = 1;
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             //animationPlayer.SetBool("Correr", true);
-            movementPlayer = (player.transform.right * horizontal) + (player.transform.forward * vertical) * 2;
+            speed = 2;
         }
         else
         {
             //animationPlayer.SetBool("Correr", false);
         }
 
-        characterPlayer.Move(movementPlayer.normalized * speedPlayer * Time.deltaTime);
+        characterPlayer.Move(movementPlayer.normalized * speedPlayer * speed * Time.deltaTime);
 
         PlayerAnimation(horizontal, vertical);
+    }
+
+    private void HandleRotation()
+    {
+        float rs = player.cameraSpeed;
+
+        Vector3 targetDir = player.camera.transform.forward;
+        Quaternion tr = Quaternion.LookRotation(targetDir);
+        Quaternion targetRotation = Quaternion.Slerp(player.transform.rotation, tr, rs * Time.deltaTime);
+
+        player.transform.rotation = targetRotation;
     }
 
     private void Gravity()
