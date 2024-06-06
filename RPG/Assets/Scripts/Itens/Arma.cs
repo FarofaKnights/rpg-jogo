@@ -21,13 +21,19 @@ public class Arma : Equipamento, IAtacador {
         Player.instance.DesequiparArma();
     }
 
-    public virtual void Atacar(int index = -1) {
+    public virtual AtaqueInstance Atacar(int index = -1) {
         if (index != -1) ataqueIndex = index;
+        if (index >= ataques.Length) return null;
+        
         ataque = ataques[ataqueIndex];
-        ataque.Atacar(this).onHitFinish += () => {
+
+        AtaqueInstance ataqueInstance = ataque.Atacar(this);
+        ataqueInstance.onEnd += () => {
             onAttackEnd?.Invoke();
         };
         ataqueIndex = (ataqueIndex + 1) % ataques.Length;
+
+        return ataqueInstance;
     }
 
     public void Resetar() {

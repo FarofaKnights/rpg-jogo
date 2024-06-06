@@ -9,8 +9,6 @@ public class AtaqueInfo : ScriptableObject {
     public Vector3 hitboxOffset;
     public Vector3 hitboxSize = Vector3.one;
     public Vector3 hitboxRotation;
-    public float hitboxDelay;
-    public float hitboxDuration;
 
     [Header("Timing")]
     public int antecipacaoFrames;
@@ -36,81 +34,77 @@ public class AtaqueInstance {
     public GameObject hitbox;
     IEnumerator coroutineHitbox, coroutineAnimation;
     Animator animator;
-    public System.Action onHitFinish;
-    public StateMachine stateMachine;
+    public System.Action onEnd;
 
+
+    public StateMachine<IAtaqueState> stateMachine;
     public AntecipacaoState antecipacaoState;
     public HitState hitState;
     public RecoveryState recoveryState;
+    public AtaqueEndState endState;
 
-    bool entrouNoEstado = false;
 
     public AtaqueInstance(AtaqueInfo info, IAtacador atacador) {
         this.info = info;
         this.atacador = atacador;
         animator = atacador.GetAnimator();
+
+        stateMachine = new StateMachine<IAtaqueState>();
+        antecipacaoState = new AntecipacaoState(this);
+        hitState = new HitState(this);
+        recoveryState = new RecoveryState(this);
+        endState = new AtaqueEndState(this);
         
 
-        hitbox = CreateHitbox();
-        hitbox.SetActive(false);
-        hitbox.GetComponent<OnTrigger>().onTriggerEnter += (GameObject hit) => {
-            atacador.OnAtaqueHit(hit);
-        };
+        CreateHitbox();
 
         animator.runtimeAnimatorController = info.animatorOverride;
-        animator.applyRootMotion = true;
+        animator.applyRootMotion = false;
         animator.SetTrigger(atacador.AttackTriggerName());
 
-        hitbox.SetActive(true);
-        
-        coroutineHitbox = DesativarHitbox(info.hitboxDuration);
-        coroutineAnimation = Update();
-        GameManager.instance.StartCoroutine(coroutineHitbox);
-        GameManager.instance.StartCoroutine(coroutineAnimation);
+
+        stateMachine.SetState(antecipacaoState);
     }
 
-    GameObject CreateHitbox() {
-        GameObject hitbox = new GameObject("AttackHitbox");
+    public void Update() {
+        stateMachine.Execute();
+    }
+
+    protected void CreateHitbox() {
+        hitbox = new GameObject("AttackHitbox");
+
+        // Transform
         hitbox.transform.SetParent(atacador.GetAttackHitboxHolder().transform);
         hitbox.transform.localPosition = info.hitboxOffset;
         hitbox.transform.localScale = info.hitboxSize;
         hitbox.transform.localEulerAngles = info.hitboxRotation;
+
+        // Trigger
         hitbox.AddComponent<BoxCollider>().isTrigger = true;
-        hitbox.AddComponent<OnTrigger>();
-        return hitbox;
+        hitbox.AddComponent<OnTrigger>().onTriggerEnter += (GameObject hit) => {
+            atacador.OnAtaqueHit(hit);
+        };
+
+        hitbox.SetActive(false);
     }
 
-    IEnumerator DesativarHitbox(float hitboxDuration) {
-        yield return new WaitForSeconds(hitboxDuration);
-        Parar();
+    public void AtivarHitbox() {
+        hitbox.SetActive(true);
     }
 
-    IEnumerator Update() {
-        while (true) {
-            if (animator == null) yield break;
-            if (!entrouNoEstado && animator.GetCurrentAnimatorStateInfo(0).IsName("AtaquePlayer")) {
-                entrouNoEstado = true;
-                float animationTime = animator.GetCurrentAnimatorStateInfo(0).length;
-                yield return new WaitForSeconds(animationTime);
-                OnAnimacaoAcabou();
-                yield break;
-            }
-            yield return null;
-        }
+    public void DesativarHitbox() {
+        hitbox.SetActive(false);
     }
 
-    void OnAnimacaoAcabou() {
+    public void HandleAtaqueEnd() {
         Parar();
         animator.applyRootMotion = false;
-        GameManager.instance.StopCoroutine(coroutineHitbox);
-        if (onHitFinish != null) onHitFinish();
+        if (onEnd != null) onEnd();
     }
 
     public void Interromper() {
         Parar();
-        GameManager.instance.StopCoroutine(coroutineHitbox);
-        GameManager.instance.StopCoroutine(coroutineAnimation);
-        if (onHitFinish != null) onHitFinish();
+        if (onEnd != null) onEnd();
     }
 
     void Parar() {

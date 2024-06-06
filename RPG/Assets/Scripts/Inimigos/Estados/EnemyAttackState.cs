@@ -22,7 +22,7 @@ public class EnemyAttackState : IEnemyState {
     void StartAttack() {
         inimigo.animator.SetTrigger("Attack");
         ataqueInstance = inimigo.ataque.Atacar(inimigo);
-        ataqueInstance.onHitFinish += ReturnToIdle;
+        ataqueInstance.onEnd += ReturnToIdle;
     }
 
     void ReturnToIdle() {
@@ -31,7 +31,7 @@ public class EnemyAttackState : IEnemyState {
 
     public void Exit() {
         if (ataqueInstance != null)
-            ataqueInstance.onHitFinish -= ReturnToIdle;
+            ataqueInstance.onEnd -= ReturnToIdle;
     }
 
     public void Execute() { }

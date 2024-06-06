@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachine {
-    IState currentState;
+public class StateMachine<T> where T : IState {
+    T currentState;
 
-    public IState GetCurrentState() {
+    public T GetCurrentState() {
         return currentState;
     }
 
-    public void SetState(IState newState) {
+    public void SetState(T newState) {
         currentState?.Exit();
         currentState = newState;
         currentState?.Enter();

@@ -15,16 +15,20 @@ public class HitState : IAtaqueState {
 
     public void Enter() {
         frameCounter = 0;
+
+        instance.AtivarHitbox();
     }
 
     public void Execute() {
         frameCounter++;
         if (frameCounter >= info.hitFrames) {
-            // instance.stateMachine.SetState()
+            instance.stateMachine.SetState(instance.recoveryState);
         }
         
     }
 
-    public void Exit() {}
+    public void Exit() {
+        instance.DesativarHitbox();
+    }
 
 }

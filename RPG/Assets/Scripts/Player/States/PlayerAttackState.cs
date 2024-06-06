@@ -8,6 +8,8 @@ public class PlayerAttackState : IPlayerState {
     int comboIndex = 0;
     bool comboFull = false;
 
+    AtaqueInstance ataqueInstance;
+
     public PlayerAttackState(Player player) {
         this.player = player;
     }
@@ -18,34 +20,42 @@ public class PlayerAttackState : IPlayerState {
             return;
         }
 
-        comboCount = 0;
-        comboIndex = 0;
-        comboFull = false;
-
-        //player.arma.onAttackEnd += onAttackEnd;
+        ResetCombo();
         Atacar();
     }
 
     public void Execute() {
-        if (Input.GetMouseButtonDown(0)) {
-            if (comboFull) return;
+        if (ataqueInstance != null) {
+            ataqueInstance.Update();
+        }
+
+        if (Input.GetMouseButtonDown(0) && !comboFull) {
             comboCount++;
             if (player.arma.ataques.Length <= comboCount + 1) comboFull = true;
         }
     }
 
     public void Exit() {
-        //player.arma.onAttackEnd -= onAttackEnd;
         if (player.arma != null)
             player.arma.Resetar();
     }
 
+    public void ResetCombo() {
+        comboCount = 0;
+        comboIndex = 0;
+        comboFull = false;
+    }
+
     void Atacar() {
-        player.arma.Atacar();
+        ataqueInstance = player.arma.Atacar();
+        ataqueInstance.onEnd += onAttackEnd;
     }
 
     public void onAttackEnd() {
         if (player.arma != null && comboCount > 0 && comboIndex < comboCount) {
+            if (ataqueInstance != null) {
+                ataqueInstance.onEnd -= onAttackEnd;
+            }
             comboIndex++;
             Atacar();
         } else {

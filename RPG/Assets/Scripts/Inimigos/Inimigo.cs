@@ -27,7 +27,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     
     
 
-    public StateMachine stateMachine;
+    public StateMachine<IEnemyState> stateMachine;
     public EnemyIdleState idleState;
     public EnemyAttackState attackState;
     public EnemyWalkState walkState;
@@ -50,7 +50,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     }
 
     void Start() {
-        stateMachine = new StateMachine();
+        stateMachine = new StateMachine<IEnemyState>();
         idleState = new EnemyIdleState(this);
         attackState = new EnemyAttackState(this);
         walkState = new EnemyWalkState(this);

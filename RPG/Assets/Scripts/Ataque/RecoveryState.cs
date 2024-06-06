@@ -20,7 +20,7 @@ public class RecoveryState : IAtaqueState {
     public void Execute() {
         frameCounter++;
         if (frameCounter >= info.recoveryFrames) {
-            // instance.stateMachine.SetState()
+            instance.stateMachine.SetState(instance.endState);
         }
     }
 
