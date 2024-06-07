@@ -9165,6 +9165,12 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!4 &922191913 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8812608567737922942, guid: 76c89251bab31c8478ed42fb886aca4b,
+    type: 3}
+  m_PrefabInstance: {fileID: 746496063}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &963675541
 GameObject:
   m_ObjectHideFlags: 0
@@ -11015,28 +11021,53 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1223781752404852330, guid: 4f2c2f8803f93af4aa2129d19fc6746f,
         type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1837450930}
+    - target: {fileID: 1223781752404852330, guid: 4f2c2f8803f93af4aa2129d19fc6746f,
+        type: 3}
       propertyPath: runSpeed
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1223781752404852330, guid: 4f2c2f8803f93af4aa2129d19fc6746f,
         type: 3}
       propertyPath: rollSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1223781752404852330, guid: 4f2c2f8803f93af4aa2129d19fc6746f,
-        type: 3}
-      propertyPath: walkSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1223781752404852330, guid: 4f2c2f8803f93af4aa2129d19fc6746f,
-        type: 3}
-      propertyPath: rotationSpeed
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1223781752404852330, guid: 4f2c2f8803f93af4aa2129d19fc6746f,
         type: 3}
+      propertyPath: walkSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223781752404852330, guid: 4f2c2f8803f93af4aa2129d19fc6746f,
+        type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 922191913}
+    - target: {fileID: 1223781752404852330, guid: 4f2c2f8803f93af4aa2129d19fc6746f,
+        type: 3}
+      propertyPath: rollDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223781752404852330, guid: 4f2c2f8803f93af4aa2129d19fc6746f,
+        type: 3}
+      propertyPath: headTransform
+      value: 
+      objectReference: {fileID: 1837450931}
+    - target: {fileID: 1223781752404852330, guid: 4f2c2f8803f93af4aa2129d19fc6746f,
+        type: 3}
+      propertyPath: rotationSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223781752404852330, guid: 4f2c2f8803f93af4aa2129d19fc6746f,
+        type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 922191913}
+    - target: {fileID: 1223781752404852330, guid: 4f2c2f8803f93af4aa2129d19fc6746f,
+        type: 3}
       propertyPath: backRotationSpeed
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1223781752404852330, guid: 4f2c2f8803f93af4aa2129d19fc6746f,
         type: 3}
@@ -14646,6 +14677,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.4844265, y: 1.6903138, z: 0.35088533}
   m_Center: {x: -0.013387173, y: 0.8182535, z: -0.10415792}
+--- !u!95 &1837450930 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7533683943677529362, guid: 4f2c2f8803f93af4aa2129d19fc6746f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1261203497}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1837450931 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4498297186199230312, guid: 4f2c2f8803f93af4aa2129d19fc6746f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1261203497}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1846492267 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4730004485473463895, guid: ddb27b310ad815b4c90663c39a92617d,

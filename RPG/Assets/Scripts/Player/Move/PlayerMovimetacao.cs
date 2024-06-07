@@ -18,12 +18,15 @@ public class PlayerMovimentacao : MonoBehaviour
     private bool isGrounded;
     private bool rolamento = false;
     private float rollTimer;
-    private bool canChangeRollDirection = true;
+    private bool invulnerable = false;
+    private bool canMove = true;
+    private Transform mainCameraTransform;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+        mainCameraTransform = Camera.main.transform;
     }
 
     void Update()
@@ -37,14 +40,22 @@ public class PlayerMovimentacao : MonoBehaviour
 
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
-        Vector3 move = transform.right * moveX + transform.forward * moveZ;
+
+        Vector3 moveSideways = transform.right * moveX * walkSpeed;
+
+        Vector3 cameraForward = mainCameraTransform.forward;
+        cameraForward.y = 0f;
+
+        Vector3 moveForward = cameraForward.normalized * moveZ * walkSpeed;
+
+        Vector3 move = moveSideways + moveForward;
 
         animator.SetFloat("inputX", moveX);
         animator.SetFloat("inputZ", moveZ);
 
-        if (!rolamento && move != Vector3.zero && !Input.GetKey(KeyCode.S))
+        if (!rolamento && move != Vector3.zero && !Input.GetKey(KeyCode.S) && canMove)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(move);
+            Quaternion targetRotation = Quaternion.LookRotation(cameraForward.normalized);
             float currentRotationSpeed = (moveZ < 0) ? backRotationSpeed : rotationSpeed;
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, currentRotationSpeed * Time.deltaTime);
         }
@@ -57,16 +68,16 @@ public class PlayerMovimentacao : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                Run(move, moveZ);
+                Run(move);
             }
             else
             {
                 Walk(move);
             }
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && !rolamento)
             {
-                StartRoll();
+                StartRoll(move);
             }
         }
 
@@ -79,58 +90,37 @@ public class PlayerMovimentacao : MonoBehaviour
 
     void Walk(Vector3 move)
     {
-        controller.Move(move * walkSpeed * Time.deltaTime);
+        if (canMove)
+            controller.Move(move * Time.deltaTime);
         animator.SetBool("Correr", false);
     }
 
-    void Run(Vector3 move, float moveZ)
+    void Run(Vector3 move)
     {
-        controller.Move(move * runSpeed * Time.deltaTime);
+        if (canMove)
+            controller.Move(move * runSpeed * Time.deltaTime);
         animator.SetBool("Correr", true);
     }
 
-    void StartRoll()
+    void StartRoll(Vector3 move)
     {
-        if (!rolamento)
+        if (move.magnitude != 0)
         {
             rolamento = true;
-            canChangeRollDirection = false;
             rollTimer = rollDuration;
-
-            float horizontalInput = Input.GetAxisRaw("Horizontal");
-            float verticalInput = Input.GetAxisRaw("Vertical");
-
-            Vector3 rollDirection = Vector3.zero;
-
-            if (verticalInput < 0)
-            {
-                rollDirection += -transform.forward;
-            }
-            if (verticalInput > 0)
-            {
-                rollDirection += transform.forward;
-            }
-            if (horizontalInput < 0)
-            {
-                rollDirection += -transform.right;
-            }
-            if (horizontalInput > 0)
-            {
-                rollDirection += transform.right;
-            }
-
-            if (rollDirection.magnitude > 0)
-            {
-                rollDirection.Normalize();
-            }
-            else
-            {
-                rollDirection = transform.forward;
-            }
-
+            Vector3 rollDirection = move.normalized;
             controller.Move(rollDirection * rollSpeed * Time.deltaTime);
-            animator.SetBool("Rolamento", true);
         }
+        else
+        {
+            rolamento = true;
+            rollTimer = rollDuration;
+            Vector3 rollDirection = mainCameraTransform.forward.normalized;
+            controller.Move(rollDirection * rollSpeed * Time.deltaTime);
+        }
+        animator.SetBool("Rolamento", true);
+        invulnerable = true;
+        canMove = false;
     }
 
     void Roll()
@@ -143,8 +133,13 @@ public class PlayerMovimentacao : MonoBehaviour
         else
         {
             rolamento = false;
-            canChangeRollDirection = true;
             animator.SetBool("Rolamento", false);
+            invulnerable = false;
+            canMove = true;
         }
+    }
+    public bool IsInvulnerable()
+    {
+        return invulnerable;
     }
 }
