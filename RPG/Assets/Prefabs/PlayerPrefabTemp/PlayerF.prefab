@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 1814733301629961599}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.4, z: -1.09}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 7813003472403421153}
   - component: {fileID: 6120335367055594672}
   - component: {fileID: 5202955268677309984}
+  - component: {fileID: 7987990336222793849}
   m_Layer: 0
   m_Name: PlayerF
   m_TagString: Player
@@ -175,17 +176,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad44bb96ac24cd84cbb8163c4c272a4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 5
-  runSpeed: 12
-  rollSpeed: 8
+  isWalkState: 0
+  walkSpeed: 2
+  runSpeed: 3
+  rollSpeed: 3
   gravity: -9.81
-  rollDuration: 0.5
+  rollDuration: 2
   groundCheckDistance: 0.4
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  rotationSpeed: 5
-  backRotationSpeed: 2
+  rotationSpeed: 4
+  backRotationSpeed: 3
 --- !u!143 &7813003472403421153
 CharacterController:
   m_ObjectHideFlags: 0
@@ -206,12 +208,12 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 80
+  m_Radius: 0.14
+  m_SlopeLimit: 85
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &6120335367055594672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,8 +226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 009cd79c3cad4314b800f21d04c3324f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida: 0
-  vidaMax: 0
+  vida: 100
+  vidaMax: 100
 --- !u!114 &5202955268677309984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,13 +240,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ede0a0a4e89280449c6a4267feddef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  calor: 0
-  calorMax: 0
+  calor: 75
+  calorMax: 100
   dano: 1
   defesa: 1
-  velocidade: 1
-  pecas: 0
-  moveSpeed: 3
+  velocidade: 0
+  pecas: 10
+  moveSpeed: 5
   arma: {fileID: 0}
   braco: {fileID: 0}
   mao: {fileID: 7019549234078880950}
@@ -252,8 +254,45 @@ MonoBehaviour:
   pe: {fileID: 1780253926499543773}
   camera: {fileID: 0}
   cameraSpeed: 10
+  walkSpeed: 5
+  runSpeed: 10
+  rollSpeed: 15
+  rollDuration: 0.5
+  groundCheckDistance: 0.4
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  rotationSpeed: 5
+  backRotationSpeed: 2
   animator: {fileID: 7533683943677529362}
   meio: {fileID: 7903636412551551439}
+--- !u!54 &7987990336222793849
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7047949831012241440}
+  serializedVersion: 4
+  m_Mass: 85
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7903636412551551439
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,7 +303,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7201780922600307057}
   m_Layer: 0
-  m_Name: Meo
+  m_Name: Meio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

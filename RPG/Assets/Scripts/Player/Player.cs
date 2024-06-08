@@ -28,7 +28,6 @@ public class Player : MonoBehaviour, IAtacador {
     public Camera camera;
     public float cameraSpeed = 10f;
 
-
     PossuiVida vidaController;
     public Animator animator;
     public GameObject meio;

@@ -48,7 +48,7 @@ public class AtaqueInstance {
         };
 
         animator.runtimeAnimatorController = ataque.animatorOverride;
-        animator.applyRootMotion = true;
+        // animator.applyRootMotion = true;
         animator.SetTrigger(atacador.AttackTriggerName());
 
         hitbox.SetActive(true);

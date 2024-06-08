@@ -1,7 +1,10 @@
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerMovimentacao : MonoBehaviour
 {
+    [HideInInspector] public bool isWalkState = false;
+
     public float walkSpeed = 5f;
     public float runSpeed = 10f;
     public float rollSpeed = 15f;
@@ -27,6 +30,14 @@ public class PlayerMovimentacao : MonoBehaviour
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         mainCameraTransform = Camera.main.transform;
+
+        // Search for the CinemachineFreeLook and Player component in the scene
+        CinemachineFreeLook cinemachineFreeLook = FindObjectOfType<CinemachineFreeLook>();
+        Player player = FindObjectOfType<Player>();
+        Transform look = player.transform.Find("Look");
+
+        cinemachineFreeLook.Follow = transform;
+        cinemachineFreeLook.LookAt = look;
     }
 
     void Update()
@@ -38,6 +49,18 @@ public class PlayerMovimentacao : MonoBehaviour
             velocity.y = -2f;
         }
 
+        MovementControl();
+
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+
+        animator.SetBool("IsGrounded", isGrounded);
+        animator.SetFloat("VerticalSpeed", velocity.y);
+    }
+
+    void MovementControl() {
+        if (!isWalkState) return;
+        
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
 
@@ -80,12 +103,6 @@ public class PlayerMovimentacao : MonoBehaviour
                 StartRoll(move);
             }
         }
-
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
-
-        animator.SetBool("IsGrounded", isGrounded);
-        animator.SetFloat("VerticalSpeed", velocity.y);
     }
 
     void Walk(Vector3 move)
