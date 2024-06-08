@@ -11,12 +11,12 @@ public class PlayerMoveState : IPlayerState {
 
     public void Enter() {
         playerMovimentacao = player.GetComponent<PlayerMovimentacao>();
-        playerMovimentacao.isWalkState = true;
+        playerMovimentacao.IsWalking(true);
     }
 
     public void Execute() { }
 
     public void Exit() {
-        playerMovimentacao.isWalkState = false;
+        playerMovimentacao.IsWalking(false);
     }
 }

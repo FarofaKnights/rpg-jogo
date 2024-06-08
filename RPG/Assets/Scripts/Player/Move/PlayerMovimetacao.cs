@@ -159,4 +159,14 @@ public class PlayerMovimentacao : MonoBehaviour
     {
         return invulnerable;
     }
+
+    public void IsWalking(bool isWalking) {
+        isWalkState = isWalking;
+
+        if (!isWalkState) {
+            animator.SetFloat("inputX", 0);
+            animator.SetFloat("inputZ", 0);
+        }
+    }
+
 }
