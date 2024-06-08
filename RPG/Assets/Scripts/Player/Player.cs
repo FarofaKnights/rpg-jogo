@@ -20,7 +20,7 @@ public class Player : MonoBehaviour, IAtacador {
     public Transform mao, bracoHolder, pe;
 
     // State Machine
-    public StateMachine stateMachine;
+    public StateMachine<IPlayerState> stateMachine;
     public PlayerMoveState moveState;
     public PlayerAttackState attackState;
 
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour, IAtacador {
 
         inventario = new InventarioManager();
 
-        stateMachine = new StateMachine();
+        stateMachine = new StateMachine<IPlayerState>();
         moveState = new PlayerMoveState(this);
         attackState = new PlayerAttackState(this);
 
@@ -189,7 +189,9 @@ public class Player : MonoBehaviour, IAtacador {
         arma = null;
         UIController.equipamentos.RefreshUI();
 
-        if (stateMachine.GetCurrentState() == attackState) stateMachine.SetState(moveState);
+        if (stateMachine.GetCurrentState() == attackState) {
+            stateMachine.SetState(moveState);
+        }
     }
 
     public void EquiparBraco(Braco braco) {
@@ -211,12 +213,7 @@ public class Player : MonoBehaviour, IAtacador {
         UIController.equipamentos.RefreshUI();
     }
 
-    // GAMBIARRA FEIA
-    void OnAttackEnded() {
-        if (stateMachine.GetCurrentState() == attackState) {
-            attackState.onAttackEnd();
-        }
-    }
+    void OnAttackEnded() {}
 
     public Animator GetAnimator() { return animator; }
 

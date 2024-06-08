@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(Ataque))]
+[CustomEditor(typeof(AtaqueInfo))]
 public class AtaqueEditor : Editor {
-    Ataque ataque;
+    AtaqueInfo ataque;
     GameObject visualizer;
     IAtacador atacador;
     Animator animator;
 
     void OnEnable() {
-        ataque = (Ataque)target;
+        ataque = (AtaqueInfo)target;
         SceneView.duringSceneGui += OnSceneGUI;
     }
 
