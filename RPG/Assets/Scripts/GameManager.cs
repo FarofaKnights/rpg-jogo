@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour {
 
     public Controls controls;
 
+    public SaveSystem save;
+
+    public System.Action<string> onBeforeSceneChange, onAfterSceneChange;
+
 
     void Awake() {
         if (instance == null) instance = this;
@@ -19,6 +23,7 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
+        save = new SaveSystem();
         controls = new Controls();
     }
 
@@ -52,4 +57,29 @@ public class GameManager : MonoBehaviour {
     public bool IsPaused(){
         return Time.timeScale == 0;
     }
+
+    public void GoToScene(string scene, string point){
+        string currentSceneName = CurrentSceneName();
+        if (onBeforeSceneChange != null) onBeforeSceneChange(currentSceneName);
+        SceneManager.LoadScene(scene);
+        if (onAfterSceneChange != null) onAfterSceneChange(scene);
+        
+        SpawnPoint[] spawnPoints = FindObjectsOfType<SpawnPoint>();
+        SpawnPoint selected = null;
+        foreach (SpawnPoint spawnPoint in spawnPoints){
+            if (spawnPoint.pointName == point){
+                selected = spawnPoint;
+                break;
+            }
+        }
+
+        if (selected != null){
+            Player.instance.transform.position = selected.transform.position;
+        }
+    }
+
+    public string CurrentSceneName(){
+        return SceneManager.GetActiveScene().name;
+    }
+
 }

@@ -18,8 +18,8 @@ public class HUDController : MonoBehaviour {
         calorSlider.value = calor;
     }
 
-    public void UpdateAtributos(int dano, int defesa, int velocidade) {
-        atributosText.text = "Dano: " + dano + "\nDefesa: " + defesa + "\nVelocidade: " + velocidade;
+    public void UpdateAtributos(int destreza, int forca, int vida, int calor) {
+        atributosText.text = "Destreza: " + destreza + "\nForça: " + forca + "\nVida: " + vida + "\nCalor: " + calor;
     }
 
     public void UpdatePecas(int pecas) {

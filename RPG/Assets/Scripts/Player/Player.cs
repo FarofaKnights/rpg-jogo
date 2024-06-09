@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Defective.JSON;
 
 [RequireComponent(typeof(PossuiVida))]
-public class Player : MonoBehaviour, IAtacador {
+public class Player : MonoBehaviour, IAtacador, Saveable {
     public static Player instance;
 
     [Header("Atributos do Jogador")]
     public float calor;
     public float calorMax;
-    public int dano = 1, defesa = 1, velocidade = 1;
+    public int statDestreza, statForca, statVida, statCalor;
     public int pecas = 0;
     public float moveSpeed = 3f;
 
@@ -44,10 +45,11 @@ public class Player : MonoBehaviour, IAtacador {
     }
 
     void Start() {
-
+        /*
         vidaController.modificadorDeDano = (dano) => {
             return dano - defesa;
         };
+        */
 
         vidaController.onChange += (vida) => {
             UIController.HUD.UpdateVida(vida, vidaController.VidaMax);
@@ -101,7 +103,7 @@ public class Player : MonoBehaviour, IAtacador {
     public void UpdateHUD() {
         UIController.HUD.UpdateVida(vidaController.Vida, vidaController.VidaMax);
         UIController.HUD.UpdateCalor(calor, calorMax);
-        UIController.HUD.UpdateAtributos(dano, defesa, velocidade);
+        UIController.HUD.UpdateAtributos(statDestreza, statForca, statVida, statCalor);
         UIController.HUD.UpdatePecas(pecas);
     }
 
@@ -128,12 +130,13 @@ public class Player : MonoBehaviour, IAtacador {
         UIController.HUD.UpdateCalor(this.calor, calorMax);
     }
 
-    public void AumentarAtributo(int dano, int defesa, int velocidade) {
-        this.dano += dano;
-        this.defesa += defesa;
-        this.velocidade += velocidade;
+    public void AumentarAtributo(int destreza, int forca, int vida, int calor) {
+        this.statDestreza += destreza;
+        this.statForca += forca;
+        this.statVida += vida;
+        this.statCalor += calor;
 
-        UIController.HUD.UpdateAtributos(this.dano, this.defesa, this.velocidade);
+        UIController.HUD.UpdateAtributos(this.statDestreza, this.statForca, this.statVida, this.statCalor);
     }
 
     #endregion
@@ -149,7 +152,7 @@ public class Player : MonoBehaviour, IAtacador {
     }
 
     
-
+    #region Itens e Equipamentos
     void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Item")) {
             // TEMPORARIO
@@ -213,6 +216,8 @@ public class Player : MonoBehaviour, IAtacador {
         UIController.equipamentos.RefreshUI();
     }
 
+    #endregion
+
     void OnAttackEnded() {}
 
     public Animator GetAnimator() { return animator; }
@@ -222,4 +227,31 @@ public class Player : MonoBehaviour, IAtacador {
         Debug.Log("Linha desnecessaria!");
     }
     public string AttackTriggerName() { return "Ataque"; }
+
+
+    public JSONObject Save() {
+        JSONObject obj = new JSONObject();
+        
+        obj.AddField("destreza", statDestreza);
+        obj.AddField("forca", statForca);
+        obj.AddField("vida", statVida);
+        obj.AddField("calor", statCalor);
+
+        obj.AddField("pecas", pecas);
+
+        // Salvar inventário, arma e braço
+
+        return obj;
+    }
+
+    public void Load(JSONObject obj) {
+        statDestreza = obj.GetField("destreza").intValue;
+        statForca = obj.GetField("forca").intValue;
+        statVida = obj.GetField("vida").intValue;
+        statCalor = obj.GetField("calor").intValue;
+        UIController.HUD.UpdateAtributos(statDestreza, statForca, statVida, statCalor);
+
+        pecas = obj.GetField("pecas").intValue;
+        UIController.HUD.UpdatePecas(pecas);
+    }
 }
