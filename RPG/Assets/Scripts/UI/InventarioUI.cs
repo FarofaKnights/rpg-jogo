@@ -25,9 +25,11 @@ public class InventarioUI : MonoBehaviour {
     void ClearUI() {
         if (this.inventario != null)
             this.inventario.onItemChange -= UpdateSlot;
-            
-        slotsUI.ForEach(slot => Destroy(slot.gameObject));
-        slotsUI.Clear();
+        
+        if (slotsUI != null) {
+            slotsUI.ForEach(slot => Destroy(slot.gameObject));
+            slotsUI.Clear();
+        }
         
         // Clear all children
         for (int i = transform.childCount - 1; i >= 0; i--) {

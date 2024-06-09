@@ -43,9 +43,9 @@ public class GlobalVariable<T> {
         }
     }
 
-    public GlobalVariable(string name, T value) {
+    public GlobalVariable(string name, T defaultValue) {
         this.name = name;
-        SetValue(value);
+        if (!Exists()) SetValue(defaultValue);
     }
 
     public GlobalVariable(string name) {
@@ -62,10 +62,18 @@ public class GlobalVariable<T> {
         VariableSaveSystem sys = GameManager.instance.save.variables;
         return sys.GetVariable<T>(name);
     }
+
+    public virtual bool Exists() {
+        VariableSaveSystem sys = GameManager.instance.save.variables;
+        return sys.GetGlobal().HasVariable(name);
+    }
 }
 
 public class LocalVariable<T>: GlobalVariable<T> {
-    public LocalVariable(string name, T value) : base(name, value) { }
+    public LocalVariable(string name, T defaultValue): base(name) {
+        if (!Exists()) SetValue(defaultValue);
+    }
+
     public LocalVariable(string name) : base(name) { }
 
     public override void SetValue(T value) {
@@ -77,6 +85,11 @@ public class LocalVariable<T>: GlobalVariable<T> {
     public override T GetValue() {
         VariableSaveSystem sys = GameManager.instance.save.variables;
         return sys.GetVariable<T>(name, "level");
+    }
+
+    public override bool Exists() {
+        VariableSaveSystem sys = GameManager.instance.save.variables;
+        return sys.HasEscopo("level") && sys.GetEscopo("level").HasVariable(name);
     }
 }
 
@@ -105,6 +118,10 @@ public class SaveEscopo {
         foreach (var variable in variables) {
             action(variable.Value);
         }
+    }
+
+    public bool HasVariable(string name) {
+        return variables.ContainsKey(name);
     }
 }
 
@@ -138,6 +155,8 @@ public class VariableSaveSystem: Saveable {
                 i++;
             }
         }
+
+        LoadLevelScope(GameManager.instance.CurrentSceneName());
 
         if (i > 0) obj.AddField("levels", levels);
         else obj.AddField("levels", JSONObject.emptyObject);

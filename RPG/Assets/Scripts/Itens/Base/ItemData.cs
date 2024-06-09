@@ -34,4 +34,43 @@ public class ItemData : ScriptableObject {
         if (tipo == null) return false;
         return CheckInstance(tipo.GetComponent<Item>());
     }
+
+    public string ToSaveString() {
+        string tipoStr = TipoToStringPath(tipo);
+        return tipoStr + "/" + name;
+    }
+
+    public string GetTipoString() {
+        return TipoToStringPath(tipo);
+    }
+
+    public static string TipoToStringPath(Tipo tipo) {
+        switch (tipo) {
+            case Tipo.Arma:
+                return "Armas";
+            case Tipo.Braco:
+                return "Bracos";
+            case Tipo.Consumivel:
+                return "Consumiveis";
+            case Tipo.Quest:
+                return "Quests";
+            default:
+                return "";
+        }
+    }
+
+    public static Tipo StringPathToTipo(string path) {
+        switch (path) {
+            case "Armas":
+                return Tipo.Arma;
+            case "Bracos":
+                return Tipo.Braco;
+            case "Consumiveis":
+                return Tipo.Consumivel;
+            case "Quests":
+                return Tipo.Quest;
+            default:
+                return Tipo.Consumivel;
+        }
+    }
 }

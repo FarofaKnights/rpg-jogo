@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour {
     public string gameOverSceneName, startSceneName = "Start";
 
     public Controls controls;
-
     public SaveSystem save;
+    public ItemManager itemManager;
 
     public System.Action<string> onBeforeSceneChange, onAfterSceneChange;
 
@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour {
 
         save = new SaveSystem();
         controls = new Controls();
+        itemManager = new ItemManager();
+
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start() {
@@ -58,12 +61,35 @@ public class GameManager : MonoBehaviour {
         return Time.timeScale == 0;
     }
 
-    public void GoToScene(string scene, string point){
+    public void GoToScene(string scene, string point = "") {
+        StartCoroutine(GoToSceneAsync(scene, point));
+    }
+
+    public IEnumerator GoToSceneAsync(string scene, string point = "") {
         string currentSceneName = CurrentSceneName();
         if (onBeforeSceneChange != null) onBeforeSceneChange(currentSceneName);
-        SceneManager.LoadScene(scene);
+
+        var asyncLoadLevel = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
+
+        while (!asyncLoadLevel.isDone){
+            yield return null;
+        }
+
         if (onAfterSceneChange != null) onAfterSceneChange(scene);
-        
+
+        if (!isLoading) save.LoadPlayer();
+
+        if (point != "") {
+            TeleportPlayerToPoint(point);
+        }
+    }
+
+    public IEnumerator RefreshScene(){
+        string currentSceneName = CurrentSceneName();
+        yield return GoToSceneAsync(currentSceneName);
+    }
+
+    public void TeleportPlayerToPoint(string point){
         SpawnPoint[] spawnPoints = FindObjectsOfType<SpawnPoint>();
         SpawnPoint selected = null;
         foreach (SpawnPoint spawnPoint in spawnPoints){
@@ -74,7 +100,7 @@ public class GameManager : MonoBehaviour {
         }
 
         if (selected != null){
-            Player.instance.transform.position = selected.transform.position;
+            Player.instance.TeleportTo(selected.transform.position);
         }
     }
 
@@ -82,4 +108,21 @@ public class GameManager : MonoBehaviour {
         return SceneManager.GetActiveScene().name;
     }
 
+    public void SaveGame(){
+        save.Save();
+    }
+
+    public void LoadGame(){
+        StartCoroutine(LoadGameAsync());
+    }
+
+    bool isLoading = false;
+
+    public IEnumerator LoadGameAsync(){
+        isLoading = true;
+        save.Load();
+        yield return RefreshScene();
+        save.Load();
+        isLoading = false;
+    }
 }

@@ -176,11 +176,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5829574982828318022}
   - component: {fileID: 6970307154196309145}
-  - component: {fileID: 5422347172669451845}
-  - component: {fileID: 8053066944763843637}
   - component: {fileID: 7565427720937614193}
+  - component: {fileID: 6269452594132744757}
+  - component: {fileID: 2437372443824729384}
   m_Layer: 0
-  m_Name: PocaoVida
+  m_Name: PocaoVidaGravidade
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,32 +225,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.75, y: 1.5, z: 0.75}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5422347172669451845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5236101948881920896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2ed6b338fc154947b97e2be91b8936e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: bb06549e68bf3f9498fdbe42243c5d6e, type: 2}
---- !u!114 &8053066944763843637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5236101948881920896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 833156a7296c2a942b2198d986cc77a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cura: 40
 --- !u!114 &7565427720937614193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,8 +237,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a01b5ebce833e742af2b3edcc59acae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 5422347172669451845}
+  item: {fileID: 5422347172669451845, guid: af735dc2146917b41b87920bd29c6284, type: 3}
   quantidade: 1
+--- !u!54 &6269452594132744757
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5236101948881920896}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &2437372443824729384
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5236101948881920896}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7563985987476763184
 GameObject:
   m_ObjectHideFlags: 0

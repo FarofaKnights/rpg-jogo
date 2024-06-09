@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using Defective.JSON;
 
 public interface IInventario {
     bool AddItem(ItemData item);
@@ -11,7 +12,7 @@ public interface IInventario {
     void ForEach(Action<ItemData, int> action);
 }
 
-public class Inventario : IInventario{
+public class Inventario : IInventario, Saveable{
     List<Slot> slots;
     public Action<ItemData, int> onItemChange;
 
@@ -119,5 +120,32 @@ public class Inventario : IInventario{
         slots.Add(newSlot);
 
         return newSlot;
+    }
+
+    // Save/Load
+    public JSONObject Save() {
+        JSONObject obj = new JSONObject();
+
+        foreach (Slot slot in slots) {
+            if (slot.item != null) {
+                ItemData data = slot.item;
+                obj.AddField(data.ToSaveString(), slot.quantidade);
+            }
+        }
+
+        return obj;
+    }
+
+    public void Load(JSONObject obj) {
+        if (obj != null) {
+            for (int i = 0; i < obj.list.Count; i++) {
+				string itemName = obj.keys[i];
+				int quantidade = obj.list[i].intValue;
+
+                ItemData item = ItemManager.instance.GetItemData(itemName);
+                Slot slot = GetEmptySlot();
+                slot.AddItem(item, quantidade);
+			}
+        }
     }
 }

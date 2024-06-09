@@ -93,12 +93,41 @@ public class ItemEditor : Editor {
                 BoxCollider collider = obj.AddComponent<BoxCollider>();
                 collider.isTrigger = true;
 
+                ResizeCollider(prefab, collider);
+
                 DestroyImmediate(obj.GetComponent<TipoAbstrato>());
                 DestroyImmediate(item);
             }
         }
 
         serializedObject.ApplyModifiedProperties();
+    }
+
+    void ResizeCollider(GameObject target, BoxCollider collider) {
+        Bounds bounds = new Bounds();
+        Transform customColliderTrans = target.transform.Find("Trigger");
+
+        if (customColliderTrans != null && customColliderTrans.GetComponent<BoxCollider>() != null){
+            BoxCollider customCollider = customColliderTrans.GetComponent<BoxCollider>();
+            if (customCollider != null) {
+                bounds = new Bounds(customCollider.center, customCollider.size);
+            }
+        }
+        else {
+            MeshFilter filter = target.GetComponent<MeshFilter>();
+            if (filter == null) {
+                filter = target.GetComponentInChildren<MeshFilter>();
+            }
+
+            Mesh mesh = filter.sharedMesh;
+            if (mesh == null) return;
+    
+            bounds = mesh.bounds;
+        }
+        
+        Vector3 size = bounds.size;
+        collider.size = size;
+        collider.center = bounds.center;
     }
 
 } 

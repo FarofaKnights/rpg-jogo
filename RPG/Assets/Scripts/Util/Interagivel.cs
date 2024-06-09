@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Interagivel : OnTrigger {
     /*
@@ -16,9 +17,7 @@ public class Interagivel : OnTrigger {
         onTriggerEnter = (GameObject other) => {
             dentro = true;
             informativo.SetActive(true);
-            GameManager.instance.controls.Player.Interact.performed += ctx => {
-                if (dentro) Interagir();
-            };
+            GameManager.instance.controls.Player.Interact.performed += CheckDentro;
         };
         onTriggerExit = (GameObject other) => {
             dentro = false;
@@ -28,7 +27,15 @@ public class Interagivel : OnTrigger {
         informativo.SetActive(false);
     }
 
+    protected void CheckDentro(InputAction.CallbackContext context) {
+        if (dentro) Interagir();
+    }
+
     protected virtual void Interagir() {
         gameObject.SendMessage("OnPlayerInteract");
+    }
+
+    void OnDestroy() {
+        GameManager.instance.controls.Player.Interact.performed -= CheckDentro;
     }
 }

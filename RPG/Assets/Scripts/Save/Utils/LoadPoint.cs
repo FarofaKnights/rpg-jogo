@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SavePoint : MonoBehaviour {
+public class LoadPoint : MonoBehaviour {
     public void OnPlayerInteract() {
-        GameManager.instance.save.Save();
+        GameManager.instance.LoadGame();
     }
 }

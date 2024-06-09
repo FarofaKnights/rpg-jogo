@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Defective.JSON;
 
-public class InventarioManager : IInventario {
+public class InventarioManager : IInventario, Saveable {
     public Inventario armas, bracos, resto;
 
     public InventarioManager() {
@@ -71,4 +72,42 @@ public class InventarioManager : IInventario {
         instancia.FazerAcao();
     }
     
+    public JSONObject Save() {
+        JSONObject obj = new JSONObject();
+        JSONObject armasObj = armas.Save();
+        JSONObject bracosObj = bracos.Save();
+        JSONObject restoObj = resto.Save();
+
+        if (armasObj.list != null && armasObj.list.Count > 0) {
+            obj.AddField("armas", armasObj);
+        }
+
+        if (bracosObj.list != null && bracosObj.list.Count > 0) {
+            obj.AddField("bracos", bracosObj);
+        }
+
+        if (restoObj.list != null && restoObj.list.Count > 0) {
+            obj.AddField("resto", restoObj);
+        }
+
+        return obj;
+    }
+
+    public void Load(JSONObject obj) {
+        JSONObject armasObj = obj.GetField("armas");
+        JSONObject bracosObj = obj.GetField("bracos");
+        JSONObject restoObj = obj.GetField("resto");
+
+        if (armasObj != null) {
+            armas.Load(armasObj);
+        }
+
+        if (bracosObj != null) {
+            bracos.Load(bracosObj);
+        }
+
+        if (restoObj != null) {
+            resto.Load(restoObj);
+        }
+    }
 }

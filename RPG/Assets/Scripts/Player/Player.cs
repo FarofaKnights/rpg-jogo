@@ -29,6 +29,8 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
     public Camera camera;
     public float cameraSpeed = 10f;
 
+    string lastTeleportName = "";
+
     PossuiVida vidaController;
     public Animator animator;
     public GameObject meio;
@@ -89,15 +91,6 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
                 braco.Ativar();
             }
         }
-    }
-
-    void FixedUpdate() {
-        float delta = Time.fixedDeltaTime;
-        float mouseX = Input.GetAxis("Mouse X") ;
-        float mouseY = Input.GetAxis("Mouse Y");
-
-        /*CameraHandler.singleton.FollowTarget(delta);
-        CameraHandler.singleton.HandleCameraRotation(delta, mouseX, mouseY);*/
     }
 
     public void UpdateHUD() {
@@ -239,6 +232,18 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
 
         obj.AddField("pecas", pecas);
 
+        if (arma != null) {
+            ItemData armaData = arma.GetComponent<Item>().data;
+            obj.AddField("arma", armaData.ToSaveString());
+        }
+
+        if (braco != null) {
+            ItemData bracoData = braco.GetComponent<Item>().data;
+            obj.AddField("braco", bracoData.ToSaveString());
+        }
+
+        obj.AddField("lastTeleport", lastTeleportName);
+
         // Salvar inventário, arma e braço
 
         return obj;
@@ -253,5 +258,27 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
 
         pecas = obj.GetField("pecas").intValue;
         UIController.HUD.UpdatePecas(pecas);
+    }
+
+    public void LoadEquipados(JSONObject obj) {
+        if (obj.HasField("arma")) {
+            string armaString = obj.GetField("arma").stringValue;
+            ItemData armaData = ItemManager.instance.GetItemData(armaString);
+            inventario.HandleSlotClick(armaData);
+        }
+
+        if (obj.HasField("braco")) {
+            string bracoString = obj.GetField("braco").stringValue;
+            ItemData bracoData = ItemManager.instance.GetItemData(bracoString);
+            inventario.HandleSlotClick(bracoData);
+        }
+    }
+
+    public void TeleportTo(Vector3 position) {
+        // Character Controller won't let you teleport the player
+        CharacterController controller = GetComponent<CharacterController>();
+        controller.enabled = false;
+        transform.position = position;
+        controller.enabled = true;
     }
 }
