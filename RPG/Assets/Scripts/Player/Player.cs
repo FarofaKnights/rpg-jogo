@@ -73,10 +73,6 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
     }
 
     void Update() {
-        if (GameManager.instance.IsPaused()) return;
-
-        stateMachine.Execute();
-        
         if (stateMachine.GetCurrentState() == attackState) return;
 
         if (Input.GetMouseButtonDown(0)) {
@@ -91,6 +87,11 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
                 braco.Ativar();
             }
         }
+    }
+
+    void FixedUpdate() {
+        if (GameManager.instance.IsPaused()) return;
+        stateMachine.Execute();
     }
 
     public void UpdateHUD() {
