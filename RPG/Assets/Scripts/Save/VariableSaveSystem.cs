@@ -32,7 +32,7 @@ public class PrimitiveVariable {
 
 }
 
-public class GlobalVariable<T> {
+public abstract class ISaveVariable<T> {
     public string name;
     public T value {
         get {
@@ -43,6 +43,16 @@ public class GlobalVariable<T> {
         }
     }
 
+    public abstract void SetValue(T value);
+    public abstract T GetValue();
+    public abstract bool Exists();
+
+
+    public abstract void OnChange(System.Action<object> action);
+    public abstract void Unwatch(System.Action<object> action);
+}
+
+public class GlobalVariable<T>: ISaveVariable<T> {
     public GlobalVariable(string name, T defaultValue) {
         this.name = name;
         if (!Exists()) SetValue(defaultValue);
@@ -52,29 +62,42 @@ public class GlobalVariable<T> {
         this.name = name;
     }
 
-    public virtual void SetValue(T value) {
+    public override void SetValue(T value) {
         VariableSaveSystem sys = GameManager.instance.save.variables;
         PrimitiveType type = PrimitiveVariable.GetVariableType<T>();
         sys.SetVariable(name, type, value);
     }
 
-    public virtual T GetValue() {
+    public override T GetValue() {
         VariableSaveSystem sys = GameManager.instance.save.variables;
         return sys.GetVariable<T>(name);
     }
 
-    public virtual bool Exists() {
+    public override bool Exists() {
         VariableSaveSystem sys = GameManager.instance.save.variables;
         return sys.GetGlobal().HasVariable(name);
     }
+
+    public override void OnChange(System.Action<object> action) {
+        VariableSaveSystem sys = GameManager.instance.save.variables;
+        sys.GetGlobal().Watch(name, action);
+    }
+
+    public override void Unwatch(System.Action<object> action) {
+        VariableSaveSystem sys = GameManager.instance.save.variables;
+        sys.GetGlobal().Unwatch(name, action);
+    }
 }
 
-public class LocalVariable<T>: GlobalVariable<T> {
-    public LocalVariable(string name, T defaultValue): base(name) {
+public class LocalVariable<T>: ISaveVariable<T> {
+    public LocalVariable(string name, T defaultValue) {
+        this.name = name;
         if (!Exists()) SetValue(defaultValue);
     }
 
-    public LocalVariable(string name) : base(name) { }
+    public LocalVariable(string name) {
+        this.name = name;
+    }
 
     public override void SetValue(T value) {
         VariableSaveSystem sys = GameManager.instance.save.variables;
@@ -91,16 +114,31 @@ public class LocalVariable<T>: GlobalVariable<T> {
         VariableSaveSystem sys = GameManager.instance.save.variables;
         return sys.HasEscopo("level") && sys.GetEscopo("level").HasVariable(name);
     }
+
+    public override void OnChange(System.Action<object> action) {
+        VariableSaveSystem sys = GameManager.instance.save.variables;
+        sys.GetEscopo("level").Watch(name, action);
+    }
+
+    public override void Unwatch(System.Action<object> action) {
+        VariableSaveSystem sys = GameManager.instance.save.variables;
+        sys.GetEscopo("level").Unwatch(name, action);
+    }
 }
 
 public class SaveEscopo {
     Dictionary<string, PrimitiveVariable> variables = new Dictionary<string, PrimitiveVariable>();
+    Dictionary<string, System.Action<object>> watchers = new Dictionary<string, System.Action<object>>();
 
     public void SetVariable(string name, PrimitiveType type, object value) {
         if (variables.ContainsKey(name)) {
             variables[name] = new PrimitiveVariable(name, type, value);
         } else {
             variables.Add(name, new PrimitiveVariable(name, type, value));
+        }
+
+        if (watchers.ContainsKey(name)) {
+            watchers[name](value);
         }
     }
 
@@ -122,6 +160,20 @@ public class SaveEscopo {
 
     public bool HasVariable(string name) {
         return variables.ContainsKey(name);
+    }
+
+    public void Watch(string name, System.Action<object> action) {
+        if (watchers.ContainsKey(name)) {
+            watchers[name] += action;
+        } else {
+            watchers.Add(name, action);
+        }
+    }
+
+    public void Unwatch(string name, System.Action<object> action) {
+        if (watchers.ContainsKey(name)) {
+            watchers[name] -= action;
+        }
     }
 }
 
@@ -257,6 +309,16 @@ public class VariableSaveSystem: Saveable {
     public T GetVariable<T>(string name, string escopo = "global") {
         SaveEscopo esc = GetEscopo(escopo);
         return esc.GetVariable<T>(name);
+    }
+
+    public void Watch(string name, System.Action<object> action, string escopo = "global") {
+        SaveEscopo esc = GetEscopo(escopo);
+        esc.Watch(name, action);
+    }
+
+    public void Unwatch(string name, System.Action<object> action, string escopo = "global") {
+        SaveEscopo esc = GetEscopo(escopo);
+        esc.Unwatch(name, action);
     }
 
     public SaveEscopo GetEscopo(string name) {
