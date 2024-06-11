@@ -14,6 +14,8 @@ public class PlayerMovimentacao : MonoBehaviour
     public LayerMask groundLayer;
     public float rotationSpeed = 5f;
     public float backRotationSpeed = 2f;
+    public float lockOnRadius = 10f;
+    public KeyCode lockOnKey = KeyCode.F; 
 
     private CharacterController controller;
     private Animator animator;
@@ -24,20 +26,22 @@ public class PlayerMovimentacao : MonoBehaviour
     private bool invulnerable = false;
     private bool canMove = true;
     private Transform mainCameraTransform;
+    public Transform lockedTarget; 
+    private CinemachineFreeLook cinemachineFreeLook;
+    private CinemachineVirtualCamera virtualCamera;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         mainCameraTransform = Camera.main.transform;
+        cinemachineFreeLook = FindObjectOfType<CinemachineFreeLook>();
+        virtualCamera = cinemachineFreeLook.GetComponent<CinemachineVirtualCamera>();
 
-        // Search for the CinemachineFreeLook and Player component in the scene
-        CinemachineFreeLook cinemachineFreeLook = FindObjectOfType<CinemachineFreeLook>();
-        Player player = FindObjectOfType<Player>();
-        Transform look = player.transform.Find("Look");
-
-        cinemachineFreeLook.Follow = transform;
-        cinemachineFreeLook.LookAt = look;
+        if (cinemachineFreeLook != null)
+        {
+            cinemachineFreeLook.Follow = transform;
+        }
     }
 
     void Update()
@@ -55,12 +59,20 @@ public class PlayerMovimentacao : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         animator.SetBool("IsGrounded", isGrounded);
-        animator.SetFloat("VerticalSpeed", velocity.y);
-    }
 
-    void MovementControl() {
+        if (virtualCamera != null)
+        {
+            virtualCamera.Follow = transform;
+            if (lockedTarget != null)
+            {
+                virtualCamera.LookAt = lockedTarget;
+            }
+        }
+    }
+    void MovementControl()
+    {
         if (!isWalkState) return;
-        
+
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
 
@@ -76,19 +88,33 @@ public class PlayerMovimentacao : MonoBehaviour
         animator.SetFloat("inputX", moveX);
         animator.SetFloat("inputZ", moveZ);
 
-        if (!rolamento && move != Vector3.zero && !Input.GetKey(KeyCode.S) && canMove)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(cameraForward.normalized);
-            float currentRotationSpeed = (moveZ < 0) ? backRotationSpeed : rotationSpeed;
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, currentRotationSpeed * Time.deltaTime);
-        }
-
         if (rolamento)
         {
             Roll();
         }
         else
         {
+            if (!Input.GetKey(KeyCode.S) && canMove && move != Vector3.zero)
+            {
+                if (lockedTarget != null)
+                {
+                    Vector3 directionToTarget = (lockedTarget.position - transform.position).normalized;
+                    Quaternion targetRotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(directionToTarget, Vector3.up));
+                    float currentRotationSpeed = (moveZ < 0) ? backRotationSpeed : rotationSpeed;
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, currentRotationSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(cameraForward.normalized);
+                    float currentRotationSpeed = (moveZ < 0) ? backRotationSpeed : rotationSpeed;
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, currentRotationSpeed * Time.deltaTime);
+                }
+            }
+
+            if (Input.GetKeyDown(lockOnKey))
+            {
+                LockOn();
+            }
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 Run(move);
@@ -97,14 +123,12 @@ public class PlayerMovimentacao : MonoBehaviour
             {
                 Walk(move);
             }
-
             if (Input.GetKeyDown(KeyCode.Space) && !rolamento)
             {
                 StartRoll(move);
             }
         }
     }
-
     void Walk(Vector3 move)
     {
         if (canMove)
@@ -155,18 +179,56 @@ public class PlayerMovimentacao : MonoBehaviour
             canMove = true;
         }
     }
+
+    void LockOn()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, lockOnRadius);
+        float shortestDistance = Mathf.Infinity;
+        Transform nearestTarget = null;
+
+        foreach (Collider col in colliders)
+        {
+            if (col.CompareTag("Inimigo"))
+            {
+                Vector3 directionToTarget = (col.transform.position - transform.position).normalized;
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, directionToTarget, out hit, lockOnRadius, ~groundLayer))
+                {
+                    if (!hit.collider.CompareTag("Inimigo"))
+                        continue;
+                }
+                float distanceToTarget = Vector3.Distance(transform.position, col.transform.position);
+                if (distanceToTarget < shortestDistance)
+                {
+                    shortestDistance = distanceToTarget;
+                    nearestTarget = col.transform;
+                }
+            }
+        }
+
+        if (nearestTarget != null)
+        {
+            lockedTarget = nearestTarget;
+        }
+        else
+        {
+            lockedTarget = null;
+        }
+    }
+
     public bool IsInvulnerable()
     {
         return invulnerable;
     }
 
-    public void IsWalking(bool isWalking) {
+    public void IsWalking(bool isWalking)
+    {
         isWalkState = isWalking;
 
-        if (!isWalkState) {
+        if (!isWalkState)
+        {
             animator.SetFloat("inputX", 0);
             animator.SetFloat("inputZ", 0);
         }
     }
-
 }
