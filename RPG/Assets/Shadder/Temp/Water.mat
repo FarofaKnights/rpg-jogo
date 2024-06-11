@@ -24,6 +24,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _NormalWater:
+        m_Texture: {fileID: 2800000, guid: 8c8ae997c46b8b94ea7b3580303b338a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalWater2:
+        m_Texture: {fileID: 2800000, guid: 8256053904f4b7746b8e0067281157e5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -47,13 +55,16 @@ Material:
     - _RippleDensity: 30
     - _RippleSliminess: 3
     - _RippleSpeed: 1
-    - _WaveScale: 1
-    - _WaveSpeed: 0.5
+    - _SpeedNormal: 0.03
+    - _WaveScale: 100
+    - _WaveSpeed: 0.01
     m_Colors:
-    - _BaseColor: {r: 3.940857, g: 0.6939778, b: 0, a: 1}
-    - _FoamColor: {r: 542.34814, g: 542.34814, b: 542.34814, a: 1}
+    - _BaseColor: {r: 5.879649, g: 1.9451541, b: 1.5808489, a: 1}
+    - _FoamColor: {r: 724.07733, g: 440.59424, b: 440.59424, a: 1}
     - _Lava: {r: 0.7169812, g: 0.050729793, b: 0.050729793, a: 0}
-    - _RippleColor: {r: 1, g: 0.7865566, b: 0.1462264, a: 0}
+    - _RippleColor: {r: 0.5, g: 0.29478717, b: 0.035377353, a: 0}
+    - _SpeedNoral: {r: 0.015, g: -0.01, b: 0, a: 0}
+    - _TillingNormal1: {r: 5, g: 5, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &6277702666471487177
 MonoBehaviour:

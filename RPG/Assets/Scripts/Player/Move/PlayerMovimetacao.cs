@@ -41,6 +41,7 @@ public class PlayerMovimentacao : MonoBehaviour
         if (cinemachineFreeLook != null)
         {
             cinemachineFreeLook.Follow = transform;
+            cinemachineFreeLook.LookAt = transform.Find("Look");
         }
     }
 
