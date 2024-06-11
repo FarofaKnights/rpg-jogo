@@ -176,18 +176,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad44bb96ac24cd84cbb8163c4c272a4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isWalkState: 0
+  isWalkState: 1
   walkSpeed: 2
-  runSpeed: 3
-  rollSpeed: 3
-  gravity: -9.81
-  rollDuration: 2
-  groundCheckDistance: 0.4
+  runSpeed: 5
+  rollSpeed: 8
+  gravity: -5
+  rollDuration: 1
+  groundCheckDistance: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  rotationSpeed: 4
-  backRotationSpeed: 3
+  rotationSpeed: 5
+  backRotationSpeed: 6
+  lockOnRadius: 10
+  lockOnKey: 102
+  lockedTarget: {fileID: 0}
 --- !u!143 &7813003472403421153
 CharacterController:
   m_ObjectHideFlags: 0
@@ -242,9 +245,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   calor: 75
   calorMax: 100
-  dano: 1
-  defesa: 1
-  velocidade: 0
+  statDestreza: 0
+  statForca: 0
+  statVida: 0
+  statCalor: 0
   pecas: 10
   moveSpeed: 5
   arma: {fileID: 0}
@@ -254,16 +258,6 @@ MonoBehaviour:
   pe: {fileID: 1780253926499543773}
   camera: {fileID: 0}
   cameraSpeed: 10
-  walkSpeed: 5
-  runSpeed: 10
-  rollSpeed: 15
-  rollDuration: 0.5
-  groundCheckDistance: 0.4
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  rotationSpeed: 5
-  backRotationSpeed: 2
   animator: {fileID: 7533683943677529362}
   meio: {fileID: 7903636412551551439}
 --- !u!54 &7987990336222793849
