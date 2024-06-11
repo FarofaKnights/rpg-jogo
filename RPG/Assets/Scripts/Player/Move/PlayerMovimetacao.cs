@@ -15,7 +15,7 @@ public class PlayerMovimentacao : MonoBehaviour
     public float rotationSpeed = 5f;
     public float backRotationSpeed = 2f;
     public float lockOnRadius = 10f;
-    public KeyCode lockOnKey = KeyCode.F; 
+    public KeyCode lockOnKey = KeyCode.F;
 
     private CharacterController controller;
     private Animator animator;
@@ -26,7 +26,7 @@ public class PlayerMovimentacao : MonoBehaviour
     private bool invulnerable = false;
     private bool canMove = true;
     private Transform mainCameraTransform;
-    public Transform lockedTarget; 
+    public Transform lockedTarget;
     private CinemachineFreeLook cinemachineFreeLook;
     private CinemachineVirtualCamera virtualCamera;
 
@@ -70,6 +70,7 @@ public class PlayerMovimentacao : MonoBehaviour
             }
         }
     }
+
     void MovementControl()
     {
         if (!isWalkState) return;
@@ -77,12 +78,20 @@ public class PlayerMovimentacao : MonoBehaviour
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
 
-        Vector3 moveSideways = transform.right * moveX * walkSpeed;
+        if (moveX == 0 && moveZ == 0)
+        {
+            animator.SetFloat("inputX", 0);
+            animator.SetFloat("inputZ", 0);
+            animator.SetBool("Correr", false);
+            return;
+        }
+
+        Vector3 moveSideways = transform.right * moveX;
 
         Vector3 cameraForward = mainCameraTransform.forward;
         cameraForward.y = 0f;
 
-        Vector3 moveForward = cameraForward.normalized * moveZ * walkSpeed;
+        Vector3 moveForward = cameraForward.normalized * moveZ;
 
         Vector3 move = moveSideways + moveForward;
 
@@ -118,11 +127,11 @@ public class PlayerMovimentacao : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                Run(move);
+                Walk(move);
             }
             else
             {
-                Walk(move);
+                Run(move);
             }
             if (Input.GetKeyDown(KeyCode.Space) && !rolamento)
             {
@@ -130,10 +139,11 @@ public class PlayerMovimentacao : MonoBehaviour
             }
         }
     }
+
     void Walk(Vector3 move)
     {
         if (canMove)
-            controller.Move(move * Time.deltaTime);
+            controller.Move(move * walkSpeed * Time.deltaTime);
         animator.SetBool("Correr", false);
     }
 
