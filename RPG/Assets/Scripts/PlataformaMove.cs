@@ -15,7 +15,7 @@ public class PlataformaMove : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("O player entrou na plataforma");
-            player.transform.SetParent(newParent);
+            other.transform.SetParent(newParent);
         }
         if (other.CompareTag("Inimigo"))
         {
@@ -29,7 +29,7 @@ public class PlataformaMove : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("O player saiu da plataforma");
-            player.transform.SetParent(null);
+            other.transform.SetParent(null);
         }
         if (other.CompareTag("Inimigo"))
         {
