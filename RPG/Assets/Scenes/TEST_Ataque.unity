@@ -1478,17 +1478,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d014d2552af14794dadc096b52c564e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parametros:
-    id: $integridade_espada_fina
-    type: 4
-    isGlobal: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    boolValue: 0
-    comparacaoValue: 1
-    dinamic: 1
   porta: {fileID: 1673486577}
+  condicaoInfo:
+    condicao: 2
+    parametros:
+      id: Quests/ChaveData
+      type: 4
+      isGlobal: 0
+      intValue: 1
+      floatValue: 0
+      stringValue: 
+      boolValue: 0
+      comparacaoValue: 1
+      dinamic: 0
 --- !u!114 &874036585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3522,17 +3524,22 @@ PrefabInstance:
     - target: {fileID: 8812608567737922942, guid: 76c89251bab31c8478ed42fb886aca4b,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.00000001903525
+      value: -0.000000016525552
       objectReference: {fileID: 0}
     - target: {fileID: 8812608567737922942, guid: 76c89251bab31c8478ed42fb886aca4b,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0000000027809637
+      value: -0.0000000023815339
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812608567737922942, guid: 76c89251bab31c8478ed42fb886aca4b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.99003386
       objectReference: {fileID: 0}
     - target: {fileID: 8812608567737922942, guid: 76c89251bab31c8478ed42fb886aca4b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.14456084
+      value: 0.14082989
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

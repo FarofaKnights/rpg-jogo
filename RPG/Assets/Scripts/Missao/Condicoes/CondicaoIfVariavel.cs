@@ -9,6 +9,11 @@ public class CondicaoIfVariavel : Condicao {
     public CondicaoParams.Tipo tipo;
     public object valor;
 
+    public new static string[] GetParametrosUtilizados(){ return new string[] { "id", "comparacaoValue", "value", "isGlobal", "dinamic" }; }
+    public new static string[] GetParametrosTraduzidos(){ return new string[] { "Variavel", "Comparação", "Valor", "Variavel global", "É dinâmico" }; }
+
+
+
     public CondicaoIfVariavel(string nomeVariavel, bool isGlobal, CondicaoParams.Comparacao comparacao, CondicaoParams.Tipo tipo, object valor, bool dinamica) {
         this.nomeVariavel = nomeVariavel;
         this.isGlobal = isGlobal;

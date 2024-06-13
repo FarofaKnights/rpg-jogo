@@ -98,6 +98,18 @@ public class ItemEditor : Editor {
                 DestroyImmediate(obj.GetComponent<TipoAbstrato>());
                 DestroyImmediate(item);
             }
+
+            GUILayout.Space(4);
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("ID do Item: " + item.data.ToSaveString(), EditorStyles.boldLabel);
+            if (GUILayout.Button("Copiar ID")) {
+                TextEditor te = new TextEditor();
+                te.text = item.data.ToSaveString();
+                te.SelectAll();
+                te.Copy();
+            }
+            GUILayout.EndHorizontal();
+            
         }
 
         serializedObject.ApplyModifiedProperties();

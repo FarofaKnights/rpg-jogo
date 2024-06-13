@@ -6,17 +6,22 @@ public abstract class Condicao {
     public System.Action OnRealizada;
     public bool dinamica = false;
 
+    public static string[] GetParametrosUtilizados(){ return new string[] { }; }
+    public static string[] GetParametrosTraduzidos(){ return new string[] { }; }
+
     public Condicao() { }
     public Condicao(CondicaoParams parametros) {
         dinamica = parametros.dinamic;
     }
 
     public abstract bool CheckCondicao();
-    public void Realizar() {
+    public virtual bool Realizar() {
         if (CheckCondicao()) {
             OnRealizada?.Invoke();
             OnRealizada = null;
+            return true;
         }
+        return false;
     }
 }
 

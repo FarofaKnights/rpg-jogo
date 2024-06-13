@@ -4,13 +4,14 @@ using UnityEngine;
 
 [RequireComponent(typeof(Interagivel))]
 public class PortaCondicional : MonoBehaviour {
-    public CondicaoParams parametros;
     public GameObject porta;
+
+    public CondicaoInfo condicaoInfo;
 
     Condicao condicao;
 
     void Start() {
-        condicao = new CondicaoIfVariavel(parametros);
+        condicao = condicaoInfo.GetCondicao();
         condicao.OnRealizada += () => {
             Destroy(porta);
         };

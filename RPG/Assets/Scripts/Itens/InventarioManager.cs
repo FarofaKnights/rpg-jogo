@@ -5,6 +5,7 @@ using Defective.JSON;
 
 public class InventarioManager : IInventario, Saveable {
     public Inventario armas, bracos, resto;
+    public System.Action<ItemData, int> OnChange;
 
     public InventarioManager() {
         armas = new Inventario();
@@ -13,6 +14,16 @@ public class InventarioManager : IInventario, Saveable {
 
         // UIController.inventarioUI.SetupUI(inventario);
         UIController.equipamentos.onSlotClick += HandleSlotClick;
+
+        armas.onItemChange += HandleItemChange;
+        bracos.onItemChange += HandleItemChange;
+        resto.onItemChange += HandleItemChange;
+    }
+
+    void HandleItemChange(ItemData item, int quantidade) {
+        if (OnChange != null) {
+            OnChange(item, quantidade);
+        }
     }
 
     public Inventario GetInventario(ItemData.Tipo tipo) {
