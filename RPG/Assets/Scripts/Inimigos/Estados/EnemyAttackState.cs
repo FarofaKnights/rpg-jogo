@@ -20,6 +20,8 @@ public class EnemyAttackState : IEnemyState {
     }
 
     void StartAttack() {
+        if (inimigo == null || inimigo.animator == null) return;
+
         inimigo.animator.SetTrigger("Attack");
         ataqueInstance = inimigo.ataque.Atacar(inimigo);
         ataqueInstance.onEnd += ReturnToIdle;

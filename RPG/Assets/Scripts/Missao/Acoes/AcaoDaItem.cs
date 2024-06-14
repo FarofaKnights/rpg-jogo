@@ -16,7 +16,7 @@ public class AcaoDaItem : Acao {
 
     public AcaoDaItem(string itemDataId, int quantidade): this(ItemManager.instance.GetItemData(itemDataId), quantidade) { }
 
-    public AcaoDaItem(CondicaoParams parameters): base(parameters) {
+    public AcaoDaItem(AcaoParams parameters): base(parameters) {
         this.itemData = ItemManager.instance.GetItemData(parameters.id);
         this.quantidade = parameters.intValue;
     }

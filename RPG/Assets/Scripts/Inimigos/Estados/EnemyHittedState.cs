@@ -16,8 +16,6 @@ public class EnemyHittedState : IEnemyState {
 
         inimigo.animator.SetFloat("Vertical", 0);
         inimigo.animator.SetFloat("Horizontal", 0);
-        
-        Debug.Log("React to damage");
     }
 
     public void Exit() { }
