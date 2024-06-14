@@ -11,6 +11,7 @@ public class UIController : MonoBehaviour {
     public static AreaEquipamentosUI equipamentos;
     public static ConfiguracoesUI configuracoes;
     public static DialogoController dialogo;
+    public static CheatController cheat;
     public GameObject menu;
 
     void Awake() {
@@ -24,6 +25,7 @@ public class UIController : MonoBehaviour {
         equipamentos = GetComponentInChildren<AreaEquipamentosUI>(true);
         configuracoes = GetComponentInChildren<ConfiguracoesUI>(true);
         dialogo = GetComponentInChildren<DialogoController>(true);
+        cheat = GetComponentInChildren<CheatController>(true);
 
         HideMenu();
     }
