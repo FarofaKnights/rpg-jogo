@@ -10,8 +10,8 @@ public class CanoAquecido : MonoBehaviour
     Color lerpedColor = Color.white;
     float cor1 = 0.5F;
     bool Morte = false;
-    Color orange = new Color(255, 183, 0, 255);
-    Color brown = new Color(58, 41, 0, 255);
+    Color orange = new Color(1.0f, 0.64f, 0, 255);
+    Color brown = new Color(0.3f, 0.2f, 0.09f, 255 );
 
     Renderer renderer;
 
@@ -49,7 +49,7 @@ public class CanoAquecido : MonoBehaviour
     void DangerState()
     {
         Debug.Log("DangerState");
-        StartCoroutine(ChangeColor(renderer.material.color, Color.blue,.005f));
+        StartCoroutine(ChangeColor(renderer.material.color, orange,.005f));
         Vapor.SetActive(true);
         StartCoroutine(DeathCountdown());
     }
@@ -77,7 +77,7 @@ public class CanoAquecido : MonoBehaviour
         Debug.Log("SafeState");
         Morte = false;
         Fogo.SetActive(false);
-        StartCoroutine(ChangeColor(renderer.material.color,Color.green,.005f));
+        StartCoroutine(ChangeColor(renderer.material.color,brown,.005f));
         StartCoroutine(DangerCountdown());
     }
 
