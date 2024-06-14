@@ -3,49 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[System.Serializable]
-public class CondicaoInfo {
-    public CondicoesRegistradas condicao;
-    public CondicaoParams parametros;
 
-    public Condicao GetCondicao() {
-        var tipo = RegistroCondicoes.GetRegistro(condicao);
-        if (tipo != null) {
-            return (Condicao)System.Activator.CreateInstance(tipo, parametros);
+[System.Serializable]
+public class AcaoInfo {
+    public AcoesRegistradas acao;
+    public AcaoParams parametros;
+
+    public Acao GetAcao() {
+        System.Type type = RegistroAcoes.GetRegistro(acao);
+        if (type != null) {
+            return (Acao)System.Activator.CreateInstance(type, parametros);
         }
+
         return null;
     }
 }
 
 
-[CustomPropertyDrawer(typeof(CondicaoInfo))]
-public class CondicaoInfoDrawer : PropertyDrawer {
+[CustomPropertyDrawer(typeof(AcaoInfo))]
+public class AcaoInfoDrawer : PropertyDrawer {
     int quantLines = 0;
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
         EditorGUI.BeginProperty(position, label, property);
 
         ResetLines();
-
-        SerializedProperty condicao = property.FindPropertyRelative("condicao");
+        SerializedProperty acao = property.FindPropertyRelative("acao");
         SerializedProperty parametros = property.FindPropertyRelative("parametros");
 
         Rect pos = position;
         pos.height = EditorGUIUtility.singleLineHeight;
 
-        EditorGUI.PropertyField(pos, condicao);
+        EditorGUI.PropertyField(pos, acao);
 
-        CondicoesRegistradas condicaoEnum = (CondicoesRegistradas)condicao.enumValueIndex;
-        DrawParametros(condicaoEnum, ref pos, parametros);
+        AcoesRegistradas acaoEnum = (AcoesRegistradas) acao.enumValueIndex;
+        DrawParametros(acaoEnum, ref pos, parametros);
 
 
         EditorGUI.EndProperty();
     }
 
-    void DrawParametros(CondicoesRegistradas condicao, ref Rect pos, SerializedProperty parametros) {
-        if (condicao == CondicoesRegistradas.NULL) return;
+    void DrawParametros(AcoesRegistradas acao, ref Rect pos, SerializedProperty parametros) {
+        if (acao == AcoesRegistradas.NULL) return;
 
-        var tipo = RegistroCondicoes.GetRegistro(condicao);
+        var tipo = RegistroAcoes.GetRegistro(acao);
         string[] retorno = (string[])tipo.GetMethod("GetParametrosUtilizados").Invoke(null, null);
         string[] traduzido = (string[])tipo.GetMethod("GetParametrosTraduzidos").Invoke(null, null);
         if (retorno.Length == 0) return;
@@ -104,6 +105,7 @@ public class CondicaoInfoDrawer : PropertyDrawer {
         NextLine(ref pos);
         EditorGUI.PropertyField(pos, prop, new GUIContent(displayText + ":"));
     }
+
 
     void ResetLines() {
         quantLines = 0;

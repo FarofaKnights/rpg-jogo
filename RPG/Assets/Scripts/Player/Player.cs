@@ -26,7 +26,7 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
     public PlayerAttackState attackState;
 
     [Header("Referências")]
-    public Camera camera;
+    public Camera cam;
     public float cameraSpeed = 10f;
 
     string lastTeleportName = "";
@@ -43,7 +43,9 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
         }
 
         vidaController = GetComponent<PossuiVida>();
-        if (camera == null) camera = Camera.main;
+        if (cam == null) cam = Camera.main;
+
+        inventario = new InventarioManager();
     }
 
     void Start() {
@@ -62,8 +64,6 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
         };
         
         UpdateHUD();
-
-        inventario = new InventarioManager();
 
         stateMachine = new StateMachine<IPlayerState>();
         moveState = new PlayerMoveState(this);

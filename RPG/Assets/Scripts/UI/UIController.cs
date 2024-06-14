@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour {
     public static HUDController HUD;
     public static AreaEquipamentosUI equipamentos;
     public static ConfiguracoesUI configuracoes;
+    public static DialogoController dialogo;
     public GameObject menu;
 
     void Awake() {
@@ -22,6 +23,7 @@ public class UIController : MonoBehaviour {
         HUD = GetComponentInChildren<HUDController>(true);
         equipamentos = GetComponentInChildren<AreaEquipamentosUI>(true);
         configuracoes = GetComponentInChildren<ConfiguracoesUI>(true);
+        dialogo = GetComponentInChildren<DialogoController>(true);
 
         HideMenu();
     }

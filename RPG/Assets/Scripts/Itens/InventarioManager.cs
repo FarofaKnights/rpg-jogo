@@ -13,7 +13,9 @@ public class InventarioManager : IInventario, Saveable {
         resto = new Inventario();
 
         // UIController.inventarioUI.SetupUI(inventario);
-        UIController.equipamentos.onSlotClick += HandleSlotClick;
+        // O código de baixo dava erro justamente por rodar antes do UIController ser instanciado
+        // Então coloquei para o equipamento chamar o HandleSlotClick apartir do próprio código
+        // UIController.equipamentos.onSlotClick += HandleSlotClick;
 
         armas.onItemChange += HandleItemChange;
         bracos.onItemChange += HandleItemChange;
@@ -36,14 +38,14 @@ public class InventarioManager : IInventario, Saveable {
         }
     }
 
-    public bool AddItem(ItemData item) {
+    public bool AddItem(ItemData item, int quantidade = 1) {
         Inventario inventario = GetInventario(item.tipo);
-        return inventario.AddItem(item);
+        return inventario.AddItem(item, quantidade);
     }
 
-    public bool RemoveItem(ItemData item) {
+    public bool RemoveItem(ItemData item, int quantidade = 1) {
         Inventario inventario = GetInventario(item.tipo);
-        return inventario.RemoveItem(item);
+        return inventario.RemoveItem(item, quantidade);
     }
 
     public bool ContainsItem(ItemData item) {

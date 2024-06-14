@@ -5,8 +5,8 @@ using UnityEngine;
 using Defective.JSON;
 
 public interface IInventario {
-    bool AddItem(ItemData item);
-    bool RemoveItem(ItemData item);
+    bool AddItem(ItemData item, int quantidade = 1);
+    bool RemoveItem(ItemData item, int quantidade = 1);
     bool ContainsItem(ItemData item);
     int GetQuantidade(ItemData item);
     void ForEach(Action<ItemData, int> action);
@@ -20,13 +20,13 @@ public class Inventario : IInventario, Saveable{
         slots = new List<Slot>();
     }
 
-    public bool AddItem(ItemData item) {
+    public bool AddItem(ItemData item, int quantidade = 1) {
         Slot slot;
 
         if (item.empilhavel) {
             slot = GetSlotWithItem(item);
             if (slot != null) {
-                slot.AddItem(item);
+                slot.AddItem(item, quantidade);
                 
                 if (onItemChange != null)  onItemChange(item, slot.quantidade);
 
@@ -46,10 +46,10 @@ public class Inventario : IInventario, Saveable{
         return false;
     }
 
-    public bool RemoveItem(ItemData item) {
+    public bool RemoveItem(ItemData item, int quantidade = 1) {
         Slot slot = GetSlotWithItem(item);
         if (slot != null) {
-            slot.RemoveItem();
+            slot.RemoveItem(quantidade);
             
             if (onItemChange != null)  onItemChange(item, slot.quantidade);
 

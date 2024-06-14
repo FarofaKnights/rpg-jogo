@@ -4,9 +4,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
+public enum GameState { NotStarted, Playing, PauseMenu, Dialog, GameOver }
+
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
-    
+
+    protected GameState _state;
+    public GameState state {
+        get { return _state; }
+        set {
+            if (_state == value) return;
+            SetState(value);
+        }
+    }
+
     public string gameOverSceneName, startSceneName = "Start";
 
     public Controls controls;
@@ -48,6 +59,31 @@ public class GameManager : MonoBehaviour {
         }
         SceneManager.LoadScene(startSceneName);
     }
+
+    public void SetState(GameState newState){
+        _state = newState;
+
+        switch (newState) {
+            case GameState.PauseMenu:
+                Pausar();
+                controls.UI.Enable();
+                controls.Player.Disable();
+                break;
+            case GameState.Playing:
+                Despausar();
+                controls.UI.Disable();
+                controls.Player.Enable();
+                break;
+            case GameState.Dialog:
+                controls.UI.Enable();
+                controls.Player.Disable();
+                break;
+            case GameState.GameOver:
+                GameOver();
+                break;
+        }
+    }
+
 
     public void Pausar(){
         Time.timeScale = 0;

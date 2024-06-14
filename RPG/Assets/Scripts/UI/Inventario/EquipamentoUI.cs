@@ -14,6 +14,7 @@ public class AreaEquipamentosUI : MonoBehaviour, UITab {
 
     void HandleSlotClick(ItemData itemData) {
         onSlotClick?.Invoke(itemData);
+        Player.instance.inventario.HandleSlotClick(itemData);
     }
 
     public void RefreshUI() {

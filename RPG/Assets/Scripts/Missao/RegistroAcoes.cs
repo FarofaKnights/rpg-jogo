@@ -1,0 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public enum AcoesRegistradas {
+    NULL,
+    SETAR_VARIAVEL,
+    ADICIONAR_ITEM
+}
+
+public class RegistroAcoes {
+    public static Dictionary<AcoesRegistradas, System.Type> acoesRegistradas = new Dictionary<AcoesRegistradas, System.Type>() {
+        { AcoesRegistradas.SETAR_VARIAVEL, typeof(AcaoSetVariavel) },
+        { AcoesRegistradas.ADICIONAR_ITEM, typeof(AcaoDaItem) }
+    };
+
+
+    public static System.Type GetRegistro(AcoesRegistradas acao) {
+        if (acoesRegistradas.ContainsKey(acao)) {
+            return acoesRegistradas[acao];
+        }
+
+        return null;
+    }
+}

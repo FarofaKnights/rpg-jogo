@@ -9,6 +9,7 @@ public interface Saveable {
 }
 
 public class SaveSystem {
+    public static SaveSystem instance { get{ return GameManager.instance.save; }}
     public VariableSaveSystem variables = new VariableSaveSystem();
     public int maxSlots = 3;
 

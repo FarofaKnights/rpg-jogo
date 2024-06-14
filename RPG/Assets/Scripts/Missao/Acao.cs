@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Acao {
+    public static string[] GetParametrosUtilizados(){ return new string[] { }; }
+    public static string[] GetParametrosTraduzidos(){ return new string[] { }; }
+    
     public Acao() { }
     public Acao(AcaoParams parametros) { }
 
