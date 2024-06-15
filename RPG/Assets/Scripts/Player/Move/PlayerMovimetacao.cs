@@ -1,4 +1,5 @@
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerMovimentacao : MonoBehaviour
 {
@@ -26,11 +27,22 @@ public class PlayerMovimentacao : MonoBehaviour
     private bool canMove = true;
     private Transform mainCameraTransform;
     public Transform lockedTarget;
+    private CinemachineFreeLook cinemachineFreeLook;
+    private CinemachineVirtualCamera virtualCamera;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         mainCameraTransform = Camera.main.transform;
+        cinemachineFreeLook = FindObjectOfType<CinemachineFreeLook>();
+        virtualCamera = cinemachineFreeLook.GetComponent<CinemachineVirtualCamera>();
+
+        if (cinemachineFreeLook != null)
+        {
+            cinemachineFreeLook.Follow = transform;
+            cinemachineFreeLook.LookAt = transform.Find("Look");
+        }
     }
 
     void Update()
@@ -48,6 +60,15 @@ public class PlayerMovimentacao : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         animator.SetBool("IsGrounded", isGrounded);
+
+        if (virtualCamera != null)
+        {
+            virtualCamera.Follow = transform;
+            if (lockedTarget != null)
+            {
+                virtualCamera.LookAt = lockedTarget;
+            }
+        }
     }
 
     void MovementControl()
