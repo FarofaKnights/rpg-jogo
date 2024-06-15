@@ -30,6 +30,24 @@ public class PrimitiveVariable {
         }
     }
 
+    public static PrimitiveType GetVariableType(string type) {
+        switch (type) {
+            case "int":
+                return PrimitiveType.INT;
+            case "float":
+                return PrimitiveType.FLOAT;
+            case "string":
+                return PrimitiveType.STRING;
+            case "bool":
+                return PrimitiveType.BOOL;
+            default:
+                throw new System.Exception("Unsupported type");
+        }
+    }
+
+    public override string ToString() {
+        return name + ": " + value.ToString();
+    }
 }
 
 public abstract class ISaveVariable<T> {
@@ -174,6 +192,15 @@ public class SaveEscopo {
         if (watchers.ContainsKey(name)) {
             watchers[name] -= action;
         }
+    }
+
+    public string[] GetVariables() {
+        List<string> keys = new List<string>();
+        foreach (PrimitiveVariable variable in variables.Values) {
+            keys.Add(variable.ToString());
+        }
+
+        return keys.ToArray();
     }
 }
 
@@ -349,5 +376,23 @@ public class VariableSaveSystem: Saveable {
     public void LoadLevelScope(string levelName) {
         SaveEscopo esc = GetEscopo(levelName);
         escopos["level"] = esc;
+    }
+
+    public string[] GetEscopos() {
+        List<string> keys = new List<string>();
+        keys.Add("global");
+        foreach (var key in escopos.Keys) {
+            keys.Add(key);
+        }
+        return keys.ToArray();
+    }
+
+    public string[] GetTipos() {
+        var values = System.Enum.GetValues(typeof(AcaoParams.Tipo));
+        string[] names = new string[values.Length];
+        for (int i = 0; i < values.Length; i++) {
+            names[i] = values.GetValue(i).ToString();
+        }
+        return names;
     }
 }

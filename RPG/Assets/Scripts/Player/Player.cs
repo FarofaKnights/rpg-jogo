@@ -117,6 +117,11 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
         UIController.HUD.UpdateCalor(this.calor, calorMax);
     }
 
+    public void SobreescreverCalor(int calor) {
+        this.calor = calor;
+        UIController.HUD.UpdateCalor(this.calor, calorMax);
+    }
+
     public void DiminuirCalor(int calor) {
         this.calor -= calor;
         if (this.calor < 0) this.calor = 0;

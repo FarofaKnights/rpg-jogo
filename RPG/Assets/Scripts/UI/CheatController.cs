@@ -6,10 +6,48 @@ using UnityEngine.UI;
 
 public class CheatController : MonoBehaviour {
     public Dropdown addItemDropdown, teletransporteDropdown;
+    public Dropdown escopoDropdown, tipoDropdown;
+    public InputField variavelInput, valorInput;
+    public Text variablesText;
+
+     GameState oldState;
+    bool storesState = false;
+
 
     void Start() {
         GerarDropdownItens();
         GerarDropdownTeletransporte();
+        GerarDropdownTipo();
+    }
+
+    public void Entrar(GameState oldState) {
+        this.oldState = oldState;
+        storesState = true;
+        Entrar();
+    }
+
+    public void Entrar() {
+        GameManager.instance.Pausar();
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        gameObject.SetActive(true);
+        GerarDropdownEscopo();
+        GerarVariaveisText();
+    }
+
+    public void Sair() {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        GameManager.instance.Despausar();
+
+        if (storesState)
+            GameManager.instance.SetState(oldState);
+
+        storesState = false;
+        gameObject.SetActive(false);
     }
 
     void GerarDropdownItens() {
@@ -37,6 +75,43 @@ public class CheatController : MonoBehaviour {
 
         teletransporteDropdown.ClearOptions();
         teletransporteDropdown.AddOptions(opcoes);
+    }
+
+    void GerarDropdownEscopo() {
+        List<string> opcoes = new List<string>();
+        string[] valores = SaveSystem.instance.variables.GetEscopos();
+        foreach (string valor in valores) {
+            opcoes.Add(valor);
+        }
+
+        escopoDropdown.ClearOptions();
+        escopoDropdown.AddOptions(opcoes);
+    }
+
+    void GerarDropdownTipo() {
+        List<string> opcoes = new List<string>();
+        string[] valores = SaveSystem.instance.variables.GetTipos();
+        foreach (string valor in valores) {
+            opcoes.Add(valor);
+        }
+
+        tipoDropdown.ClearOptions();
+        tipoDropdown.AddOptions(opcoes);
+    }
+
+    public void GerarVariaveisText() {
+        string escopo = escopoDropdown.options[escopoDropdown.value].text;
+        string[] variaveis = SaveSystem.instance.variables.GetEscopo(escopo).GetVariables();
+
+        string text = "";
+        foreach (string variavel in variaveis) {
+            text += variavel + "\n";
+        }
+
+        if (text == "")
+            text = "Escopo selecionado ainda não possui variáveis.";
+
+        variablesText.text = text;
     }
 
     ItemData GetItemDataFromTodos(string nome) {
@@ -68,6 +143,58 @@ public class CheatController : MonoBehaviour {
             if (nome == spawnPoint.pointName){
                 Player.instance.TeleportTo(spawnPoint.transform.position);
             }
+        }
+    }
+
+    public void SetarVidaInfinita() {
+        Player p = Player.instance;
+        PossuiVida vida = p.GetComponent<PossuiVida>();
+        vida.SobreescreverVida(9999);
+    }
+
+    public void SetarCalorInfinito() {
+        Player p = Player.instance;
+        p.SobreescreverCalor(9999);
+    }
+
+    public void SetarPecaInfinita() {
+        Player p = Player.instance;
+        p.AddPecas(9999);
+    }
+
+    public void VidaToMaxima() {
+        Player p = Player.instance;
+        PossuiVida vida = p.GetComponent<PossuiVida>();
+        vida.CurarTotalmente();
+    }
+
+    public void SetarVariavel() {
+        string escopo = escopoDropdown.options[escopoDropdown.value].text;
+        string nome = variavelInput.text;
+        string tipoString = tipoDropdown.options[tipoDropdown.value].text.ToLower();
+        string valorString = valorInput.text;
+
+
+        object valor = ConvertStringToType(valorString, tipoString);
+        PrimitiveType tipo = PrimitiveVariable.GetVariableType(tipoString);
+
+        SaveSystem.instance.variables.SetVariable(nome, tipo, valor, escopo);
+
+        GerarVariaveisText();
+    }
+
+    object ConvertStringToType(string valorString, string tipo) {
+        switch (tipo) {
+            case "int":
+                return int.Parse(valorString);
+            case "float":
+                return float.Parse(valorString);
+            case "string":
+                return valorString;
+            case "bool":
+                return bool.Parse(valorString);
+            default:
+                return null;
         }
     }
 }

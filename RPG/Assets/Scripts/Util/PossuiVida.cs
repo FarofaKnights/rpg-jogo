@@ -58,4 +58,9 @@ public class PossuiVida : MonoBehaviour {
         vida = vidaMax;
     }
 
+    public void SobreescreverVida(float vida) {
+        this.vida = vida;
+        onChange?.Invoke(vida);
+    }
+
 }

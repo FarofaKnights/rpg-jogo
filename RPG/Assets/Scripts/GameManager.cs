@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
-public enum GameState { NotStarted, Playing, PauseMenu, Dialog, GameOver }
+public enum GameState { NotStarted, Playing, PauseMenu, Dialog, GameOver, CheatMode }
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
@@ -42,7 +42,16 @@ public class GameManager : MonoBehaviour {
     }
 
     void Start() {
-        controls.Player.Enable();
+        controls.Player.CheatMode.performed += ctx => {
+            Debug.Log("Cheat mode");
+            SetState(GameState.CheatMode);
+        };
+
+        controls.Cheat.Exit.performed += ctx => {
+            UIController.cheat.Sair();
+        };
+
+        SetState(GameState.Playing);
     }
 
     public void GameOver(){
@@ -61,6 +70,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void SetState(GameState newState){
+        GameState oldState = _state;
         _state = newState;
 
         switch (newState) {
@@ -80,6 +90,11 @@ public class GameManager : MonoBehaviour {
                 break;
             case GameState.GameOver:
                 GameOver();
+                break;
+            case GameState.CheatMode:
+                controls.Player.Disable();
+                controls.Cheat.Enable();
+                UIController.cheat.Entrar(oldState);
                 break;
         }
     }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public interface UITab {
     void Show();
@@ -26,39 +27,51 @@ public class UIController : MonoBehaviour {
         configuracoes = GetComponentInChildren<ConfiguracoesUI>(true);
         dialogo = GetComponentInChildren<DialogoController>(true);
         cheat = GetComponentInChildren<CheatController>(true);
+    }
+
+    void Start() {
+        GameManager.instance.controls.Player.Pause.performed += ShowConfiguracoes;
+        GameManager.instance.controls.Player.Itens.performed += ShowEquipamentos;
 
         HideMenu();
     }
 
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.E)) {
-            ToggleMenu();
+    void ShowConfiguracoes(InputAction.CallbackContext ctx) {
+        ShowMenu();
+        SetTab("Configuracoes");
+    }
 
-            if (menu.activeSelf) SetTab("Equipamentos");
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            ToggleMenu();
-            if (menu.activeSelf)  SetTab("Configuracoes");
-        }
+    void ShowEquipamentos(InputAction.CallbackContext ctx) {
+        ShowMenu();
+        SetTab("Equipamentos");
     }
 
     public void ShowMenu() {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        Time.timeScale = 0;
+        GameManager.instance.SetState(GameState.PauseMenu);
 
         menu.SetActive(true);
         equipamentos.Show();
+
+        GameManager.instance.controls.UI.Exit.performed += HideMenu;
+    }
+
+    public void HideMenu(InputAction.CallbackContext ctx) {
+        HideMenu();
     }
 
     public void HideMenu() {
+        GameManager.instance.controls.UI.Exit.performed -= HideMenu;
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         Time.timeScale = 1;
 
         menu.SetActive(false);
         equipamentos.Hide();
+
+        GameManager.instance.SetState(GameState.Playing);
     }
 
     public void ToggleMenu() {
@@ -77,5 +90,10 @@ public class UIController : MonoBehaviour {
                 equipamentos.Hide();
                 break;
         }
+    }
+
+    void OnDestroy() {
+        GameManager.instance.controls.Player.Pause.performed -= ShowConfiguracoes;
+        GameManager.instance.controls.Player.Itens.performed -= ShowEquipamentos;
     }
 }
