@@ -20,9 +20,8 @@ public class EnemyAttackState : IEnemyState {
     }
 
     void StartAttack() {
-        if (inimigo == null || inimigo.animator == null) return;
+        if (inimigo == null) return;
 
-        inimigo.animator.SetTrigger("Attack");
         ataqueInstance = inimigo.ataque.Atacar(inimigo);
         ataqueInstance.onEnd += ReturnToIdle;
     }
@@ -36,5 +35,9 @@ public class EnemyAttackState : IEnemyState {
             ataqueInstance.onEnd -= ReturnToIdle;
     }
 
-    public void Execute() { }
+    public void Execute() {
+        if (ataqueInstance != null) {
+            ataqueInstance.Update();
+        }
+    }
 }

@@ -32,6 +32,9 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public EnemyAttackState attackState;
     public EnemyWalkState walkState;
     public EnemyHittedState hittedState;
+
+    
+    string estado_atual = "nenhum";
     
 
     void Awake() {
@@ -55,6 +58,10 @@ public class Inimigo : MonoBehaviour, IAtacador {
         attackState = new EnemyAttackState(this);
         walkState = new EnemyWalkState(this);
         hittedState = new EnemyHittedState(this);
+
+        stateMachine.OnStateChange += (state) => {
+            estado_atual = state.ToString();
+        };
 
         stateMachine.SetState(idleState);
     }

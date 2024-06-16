@@ -136,6 +136,11 @@ public class UIController : MonoBehaviour {
         }
     }
 
+    public void CarregarJogo() {
+        HideMenu();
+        GameManager.instance.LoadGame();
+    }
+
     void OnDestroy() {
         GameManager.instance.controls.Player.Pause.performed -= ShowConfiguracoes;
         GameManager.instance.controls.Player.Itens.performed -= ShowEquipamentos;
