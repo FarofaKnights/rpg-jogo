@@ -10,6 +10,7 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
     [Header("Atributos do Jogador")]
     public float calor;
     public float calorMax;
+    public StatsController stats;
     public int statDestreza, statForca, statVida, statCalor;
     public int pecas = 0;
     public float moveSpeed = 3f;
@@ -44,15 +45,10 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
         if (cam == null) cam = Camera.main;
 
         inventario = new InventarioManager();
+        stats = new StatsController(0, 0, 0, 0);
     }
 
     void Start() {
-        /*
-        vidaController.modificadorDeDano = (dano) => {
-            return dano - defesa;
-        };
-        */
-
         vidaController.onChange += (vida) => {
             UIController.HUD.UpdateVida(vida, vidaController.VidaMax);
         };
@@ -95,7 +91,6 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
     public void UpdateHUD() {
         UIController.HUD.UpdateVida(vidaController.Vida, vidaController.VidaMax);
         UIController.HUD.UpdateCalor(calor, calorMax);
-        UIController.HUD.UpdateAtributos(statDestreza, statForca, statVida, statCalor);
         UIController.HUD.UpdatePecas(pecas);
     }
 
@@ -126,16 +121,6 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
 
         UIController.HUD.UpdateCalor(this.calor, calorMax);
     }
-
-    public void AumentarAtributo(int destreza, int forca, int vida, int calor) {
-        this.statDestreza += destreza;
-        this.statForca += forca;
-        this.statVida += vida;
-        this.statCalor += calor;
-
-        UIController.HUD.UpdateAtributos(this.statDestreza, this.statForca, this.statVida, this.statCalor);
-    }
-
     #endregion
 
     public void AddPecas(int pecas) {
@@ -229,10 +214,10 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
     public JSONObject Save() {
         JSONObject obj = new JSONObject();
         
-        obj.AddField("destreza", statDestreza);
-        obj.AddField("forca", statForca);
-        obj.AddField("vida", statVida);
-        obj.AddField("calor", statCalor);
+        obj.AddField("destreza", stats.destreza);
+        obj.AddField("forca", stats.forca);
+        obj.AddField("vida", stats.vida);
+        obj.AddField("calor", stats.calor);
 
         obj.AddField("pecas", pecas);
 
@@ -252,11 +237,10 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
     }
 
     public void Load(JSONObject obj) {
-        statDestreza = obj.GetField("destreza").intValue;
-        statForca = obj.GetField("forca").intValue;
-        statVida = obj.GetField("vida").intValue;
-        statCalor = obj.GetField("calor").intValue;
-        UIController.HUD.UpdateAtributos(statDestreza, statForca, statVida, statCalor);
+        stats.SetDestreza(obj.GetField("destreza").intValue);
+        stats.SetForca(obj.GetField("forca").intValue);
+        stats.SetVida(obj.GetField("vida").intValue);
+        stats.SetCalor(obj.GetField("calor").intValue);
 
         pecas = obj.GetField("pecas").intValue;
         UIController.HUD.UpdatePecas(pecas);

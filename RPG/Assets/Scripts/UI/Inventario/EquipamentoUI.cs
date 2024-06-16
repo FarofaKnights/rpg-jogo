@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AreaEquipamentosUI : MonoBehaviour, UITab {
+    public StatUI forca, vida, calor;
     public InventarioUI armasInv, bracosInv, restoInv;
     public System.Action<ItemData> onSlotClick;
 
@@ -10,6 +11,22 @@ public class AreaEquipamentosUI : MonoBehaviour, UITab {
         armasInv.onSlotClick += HandleSlotClick;
         bracosInv.onSlotClick += HandleSlotClick;
         restoInv.onSlotClick += HandleSlotClick;
+
+        Player.instance.stats.OnChange += HandleStatChange;
+    }
+
+    void HandleStatChange(string stat, int value) {
+        switch (stat) {
+            case "forca":
+                forca.SetStat(value);
+                break;
+            case "vida":
+                vida.SetStat(value);
+                break;
+            case "calor":
+                calor.SetStat(value);
+                break;
+        }
     }
 
     void HandleSlotClick(ItemData itemData) {
