@@ -59,8 +59,10 @@ public class PlayerMovimentacao : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
-        animator.SetBool("IsGrounded", isGrounded);
-
+        animator.SetBool("IsGrounded", isGrounded);        
+    }
+    private void FixedUpdate()
+    {
         if (virtualCamera != null)
         {
             virtualCamera.Follow = transform;
