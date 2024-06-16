@@ -13,6 +13,11 @@ public class AreaEquipamentosUI : MonoBehaviour, UITab {
         restoInv.onSlotClick += HandleSlotClick;
 
         Player.instance.stats.OnChange += HandleStatChange;
+        UpdateStats();
+    }
+
+    public void UpdateStats() {
+        Player.instance.stats.ForEach(HandleStatChange);
     }
 
     void HandleStatChange(string stat, int value) {

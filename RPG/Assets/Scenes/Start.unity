@@ -1900,6 +1900,54 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed1df1be879bced4a911a4a77c276a8a, type: 3}
+--- !u!1 &589405535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 589405537}
+  - component: {fileID: 589405536}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &589405536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589405535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ed0ea10a6c2574ab233ee135e0c8f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverSceneName: 
+  startSceneName: Start
+  firstSceneName: Tutorial
+  firstPointName: Inicio
+--- !u!4 &589405537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589405535}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.3167405, y: 1.3561865, z: -6.3882604}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &596651583
 GameObject:
   m_ObjectHideFlags: 0
@@ -2234,7 +2282,7 @@ MonoBehaviour:
       - m_Target: {fileID: 618441438}
         m_TargetAssemblyTypeName: MenuStart, Assembly-CSharp
         m_MethodName: StartGame
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3248,7 +3296,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1125526638}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1125526640}
+        m_TargetAssemblyTypeName: MenuStart, Assembly-CSharp
+        m_MethodName: ContinueGame
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1125526638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5713,3 +5773,4 @@ SceneRoots:
   - {fileID: 929662566}
   - {fileID: 1523936873}
   - {fileID: 1916062437}
+  - {fileID: 589405537}

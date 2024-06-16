@@ -5,6 +5,12 @@ using UnityEngine;
 [System.Serializable]
 public class StatsController {
     public int destreza, forca, vida, calor;
+
+    public float forcaPercent;
+    public float vidaPercent;
+    public float calorPercent;
+
+
     public System.Action<string, int> OnChange;
 
     public StatsController(int destreza, int forca, int vida, int calor) {
@@ -58,5 +64,24 @@ public class StatsController {
     public void SetCalor(int calor) {
         this.calor = calor;
         TriggerChange("calor", this.calor);
+    }
+
+    public float GetAdicionalVida(float vidaValue) {
+        return ((vida-1) * vidaPercent) * vidaValue;
+    }
+
+    public float GetAdicionalForca(float danoValue) {
+        return ((forca-1) * forcaPercent) * danoValue;
+    }
+
+    public float GetAdicionalCalor(float calorValue) {
+        return ((calor-1) * calorPercent) * calorValue;
+    }
+
+    public void ForEach(System.Action<string, int> action) {
+        action("destreza", destreza);
+        action("forca", forca);
+        action("vida", vida);
+        action("calor", calor);
     }
 }

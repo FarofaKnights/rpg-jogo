@@ -20,7 +20,8 @@ public class SaveSystem {
         return Application.persistentDataPath;
     }
 
-    public void Save(int slot = 0) {
+    public void Save() {
+        int slot = variables.GetVariable<int>("slot");
         if (slot < 0 || slot >= maxSlots) return;
 
         JSONObject obj = new JSONObject();
@@ -37,6 +38,27 @@ public class SaveSystem {
         System.IO.File.WriteAllText(path, obj.ToString(true));
     }
 
+    public JSONObject LocalSave() {
+        JSONObject obj = new JSONObject();
+
+        obj.AddField("player", Player.instance.Save());
+        obj.AddField("inventory", Player.instance.inventario.Save());
+        obj.AddField("personagens", dialogaveis.Save());
+
+        return obj;
+    }
+
+    public void LocalLoad(JSONObject obj) {
+        if (GameManager.instance.state != GameState.NotStarted) {
+            Player.instance.Load(obj.GetField("player"));
+            Player.instance.inventario.Load(obj.GetField("inventory"));
+            Player.instance.LoadEquipados(obj.GetField("player"));
+            dialogaveis.Load(obj.GetField("personagens"));
+
+            UIController.equipamentos.UpdateStats();
+        }
+    }
+
     public JSONObject Load(int slot = 0) {
         if (slot < 0 || slot >= maxSlots) return null;
 
@@ -48,11 +70,14 @@ public class SaveSystem {
         latestLoaded = obj;
 
         variables.Load(obj.GetField("variables"));
-        Player.instance.Load(obj.GetField("player"));
-        Player.instance.inventario.Load(obj.GetField("inventory"));
-        Player.instance.LoadEquipados(obj.GetField("player"));
-        dialogaveis.Load(obj.GetField("personagens"));
 
+        if (GameManager.instance.state != GameState.NotStarted) {
+            Player.instance.Load(obj.GetField("player"));
+            Player.instance.inventario.Load(obj.GetField("inventory"));
+            Player.instance.LoadEquipados(obj.GetField("player"));
+            dialogaveis.Load(obj.GetField("personagens"));
+        }
+       
         Debug.Log("Loaded!");
         return obj;
     }
@@ -74,5 +99,12 @@ public class SaveSystem {
 
         Debug.Log("Player loaded!");
         return obj;
+    }
+
+    public bool HasSave(int slot = 0) {
+        if (slot < 0 || slot >= maxSlots) return false;
+
+        string path = Application.persistentDataPath + "/save_" + slot + ".json";
+        return System.IO.File.Exists(path);
     }
 }

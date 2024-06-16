@@ -203,4 +203,12 @@ public class CheatController : MonoBehaviour {
         folder = folder.Replace(@"/", @"\");
         System.Diagnostics.Process.Start("explorer.exe", "/select,"+folder);
     }
+
+    public void MaximoNosStats() {
+        Player p = Player.instance;
+        p.stats.SetDestreza(5);
+        p.stats.SetForca(5);
+        p.stats.SetVida(5);
+        p.stats.SetCalor(5);
+    }
 }

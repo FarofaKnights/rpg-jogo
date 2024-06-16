@@ -83,9 +83,16 @@ public class AtaqueInstance {
         hitbox.AddComponent<BoxCollider>().isTrigger = true;
         hitbox.AddComponent<OnTrigger>().onTriggerEnter += (GameObject hit) => {
             atacador.OnAtaqueHit(hit);
+            GameManager.instance.StartCoroutine(SlowdownOnHit());
         };
 
         hitbox.SetActive(false);
+    }
+
+    IEnumerator SlowdownOnHit() {
+        Time.timeScale = 0.1f;
+        yield return new WaitForSecondsRealtime(0.05f);
+        if (!GameManager.instance.IsPaused()) Time.timeScale = 1;
     }
 
     public void AtivarHitbox() {

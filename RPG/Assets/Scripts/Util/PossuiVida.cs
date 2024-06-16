@@ -63,4 +63,9 @@ public class PossuiVida : MonoBehaviour {
         onChange?.Invoke(vida);
     }
 
+    public void SetarVidaMax(float vidaMax) {
+        this.vidaMax = vidaMax;
+        onChange?.Invoke(vida);
+    }
+
 }

@@ -11,10 +11,16 @@ public class MenuStart : MonoBehaviour {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Time.timeScale = 1;
+
+        GameManager.instance.SetState(GameState.NotStarted);
     }
 
-    public void StartGame(){
-        SceneManager.LoadScene(gameSceneName);
+    public void StartGame(int slot = 0){
+        GameManager.instance.LoadNewGame(slot);
+    }
+
+    public void ContinueGame(int slot = 0){
+        GameManager.instance.LoadGameFromMenu(slot);
     }
 
     public void QuitGame(){

@@ -15,6 +15,9 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
     public int pecas = 0;
     public float moveSpeed = 3f;
 
+    public float vidaMaxBase = 100;
+    public float calorMaxBase = 100;
+
     [Header("Inventario")]
     public InventarioManager inventario;
     [HideInInspector] public Arma arma;
@@ -45,7 +48,14 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
         if (cam == null) cam = Camera.main;
 
         inventario = new InventarioManager();
-        stats = new StatsController(0, 0, 0, 0);
+
+        if (stats == null) stats = new StatsController(1, 1, 1, 1);
+        else {
+            stats.SetDestreza(1);
+            stats.SetForca(1);
+            stats.SetVida(1);
+            stats.SetCalor(1);
+        }
     }
 
     void Start() {
@@ -64,6 +74,9 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
         attackState = new PlayerAttackState(this);
 
         stateMachine.SetState(moveState);
+
+        stats.OnChange += (string a, int b) => AplicarStats();
+        AplicarStats();
     }
 
     void Update() {
@@ -131,6 +144,21 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
     public void RemovePecas(int pecas) {
         this.pecas -= pecas;
         UIController.HUD.UpdatePecas(pecas);
+    }
+
+    public void AplicarStats() {
+        PossuiVida vida = GetComponent<PossuiVida>();
+
+        float adicionalVida = stats.GetAdicionalVida(vidaMaxBase);
+        vida.SetarVidaMax(vidaMaxBase + adicionalVida);
+        if (vida.Vida < vida.VidaMax) vida.Curar(adicionalVida);
+
+        float adicionalCalor = stats.GetAdicionalCalor(calorMaxBase);
+        calorMax = calorMaxBase + adicionalCalor;
+        if (calor < calorMax) {
+            calor += adicionalCalor;
+            if (calor > calorMax) calor = calorMax;
+        }
     }
 
     

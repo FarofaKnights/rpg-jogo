@@ -19,7 +19,8 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public string gameOverSceneName, startSceneName = "Start";
+    public string gameOverSceneName, startSceneName = "Start", firstSceneName = "Tutorial";
+    public string firstPointName = "Inicio";
 
     public Controls controls;
     public SaveSystem save;
@@ -53,7 +54,10 @@ public class GameManager : MonoBehaviour {
             UIController.cheat.Sair();
         };
 
-        SetState(GameState.Playing);
+        if (SceneManager.GetActiveScene().name == startSceneName) SetState(GameState.NotStarted);
+        else SetState(GameState.Playing);
+
+        if (!save.variables.HasVariable("slot")) save.variables.SetVariable<int>("slot", 0);
     }
 
     public void GameOver(){
@@ -114,6 +118,25 @@ public class GameManager : MonoBehaviour {
         return Time.timeScale == 0;
     }
 
+    public void LoadNewGame(int slot = 0) {
+        StartCoroutine(LoadNewGameAsync(slot));
+    }
+
+    public IEnumerator LoadNewGameAsync(int slot = 0) {
+        save.variables.SetVariable<int>("slot", slot);
+        yield return GoToSceneAsync(firstSceneName, firstPointName);
+        save.Save();
+    }
+
+    public void LoadGameFromMenu(int slot = 0) {
+        StartCoroutine(LoadGameFromMenuAsync(slot));
+    }
+
+    public IEnumerator LoadGameFromMenuAsync(int slot = 0) {
+        save.variables.SetVariable<int>("slot", slot);
+        if (save.HasSave(slot)) yield return LoadGameAsync(slot);
+    }
+
     public void GoToScene(string scene, string point = "") {
         StartCoroutine(GoToSceneAsync(scene, point));
     }
@@ -122,7 +145,8 @@ public class GameManager : MonoBehaviour {
         string currentSceneName = CurrentSceneName();
         if (onBeforeSceneChange != null) onBeforeSceneChange(currentSceneName);
 
-        JSONObject playerData = Player.instance.Save();
+        JSONObject localData = null;
+        if (state != GameState.NotStarted) localData = save.LocalSave();
 
         var asyncLoadLevel = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
 
@@ -132,7 +156,7 @@ public class GameManager : MonoBehaviour {
 
         if (onAfterSceneChange != null) onAfterSceneChange(scene);
 
-        if (!isLoading) Player.instance.Load(playerData);
+        if (!isLoading && localData != null) save.LocalLoad(localData);
 
         if (point != "") {
             TeleportPlayerToPoint(point);
@@ -173,20 +197,20 @@ public class GameManager : MonoBehaviour {
         save.Save();
     }
 
-    public void LoadGame(){
-        StartCoroutine(LoadGameAsync());
+    public void LoadGame(int slot = 0){
+        StartCoroutine(LoadGameAsync(slot));
     }
 
     bool isLoading = false;
 
-    public IEnumerator LoadGameAsync(){
+    public IEnumerator LoadGameAsync(int slot = 0){
         isLoading = true;
-        yield return UIController.instance.FadeInAsync();
-        save.Load();
+        if (state != GameState.NotStarted) yield return UIController.instance.FadeInAsync();
+        save.Load(slot);
         string lastScene = save.variables.GetVariable<string>("lastScene");
         string lastSpawnpoint = save.variables.GetVariable<string>("lastSpawnpoint");
         yield return GoToSceneAsync(lastScene, lastSpawnpoint);
-        save.LoadPlayer();
+        save.LoadPlayer(slot);
         isLoading = false;
     }
 

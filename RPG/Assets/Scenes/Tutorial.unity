@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.6771295, g: 0.77146876, b: 0.87563455, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16923,12 +16923,12 @@ PrefabInstance:
     - target: {fileID: 1027273648031634913, guid: 76c89251bab31c8478ed42fb886aca4b,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.06954051
+      value: -0.06954048
       objectReference: {fileID: 0}
     - target: {fileID: 1027273648031634913, guid: 76c89251bab31c8478ed42fb886aca4b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.009238074
+      value: 0.009238068
       objectReference: {fileID: 0}
     - target: {fileID: 2870603848478677957, guid: 76c89251bab31c8478ed42fb886aca4b,
         type: 3}
@@ -16963,17 +16963,17 @@ PrefabInstance:
     - target: {fileID: 6931285677727319170, guid: 76c89251bab31c8478ed42fb886aca4b,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.14505818
+      value: -0.14505823
       objectReference: {fileID: 0}
     - target: {fileID: 6931285677727319170, guid: 76c89251bab31c8478ed42fb886aca4b,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.06940579
+      value: -0.06940574
       objectReference: {fileID: 0}
     - target: {fileID: 6931285677727319170, guid: 76c89251bab31c8478ed42fb886aca4b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.010201172
+      value: 0.010201171
       objectReference: {fileID: 0}
     - target: {fileID: 7856607011979293476, guid: 76c89251bab31c8478ed42fb886aca4b,
         type: 3}
@@ -17038,12 +17038,12 @@ PrefabInstance:
     - target: {fileID: 8626805018484295416, guid: 76c89251bab31c8478ed42fb886aca4b,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.06966171
+      value: -0.069661714
       objectReference: {fileID: 0}
     - target: {fileID: 8626805018484295416, guid: 76c89251bab31c8478ed42fb886aca4b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.008274682
+      value: 0.008274684
       objectReference: {fileID: 0}
     - target: {fileID: 8812608567737922942, guid: 76c89251bab31c8478ed42fb886aca4b,
         type: 3}
@@ -17063,12 +17063,12 @@ PrefabInstance:
     - target: {fileID: 8812608567737922942, guid: 76c89251bab31c8478ed42fb886aca4b,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.06957069
+      value: -0.06957064
       objectReference: {fileID: 0}
     - target: {fileID: 8812608567737922942, guid: 76c89251bab31c8478ed42fb886aca4b,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.009008011
+      value: -0.009008004
       objectReference: {fileID: 0}
     - target: {fileID: 8812608567737922942, guid: 76c89251bab31c8478ed42fb886aca4b,
         type: 3}
@@ -28810,6 +28810,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverSceneName: GameOverTEMP
   startSceneName: 
+  firstSceneName: Tutorial
+  firstPointName: Inicio
 --- !u!4 &1407799416
 Transform:
   m_ObjectHideFlags: 0
@@ -32909,7 +32911,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1622001827}
   - component: {fileID: 1622001826}
-  - component: {fileID: 1622001825}
+  - component: {fileID: 1622001828}
+  - component: {fileID: 1622001829}
   m_Layer: 0
   m_Name: TriggerNextScene
   m_TagString: Untagged
@@ -32917,21 +32920,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1622001825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622001824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9af0e65d29bce6c4cbdd065436421619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  texturial: {fileID: 0}
-  sceneTransition: 1
-  nextScene: CenaClaudio
 --- !u!65 &1622001826
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32969,6 +32957,34 @@ Transform:
   - {fileID: 993918022}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1622001828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622001824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7196a18ac26cd64e80383cb680ab64a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: CenaClaudio
+  point: Saida Do Tunel
+  onTrigger: 1
+--- !u!114 &1622001829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622001824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9390ce80f1ecdd4488b92d3af3120e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagFilter: 
 --- !u!1001 &1622067006
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40559,6 +40575,21 @@ GameObject:
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
+--- !u!4 &377245026366085589
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6001694149190690688}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.058, z: -8.26}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &412066873776076055
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -41626,6 +41657,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6694121960531608305}
   m_Mesh: {fileID: 8385836491182413749, guid: 872fdaa2ecb26534ebc747d7d1864868, type: 3}
+--- !u!114 &4581609687230006203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6001694149190690688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1942150391637634b85adb66a421c9be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointName: Inicio
 --- !u!33 &4710408328534770153
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -41704,6 +41748,23 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
+  m_IsActive: 1
+--- !u!1 &6001694149190690688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 377245026366085589}
+  - component: {fileID: 4581609687230006203}
+  m_Layer: 0
+  m_Name: InicioSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!33 &6018981401928200597
 MeshFilter:
@@ -42180,3 +42241,4 @@ SceneRoots:
   - {fileID: 486405262}
   - {fileID: 1169867020}
   - {fileID: 757270333}
+  - {fileID: 377245026366085589}
