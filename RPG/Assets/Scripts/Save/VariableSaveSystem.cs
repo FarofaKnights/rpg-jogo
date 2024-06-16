@@ -338,6 +338,11 @@ public class VariableSaveSystem: Saveable {
         return esc.GetVariable<T>(name);
     }
 
+    public bool HasVariable(string name, string escopo = "global") {
+        SaveEscopo esc = GetEscopo(escopo);
+        return esc.HasVariable(name);
+    }
+
     public void Watch(string name, System.Action<object> action, string escopo = "global") {
         SaveEscopo esc = GetEscopo(escopo);
         esc.Watch(name, action);

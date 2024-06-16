@@ -14,6 +14,8 @@ public class Interagivel : OnTrigger {
     public GameObject informativo;
 
     void Start() {
+        if (this.tagFilter == "" || this.tagFilter == null) this.tagFilter = "Player";
+
         onTriggerEnter = (GameObject other) => {
             dentro = true;
             informativo.SetActive(true);

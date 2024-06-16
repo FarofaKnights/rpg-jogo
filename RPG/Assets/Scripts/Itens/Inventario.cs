@@ -143,8 +143,7 @@ public class Inventario : IInventario, Saveable{
 				int quantidade = obj.list[i].intValue;
 
                 ItemData item = ItemManager.instance.GetItemData(itemName);
-                Slot slot = GetEmptySlot();
-                slot.AddItem(item, quantidade);
+                AddItem(item, quantidade);
 			}
         }
     }

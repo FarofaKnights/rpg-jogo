@@ -12,9 +12,9 @@ public class PortaCondicional : MonoBehaviour {
 
     void Start() {
         condicao = condicaoInfo.GetCondicao();
-        condicao.OnRealizada += () => {
+        condicao.Then(() => {
             Destroy(porta);
-        };
+        });
     }
 
     public void OnPlayerInteract() {

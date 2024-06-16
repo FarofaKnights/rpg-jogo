@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using Defective.JSON;
 
 public enum GameState { NotStarted, Playing, PauseMenu, Dialog, GameOver, CheatMode }
 
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour {
     public ItemManager itemManager;
 
     public System.Action<string> onBeforeSceneChange, onAfterSceneChange;
+    public bool IsLoading { get { return isLoading; } }
 
 
     void Awake() {
@@ -120,6 +122,8 @@ public class GameManager : MonoBehaviour {
         string currentSceneName = CurrentSceneName();
         if (onBeforeSceneChange != null) onBeforeSceneChange(currentSceneName);
 
+        JSONObject playerData = Player.instance.Save();
+
         var asyncLoadLevel = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
 
         while (!asyncLoadLevel.isDone){
@@ -128,7 +132,7 @@ public class GameManager : MonoBehaviour {
 
         if (onAfterSceneChange != null) onAfterSceneChange(scene);
 
-        if (!isLoading) save.LoadPlayer();
+        if (!isLoading) Player.instance.Load(playerData);
 
         if (point != "") {
             TeleportPlayerToPoint(point);
@@ -152,7 +156,13 @@ public class GameManager : MonoBehaviour {
 
         if (selected != null){
             Player.instance.TeleportTo(selected.transform.position);
+            SaveLastSpawnpoint(point);
         }
+    }
+
+    public void SaveLastSpawnpoint(string point){
+        save.variables.SetVariable<string>("lastSpawnpoint", point);
+        save.variables.SetVariable<string>("lastScene", CurrentSceneName());
     }
 
     public string CurrentSceneName(){
@@ -171,9 +181,16 @@ public class GameManager : MonoBehaviour {
 
     public IEnumerator LoadGameAsync(){
         isLoading = true;
+        yield return UIController.instance.FadeInAsync();
         save.Load();
-        yield return RefreshScene();
-        save.Load();
+        string lastScene = save.variables.GetVariable<string>("lastScene");
+        string lastSpawnpoint = save.variables.GetVariable<string>("lastSpawnpoint");
+        yield return GoToSceneAsync(lastScene, lastSpawnpoint);
+        save.LoadPlayer();
         isLoading = false;
+    }
+
+    public T[] GetObjectsOfType<T>() where T : MonoBehaviour {
+        return FindObjectsOfType<T>();
     }
 }

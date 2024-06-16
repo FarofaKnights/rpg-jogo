@@ -29,8 +29,6 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
     public Camera cam;
     public float cameraSpeed = 10f;
 
-    string lastTeleportName = "";
-
     PossuiVida vidaController;
     public Animator animator;
     public GameObject meio;
@@ -247,8 +245,6 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
             ItemData bracoData = braco.GetComponent<Item>().data;
             obj.AddField("braco", bracoData.ToSaveString());
         }
-
-        obj.AddField("lastTeleport", lastTeleportName);
 
         // Salvar inventário, arma e braço
 

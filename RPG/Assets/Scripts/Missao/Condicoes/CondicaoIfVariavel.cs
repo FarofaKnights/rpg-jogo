@@ -38,6 +38,8 @@ public class CondicaoIfVariavel : Condicao {
     }
 
     protected void DefineEvent() {
+        Realizar(); // Tenta realizar a condição logo de cara
+        
         // Você pensaria que tem um jeito melhor de fazer isso... mas não tem (até onde percebi)
         switch (tipo) {
             case CondicaoParams.Tipo.INT:
@@ -58,7 +60,9 @@ public class CondicaoIfVariavel : Condicao {
     void SetarEvento<T>() {
         ISaveVariable<T> variavel = GetVariable<T>();
         variavel.OnChange(Realizar);
-        this.OnRealizada += () => variavel.Unwatch(Realizar);
+        this.Then(() => {
+            variavel.Unwatch(Realizar);
+        });
     }
 
     protected void Realizar(object value) {
@@ -66,6 +70,8 @@ public class CondicaoIfVariavel : Condicao {
     }
 
     public override bool CheckCondicao() {
+        if (!SaveSystem.instance.variables.HasVariable(nomeVariavel, (isGlobal? "global": "level"))) return false;
+        
         switch (tipo) {
             case CondicaoParams.Tipo.INT:
                 return CheckCondicao((int)valor, (int)GetVariable<int>().value);

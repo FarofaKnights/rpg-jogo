@@ -197,4 +197,10 @@ public class CheatController : MonoBehaviour {
                 return null;
         }
     }
+
+    public void ShowSaveFiles() {
+        string folder = SaveSystem.instance.GetSaveFolder();
+        folder = folder.Replace(@"/", @"\");
+        System.Diagnostics.Process.Start("explorer.exe", "/select,"+folder);
+    }
 }

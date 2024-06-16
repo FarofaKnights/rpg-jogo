@@ -1,5 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public interface UITab {
     void Show();
@@ -14,6 +17,10 @@ public class UIController : MonoBehaviour {
     public static DialogoController dialogo;
     public static CheatController cheat;
     public GameObject menu;
+
+    [Header("Black Screen")]
+    public GameObject blackScreen;
+    public float fadeSpeed = 1f;
 
     void Awake() {
         if (instance == null) instance = this;
@@ -34,6 +41,43 @@ public class UIController : MonoBehaviour {
         GameManager.instance.controls.Player.Itens.performed += ShowEquipamentos;
 
         HideMenu();
+
+        if (GameManager.instance.IsLoading) {
+            blackScreen.SetActive(true);
+            FadeOut();
+        }
+    }
+
+    public void FadeIn(){
+        StartCoroutine(BlackScreenFade());
+    }
+
+    public IEnumerator FadeInAsync(){
+        yield return StartCoroutine(BlackScreenFade());
+    }
+
+    public void FadeOut(){
+        StartCoroutine(BlackScreenFade(false));
+    }
+
+    public IEnumerator FadeOutAsync(){
+        yield return StartCoroutine(BlackScreenFade(false));
+    }
+
+    IEnumerator BlackScreenFade(bool isFadeIn = true) {
+        float currentAlpha = isFadeIn ? 0 : 1;
+        float targetAlpha = isFadeIn ? 1 : 0;
+        Image blackScreenImage = blackScreen.GetComponent<Image>();
+
+        blackScreen.SetActive(true);
+    
+        while (currentAlpha != targetAlpha) {
+            currentAlpha = Mathf.MoveTowards(currentAlpha, targetAlpha, fadeSpeed * Time.deltaTime);
+            blackScreenImage.color = new Color(0, 0, 0, currentAlpha);
+            yield return null;
+        }
+
+        blackScreen.SetActive(isFadeIn);
     }
 
     void ShowConfiguracoes(InputAction.CallbackContext ctx) {

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Condicao {
-    public System.Action OnRealizada;
+    System.Action OnRealizada;
     public bool dinamica = false;
+    bool realizada = false;
 
     public static string[] GetParametrosUtilizados(){ return new string[] { }; }
     public static string[] GetParametrosTraduzidos(){ return new string[] { }; }
@@ -19,9 +20,15 @@ public abstract class Condicao {
         if (CheckCondicao()) {
             OnRealizada?.Invoke();
             OnRealizada = null;
+            realizada = true;
             return true;
         }
         return false;
+    }
+
+    public void Then(System.Action action) {
+        if (realizada) action();
+        else OnRealizada += action;
     }
 }
 

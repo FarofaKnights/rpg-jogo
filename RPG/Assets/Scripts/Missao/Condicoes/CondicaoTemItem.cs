@@ -14,8 +14,10 @@ public class CondicaoTemItem : Condicao {
         this.itemData = itemData;
         this.quantidade = quantidade;
 
-        if (this.dinamica)
+        if (this.dinamica) {
+            Realizar(); // Tenta realizar a condição logo de cara
             Player.instance.inventario.OnChange += HandleItemChange;
+        }
     }
 
     public CondicaoTemItem(string itemDataId, int quantidade): this(ItemManager.instance.GetItemData(itemDataId), quantidade) { }
@@ -24,8 +26,10 @@ public class CondicaoTemItem : Condicao {
         this.itemData = ItemManager.instance.GetItemData(parameters.id);
         this.quantidade = parameters.intValue;
 
-        if (this.dinamica)
+        if (this.dinamica) {
+            Realizar(); // Tenta realizar a condição logo de cara
             Player.instance.inventario.OnChange += HandleItemChange;
+        }
     }
 
     void HandleItemChange(ItemData item, int quantidade) {

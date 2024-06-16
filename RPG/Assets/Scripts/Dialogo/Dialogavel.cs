@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Defective.JSON;
 
 [RequireComponent(typeof(Interagivel))]
-public class Dialogavel : MonoBehaviour {
+public class Dialogavel : MonoBehaviour, Saveable {
+    public string nome;
+
     public List<Dialogo> dialogos = new List<Dialogo>();
     List<Dialogo> disponiveis = new List<Dialogo>();
     List<Dialogo> aguardando = new List<Dialogo>();
@@ -27,10 +30,10 @@ public class Dialogavel : MonoBehaviour {
     }
 
     void SetEventoConclusao(Dialogo dialogo) {
-        dialogo.condicao.GetCondicao().OnRealizada = () => {
+        dialogo.condicao.GetCondicao().Then(() => {
             disponiveis.Add(dialogo);
             aguardando.Remove(dialogo);
-        };
+        });
     }
 
     void CheckAguardando() {
@@ -79,5 +82,65 @@ public class Dialogavel : MonoBehaviour {
             disponiveis.Remove(dialogoAtual);
             dialogoAtual = null;
         });
+    }
+
+    public JSONObject Save() {
+        JSONObject json = new JSONObject();
+        JSONObject concluidosJson = new JSONObject(JSONObject.Type.Array);
+        JSONObject aguardandoJson = new JSONObject(JSONObject.Type.Array);
+
+        foreach (Dialogo dialogo in concluidos) {
+            concluidosJson.Add(dialogo.name);
+        }
+
+        foreach (Dialogo dialogo in aguardando) {
+            aguardandoJson.Add(dialogo.name);
+        }
+
+        json.AddField("concluidos", concluidosJson);
+        json.AddField("aguardando", aguardandoJson);
+
+        return json;
+    }
+
+    public void Load(JSONObject json) {
+
+        if (json.HasField("concluidos") && json.GetField("concluidos").list != null) {
+            foreach (var val in json.GetField("concluidos").list) {
+                string nomeDialogo = val.stringValue;
+                Dialogo dialogo = dialogos.Find(d => d.name == nomeDialogo);
+
+                if (dialogo != null) {
+                    if (aguardando.Contains(dialogo)) {
+                        aguardando.Remove(dialogo);
+                    }
+
+                    if (disponiveis.Contains(dialogo)) {
+                        disponiveis.Remove(dialogo);
+                    }
+
+                    if (!concluidos.Contains(dialogo)) {
+                        concluidos.Add(dialogo);
+                    }
+                }
+            }
+        }
+
+        if (json.HasField("aguardando") && json.GetField("aguardando").list != null) {
+            foreach (var val in json.GetField("aguardando").list) {
+                string nomeDialogo = val.stringValue;
+                Dialogo dialogo = dialogos.Find(d => d.name == nomeDialogo);
+                if (dialogo != null) {
+                    if (!aguardando.Contains(dialogo)) {
+                        aguardando.Add(dialogo);
+                        SetEventoConclusao(dialogo);
+                    }
+
+                    if (disponiveis.Contains(dialogo)) {
+                        disponiveis.Remove(dialogo);
+                    }
+                }
+            }
+        }
     }
 }
