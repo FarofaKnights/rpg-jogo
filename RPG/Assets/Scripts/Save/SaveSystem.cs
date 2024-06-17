@@ -72,9 +72,12 @@ public class SaveSystem {
         variables.Load(obj.GetField("variables"));
 
         if (GameManager.instance.state != GameState.NotStarted) {
-            Player.instance.Load(obj.GetField("player"));
-            Player.instance.inventario.Load(obj.GetField("inventory"));
-            Player.instance.LoadEquipados(obj.GetField("player"));
+            if (Player.instance != null && Player.instance.gameObject != null) {
+                Player.instance.Load(obj.GetField("player"));
+                Player.instance.inventario.Load(obj.GetField("inventory"));
+                Player.instance.LoadEquipados(obj.GetField("player"));
+            }
+            
             dialogaveis.Load(obj.GetField("personagens"));
         }
        

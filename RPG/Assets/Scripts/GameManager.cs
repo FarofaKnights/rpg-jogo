@@ -64,6 +64,15 @@ public class GameManager : MonoBehaviour {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Time.timeScale = 1;
+
+        if (save.variables.HasVariable("slot")) {
+            int slot = save.variables.GetVariable<int>("slot");
+            if (save.HasSave(slot)){
+                LoadGame(slot);
+                return;
+            }
+        }
+        
         SceneManager.LoadScene(gameOverSceneName);
     }
 
