@@ -17,7 +17,7 @@ public class CondicaoInfo {
     }
 }
 
-
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(CondicaoInfo))]
 public class CondicaoInfoDrawer : PropertyDrawer {
     int quantLines = 0;
@@ -118,3 +118,4 @@ public class CondicaoInfoDrawer : PropertyDrawer {
         return EditorGUIUtility.singleLineHeight * (quantLines + 1);
     }
 }
+#endif

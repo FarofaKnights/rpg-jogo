@@ -19,6 +19,7 @@ public class AcaoInfo {
     }
 }
 
+#if UNITY_EDITOR
 
 [CustomPropertyDrawer(typeof(AcaoInfo))]
 public class AcaoInfoDrawer : PropertyDrawer {
@@ -120,3 +121,4 @@ public class AcaoInfoDrawer : PropertyDrawer {
         return EditorGUIUtility.singleLineHeight * (quantLines + 1);
     }
 }
+#endif
