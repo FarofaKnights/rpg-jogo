@@ -23,6 +23,14 @@ public class MenuStart : MonoBehaviour {
         GameManager.instance.LoadGameFromMenu(slot);
     }
 
+    public void ShowCreditos(){
+        SceneManager.LoadScene("Creditos");
+    }
+
+    public void TelaInicial() {
+        SceneManager.LoadScene("Start");
+    }
+
     public void QuitGame(){
         Application.Quit();
     }

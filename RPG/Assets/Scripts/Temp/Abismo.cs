@@ -13,7 +13,7 @@ public class Abismo : MonoBehaviour
         {
             Debug.Log("Playyeyey");
             Destroy(other.gameObject);
-            SceneManager.LoadScene("GameOverTEMP");
+            GameManager.instance.GameOver();
         }
        
     }
