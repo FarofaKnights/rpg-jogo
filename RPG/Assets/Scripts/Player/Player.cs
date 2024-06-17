@@ -22,7 +22,7 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
     public InventarioManager inventario;
     [HideInInspector] public Arma arma;
     [HideInInspector] public Braco braco;
-    public Transform mao, bracoHolder, pe;
+    public Transform mao, bracoHolder, pe, saidaTiro;
 
     // State Machine
     public StateMachine<IPlayerState> stateMachine;
@@ -80,6 +80,8 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
     }
 
     void Update() {
+        Debug.DrawLine(Vector3.zero, transform.position, Color.red);
+
         if (stateMachine.GetCurrentState() == attackState) return;
 
         if (Input.GetMouseButtonDown(0)) {

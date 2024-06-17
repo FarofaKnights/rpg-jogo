@@ -16,7 +16,7 @@ public class Projetil : MonoBehaviour {
     }
 
     void Update() {
-        transform.Translate(Vector3.forward * velocidade * Time.deltaTime);
+        transform.position += transform.forward * velocidade * Time.deltaTime;
     }
 
     void OnTriggerEnter(Collider other) {
