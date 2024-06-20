@@ -3,8 +3,9 @@ using UnityEngine;
 public class Slot {
     public ItemData item;
     public int quantidade = 1;
+    public System.Action OnDelete;
 
-    public void AddItem(ItemData novoItem, int quant = 1) {
+    public virtual void AddItem(ItemData novoItem, int quant = 1) {
         if (novoItem == null) {
             Debug.LogWarning("Tentativa de adicionar item nulo ao slot");
             return;
@@ -21,7 +22,7 @@ public class Slot {
         }
     }
 
-    public void RemoveItem(int quant = 1) {
+    public virtual void RemoveItem(int quant = 1) {
         if (quant < 1) {
             Debug.LogWarning("Tentativa de remover item '" + item.nome + "' com quantidade menor que 1");
             return;
@@ -34,6 +35,7 @@ public class Slot {
         if (quantidade <= 0) {
             item = null;
             quantidade = 0;
+            if (OnDelete != null) OnDelete();
         }
     }
 }

@@ -30,6 +30,7 @@ public class SaveSystem {
         obj.AddField("player", Player.instance.Save());
         obj.AddField("inventory", Player.instance.inventario.Save());
         obj.AddField("personagens", dialogaveis.Save());
+        obj.AddField("loja", LojaController.instance.Save());
 
         string path = Application.persistentDataPath + "/save_" + slot + ".json";
 
@@ -44,6 +45,7 @@ public class SaveSystem {
         obj.AddField("player", Player.instance.Save());
         obj.AddField("inventory", Player.instance.inventario.Save());
         obj.AddField("personagens", dialogaveis.Save());
+        obj.AddField("loja", LojaController.instance.Save());
 
         return obj;
     }
@@ -54,6 +56,7 @@ public class SaveSystem {
             Player.instance.inventario.Load(obj.GetField("inventory"));
             Player.instance.LoadEquipados(obj.GetField("player"));
             dialogaveis.Load(obj.GetField("personagens"));
+            LojaController.instance.Load(obj.GetField("loja"));
 
             UIController.equipamentos.UpdateStats();
         }
@@ -79,6 +82,7 @@ public class SaveSystem {
             }
             
             dialogaveis.Load(obj.GetField("personagens"));
+            LojaController.instance.Load(obj.GetField("loja"));
         }
        
         Debug.Log("Loaded!");
@@ -99,6 +103,7 @@ public class SaveSystem {
         Player.instance.inventario.Load(obj.GetField("inventory"));
         Player.instance.LoadEquipados(obj.GetField("player"));
         dialogaveis.Load(obj.GetField("personagens"));
+        LojaController.instance.Load(obj.GetField("loja"));
 
         Debug.Log("Player loaded!");
         return obj;

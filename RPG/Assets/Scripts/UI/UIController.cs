@@ -40,6 +40,9 @@ public class UIController : MonoBehaviour {
         GameManager.instance.controls.Player.Pause.performed += ShowConfiguracoes;
         GameManager.instance.controls.Player.Itens.performed += ShowEquipamentos;
 
+        GameManager.instance.controls.Loja.Pause.performed += ShowConfiguracoes;
+        GameManager.instance.controls.Loja.Itens.performed += ShowEquipamentos;
+
         HideMenu();
 
         if (GameManager.instance.IsLoading) {

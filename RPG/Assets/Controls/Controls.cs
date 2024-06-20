@@ -363,6 +363,94 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             ]
         },
         {
+            ""name"": ""Loja"",
+            ""id"": ""c8031ca2-ac8e-42e6-a692-a1c6b2bc7bff"",
+            ""actions"": [
+                {
+                    ""name"": ""Sair"",
+                    ""type"": ""Button"",
+                    ""id"": ""8d1725de-cbad-4660-8eb1-dda8e5f83696"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CheatMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""34a5c1ea-a6da-4342-8a75-0ce0f1166231"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""0858a4de-f3da-48cc-8d57-a09d356ed85d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Itens"",
+                    ""type"": ""Button"",
+                    ""id"": ""8e0cde00-adff-480a-808d-38f93ba5c210"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""94434fee-ba67-4a8e-993c-84cf5ff77347"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sair"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""83b5f360-677b-4f3a-84a4-e802a5f97645"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CheatMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7856f76d-2763-4ef1-92a3-97b080d92fb4"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a908c47-291f-4628-9216-6d550470a625"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Itens"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
             ""name"": ""Cheat"",
             ""id"": ""78b60b34-e57e-424d-97ad-5b38057cc6a5"",
             ""actions"": [
@@ -411,6 +499,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Interact = m_UI.FindAction("Interact", throwIfNotFound: true);
         m_UI_Exit = m_UI.FindAction("Exit", throwIfNotFound: true);
+        // Loja
+        m_Loja = asset.FindActionMap("Loja", throwIfNotFound: true);
+        m_Loja_Sair = m_Loja.FindAction("Sair", throwIfNotFound: true);
+        m_Loja_CheatMode = m_Loja.FindAction("CheatMode", throwIfNotFound: true);
+        m_Loja_Pause = m_Loja.FindAction("Pause", throwIfNotFound: true);
+        m_Loja_Itens = m_Loja.FindAction("Itens", throwIfNotFound: true);
         // Cheat
         m_Cheat = asset.FindActionMap("Cheat", throwIfNotFound: true);
         m_Cheat_Exit = m_Cheat.FindAction("Exit", throwIfNotFound: true);
@@ -682,6 +776,76 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     }
     public UIActions @UI => new UIActions(this);
 
+    // Loja
+    private readonly InputActionMap m_Loja;
+    private List<ILojaActions> m_LojaActionsCallbackInterfaces = new List<ILojaActions>();
+    private readonly InputAction m_Loja_Sair;
+    private readonly InputAction m_Loja_CheatMode;
+    private readonly InputAction m_Loja_Pause;
+    private readonly InputAction m_Loja_Itens;
+    public struct LojaActions
+    {
+        private @Controls m_Wrapper;
+        public LojaActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Sair => m_Wrapper.m_Loja_Sair;
+        public InputAction @CheatMode => m_Wrapper.m_Loja_CheatMode;
+        public InputAction @Pause => m_Wrapper.m_Loja_Pause;
+        public InputAction @Itens => m_Wrapper.m_Loja_Itens;
+        public InputActionMap Get() { return m_Wrapper.m_Loja; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(LojaActions set) { return set.Get(); }
+        public void AddCallbacks(ILojaActions instance)
+        {
+            if (instance == null || m_Wrapper.m_LojaActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_LojaActionsCallbackInterfaces.Add(instance);
+            @Sair.started += instance.OnSair;
+            @Sair.performed += instance.OnSair;
+            @Sair.canceled += instance.OnSair;
+            @CheatMode.started += instance.OnCheatMode;
+            @CheatMode.performed += instance.OnCheatMode;
+            @CheatMode.canceled += instance.OnCheatMode;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
+            @Itens.started += instance.OnItens;
+            @Itens.performed += instance.OnItens;
+            @Itens.canceled += instance.OnItens;
+        }
+
+        private void UnregisterCallbacks(ILojaActions instance)
+        {
+            @Sair.started -= instance.OnSair;
+            @Sair.performed -= instance.OnSair;
+            @Sair.canceled -= instance.OnSair;
+            @CheatMode.started -= instance.OnCheatMode;
+            @CheatMode.performed -= instance.OnCheatMode;
+            @CheatMode.canceled -= instance.OnCheatMode;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
+            @Itens.started -= instance.OnItens;
+            @Itens.performed -= instance.OnItens;
+            @Itens.canceled -= instance.OnItens;
+        }
+
+        public void RemoveCallbacks(ILojaActions instance)
+        {
+            if (m_Wrapper.m_LojaActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ILojaActions instance)
+        {
+            foreach (var item in m_Wrapper.m_LojaActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_LojaActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public LojaActions @Loja => new LojaActions(this);
+
     // Cheat
     private readonly InputActionMap m_Cheat;
     private List<ICheatActions> m_CheatActionsCallbackInterfaces = new List<ICheatActions>();
@@ -747,6 +911,13 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     {
         void OnInteract(InputAction.CallbackContext context);
         void OnExit(InputAction.CallbackContext context);
+    }
+    public interface ILojaActions
+    {
+        void OnSair(InputAction.CallbackContext context);
+        void OnCheatMode(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
+        void OnItens(InputAction.CallbackContext context);
     }
     public interface ICheatActions
     {

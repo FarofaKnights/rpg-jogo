@@ -12,16 +12,20 @@ public interface IInventario {
     void ForEach(Action<ItemData, int> action);
 }
 
-public class Inventario : IInventario, Saveable{
-    List<Slot> slots;
+public class Inventario : Inventario<Slot> {
+    public Inventario() : base() {}
+}
+
+public class Inventario<T> : IInventario, Saveable where T: Slot , new() {
+    List<T> slots;
     public Action<ItemData, int> onItemChange;
 
     public Inventario() {
-        slots = new List<Slot>();
+        slots = new List<T>();
     }
 
     public bool AddItem(ItemData item, int quantidade = 1) {
-        Slot slot;
+        T slot;
 
         if (item.empilhavel) {
             slot = GetSlotWithItem(item);
@@ -36,7 +40,7 @@ public class Inventario : IInventario, Saveable{
 
         slot = GetEmptySlot();
         if (slot != null) {
-            slot.AddItem(item);
+            slot.AddItem(item, quantidade);
 
             if (onItemChange != null)  onItemChange(item, slot.quantidade);
 
@@ -47,7 +51,7 @@ public class Inventario : IInventario, Saveable{
     }
 
     public bool RemoveItem(ItemData item, int quantidade = 1) {
-        Slot slot = GetSlotWithItem(item);
+        T slot = GetSlotWithItem(item);
         if (slot != null) {
             slot.RemoveItem(quantidade);
             
@@ -76,12 +80,12 @@ public class Inventario : IInventario, Saveable{
     }
 
     public bool ContainsItem(ItemData item) {
-        Slot slot = GetSlotWithItem(item);
+        T slot = GetSlotWithItem(item);
         return slot != null;
     }
 
     public int GetQuantidade(ItemData item) {
-        Slot slot = GetSlotWithItem(item);
+        T slot = GetSlotWithItem(item);
         if (slot != null) {
             return slot.quantidade;
         }
@@ -89,7 +93,7 @@ public class Inventario : IInventario, Saveable{
     }
 
     public void ForEach(Action<ItemData, int> action) {
-        foreach (Slot slot in slots) {
+        foreach (T slot in slots) {
             if (slot.item != null) {
                 action(slot.item, slot.quantidade);
             }
@@ -98,8 +102,8 @@ public class Inventario : IInventario, Saveable{
 
     // Utility
 
-    Slot GetSlotWithItem(ItemData item) {
-        foreach (Slot slot in slots) {
+    T GetSlotWithItem(ItemData item) {
+        foreach (T slot in slots) {
             if (slot.item == item) {
                 return slot;
             }
@@ -107,15 +111,15 @@ public class Inventario : IInventario, Saveable{
         return null;
     }
 
-    Slot GetEmptySlot() {
-        foreach (Slot slot in slots) {
+    T GetEmptySlot() {
+        foreach (T slot in slots) {
             if (slot.item == null) {
                 slot.quantidade = 0;
                 return slot;
             }
         }
 
-        Slot newSlot = new Slot();
+        T newSlot = new T();
         newSlot.quantidade = 0;
         slots.Add(newSlot);
 
@@ -126,7 +130,7 @@ public class Inventario : IInventario, Saveable{
     public JSONObject Save() {
         JSONObject obj = new JSONObject();
 
-        foreach (Slot slot in slots) {
+        foreach (T slot in slots) {
             if (slot.item != null) {
                 ItemData data = slot.item;
                 obj.AddField(data.ToSaveString(), slot.quantidade);

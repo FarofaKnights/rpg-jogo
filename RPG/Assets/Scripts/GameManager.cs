@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using Defective.JSON;
 
-public enum GameState { NotStarted, Playing, PauseMenu, Dialog, GameOver, CheatMode }
+public enum GameState { NotStarted, Playing, PauseMenu, Dialog, GameOver, CheatMode, Loja }
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
@@ -93,10 +93,12 @@ public class GameManager : MonoBehaviour {
                 Pausar();
                 controls.UI.Enable();
                 controls.Player.Disable();
+                controls.Loja.Disable();
                 break;
             case GameState.Playing:
                 Despausar();
                 controls.UI.Disable();
+                controls.Loja.Disable();
                 controls.Player.Enable();
                 break;
             case GameState.Dialog:
@@ -108,8 +110,13 @@ public class GameManager : MonoBehaviour {
                 break;
             case GameState.CheatMode:
                 controls.Player.Disable();
+                controls.Loja.Disable();
                 controls.Cheat.Enable();
                 UIController.cheat.Entrar(oldState);
+                break;
+            case GameState.Loja:
+                controls.Player.Disable();
+                controls.Loja.Enable();
                 break;
         }
     }

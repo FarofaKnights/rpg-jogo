@@ -54,7 +54,8 @@ public class Arma : Equipamento, IAtacador {
     public virtual void OnAtaqueHit(GameObject inimigo) {
         if (!inimigo.CompareTag("Inimigo")) return;
 
-        Player.instance.AumentarCalor(2);
-        inimigo.GetComponent<PossuiVida>().LevarDano(ataque.dano);
+        Player.instance.AumentarCalor(10);
+        float adicional = Player.instance.stats.GetAdicionalForca(ataque.dano);
+        inimigo.GetComponent<PossuiVida>().LevarDano(ataque.dano + adicional);
     }
 }

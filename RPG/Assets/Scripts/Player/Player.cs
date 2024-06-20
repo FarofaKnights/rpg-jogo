@@ -145,7 +145,11 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
 
     public void RemovePecas(int pecas) {
         this.pecas -= pecas;
-        UIController.HUD.UpdatePecas(pecas);
+        UIController.HUD.UpdatePecas(this.pecas);
+    }
+
+    public bool HasPecas(int pecas) {
+        return this.pecas >= pecas;
     }
 
     public void AplicarStats() {
@@ -235,9 +239,7 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
     public Animator GetAnimator() { return animator; }
 
     public GameObject GetAttackHitboxHolder() { return meio; }
-    public virtual void OnAtaqueHit(GameObject inimigo) {
-        Debug.Log("Linha desnecessaria!");
-    }
+    public virtual void OnAtaqueHit(GameObject inimigo) { }
     public string AttackTriggerName() { return "Ataque"; }
 
 
