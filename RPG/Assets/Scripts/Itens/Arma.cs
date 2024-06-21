@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class Arma : Equipamento, IAtacador {
     public int dano;
     public float hitboxDuration; // temp
     public GameObject hitbox;
+    public ParticleSystem ps, longPs;
 
     public AtaqueInfo ataque;
     public AtaqueInfo[] ataques;
@@ -26,7 +28,11 @@ public class Arma : Equipamento, IAtacador {
         if (index >= ataques.Length) return null;
         
         ataque = ataques[ataqueIndex];
-
+        if(ataqueIndex == 2)
+        {
+            longPs.Play();
+        }
+        ps.Play();
         AtaqueInstance ataqueInstance = ataque.Atacar(this);
         ataqueInstance.onEnd += () => {
             onAttackEnd?.Invoke();
