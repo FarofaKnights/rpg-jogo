@@ -4,11 +4,7 @@ using UnityEngine;
 using UnityEngine.Video;
 
 public class Arma : Equipamento, IAtacador {
-    public int dano;
-    public float hitboxDuration; // temp
-    public GameObject hitbox;
     public ParticleSystem ps, longPs;
-
     public AtaqueInfo ataque;
     public AtaqueInfo[] ataques;
     int ataqueIndex = 0;
@@ -44,11 +40,6 @@ public class Arma : Equipamento, IAtacador {
 
     public void Resetar() {
         ataqueIndex = 0;
-    }
-
-    IEnumerator DesativarHitbox() {
-        yield return new WaitForSeconds(hitboxDuration);
-        hitbox.SetActive(false);
     }
 
     public Animator GetAnimator() { return Player.instance.animator; }

@@ -5,7 +5,6 @@ using UnityEngine;
 public abstract class Braco : Equipamento {
     public AnimatorOverrideController animatorOverride;
     public int calorNecessario;
-    public float tempoRecarga;
 
     public void Ativar() {
         if (Player.instance.calor < calorNecessario) {
@@ -15,7 +14,6 @@ public abstract class Braco : Equipamento {
 
         AtivarEfeito();
         Player.instance.DiminuirCalor(calorNecessario);
-        // StartCoroutine(Recarregar());
     }
 
     protected abstract void AtivarEfeito();

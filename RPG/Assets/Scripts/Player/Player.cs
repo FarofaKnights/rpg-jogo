@@ -11,7 +11,6 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
     public float calor;
     public float calorMax;
     public StatsController stats;
-    public int statDestreza, statForca, statVida, statCalor;
     public int pecas = 0;
     public float moveSpeed = 3f;
 
