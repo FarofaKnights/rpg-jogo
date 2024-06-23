@@ -104,7 +104,7 @@ public class Dialogavel : MonoBehaviour, Saveable {
     }
 
     public void Load(JSONObject json) {
-
+        if (json == null) return;
         if (json.HasField("concluidos") && json.GetField("concluidos").list != null) {
             foreach (var val in json.GetField("concluidos").list) {
                 string nomeDialogo = val.stringValue;
