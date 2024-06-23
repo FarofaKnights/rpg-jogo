@@ -125,7 +125,7 @@ public class PlayerMovimentacao : MonoBehaviour
 
             if (Input.GetKeyDown(lockOnKey))
             {
-                LockOn();
+               // LockOn();
             }
             if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -193,7 +193,7 @@ public class PlayerMovimentacao : MonoBehaviour
         }
     }
 
-    void LockOn()
+    /*void LockOn()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, lockOnRadius);
         float shortestDistance = Mathf.Infinity;
@@ -228,7 +228,7 @@ public class PlayerMovimentacao : MonoBehaviour
             lockedTarget = null;
         }
     }
-
+    */
     public bool IsInvulnerable()
     {
         return invulnerable;
