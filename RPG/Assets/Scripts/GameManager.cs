@@ -19,7 +19,8 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public string gameOverSceneName, startSceneName = "Start", firstSceneName = "Tutorial";
+    public string gameOverSceneName { get { return "GameOver"; } }
+    public string startSceneName = "Start", firstSceneName = "Tutorial";
     public string firstPointName = "Inicio";
 
     public Controls controls;
