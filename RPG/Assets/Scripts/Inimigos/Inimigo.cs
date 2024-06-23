@@ -16,6 +16,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public int recompensaPecas = 10;
     public float searchRange = 10f;
     PossuiVida vidaController;
+    public GameObject getHitParticles;
 
 
     [Header("Configurações de Ataque")]
@@ -89,5 +90,11 @@ public class Inimigo : MonoBehaviour, IAtacador {
     void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, searchRange);
+    }
+
+    public void SpawnParticle()
+    {
+        GameObject particle = Instantiate(getHitParticles, attackHitboxHolder.transform.position, transform.rotation);
+        particle.transform.SetParent(this.gameObject.transform);
     }
 }

@@ -13,7 +13,7 @@ public class EnemyHittedState : IEnemyState {
     public void Enter() {
         inimigo.animator.SetTrigger("Damaged");
         timer = maxTimer;
-
+        inimigo.SpawnParticle();
         inimigo.animator.SetFloat("Vertical", 0);
         inimigo.animator.SetFloat("Horizontal", 0);
     }
