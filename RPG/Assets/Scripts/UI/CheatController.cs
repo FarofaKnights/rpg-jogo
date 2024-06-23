@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CheatController : MonoBehaviour {
-    public Dropdown addItemDropdown, teletransporteDropdown;
+    public Dropdown addItemDropdown, teletransporteDropdown, fasesDropdown;
     public Dropdown escopoDropdown, tipoDropdown;
     public InputField variavelInput, valorInput;
     public Text variablesText;
@@ -18,6 +19,7 @@ public class CheatController : MonoBehaviour {
         GerarDropdownItens();
         GerarDropdownTeletransporte();
         GerarDropdownTipo();
+        GerarDropdownFases();
     }
 
     public void Entrar(GameState oldState) {
@@ -75,6 +77,18 @@ public class CheatController : MonoBehaviour {
 
         teletransporteDropdown.ClearOptions();
         teletransporteDropdown.AddOptions(opcoes);
+    }
+
+    void GerarDropdownFases() {
+        List<string> opcoes = new List<string>();
+        int quantScenes = SceneManager.sceneCountInBuildSettings;
+        for (int i = 0; i < quantScenes; i++) {
+            string nome = System.IO.Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i));
+            opcoes.Add(nome);
+        }
+
+        fasesDropdown.ClearOptions();
+        fasesDropdown.AddOptions(opcoes);
     }
 
     void GerarDropdownEscopo() {
@@ -144,6 +158,12 @@ public class CheatController : MonoBehaviour {
                 Player.instance.TeleportTo(spawnPoint.transform.position);
             }
         }
+    }
+
+    public void TrocarFase() {
+        int i = fasesDropdown.value;
+        string nome = fasesDropdown.options[i].text;
+        GameManager.instance.GoToScene(nome);
     }
 
     public void SetarVidaInfinita() {
