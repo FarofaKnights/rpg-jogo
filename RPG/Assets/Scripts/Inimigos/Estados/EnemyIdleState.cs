@@ -18,8 +18,7 @@ public class EnemyIdleState : IEnemyState {
     }
 
     public void Execute() {
-        // Search in searchRange for a target
-        Collider[] colliders = Physics.OverlapSphere(inimigo.transform.position, inimigo.searchRange);
+        Collider[] colliders = Physics.OverlapSphere(inimigo.transform.position, inimigo.rangeProcurando);
         foreach (Collider collider in colliders) {
             if (collider.CompareTag("Player")) {
                 inimigo.target = collider.gameObject;

@@ -23,16 +23,16 @@ public class EnemyAttackState : IEnemyState {
         if (inimigo == null) return;
 
         ataqueInstance = inimigo.ataque.Atacar(inimigo);
-        ataqueInstance.onEnd += ReturnToIdle;
+        ataqueInstance.onEnd += LeaveState;
     }
 
-    void ReturnToIdle() {
-        inimigo.stateMachine.SetState(inimigo.idleState);
+    void LeaveState() {
+        inimigo.stateMachine.SetState(inimigo.walkState);
     }
 
     public void Exit() {
         if (ataqueInstance != null)
-            ataqueInstance.onEnd -= ReturnToIdle;
+            ataqueInstance.onEnd -= LeaveState;
     }
 
     public void Execute() {

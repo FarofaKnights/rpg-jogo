@@ -13,8 +13,6 @@ public class VitrineSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public Text descricao;
     public Text preco;
 
-    bool mouseOver = false;
-
     void Start() {
         slot.OnDelete += HandleEsgotado;
         UpdateUI();
@@ -59,11 +57,9 @@ public class VitrineSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerEnter(PointerEventData eventData) {
         indicativo.SetActive(true);
-        mouseOver = true;
     }
 
     public void OnPointerExit(PointerEventData eventData) {
         indicativo.SetActive(false);
-        mouseOver = false;
     }
 }

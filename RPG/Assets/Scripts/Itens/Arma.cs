@@ -5,8 +5,8 @@ using UnityEngine.Video;
 
 public class Arma : Equipamento, IAtacador {
     public ParticleSystem ps, longPs;
-    public AtaqueInfo ataque;
-    public AtaqueInfo[] ataques;
+    public MeleeAtaqueInfo ataque;
+    public MeleeAtaqueInfo[] ataques;
     int ataqueIndex = 0;
 
     public System.Action onAttackHit, onAttackEnd;

@@ -54,9 +54,14 @@ MonoBehaviour:
   controller: {fileID: 2361325265758478374}
   animator: {fileID: 529849461085365138}
   vidaText: {fileID: 5821691600190502900}
+  rangeProcurando: 5
+  rangePerderTarget: 15
+  minRangeProximidade: 1.25
+  maxRangeProximidade: 0.75
+  precisaDeVisao: 1
+  tomouDanoStun: 1
   target: {fileID: 0}
   recompensaPecas: 10
-  searchRange: 5
   getHitParticles: {fileID: 4938373727297579305, guid: 2e6877b1152892342883c6741da4c817,
     type: 3}
   ataque: {fileID: 11400000, guid: fa8f67fce98c3ac43851ca403871f427, type: 2}
@@ -111,7 +116,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 6
+  m_Speed: 4
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 360

@@ -10,17 +10,24 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public Animator animator;
     public Text vidaText;
 
+    [Header("Configurações IA")]
+    public float rangeProcurando = 5f; // Range que sai do Idle pro Walk
+    public float rangePerderTarget = 15f; // Range que sai do Walk pro Idle
+    public float minRangeProximidade = 1.25f; // Range que sai do Walk pro Attack
+    public float maxRangeProximidade = 0.75f; // Range que sai do Attack pro Walk
+    public bool precisaDeVisao = true; // Se precisa de visão para atacar
+    public float tomouDanoStun = 1f; // Tempo que fica parado ao tomar dano
+
 
     [Header("MISC")]
     public GameObject target;
     public int recompensaPecas = 10;
-    public float searchRange = 10f;
     PossuiVida vidaController;
     public GameObject getHitParticles;
 
 
     [Header("Configurações de Ataque")]
-    public AtaqueInfo ataque;
+    public MeleeAtaqueInfo ataque;
     [SerializeField] GameObject attackHitboxHolder;
     public GameObject GetAttackHitboxHolder() { return attackHitboxHolder; }
     public Animator GetAnimator() { return animator; }
@@ -88,13 +95,38 @@ public class Inimigo : MonoBehaviour, IAtacador {
 
     // draw gizmos
     void OnDrawGizmosSelected() {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, searchRange);
+        if (stateMachine == null) {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, rangeProcurando);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, minRangeProximidade);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, rangePerderTarget);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, maxRangeProximidade);
+        } else if (stateMachine.GetCurrentState() == idleState) {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, rangeProcurando);
+        } else if (stateMachine.GetCurrentState() == walkState) {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(target.transform.position, minRangeProximidade);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(target.transform.position, rangePerderTarget);
+        } else if (stateMachine.GetCurrentState() == attackState) {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(target.transform.position, maxRangeProximidade);
+        }
+      
+        
     }
 
     public void SpawnParticle()
     {
         GameObject particle = Instantiate(getHitParticles, attackHitboxHolder.transform.position, transform.rotation);
         particle.transform.SetParent(this.gameObject.transform);
+    }
+
+    public void Morrer() {
+        Destroy(gameObject);
     }
 }
