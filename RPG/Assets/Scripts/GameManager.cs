@@ -61,10 +61,18 @@ public class GameManager : MonoBehaviour {
         if (!save.variables.HasVariable("slot")) save.variables.SetVariable<int>("slot", 0);
     }
 
-    public void GameOver(){
+    string customRespawnPoint = "";
+    string customRespawnScene = "";
+
+    public void GameOver(string respawnAt = ""){
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Time.timeScale = 1;
+
+        if (respawnAt != "") {
+            customRespawnPoint = respawnAt;
+            customRespawnScene = CurrentSceneName();
+        }
 
         if (save.variables.HasVariable("slot")) {
             int slot = save.variables.GetVariable<int>("slot");
@@ -226,9 +234,21 @@ public class GameManager : MonoBehaviour {
         save.Load(slot);
         string lastScene = save.variables.GetVariable<string>("lastScene");
         string lastSpawnpoint = save.variables.GetVariable<string>("lastSpawnpoint");
+
+        if (customRespawnPoint != "") {
+            lastSpawnpoint = customRespawnPoint;
+            lastScene = customRespawnScene;
+            customRespawnPoint = "";
+            customRespawnScene = "";
+        }
+
         yield return GoToSceneAsync(lastScene, lastSpawnpoint);
         save.LoadPlayer(slot);
         isLoading = false;
+    }
+
+    public string[] GetLastSpawnpoint(){
+        return new string[] { save.variables.GetVariable<string>("lastScene"), save.variables.GetVariable<string>("lastSpawnpoint") };
     }
 
     public T[] GetObjectsOfType<T>() where T : MonoBehaviour {

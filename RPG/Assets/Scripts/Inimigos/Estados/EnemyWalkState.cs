@@ -37,7 +37,12 @@ public class EnemyWalkState : IEnemyState {
         inimigo.animator.SetFloat("Vertical", velocity.z);
         inimigo.animator.SetFloat("Horizontal", velocity.x);
 
-        if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance) {
+        float dist = Vector3.Distance(inimigo.transform.position, inimigo.target.transform.position);
+
+        if (dist > inimigo.rangePerderTarget) {
+            inimigo.target = null;
+            inimigo.stateMachine.SetState(inimigo.idleState);
+        } else if (navMeshAgent.remainingDistance <= inimigo.minRangeProximidade) {
             inimigo.stateMachine.SetState(inimigo.attackState);
         }
     }

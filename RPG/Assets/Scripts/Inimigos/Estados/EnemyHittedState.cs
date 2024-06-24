@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyHittedState : IEnemyState {
     private Inimigo inimigo;
-    float timer, maxTimer = 1f;
+    float timer, maxTimer;
 
     public EnemyHittedState(Inimigo inimigo) {
         this.inimigo = inimigo;
@@ -12,6 +12,7 @@ public class EnemyHittedState : IEnemyState {
 
     public void Enter() {
         inimigo.animator.SetTrigger("Damaged");
+        maxTimer = inimigo.tomouDanoStun;
         timer = maxTimer;
         inimigo.SpawnParticle();
         inimigo.animator.SetFloat("Vertical", 0);
@@ -25,7 +26,7 @@ public class EnemyHittedState : IEnemyState {
 
         if (timer < 0) {
             timer = 0;
-            inimigo.stateMachine.SetState(inimigo.idleState);
+            inimigo.stateMachine.SetState(inimigo.walkState);
         }
     }
 }
