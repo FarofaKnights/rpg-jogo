@@ -237,7 +237,7 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
 
     public Animator GetAnimator() { return animator; }
 
-    public GameObject GetAttackHitboxHolder() { return meio; }
+    public GameObject GetAttackHolder() { return meio; }
     public virtual void OnAtaqueHit(GameObject inimigo) { }
     public string AttackTriggerName() { return "Ataque"; }
 

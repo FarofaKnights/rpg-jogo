@@ -6,6 +6,6 @@ public interface IAtacador {
     void OnAtaqueHit(GameObject hit);
 
     Animator GetAnimator();
-    GameObject GetAttackHitboxHolder();
+    GameObject GetAttackHolder();
     string AttackTriggerName();
 }

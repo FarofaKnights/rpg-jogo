@@ -34,7 +34,7 @@ public class AtaqueEditor : Editor {
 
             // In scene gameobject field
             EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("Hitbox", GUILayout.Width(146));
+                EditorGUILayout.LabelField("Atacador", GUILayout.Width(146));
                 visualizer = (GameObject)EditorGUILayout.ObjectField(visualizer, typeof(GameObject), true);
             EditorGUILayout.EndHorizontal();
 
@@ -95,7 +95,7 @@ public class AtaqueEditor : Editor {
             Vector3 scale = ataque.hitboxSize;
             Vector3 rotation = ataque.hitboxRotation;
 
-            Vector3 rootPosition = atacador.GetAttackHitboxHolder().transform.position;
+            Vector3 rootPosition = atacador.GetAttackHolder().transform.position;
 
             Vector3 position = rootPosition + offset;
             Quaternion rot = visualizer.transform.rotation * Quaternion.Euler(rotation);

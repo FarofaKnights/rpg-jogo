@@ -15,7 +15,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public float rangePerderTarget = 15f; // Range que sai do Walk pro Idle
     public float minRangeProximidade = 1.25f; // Range que sai do Walk pro Attack
     public float maxRangeProximidade = 0.75f; // Range que sai do Attack pro Walk
-    public bool precisaDeVisao = true; // Se precisa de visão para atacar
+    public bool precisaDeVisaoDireta = false; // Se precisa de visão para atacar
     public float tomouDanoStun = 1f; // Tempo que fica parado ao tomar dano
 
 
@@ -27,9 +27,9 @@ public class Inimigo : MonoBehaviour, IAtacador {
 
 
     [Header("Configurações de Ataque")]
-    public MeleeAtaqueInfo ataque;
+    public AtaqueInfo ataque;
     [SerializeField] GameObject attackHitboxHolder;
-    public GameObject GetAttackHitboxHolder() { return attackHitboxHolder; }
+    public GameObject GetAttackHolder() { return attackHitboxHolder; }
     public Animator GetAnimator() { return animator; }
     public string AttackTriggerName() { return "Attack"; }
     
@@ -77,13 +77,6 @@ public class Inimigo : MonoBehaviour, IAtacador {
 
     void Update()  {
         stateMachine.Execute();
-    }
-
-    // Não sei oque isso faz :P
-    void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.CompareTag("Ataque")) {
-            target = collision.gameObject;
-        }
     }
 
     public void OnAtaqueHit(GameObject other) {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AtaqueMelee: AtaqueInstance {
     public GameObject hitbox;
+    List<GameObject> hits = new List<GameObject>();
 
     public AtaqueMelee(MeleeAtaqueInfo info, IAtacador atacador) : base(info, atacador) {
         CreateHitbox();
@@ -29,27 +30,32 @@ public class AtaqueMelee: AtaqueInstance {
         }
     
         animator.applyRootMotion = false;
-        if (onEnd != null) onEnd();
     }
 
 
     protected void CreateHitbox() {
         hitbox = new GameObject("AttackHitbox");
+        MeleeAtaqueInfo infoMelee = (MeleeAtaqueInfo)info;
 
         // Transform
-        hitbox.transform.SetParent(atacador.GetAttackHitboxHolder().transform);
-        hitbox.transform.localPosition = info.hitboxOffset;
-        hitbox.transform.localScale = info.hitboxSize;
-        hitbox.transform.localEulerAngles = info.hitboxRotation;
+        hitbox.transform.SetParent(atacador.GetAttackHolder().transform);
+        hitbox.transform.localPosition = infoMelee.hitboxOffset;
+        hitbox.transform.localScale = infoMelee.hitboxSize;
+        hitbox.transform.localEulerAngles = infoMelee.hitboxRotation;
 
         // Trigger
         hitbox.AddComponent<BoxCollider>().isTrigger = true;
-        hitbox.AddComponent<OnTrigger>().onTriggerEnter += (GameObject hit) => {
-            atacador.OnAtaqueHit(hit);
-            GameManager.instance.StartCoroutine(SlowdownOnHit());
-        };
+        hitbox.AddComponent<OnTrigger>().onTriggerEnter += OnHitATarget;
 
         hitbox.SetActive(false);
+    }
+
+    void OnHitATarget(GameObject hit) {
+        if (hits.Contains(hit)) return;
+        hits.Add(hit);
+
+        atacador.OnAtaqueHit(hit);
+        GameManager.instance.StartCoroutine(SlowdownOnHit());
     }
 
     IEnumerator SlowdownOnHit() {

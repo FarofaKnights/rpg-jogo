@@ -43,7 +43,7 @@ public class Arma : Equipamento, IAtacador {
     }
 
     public Animator GetAnimator() { return Player.instance.animator; }
-    public GameObject GetAttackHitboxHolder() { return Player.instance.meio; }
+    public GameObject GetAttackHolder() { return Player.instance.meio; }
     public string AttackTriggerName() { return "Ataque"; }
 
 

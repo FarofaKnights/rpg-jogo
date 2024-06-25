@@ -7,12 +7,14 @@ public class AtaqueInstance {
     public enum Estado { Enter, Antecipacao, Hit, Recovery, End }
     public Estado estadoAtual = Estado.Enter;
 
-    public MeleeAtaqueInfo info;
+    public AtaqueInfo info;
     public IAtacador atacador;
     protected Animator animator;
 
-    public System.Action onEnd;
+    public System.Action onEnter, onAntecipacao, onAttack, onRecovery, onEnd;
+    public System.Action<Estado> onStateChange;
 
+    bool podeCancelar = false;
     int frameCounter = 0;
 
     public virtual void OnEnter() { }
@@ -22,9 +24,10 @@ public class AtaqueInstance {
     public virtual void OnEnd() { }
 
 
-    public AtaqueInstance(MeleeAtaqueInfo info, IAtacador atacador) {
+    public AtaqueInstance(AtaqueInfo info, IAtacador atacador) {
         this.info = info;
         this.atacador = atacador;
+        podeCancelar = false;
         
         OnEnter();
 
@@ -38,17 +41,23 @@ public class AtaqueInstance {
         switch (estado) {
             case Estado.Antecipacao:
                 OnAntecipacao();
+                onAntecipacao?.Invoke();
                 break;
             case Estado.Hit:
                 OnAttack();
+                onAttack?.Invoke();
                 break;
             case Estado.Recovery:
                 OnRecovery();
+                onRecovery?.Invoke();
                 break;
             case Estado.End:
                 OnEnd();
+                onEnd?.Invoke();
                 break;
         }
+
+        onStateChange?.Invoke(estado);
     }
 
     public void Update() {
@@ -61,5 +70,18 @@ public class AtaqueInstance {
         } else if (estadoAtual == Estado.Recovery) {
             if (frameCounter >= info.recoveryFrames) OnStateChange(Estado.End);
         }
+    }
+
+    public void PermitirCancelamento() {
+        podeCancelar = true;
+    }
+
+    public bool Cancelar() {
+        if (podeCancelar) {
+            OnStateChange(Estado.End);
+            return true;
+        }
+
+        return false;
     }
 }
