@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 829220469188975150}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.6765747, y: 3.4704437, z: 2.3900146}
+  m_LocalPosition: {x: 195.36246, y: -73.8971, z: 175.30212}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -84,7 +84,7 @@ MonoBehaviour:
     m_DecelTime: 0.1
     m_InputAxisName: Mouse Y
     m_InputAxisValue: 0
-    m_InvertInput: 0
+    m_InvertInput: 1
     m_MinValue: 0
     m_MaxValue: 1
     m_Wrap: 0
@@ -688,6 +688,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7856607011979293476}
+  - component: {fileID: 8130537659290983768}
   m_Layer: 10
   m_Name: CameraHolder
   m_TagString: Inimigo
@@ -712,6 +713,26 @@ Transform:
   - {fileID: 8812608567737922942}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8130537659290983768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5650710372307428415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fec1cd87e2b7f344cae14215c8dac30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  enemyTag: Inimigo
+  focusPoint: {fileID: 0}
+  switchCooldown: 0.5
+  focusPointLerpSpeed: 1
+  maxLockOnDistance: 25
+  defaultFocusParent: {fileID: 0}
+  lockOnFocusParent: {fileID: 0}
 --- !u!1 &8293814901911891781
 GameObject:
   m_ObjectHideFlags: 0
@@ -740,8 +761,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8293814901911891781}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0014030153, y: 0.97135097, z: -0.005736351, w: -0.23757622}
-  m_LocalPosition: {x: -6.2771025, y: 5.0874596, z: 162.34341}
+  m_LocalRotation: {x: 0.09134074, y: 0.6883807, z: -0.088042475, w: 0.714169}
+  m_LocalPosition: {x: 195.36249, y: -73.8971, z: 175.30133}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
