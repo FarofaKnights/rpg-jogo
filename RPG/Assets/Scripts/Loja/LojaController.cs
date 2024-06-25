@@ -88,13 +88,12 @@ public class LojaController : MonoBehaviour, Saveable {
             obj.AddField(slot.item.nome, slot.quantidade);
         }
 
-        Debug.Log(obj.ToString(true));
-
         return obj;
     }
 
     public void Load(JSONObject obj) {
-        Debug.Log(obj.ToString(true));
+        if (obj == null) return;
+
         foreach (VitrineSlot vitrine in slots) {
             OfertaSlot slot = vitrine.slot;
             if (slot.item == null || slot.infinito) continue;
