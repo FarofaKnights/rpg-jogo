@@ -41,9 +41,11 @@ public class DialogoController : MonoBehaviour {
     void ProcessarFala(Fala fala) {
         texto.text = fala.text;
 
-        Acao acao = fala.acao.GetAcao();
-        if (acao != null) {
-            acao.Realizar();
+        if (fala.acao != null) {
+            Acao acao = fala.acao.GetAcao();
+            if (acao != null) {
+                acao.Realizar();
+            }
         }
 
         if (fala.autoNext) {

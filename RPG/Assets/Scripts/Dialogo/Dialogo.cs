@@ -8,6 +8,11 @@ public class Fala {
     public string text;
     public bool autoNext = false; // Se a fala deve avançar automaticamente (bom para ações sem texto)
     public AcaoInfo acao;
+
+    public Fala(string text) {
+        this.text = text;
+        acao = null;
+    }
 }
 
 
