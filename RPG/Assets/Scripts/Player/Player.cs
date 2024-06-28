@@ -185,6 +185,11 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
                     }
                 }          
             }
+        } else if (other.GetComponent<PecaDropado>() != null) {
+            PecaDropado peca = other.GetComponent<PecaDropado>();
+            int quant = peca.quantidade;
+            AddPecas(quant);
+            Destroy(other.gameObject);
         }
     }
 
