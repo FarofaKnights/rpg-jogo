@@ -19,5 +19,7 @@ public class BracoShooter : Braco {
         p.tempoDeVida = tempoDeVida;
         p.dano = dano;
         p.velocidade = velocidade;
+
+        Player.instance.animator.SetTrigger("Atirar");
     }
 }
