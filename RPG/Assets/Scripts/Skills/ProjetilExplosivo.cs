@@ -39,8 +39,9 @@ public class ProjetilExplosivo : MonoBehaviour
         }
         else
         {
-            Explosao.SetActive(true);
+            Instantiate(Explosao, transform.position, transform.rotation);
+            Destroy(gameObject);
         }
-
+        Destroy(gameObject);
     }
 }

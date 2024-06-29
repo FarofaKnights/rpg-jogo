@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocidade: 0
   tempoDeVida: 1
-  dano: 10
+  dano: 15
   tagAlvo: Player
 --- !u!135 &2127221860508063842
 SphereCollider:
@@ -431,6 +431,36 @@ PrefabInstance:
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minCurve.m_Curve.Array.data[1].outWeight
       value: 0.33333334
       objectReference: {fileID: 0}
+    - target: {fileID: 465890116579572915, guid: 9d10d958af9b6d946b60305db30a6059,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 465890116579572915, guid: 9d10d958af9b6d946b60305db30a6059,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 465890116579572915, guid: 9d10d958af9b6d946b60305db30a6059,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869921393754632050, guid: 9d10d958af9b6d946b60305db30a6059,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869921393754632050, guid: 9d10d958af9b6d946b60305db30a6059,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869921393754632050, guid: 9d10d958af9b6d946b60305db30a6059,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2075655749729690687, guid: 9d10d958af9b6d946b60305db30a6059,
         type: 3}
       propertyPath: m_Name
@@ -444,7 +474,7 @@ PrefabInstance:
     - target: {fileID: 4177137797823843453, guid: 9d10d958af9b6d946b60305db30a6059,
         type: 3}
       propertyPath: m_RenderMode
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4177137797823843453, guid: 9d10d958af9b6d946b60305db30a6059,
         type: 3}
@@ -501,7 +531,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5792537434750684473, guid: 9d10d958af9b6d946b60305db30a6059, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5741414201234459150, guid: 9d10d958af9b6d946b60305db30a6059, type: 3}
     m_AddedGameObjects: []

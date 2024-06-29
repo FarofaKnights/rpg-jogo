@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 6807790331073739869}
   - component: {fileID: 6025625439545781973}
   - component: {fileID: 5792537434750684473}
+  - component: {fileID: 6534309653554018155}
   m_Layer: 0
   m_Name: Projetil Bomba De Metal derretido
   m_TagString: Untagged
@@ -186,6 +187,27 @@ MonoBehaviour:
   Explosao: {fileID: 5574295336723188846, guid: f2ddb614f32da5f4799acccb8ead6345,
     type: 3}
   tagAlvo: Player
+--- !u!135 &6534309653554018155
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075655749729690687}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.29756
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7861613374631291057
 GameObject:
   m_ObjectHideFlags: 0
@@ -5119,7 +5141,8 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.088
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7324989338719846194, guid: 10b6cf93873804541a862d4b71d11466, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
