@@ -8,11 +8,6 @@ public class AtaqueMelee: AtaqueInstance {
 
     public AtaqueMelee(MeleeAtaqueInfo info, IAtacador atacador) : base(info, atacador) {
         CreateHitbox();
-
-        animator = atacador.GetAnimator();
-        animator.runtimeAnimatorController = info.animatorOverride;
-        animator.applyRootMotion = false;
-        animator.SetTrigger(atacador.AttackTriggerName());
     }
 
     public override void OnAttack() {

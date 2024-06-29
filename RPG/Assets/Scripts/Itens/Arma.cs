@@ -46,6 +46,9 @@ public class Arma : Equipamento, IAtacador {
     public GameObject GetAttackHolder() { return Player.instance.meio; }
     public string AttackTriggerName() { return "Ataque"; }
 
+    public GameObject GetSelf() { return gameObject; }
+    public TriggerMode GetTriggerMode() { return TriggerMode.Trigger; }
+
 
     // Quando o ataque da arma colide com um inimigo
     public virtual void OnAtaqueHit(GameObject inimigo) {

@@ -23,11 +23,26 @@ public class AtaqueInstance {
     public virtual void OnRecovery() { }
     public virtual void OnEnd() { }
 
+    public virtual void OnUpdate(Estado estado) { }
+
 
     public AtaqueInstance(AtaqueInfo info, IAtacador atacador) {
         this.info = info;
         this.atacador = atacador;
         podeCancelar = false;
+
+        if (info.animatorOverride != null) {
+            animator = atacador.GetAnimator();
+            animator.runtimeAnimatorController = info.animatorOverride;
+            animator.applyRootMotion = false;
+
+            if (atacador.GetTriggerMode() == TriggerMode.Trigger) {
+                animator.SetTrigger(atacador.AttackTriggerName());
+            } else if (atacador.GetTriggerMode() == TriggerMode.Bool) {
+                animator.SetBool(atacador.AttackTriggerName(), true);
+            }
+        }
+       
         
         OnEnter();
 
@@ -54,6 +69,11 @@ public class AtaqueInstance {
             case Estado.End:
                 OnEnd();
                 onEnd?.Invoke();
+
+                if (info.animatorOverride != null && atacador.GetTriggerMode() == TriggerMode.Bool) {
+                    animator.SetBool(atacador.AttackTriggerName(), false);
+                }
+
                 break;
         }
 
@@ -70,6 +90,8 @@ public class AtaqueInstance {
         } else if (estadoAtual == Estado.Recovery) {
             if (frameCounter >= info.recoveryFrames) OnStateChange(Estado.End);
         }
+
+        OnUpdate(estadoAtual);
     }
 
     public void PermitirCancelamento() {
