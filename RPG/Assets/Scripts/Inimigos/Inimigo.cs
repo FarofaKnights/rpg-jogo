@@ -10,6 +10,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public Animator animator;
     public Text vidaText;
 
+
     [Header("Configurações IA")]
     public float rangeProcurando = 5f; // Range que sai do Idle pro Walk
     public float rangePerderTarget = 15f; // Range que sai do Walk pro Idle
@@ -27,6 +28,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public GameObject getHitParticles;
     public AudioSource AlertSound;
     public AudioSource attackSound;
+    public bool detectado = false;
 
 
     [Header("Configurações de Ataque")]
