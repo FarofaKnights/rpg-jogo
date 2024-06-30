@@ -7,6 +7,8 @@ public class MenuStart : MonoBehaviour {
     private bool visivel = false;
     public GameObject uiConfig;
 
+    public GameObject settingsPanel, controlsPanel;
+
     void Start() {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -44,5 +46,27 @@ public class MenuStart : MonoBehaviour {
     {
         visivel = false;
         uiConfig.SetActive(visivel);        
+    }
+
+    public void CarregarConfigs()
+    {
+        SceneManager.LoadScene("Settings");
+    }
+
+    public void OpenVolumeSettings()
+    {
+        controlsPanel.SetActive(false);
+        settingsPanel.SetActive(true);
+    }
+    public void OpenControlSettings()
+    {
+        controlsPanel.SetActive(true);
+        settingsPanel.SetActive(false);
+    }
+
+    public void Return()
+    {
+        SettingsManager.instance.WriteValues();
+        SceneManager.LoadScene("Start");
     }
 }
