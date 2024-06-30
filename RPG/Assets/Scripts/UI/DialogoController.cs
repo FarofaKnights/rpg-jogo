@@ -6,9 +6,13 @@ using UnityEngine.UI;
 public class DialogoController : MonoBehaviour {
     public Text texto;
     public System.Action OnDialogoEnd;
+    public float autoNextDelay = 5f;
 
     Fala[] falas;
     int index = 0;
+
+
+    Fala onHoldToAutoNext, currentFala;
 
     void Start() {
         texto.text = "";
@@ -39,6 +43,7 @@ public class DialogoController : MonoBehaviour {
     }
 
     void ProcessarFala(Fala fala) {
+        currentFala = fala;
         texto.text = fala.text;
 
         if (fala.acao != null) {
@@ -49,7 +54,15 @@ public class DialogoController : MonoBehaviour {
         }
 
         if (fala.autoNext) {
-            ShowFala();
+            onHoldToAutoNext = fala;
+            StartCoroutine(AutoNext());
+        }
+    }
+
+    IEnumerator AutoNext() {
+        yield return new WaitForSeconds(autoNextDelay);
+        if (currentFala == onHoldToAutoNext) {
+            Proximo();
         }
     }
 

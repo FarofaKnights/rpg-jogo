@@ -221,6 +221,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void SaveGame(){
+        if (UIController.instance != null) UIController.HUD.PopUpSaveInfo();
         save.Save();
     }
 

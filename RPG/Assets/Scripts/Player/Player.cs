@@ -19,6 +19,7 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
 
     [Header("Inventario")]
     public InventarioManager inventario;
+    public ItemData[] itensJaPossuidos;
     [HideInInspector] public Arma arma;
     [HideInInspector] public Braco braco;
     public Transform mao, bracoHolder, pe, saidaTiro;
@@ -66,7 +67,7 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
             GameManager.instance.GameOver();
         };
         
-        UpdateHUD();
+        
 
         stateMachine = new StateMachine<IPlayerState>();
         moveState = new PlayerMoveState(this);
@@ -76,6 +77,15 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
 
         stats.OnChange += (string a, int b) => AplicarStats();
         AplicarStats();
+
+        if (itensJaPossuidos != null) {
+            foreach (ItemData item in itensJaPossuidos) {
+                if (!inventario.ContainsItem(item))
+                    inventario.AddItem(item);
+            }
+        }
+
+        UpdateHUD();
     }
 
     void Update() {
@@ -106,6 +116,7 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
         UIController.HUD.UpdateVida(vidaController.Vida, vidaController.VidaMax);
         UIController.HUD.UpdateCalor(calor, calorMax);
         UIController.HUD.UpdatePecas(pecas);
+        UIController.HUD.SetArmaEquipada(arma);
     }
 
     #region Stats
@@ -202,6 +213,7 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
         arma.onAttackEnd += OnAttackEnded;
 
         UIController.equipamentos.RefreshUI();
+        UIController.HUD.SetArmaEquipada(arma);
     }
 
     public void DesequiparArma() {
@@ -211,6 +223,7 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
         Destroy(arma.gameObject);
         arma = null;
         UIController.equipamentos.RefreshUI();
+        UIController.HUD.SetArmaEquipada(null);
 
         if (stateMachine.GetCurrentState() == attackState) {
             stateMachine.SetState(moveState);
