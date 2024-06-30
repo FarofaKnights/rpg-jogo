@@ -136,6 +136,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Despausar(){
+        SettingsManager.instance.WriteValues();
         Time.timeScale = 1;
     }
 
