@@ -11,6 +11,7 @@ public class EnemyAttackState : IEnemyState {
     }
 
     public void Enter() {
+        inimigo.attackSound.Play();
         GameManager.instance.StartCoroutine(Attack());
     }
 
@@ -31,6 +32,7 @@ public class EnemyAttackState : IEnemyState {
     }
 
     public void Exit() {
+        inimigo.attackSound.Stop();
         if (ataqueInstance != null)
             ataqueInstance.onEnd -= LeaveState;
     }

@@ -26,6 +26,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     PossuiVida vidaController;
     public GameObject getHitParticles;
     public AudioSource AlertSound;
+    public AudioSource attackSound;
 
 
     [Header("Configurações de Ataque")]
@@ -125,6 +126,8 @@ public class Inimigo : MonoBehaviour, IAtacador {
     }
 
     public void Morrer() {
+        AudioManager.instance.enemyDeath.Play();
+        SpawnParticle();
         Destroy(gameObject);
     }
 }

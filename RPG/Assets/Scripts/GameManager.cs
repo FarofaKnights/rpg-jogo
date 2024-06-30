@@ -132,6 +132,7 @@ public class GameManager : MonoBehaviour {
 
 
     public void Pausar(){
+        AudioManager.instance.playerFootsteps.Pause();
         Time.timeScale = 0;
     }
 

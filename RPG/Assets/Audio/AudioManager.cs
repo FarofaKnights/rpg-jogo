@@ -10,8 +10,6 @@ public class AudioManager : MonoBehaviour
     public AudioSource playerattackSwish;
     public AudioSource playerAttackHit;
     public AudioSource playerFootsteps;
-    public AudioSource enemyAlert;
-    public AudioSource enemyAttack;
     public AudioSource enemyDeath;
 
     public AudioSource musica;
