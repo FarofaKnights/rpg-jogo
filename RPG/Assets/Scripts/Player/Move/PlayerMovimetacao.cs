@@ -75,7 +75,7 @@ public class PlayerMovimentacao : MonoBehaviour
 
     void MovementControl()
     {
-        if (!isWalkState) return;
+        if (!isWalkState)  return;
 
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
@@ -85,9 +85,10 @@ public class PlayerMovimentacao : MonoBehaviour
             animator.SetFloat("inputX", 0);
             animator.SetFloat("inputZ", 0);
             animator.SetBool("Correr", false);
+            AudioManager.instance.playerFootsteps.Pause();
             return;
         }
-
+        AudioManager.instance.playerFootsteps.UnPause();
         Vector3 moveSideways = transform.right * moveX;
 
         Vector3 cameraForward = mainCameraTransform.forward;

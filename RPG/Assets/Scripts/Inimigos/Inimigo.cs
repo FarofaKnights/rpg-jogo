@@ -25,6 +25,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public int recompensaPecas = 10;
     PossuiVida vidaController;
     public GameObject getHitParticles;
+    public AudioSource AlertSound;
 
 
     [Header("Configurações de Ataque")]

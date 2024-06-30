@@ -14,6 +14,7 @@ public class EnemyWalkState : IEnemyState {
 
     public void Enter() {
         GameObject target = inimigo.target;
+        inimigo.AlertSound.Play();
 
         if (target == null) {
             inimigo.stateMachine.SetState(inimigo.idleState);
