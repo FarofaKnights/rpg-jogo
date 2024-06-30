@@ -109,7 +109,6 @@ public class SettingsManager : MonoBehaviour
         sv.senseY = senseY;
         string saveSettings = JsonUtility.ToJson(sv, true);
         File.WriteAllText(settingsPath, saveSettings);
-        Debug.Log("njdnnj");
     }
 
     public void LoadValues()
