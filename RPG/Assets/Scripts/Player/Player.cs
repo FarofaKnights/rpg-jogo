@@ -80,8 +80,12 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
 
         if (itensJaPossuidos != null) {
             foreach (ItemData item in itensJaPossuidos) {
-                if (!inventario.ContainsItem(item))
+                if (!inventario.ContainsItem(item)) {
                     inventario.AddItem(item);
+                    if ((item.tipo == ItemData.Tipo.Arma && arma == null) || (item.tipo == ItemData.Tipo.Braco && braco == null)) {
+                        inventario.HandleSlotClick(item);
+                    }
+                }
             }
         }
 

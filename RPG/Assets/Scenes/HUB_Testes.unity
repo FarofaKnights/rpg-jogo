@@ -6720,6 +6720,17 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 239724808}
+    - target: {fileID: 5202955268677309984, guid: 4f2c2f8803f93af4aa2129d19fc6746f,
+        type: 3}
+      propertyPath: itensJaPossuidos.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5202955268677309984, guid: 4f2c2f8803f93af4aa2129d19fc6746f,
+        type: 3}
+      propertyPath: itensJaPossuidos.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 92ec69fe2bc010b4887ed953c2195435,
+        type: 2}
     - target: {fileID: 7047949831012241440, guid: 4f2c2f8803f93af4aa2129d19fc6746f,
         type: 3}
       propertyPath: m_Name
@@ -7068,6 +7079,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1934009907}
   m_CullTransparentMesh: 1
+--- !u!95 &1935038959 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6017677031356211136, guid: 3d160f362188fc14b8001aae1e0122db,
+    type: 3}
+  m_PrefabInstance: {fileID: 4443120858830926423}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1956297488
 GameObject:
   m_ObjectHideFlags: 0
@@ -8987,11 +9004,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1098779972}
     m_Modifications:
+    - target: {fileID: 3512518033010143438, guid: 3d160f362188fc14b8001aae1e0122db,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5307957052909876872, guid: 3d160f362188fc14b8001aae1e0122db,
         type: 3}
       propertyPath: m_Name
       value: RoboDeEsgrima
       objectReference: {fileID: 0}
+    - target: {fileID: 6775447044007791493, guid: 3d160f362188fc14b8001aae1e0122db,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1935038959}
     - target: {fileID: 7634272020998200023, guid: 3d160f362188fc14b8001aae1e0122db,
         type: 3}
       propertyPath: m_LocalPosition.x

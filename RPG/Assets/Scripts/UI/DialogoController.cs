@@ -19,6 +19,11 @@ public class DialogoController : MonoBehaviour {
     }
 
     public void StartDialogo(Fala[] falas, System.Action OnDialogoEnd = null) {
+        if (this.falas != null) {
+            HandleDialogoEnd();
+            StopAllCoroutines();
+        }
+
         this.falas = falas;
         index = 0;
 
