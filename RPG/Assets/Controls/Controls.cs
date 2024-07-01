@@ -317,24 +317,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Itens"",
-                    ""type"": ""Button"",
-                    ""id"": ""34a1190f-7f26-4947-877d-1ddcadaad9c0"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Pause"",
-                    ""type"": ""Button"",
-                    ""id"": ""cf68a194-b05c-4640-b123-00a7be2fd9aa"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Exit"",
                     ""type"": ""Button"",
                     ""id"": ""8aeeac94-12c2-48ec-bfe6-a602d36ec131"",
@@ -358,23 +340,23 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f48640a7-e831-4336-b9f7-1a282cad99a2"",
-                    ""path"": ""<Keyboard>/escape"",
+                    ""id"": ""90ff6885-1bb1-4506-8653-1859d53bac9b"",
+                    ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Pause"",
+                    ""action"": ""Exit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""26fd0fe8-3991-41f1-92f7-d2ad6b095e29"",
-                    ""path"": ""<Keyboard>/tab"",
+                    ""id"": ""df0a646e-2c4b-4f2d-b5e7-fe1d8b166b01"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Itens"",
+                    ""action"": ""Exit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -495,6 +477,54 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Dialog"",
+            ""id"": ""d689eaa4-c732-4b06-8306-f72a3d3de31b"",
+            ""actions"": [
+                {
+                    ""name"": ""Itens"",
+                    ""type"": ""Button"",
+                    ""id"": ""9221a2b9-f826-4547-be9c-a94b3dbdb851"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""2cb1c82f-4efc-4f8b-94be-5490406fac05"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""4355bfa7-5ef6-4601-a211-9bb33cbb336d"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Itens"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""54636ed1-b02e-4abd-9b70-87d62727478c"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -516,8 +546,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Interact = m_UI.FindAction("Interact", throwIfNotFound: true);
-        m_UI_Itens = m_UI.FindAction("Itens", throwIfNotFound: true);
-        m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
         m_UI_Exit = m_UI.FindAction("Exit", throwIfNotFound: true);
         // Loja
         m_Loja = asset.FindActionMap("Loja", throwIfNotFound: true);
@@ -528,6 +556,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         // Cheat
         m_Cheat = asset.FindActionMap("Cheat", throwIfNotFound: true);
         m_Cheat_Exit = m_Cheat.FindAction("Exit", throwIfNotFound: true);
+        // Dialog
+        m_Dialog = asset.FindActionMap("Dialog", throwIfNotFound: true);
+        m_Dialog_Itens = m_Dialog.FindAction("Itens", throwIfNotFound: true);
+        m_Dialog_Pause = m_Dialog.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -746,16 +778,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Interact;
-    private readonly InputAction m_UI_Itens;
-    private readonly InputAction m_UI_Pause;
     private readonly InputAction m_UI_Exit;
     public struct UIActions
     {
         private @Controls m_Wrapper;
         public UIActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Interact => m_Wrapper.m_UI_Interact;
-        public InputAction @Itens => m_Wrapper.m_UI_Itens;
-        public InputAction @Pause => m_Wrapper.m_UI_Pause;
         public InputAction @Exit => m_Wrapper.m_UI_Exit;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
@@ -769,12 +797,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
-            @Itens.started += instance.OnItens;
-            @Itens.performed += instance.OnItens;
-            @Itens.canceled += instance.OnItens;
-            @Pause.started += instance.OnPause;
-            @Pause.performed += instance.OnPause;
-            @Pause.canceled += instance.OnPause;
             @Exit.started += instance.OnExit;
             @Exit.performed += instance.OnExit;
             @Exit.canceled += instance.OnExit;
@@ -785,12 +807,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
-            @Itens.started -= instance.OnItens;
-            @Itens.performed -= instance.OnItens;
-            @Itens.canceled -= instance.OnItens;
-            @Pause.started -= instance.OnPause;
-            @Pause.performed -= instance.OnPause;
-            @Pause.canceled -= instance.OnPause;
             @Exit.started -= instance.OnExit;
             @Exit.performed -= instance.OnExit;
             @Exit.canceled -= instance.OnExit;
@@ -927,6 +943,60 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         }
     }
     public CheatActions @Cheat => new CheatActions(this);
+
+    // Dialog
+    private readonly InputActionMap m_Dialog;
+    private List<IDialogActions> m_DialogActionsCallbackInterfaces = new List<IDialogActions>();
+    private readonly InputAction m_Dialog_Itens;
+    private readonly InputAction m_Dialog_Pause;
+    public struct DialogActions
+    {
+        private @Controls m_Wrapper;
+        public DialogActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Itens => m_Wrapper.m_Dialog_Itens;
+        public InputAction @Pause => m_Wrapper.m_Dialog_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_Dialog; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DialogActions set) { return set.Get(); }
+        public void AddCallbacks(IDialogActions instance)
+        {
+            if (instance == null || m_Wrapper.m_DialogActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_DialogActionsCallbackInterfaces.Add(instance);
+            @Itens.started += instance.OnItens;
+            @Itens.performed += instance.OnItens;
+            @Itens.canceled += instance.OnItens;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
+        }
+
+        private void UnregisterCallbacks(IDialogActions instance)
+        {
+            @Itens.started -= instance.OnItens;
+            @Itens.performed -= instance.OnItens;
+            @Itens.canceled -= instance.OnItens;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
+        }
+
+        public void RemoveCallbacks(IDialogActions instance)
+        {
+            if (m_Wrapper.m_DialogActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IDialogActions instance)
+        {
+            foreach (var item in m_Wrapper.m_DialogActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_DialogActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public DialogActions @Dialog => new DialogActions(this);
     public interface IGeneralActions
     {
     }
@@ -946,8 +1016,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     public interface IUIActions
     {
         void OnInteract(InputAction.CallbackContext context);
-        void OnItens(InputAction.CallbackContext context);
-        void OnPause(InputAction.CallbackContext context);
         void OnExit(InputAction.CallbackContext context);
     }
     public interface ILojaActions
@@ -960,5 +1028,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     public interface ICheatActions
     {
         void OnExit(InputAction.CallbackContext context);
+    }
+    public interface IDialogActions
+    {
+        void OnItens(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

@@ -37,7 +37,7 @@ public class VitrineSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     }
 
     public void HandleEsgotado() {
-        if (slot.quantidade <= 0 && !slot.infinito) {
+        if (slot.quantidade <= 0 && !slot.infinito && gameObject != null) {
             foreach (Transform child in transform) {
                 Destroy(child.gameObject);
             }

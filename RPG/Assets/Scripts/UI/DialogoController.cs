@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class DialogoController : MonoBehaviour {
     public Text texto;
@@ -27,7 +28,8 @@ public class DialogoController : MonoBehaviour {
         this.falas = falas;
         index = 0;
 
-        GameManager.instance.controls.UI.Interact.performed += ctx => Proximo();
+        GameManager.instance.controls.UI.Interact.performed += Proximo;
+        GameManager.instance.controls.Dialog.Enable();
         GameManager.instance.SetState(GameState.Dialog);
 
         this.OnDialogoEnd += OnDialogoEnd;
@@ -75,6 +77,10 @@ public class DialogoController : MonoBehaviour {
         ShowFala();
     }
 
+    void Proximo(InputAction.CallbackContext ctx) {
+        Proximo();
+    }
+
     void HandleDialogoEnd() {
         OnDialogoEnd?.Invoke();
         OnDialogoEnd = null;
@@ -84,7 +90,9 @@ public class DialogoController : MonoBehaviour {
 
         texto.text = "";
 
-        GameManager.instance.controls.UI.Interact.performed -= ctx => Proximo();
+        GameManager.instance.controls.UI.Interact.performed -= Proximo;
+        GameManager.instance.controls.Dialog.Disable();
+
         GameManager.instance.SetState(GameState.Playing);
     }
 }

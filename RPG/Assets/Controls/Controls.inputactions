@@ -295,24 +295,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Itens",
-                    "type": "Button",
-                    "id": "34a1190f-7f26-4947-877d-1ddcadaad9c0",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "cf68a194-b05c-4640-b123-00a7be2fd9aa",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Exit",
                     "type": "Button",
                     "id": "8aeeac94-12c2-48ec-bfe6-a602d36ec131",
@@ -336,23 +318,23 @@
                 },
                 {
                     "name": "",
-                    "id": "f48640a7-e831-4336-b9f7-1a282cad99a2",
-                    "path": "<Keyboard>/escape",
+                    "id": "90ff6885-1bb1-4506-8653-1859d53bac9b",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Pause",
+                    "action": "Exit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "26fd0fe8-3991-41f1-92f7-d2ad6b095e29",
-                    "path": "<Keyboard>/tab",
+                    "id": "df0a646e-2c4b-4f2d-b5e7-fe1d8b166b01",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Itens",
+                    "action": "Exit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -469,6 +451,54 @@
                     "processors": "",
                     "groups": "",
                     "action": "Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Dialog",
+            "id": "d689eaa4-c732-4b06-8306-f72a3d3de31b",
+            "actions": [
+                {
+                    "name": "Itens",
+                    "type": "Button",
+                    "id": "9221a2b9-f826-4547-be9c-a94b3dbdb851",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "2cb1c82f-4efc-4f8b-94be-5490406fac05",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4355bfa7-5ef6-4601-a211-9bb33cbb336d",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Itens",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "54636ed1-b02e-4abd-9b70-87d62727478c",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -101,7 +101,10 @@ public class LojaController : MonoBehaviour, Saveable {
                 int quantidade = obj.GetField(slot.item.nome).intValue;
                 slot.quantidade = quantidade;
 
-                if (quantidade <= 0) vitrine.HandleEsgotado();
+                if (quantidade <= 0) {
+                    if (vitrine != null && vitrine.gameObject != null)
+                        vitrine.HandleEsgotado();
+                }
             }
         }
     }
