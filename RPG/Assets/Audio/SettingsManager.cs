@@ -27,7 +27,7 @@ public class SettingsManager : MonoBehaviour
     public float senseY;
 
     public GameObject checkBoxX, checkBoxY;
-    public void Awake()
+    public void Start()
     {
         if(instance == null)
         {
