@@ -12,8 +12,8 @@ public class NukeNpc : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-                Debug.Log("bazinga");
-                Destroy(npc);
+            Debug.Log("bazinga");
+            Destroy(npc);
             NextNpc.SetActive(true);
         }
             

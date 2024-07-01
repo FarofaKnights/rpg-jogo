@@ -43,6 +43,9 @@ public class UIController : MonoBehaviour {
         GameManager.instance.controls.Loja.Pause.performed += ShowConfiguracoes;
         GameManager.instance.controls.Loja.Itens.performed += ShowEquipamentos;
 
+        GameManager.instance.controls.UI.Pause.performed += ShowConfiguracoes;
+        GameManager.instance.controls.UI.Itens.performed += ShowEquipamentos;
+
         HideMenu();
 
         if (GameManager.instance.IsLoading) {
@@ -146,6 +149,10 @@ public class UIController : MonoBehaviour {
 
     void OnDestroy() {
         GameManager.instance.controls.Player.Pause.performed -= ShowConfiguracoes;
+        GameManager.instance.controls.Loja.Pause.performed -= ShowConfiguracoes;
+        GameManager.instance.controls.UI.Pause.performed -= ShowConfiguracoes;
+        GameManager.instance.controls.Loja.Itens.performed -= ShowEquipamentos;
         GameManager.instance.controls.Player.Itens.performed -= ShowEquipamentos;
+        GameManager.instance.controls.UI.Itens.performed -= ShowEquipamentos;
     }
 }
