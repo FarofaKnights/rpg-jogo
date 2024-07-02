@@ -17,7 +17,6 @@ public class Player : MonoBehaviour, Saveable {
     [Header("Atributos do Jogador")]
     public StatsController stats;
     public AtributosController atributos;
-    public float moveSpeed = 3f;
 
     [Header("Inventario")]
     public InventarioManager inventario;
