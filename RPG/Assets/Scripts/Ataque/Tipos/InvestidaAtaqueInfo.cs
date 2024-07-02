@@ -6,7 +6,6 @@ using UnityEngine;
 public class InvestidaAtaqueInfo : AtaqueInfo {
     public float velocidade;
     public float raio;
-    public int dano;
 
     public override AtaqueInstance Atacar(IAtacador atacador) {
         return InvestidaAtaqueInfo.Atacar(this, atacador);

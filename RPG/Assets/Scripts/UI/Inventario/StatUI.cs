@@ -7,13 +7,15 @@ public class StatUI : MonoBehaviour {
     public Image icon;
     public Image[] indicadores;
     public Color desativado, ativado;
+    bool alreadySetted = false;
 
     void Start() {
         icon.color = ativado;
-        SetStat(1);
+        if (!alreadySetted) SetStat(1);
     }
 
     public void SetStat(int ativos) {
+        alreadySetted = true;
         for (int i = 0; i < indicadores.Length; i++) {
             if (i < ativos) {
                 indicadores[i].color = ativado;

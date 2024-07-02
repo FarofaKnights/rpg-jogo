@@ -14,4 +14,5 @@ public interface IAtributo<T> {
     void Reset();
     T Get();
     T GetMax();
+    T GetMaxBase();
 }

@@ -4,10 +4,13 @@ using UnityEngine;
 using Defective.JSON;
 
 [RequireComponent(typeof(PossuiVida))]
-public class Player : MonoBehaviour, IAtacador, Saveable {
+public class Player : MonoBehaviour, Saveable {
+
+    // Singleton
     public static Player instance;
     public static StatsController Stats { get { return instance.stats; } }
     public static AtributosController Atributos { get { return instance.atributos; } }
+    public static InventarioManager Inventario { get { return instance.inventario; } }
 
 
 
@@ -21,7 +24,6 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
     public ItemData[] itensJaPossuidos;
     [HideInInspector] public Arma arma;
     [HideInInspector] public Braco braco;
-    public Transform mao, bracoHolder, pe, saidaTiro;
 
     // State Machine
     public StateMachine<IPlayerState> stateMachine;
@@ -29,14 +31,13 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
     public PlayerAttackState attackState;
 
     [Header("Referências")]
-    public Camera cam;
-    public float cameraSpeed = 10f;
-
-    PossuiVida vidaController;
     public Animator animator;
+    public Transform mao, bracoHolder, pe, saidaTiro;
     public GameObject meio;
+    PossuiVida vidaController;
 
     void Awake() {
+        // Singleton
         if (instance == null) instance = this;
         else {
             Destroy(gameObject);
@@ -44,42 +45,34 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
         }
 
         vidaController = GetComponent<PossuiVida>();
-        if (cam == null) cam = Camera.main;
 
+        // Inicializa InventarioManager
         inventario = new InventarioManager();
 
+        // Inicializa AtributosController
         if (atributos == null) atributos = new AtributosController();
         atributos.Initialize();
 
+        // Inicializa StatsController
         if (stats == null) stats = new StatsController(1, 1, 1, 1);
-        else {
-            stats.SetDestreza(1);
-            stats.SetForca(1);
-            stats.SetVida(1);
-            stats.SetCalor(1);
-        }
+        stats.TriggerChange();
     }
 
     void Start() {
-        vidaController.onChange += (vida) => {
-            UIController.HUD.UpdateVida(vida, vidaController.VidaMax);
-        };
-
-        vidaController.onDeath += () => {
-            GameManager.instance.GameOver();
-        };
+        // Define que ao morrer chama o GameOver
+        vidaController.onDeath += () => { GameManager.instance.GameOver(); };
         
-        
-
+        // Inicializa StateMachine
         stateMachine = new StateMachine<IPlayerState>();
         moveState = new PlayerMoveState(this);
         attackState = new PlayerAttackState(this);
-
         stateMachine.SetState(moveState);
 
+        // Define chamada de evento do stats
         stats.OnChange += (string a, int b) => AplicarStats();
         AplicarStats();
 
+        // Seta itens que o player começa com (não usamos isso, mas existe)
         if (itensJaPossuidos != null) {
             foreach (ItemData item in itensJaPossuidos) {
                 if (!inventario.ContainsItem(item)) {
@@ -90,13 +83,13 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
                 }
             }
         }
-
-        UpdateHUD();
     }
 
     void Update() {
+        // O teste do player quantico
         Debug.DrawLine(Vector3.zero, transform.position, Color.red);
 
+        // Não queremos interações extras enquanto o player está atacando (cliques de combo são tratados no próprio estado)
         if (stateMachine.GetCurrentState() == attackState) return;
 
         if (Input.GetMouseButtonDown(0)) {
@@ -118,112 +111,38 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
         stateMachine.Execute();
     }
 
-    public void UpdateHUD() {
-        UIController.HUD.UpdateVida(vidaController.Vida, vidaController.VidaMax);
-        UIController.HUD.SetArmaEquipada(arma);
-    }
-
+    // Atualiza os atributos baseado no valor dos Stats
     public void AplicarStats() {
         IAtributo<float> vida = atributos.vida;
-        IAtributo<float> calor = atributos.calor;
-        Debug.Log(vida);
-        float adicionalVida = stats.GetAdicionalVida(vida.GetMax());
-
-        vida.AddMax(adicionalVida);
+        float adicionalVida = stats.GetAdicionalVida(vida.GetMaxBase());
+        vida.SetMax(vida.GetMaxBase() + adicionalVida);
         if (vida.Get() < vida.GetMax()) vida.Add(adicionalVida);
 
-
-        float adicionalCalor = stats.GetAdicionalCalor(calor.GetMax());
-
-        calor.AddMax(adicionalCalor);
+        
+        IAtributo<float> calor = atributos.calor;
+        float adicionalCalor = stats.GetAdicionalCalor(calor.GetMaxBase());
+        calor.SetMax(calor.GetMaxBase() + adicionalCalor);
         if (calor.Get() < calor.GetMax()) calor.Add(adicionalCalor);
     }
 
     
-    #region Itens e Equipamentos
+    // Coletar item ao passar por cima
     void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Item")) {
-            // TEMPORARIO
-            ItemDropado itemDropado = other.GetComponent<ItemDropado>();
-            Item item = itemDropado.item;
-            int quant = itemDropado.quantidade; // Lembrar de adicionar quantidade no inventário XD
-
-            if (item != null) {
-                if (inventario.AddItem(item.data)) {
-                    Destroy(other.gameObject);
-
-                    // Se tiver vazio, equipa arma ou braço
-                    if ((item.data.tipo == ItemData.Tipo.Arma && arma == null) || (item.data.tipo == ItemData.Tipo.Braco && braco == null)) {
-                        inventario.HandleSlotClick(item.data);
-                    }
-                }          
-            }
-        } else if (other.GetComponent<PecaDropado>() != null) {
-            PecaDropado peca = other.GetComponent<PecaDropado>();
-            int quant = peca.quantidade;
-            atributos.pecas.Add(quant);
-            Destroy(other.gameObject);
+        if (other.GetComponent<Drop>() != null) {
+            Drop drop = other.GetComponent<Drop>();
+            drop.OnCollect();
         }
     }
 
-    public void EquiparArma(Arma arma) {
-        if (this.arma != null) DesequiparArma();
-        this.arma = arma;
-        arma.transform.SetParent(mao);
-        arma.transform.localPosition = Vector3.zero;
-        arma.transform.localRotation = Quaternion.identity;
-        arma.onAttackEnd += OnAttackEnded;
-
-        UIController.equipamentos.RefreshUI();
-        UIController.HUD.SetArmaEquipada(arma);
+    // Teleporta player para uma posição (pois o CharacterController sobreescreve o transform)
+    public void TeleportTo(Vector3 position) {
+        CharacterController controller = GetComponent<CharacterController>();
+        controller.enabled = false;
+        transform.position = position;
+        controller.enabled = true;
     }
 
-    public void DesequiparArma() {
-        if (arma == null) return;
-
-        arma.onAttackEnd -= OnAttackEnded;
-        Destroy(arma.gameObject);
-        arma = null;
-        UIController.equipamentos.RefreshUI();
-        UIController.HUD.SetArmaEquipada(null);
-
-        if (stateMachine.GetCurrentState() == attackState) {
-            stateMachine.SetState(moveState);
-        }
-    }
-
-    public void EquiparBraco(Braco braco) {
-        if (this.braco != null) DesequiparBraco();
-        this.braco = braco;
-        braco.transform.SetParent(bracoHolder);
-        braco.transform.localPosition = Vector3.zero;
-        braco.transform.localRotation = Quaternion.identity;
-
-        UIController.equipamentos.RefreshUI();
-    }
-
-    public void DesequiparBraco() {
-        if (braco == null) return;
-
-        Destroy(braco.gameObject);
-        braco = null;
-
-        UIController.equipamentos.RefreshUI();
-    }
-
-    #endregion
-
-    void OnAttackEnded() {}
-
-    public Animator GetAnimator() { return animator; }
-
-    public GameObject GetAttackHolder() { return meio; }
-    public virtual void OnAtaqueHit(GameObject inimigo) { }
-    public string AttackTriggerName() { return "Ataque"; }
-    public GameObject GetSelf() { return gameObject; }
-    public TriggerMode GetTriggerMode() { return TriggerMode.Trigger; }
-
-
+    #region Saveable implementation
 
     public JSONObject Save() {
         JSONObject obj = new JSONObject();
@@ -246,8 +165,6 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
             obj.AddField("braco", bracoData.ToSaveString());
         }
 
-        // Salvar inventário, arma e braço
-
         return obj;
     }
 
@@ -261,6 +178,7 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
         atributos.pecas.Set(pecas);
     }
 
+    // Load de equipamentos ocorre separadamente, após o load do inventário
     public void LoadEquipados(JSONObject obj) {
         if (obj.HasField("arma")) {
             string armaString = obj.GetField("arma").stringValue;
@@ -275,11 +193,6 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
         }
     }
 
-    public void TeleportTo(Vector3 position) {
-        // Character Controller won't let you teleport the player
-        CharacterController controller = GetComponent<CharacterController>();
-        controller.enabled = false;
-        transform.position = position;
-        controller.enabled = true;
-    }
+    #endregion
+
 }

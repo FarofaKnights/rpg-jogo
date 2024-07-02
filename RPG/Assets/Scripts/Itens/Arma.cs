@@ -12,11 +12,11 @@ public class Arma : Equipamento, IAtacador {
     public System.Action onAttackHit, onAttackEnd;
     
     public override void Equip() {
-        Player.instance.EquiparArma(this);
+        Player.Inventario.EquiparArma(this);
     }
 
     public override void Unequip() {
-        Player.instance.DesequiparArma();
+        Player.Inventario.DesequiparArma();
     }
 
     public virtual AtaqueInstance Atacar(int index = -1) {

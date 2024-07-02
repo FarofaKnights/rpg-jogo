@@ -25,6 +25,10 @@ public class VidaAtributo: IAtributo<float> {
         return vida.VidaMax;
     }
 
+    public float GetMaxBase() {
+        return vidaMaxBase;
+    }
+
     public void Set(float valor) {
         vida.SobreescreverVida(valor);
     }

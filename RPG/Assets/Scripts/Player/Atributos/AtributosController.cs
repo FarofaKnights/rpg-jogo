@@ -5,8 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class AtributosController {
     public IAtributo<float> vida;
-    public IAtributo<float> calor;
-    public IAtributo<int> pecas;
+    public AtributoFloat calor;
+    public AtributoInt pecas;
     bool inicializado = false;
 
     public void Initialize() {
@@ -14,7 +14,7 @@ public class AtributosController {
         inicializado = true;
 
         if (calor == null) calor = new AtributoFloat(100, 100);
-        if (pecas == null) pecas = new AtributoInt(100, 100);
+        if (pecas == null) pecas = new AtributoInt(100);
         if (vida == null) vida = Player.instance.GetComponent<PossuiVida>().GetVidaAtributo();
 
         calor.OnChange += UIController.HUD.UpdateCalor;

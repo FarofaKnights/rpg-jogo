@@ -20,10 +20,14 @@ public class StatsController {
         this.calor = calor;
     }
 
-    void TriggerChange(string stat, int value) {
+    public void TriggerChange(string stat, int value) {
         if (OnChange != null) {
             OnChange(stat, value);
         }
+    }
+
+    public void TriggerChange() {
+        ForEach(TriggerChange);
     }
 
     public void AddDestreza(int destreza) {

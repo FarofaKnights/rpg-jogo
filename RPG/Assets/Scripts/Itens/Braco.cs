@@ -19,10 +19,10 @@ public abstract class Braco : Equipamento {
     protected abstract void AtivarEfeito();
 
     public override void Equip() {
-        Player.instance.EquiparBraco(this);
+        Player.Inventario.EquiparBraco(this);
     }
 
     public override void Unequip() {
-        Player.instance.DesequiparBraco();
+        Player.Inventario.DesequiparBraco();
     }
 }

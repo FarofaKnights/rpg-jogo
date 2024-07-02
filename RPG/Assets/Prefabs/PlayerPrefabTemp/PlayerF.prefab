@@ -364,30 +364,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ede0a0a4e89280449c6a4267feddef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  calor: 75
-  calorMax: 100
   stats:
-    destreza: 0
-    forca: 0
-    vida: 0
-    calor: 0
+    destreza: 1
+    forca: 1
+    vida: 1
+    calor: 1
     forcaPercent: 0.1
     vidaPercent: 0.15
     calorPercent: 0.15
-  pecas: 10
+  atributos:
+    calor:
+      valor: 100
+      valorMaximo: 100
+      valorMaximoBase: 100
+      hasMaximo: 1
+    pecas:
+      valor: 100
+      valorMaximo: 0
+      valorMaximoBase: 0
+      hasMaximo: 0
   moveSpeed: 5
-  vidaMaxBase: 100
-  calorMaxBase: 100
-  itensJaPossuidos: []
+  itensJaPossuidos:
+  - {fileID: 11400000, guid: 92ec69fe2bc010b4887ed953c2195435, type: 2}
   arma: {fileID: 0}
   braco: {fileID: 0}
+  animator: {fileID: 6071982421793629400}
   mao: {fileID: 5597034594391687238}
   bracoHolder: {fileID: 1437717485715614342}
   pe: {fileID: 7230316264495275320}
   saidaTiro: {fileID: 4306946005866997567}
-  cam: {fileID: 0}
-  cameraSpeed: 10
-  animator: {fileID: 6071982421793629400}
   meio: {fileID: 7903636412551551439}
 --- !u!54 &7987990336222793849
 Rigidbody:

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class AtributoInt: IAtributo<int> {
     public System.Action<int,int> OnChange { get; set; }
 
@@ -16,7 +17,7 @@ public class AtributoInt: IAtributo<int> {
         this.valorMaximoBase = valorMaximo;
     }
 
-    public AtributoInt(string nome, int valor) {
+    public AtributoInt(int valor) {
         this.valor = valor;
         this.hasMaximo = false;
     }
@@ -27,6 +28,10 @@ public class AtributoInt: IAtributo<int> {
 
     public int GetMax() {
         return valorMaximo;
+    }
+
+    public int GetMaxBase() {
+        return valorMaximoBase;
     }
 
     public void Set(int valor) {
