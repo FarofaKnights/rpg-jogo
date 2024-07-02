@@ -33,8 +33,8 @@ public class LojaController : MonoBehaviour, Saveable {
         if (slot.slot.quantidade <= 0 && !slot.slot.infinito) return;
 
         int preco = slot.slot.preco;
-        if (Player.instance.HasPecas(preco)) {
-            Player.instance.RemovePecas(preco);
+        if (Player.Atributos.pecas.Get() >= preco){
+            Player.Atributos.pecas.Sub(preco);
             Player.instance.inventario.AddItem(slot.slot.item);
             slot.slot.RemoveItem();
         }

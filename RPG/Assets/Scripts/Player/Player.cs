@@ -6,16 +6,15 @@ using Defective.JSON;
 [RequireComponent(typeof(PossuiVida))]
 public class Player : MonoBehaviour, IAtacador, Saveable {
     public static Player instance;
+    public static StatsController Stats { get { return instance.stats; } }
+    public static AtributosController Atributos { get { return instance.atributos; } }
+
+
 
     [Header("Atributos do Jogador")]
-    public float calor;
-    public float calorMax;
     public StatsController stats;
-    public int pecas = 0;
+    public AtributosController atributos;
     public float moveSpeed = 3f;
-
-    public float vidaMaxBase = 100;
-    public float calorMaxBase = 100;
 
     [Header("Inventario")]
     public InventarioManager inventario;
@@ -48,6 +47,9 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
         if (cam == null) cam = Camera.main;
 
         inventario = new InventarioManager();
+
+        if (atributos == null) atributos = new AtributosController();
+        atributos.Initialize();
 
         if (stats == null) stats = new StatsController(1, 1, 1, 1);
         else {
@@ -118,67 +120,23 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
 
     public void UpdateHUD() {
         UIController.HUD.UpdateVida(vidaController.Vida, vidaController.VidaMax);
-        UIController.HUD.UpdateCalor(calor, calorMax);
-        UIController.HUD.UpdatePecas(pecas);
         UIController.HUD.SetArmaEquipada(arma);
     }
 
-    #region Stats
-    public void TomarDano(int danoTomado) {
-        GetComponent<PossuiVida>().LevarDano(danoTomado);
-    }
-
-    public void CurarVida(int cura) {
-        GetComponent<PossuiVida>().Curar(cura);
-    }
-
-    public void AumentarCalor(int calor) {
-        this.calor += calor;
-        if (this.calor > calorMax) this.calor = calorMax;
-
-        UIController.HUD.UpdateCalor(this.calor, calorMax);
-    }
-
-    public void SobreescreverCalor(int calor) {
-        this.calor = calor;
-        UIController.HUD.UpdateCalor(this.calor, calorMax);
-    }
-
-    public void DiminuirCalor(int calor) {
-        this.calor -= calor;
-        if (this.calor < 0) this.calor = 0;
-
-        UIController.HUD.UpdateCalor(this.calor, calorMax);
-    }
-    #endregion
-
-    public void AddPecas(int pecas) {
-        this.pecas += pecas;
-        UIController.HUD.UpdatePecas(this.pecas);
-    }
-
-    public void RemovePecas(int pecas) {
-        this.pecas -= pecas;
-        UIController.HUD.UpdatePecas(this.pecas);
-    }
-
-    public bool HasPecas(int pecas) {
-        return this.pecas >= pecas;
-    }
-
     public void AplicarStats() {
-        PossuiVida vida = GetComponent<PossuiVida>();
+        IAtributo<float> vida = atributos.vida;
+        IAtributo<float> calor = atributos.calor;
+        Debug.Log(vida);
+        float adicionalVida = stats.GetAdicionalVida(vida.GetMax());
 
-        float adicionalVida = stats.GetAdicionalVida(vidaMaxBase);
-        vida.SetarVidaMax(vidaMaxBase + adicionalVida);
-        if (vida.Vida < vida.VidaMax) vida.Curar(adicionalVida);
+        vida.AddMax(adicionalVida);
+        if (vida.Get() < vida.GetMax()) vida.Add(adicionalVida);
 
-        float adicionalCalor = stats.GetAdicionalCalor(calorMaxBase);
-        calorMax = calorMaxBase + adicionalCalor;
-        if (calor < calorMax) {
-            calor += adicionalCalor;
-            if (calor > calorMax) calor = calorMax;
-        }
+
+        float adicionalCalor = stats.GetAdicionalCalor(calor.GetMax());
+
+        calor.AddMax(adicionalCalor);
+        if (calor.Get() < calor.GetMax()) calor.Add(adicionalCalor);
     }
 
     
@@ -203,7 +161,7 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
         } else if (other.GetComponent<PecaDropado>() != null) {
             PecaDropado peca = other.GetComponent<PecaDropado>();
             int quant = peca.quantidade;
-            AddPecas(quant);
+            atributos.pecas.Add(quant);
             Destroy(other.gameObject);
         }
     }
@@ -275,6 +233,7 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
         obj.AddField("vida", stats.vida);
         obj.AddField("calor", stats.calor);
 
+        int pecas = atributos.pecas.Get();
         obj.AddField("pecas", pecas);
 
         if (arma != null) {
@@ -298,8 +257,8 @@ public class Player : MonoBehaviour, IAtacador, Saveable {
         stats.SetVida(obj.GetField("vida").intValue);
         stats.SetCalor(obj.GetField("calor").intValue);
 
-        pecas = obj.GetField("pecas").intValue;
-        UIController.HUD.UpdatePecas(pecas);
+        int pecas = obj.GetField("pecas").intValue;
+        atributos.pecas.Set(pecas);
     }
 
     public void LoadEquipados(JSONObject obj) {

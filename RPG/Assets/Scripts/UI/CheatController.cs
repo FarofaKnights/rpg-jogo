@@ -168,24 +168,25 @@ public class CheatController : MonoBehaviour {
 
     public void SetarVidaInfinita() {
         Player p = Player.instance;
-        PossuiVida vida = p.GetComponent<PossuiVida>();
-        vida.SobreescreverVida(9999);
+        p.atributos.vida.SetMax(9999);
+        p.atributos.vida.Set(9999);
     }
 
     public void SetarCalorInfinito() {
         Player p = Player.instance;
-        p.SobreescreverCalor(9999);
+        p.atributos.calor.SetMax(9999);
+        p.atributos.calor.Set(9999);
     }
 
     public void SetarPecaInfinita() {
         Player p = Player.instance;
-        p.AddPecas(9999);
+        p.atributos.pecas.SetMax(9999);
+        p.atributos.pecas.Set(9999);
     }
 
     public void VidaToMaxima() {
         Player p = Player.instance;
-        PossuiVida vida = p.GetComponent<PossuiVida>();
-        vida.CurarTotalmente();
+        p.atributos.vida.Set(p.atributos.vida.GetMax());
     }
 
     public void SetarVariavel() {

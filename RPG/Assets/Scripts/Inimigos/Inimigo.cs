@@ -64,7 +64,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
         };
 
         vidaController.onDeath += () => {
-            Player.instance.AddPecas(recompensaPecas);
+            Player.Atributos.pecas.Add(recompensaPecas);
         };
     }
 
