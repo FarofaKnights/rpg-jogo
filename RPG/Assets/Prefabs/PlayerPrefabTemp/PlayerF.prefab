@@ -44,7 +44,7 @@ GameObject:
   m_Name: Look
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1654965251235135976
@@ -251,16 +251,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8205832533739816991}
-  - component: {fileID: 1223781752404852330}
   - component: {fileID: 7813003472403421153}
   - component: {fileID: 6120335367055594672}
   - component: {fileID: 5202955268677309984}
-  - component: {fileID: 7987990336222793849}
+  - component: {fileID: 7157283277772995028}
   m_Layer: 0
   m_Name: PlayerF
   m_TagString: Player
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8205832533739816991
@@ -285,33 +284,6 @@ Transform:
   - {fileID: 7592569070823635366}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1223781752404852330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7047949831012241440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad44bb96ac24cd84cbb8163c4c272a4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isWalkState: 1
-  walkSpeed: 2
-  runSpeed: 6
-  rollSpeed: 8
-  gravity: -3
-  rollDuration: 1
-  groundCheckDistance: 0.4
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  rotationSpeed: 5
-  backRotationSpeed: 6
-  lockOnRadius: 20
-  lockOnKey: 102
-  lockedTarget: {fileID: 0}
 --- !u!143 &7813003472403421153
 CharacterController:
   m_ObjectHideFlags: 0
@@ -386,13 +358,25 @@ MonoBehaviour:
   itensJaPossuidos: []
   arma: {fileID: 0}
   braco: {fileID: 0}
+  informacoesMovimentacao:
+    walkSpeed: 3
+    runSpeed: 8
+    rollSpeed: 12
+    gravity: -3
+    rollDuration: 0.5
+    groundLayer:
+      serializedVersion: 2
+      m_Bits: 8
+    rotationSpeed: 5
+    backRotationSpeed: 6
+    lockOnKey: 271
   animator: {fileID: 6071982421793629400}
   mao: {fileID: 5597034594391687238}
   bracoHolder: {fileID: 1437717485715614342}
   pe: {fileID: 7230316264495275320}
   saidaTiro: {fileID: 4306946005866997567}
   meio: {fileID: 7903636412551551439}
---- !u!54 &7987990336222793849
+--- !u!54 &7157283277772995028
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -400,7 +384,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7047949831012241440}
   serializedVersion: 4
-  m_Mass: 85
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -414,10 +398,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &7400705986362963987
 GameObject:
@@ -494,7 +478,7 @@ GameObject:
   m_Name: Meio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7201780922600307057

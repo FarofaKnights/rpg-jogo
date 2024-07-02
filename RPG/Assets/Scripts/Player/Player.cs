@@ -13,7 +13,6 @@ public class Player : MonoBehaviour, Saveable {
     public static InventarioManager Inventario { get { return instance.inventario; } }
 
 
-
     [Header("Atributos do Jogador")]
     public StatsController stats;
     public AtributosController atributos;
@@ -23,6 +22,9 @@ public class Player : MonoBehaviour, Saveable {
     public ItemData[] itensJaPossuidos;
     [HideInInspector] public Arma arma;
     [HideInInspector] public Braco braco;
+
+    [Header("Movimentacao")]
+    public PlayerMovementInfo informacoesMovimentacao;
 
     // State Machine
     public StateMachine<IPlayerState> stateMachine;
@@ -44,7 +46,9 @@ public class Player : MonoBehaviour, Saveable {
         }
 
         vidaController = GetComponent<PossuiVida>();
+    }
 
+    void Start() {
         // Inicializa InventarioManager
         inventario = new InventarioManager();
 
@@ -55,17 +59,15 @@ public class Player : MonoBehaviour, Saveable {
         // Inicializa StatsController
         if (stats == null) stats = new StatsController(1, 1, 1, 1);
         stats.TriggerChange();
-    }
-
-    void Start() {
-        // Define que ao morrer chama o GameOver
-        vidaController.onDeath += () => { GameManager.instance.GameOver(); };
         
         // Inicializa StateMachine
         stateMachine = new StateMachine<IPlayerState>();
         moveState = new PlayerMoveState(this);
         attackState = new PlayerAttackState(this);
         stateMachine.SetState(moveState);
+
+        // Define que ao morrer chama o GameOver
+        vidaController.onDeath += () => { GameManager.instance.GameOver(); };
 
         // Define chamada de evento do stats
         stats.OnChange += (string a, int b) => AplicarStats();

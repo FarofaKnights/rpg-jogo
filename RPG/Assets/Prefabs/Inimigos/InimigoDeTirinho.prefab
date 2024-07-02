@@ -123,7 +123,6 @@ GameObject:
   - component: {fileID: 7010711667479195382}
   - component: {fileID: 8847652326344202906}
   - component: {fileID: 5691805033642189490}
-  - component: {fileID: 4222187457868748700}
   - component: {fileID: -1594022482454797580}
   m_Layer: 0
   m_Name: InimigoDeTirinho
@@ -165,6 +164,7 @@ MonoBehaviour:
   controller: {fileID: 8847652326344202906}
   animator: {fileID: 3781372156760399587}
   vidaText: {fileID: 6177017336324814990}
+  meio: {fileID: 2690378876860070827}
   rangeProcurando: 10
   rangePerderTarget: 15
   minRangeProximidade: 8
@@ -177,6 +177,8 @@ MonoBehaviour:
   getHitParticles: {fileID: 4938373727297579305, guid: 2e6877b1152892342883c6741da4c817,
     type: 3}
   AlertSound: {fileID: -1594022482454797580}
+  attackSound: {fileID: 0}
+  detectado: 0
   ataque: {fileID: 11400000, guid: 5b745df51bf030942b74e5032fed9130, type: 2}
   attackHitboxHolder: {fileID: 2690378876860070827}
 --- !u!114 &7010711667479195382
@@ -241,19 +243,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &4222187457868748700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5859586011234399684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1f9ccb94b3206645b95f0bfc013a99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lockOnTransform: {fileID: 424087190138014655}
 --- !u!82 &-1594022482454797580
 AudioSource:
   m_ObjectHideFlags: 0

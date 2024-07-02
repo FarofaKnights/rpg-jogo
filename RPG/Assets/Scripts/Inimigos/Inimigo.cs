@@ -9,7 +9,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public CharacterController controller;
     public Animator animator;
     public Text vidaText;
-
+    public GameObject meio;
 
     [Header("Configurações IA")]
     public float rangeProcurando = 5f; // Range que sai do Idle pro Walk

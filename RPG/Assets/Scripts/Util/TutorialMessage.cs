@@ -19,8 +19,9 @@ public class TutorialMessage : MonoBehaviour {
         UIController.dialogo.StartDialogo(falas, () => {
             mostrado = false;
 
-            if (gameObject != null)
+            if (gameObject != null) {
                 Destroy(gameObject);
+            }
         });
     }
 
@@ -28,6 +29,12 @@ public class TutorialMessage : MonoBehaviour {
         if (other.CompareTag("Player")) {
             if (mostrado) return;
             ShowMessage();
+        }
+    }
+
+    void OnDestroy() {
+        if (mostrado) {
+            UIController.dialogo.RemoveDialogoEndEvent();
         }
     }
 }

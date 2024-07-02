@@ -18,8 +18,11 @@ public class LockOnTarget : MonoBehaviour
     private bool isLockedOn = false;
     private Vector3 originalFocusPointLocalPosition;
 
-    void Start()
-    {
+    void Start() {
+        if (player == null)  player = Player.instance.transform;
+        if (focusPoint == null) focusPoint = player.Find("Look");
+        if (defaultFocusParent == null) defaultFocusParent = player.Find("LookInicial");
+        
         freeLookCamera = GetComponent<CinemachineFreeLook>();
         originalFocusPointLocalPosition = focusPoint.localPosition;
     }

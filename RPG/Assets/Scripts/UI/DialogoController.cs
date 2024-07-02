@@ -95,4 +95,8 @@ public class DialogoController : MonoBehaviour {
 
         GameManager.instance.SetState(GameState.Playing);
     }
+
+    public void RemoveDialogoEndEvent() {
+        OnDialogoEnd = null;
+    }
 }

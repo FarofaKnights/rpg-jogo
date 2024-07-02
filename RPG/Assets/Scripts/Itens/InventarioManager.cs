@@ -21,6 +21,11 @@ public class InventarioManager : IInventario, Saveable {
         bracos.onItemChange += HandleItemChange;
         resto.onItemChange += HandleItemChange;
 
+        Player.instance.StartCoroutine(SkipOneStartFrame());
+    }
+
+    IEnumerator SkipOneStartFrame() {
+        yield return null;
         UIController.HUD.SetArmaEquipada(Player.instance.arma);
     }
 
