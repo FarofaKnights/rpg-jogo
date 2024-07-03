@@ -196,4 +196,9 @@ public class Player : MonoBehaviour, Saveable {
 
     #endregion
 
+    // O Ataque pode ocorrer de mexer o player (isso acontece), e aqui nós tratamos o movimento
+    public void MoveWithAttack(float step, float progress) {
+        Vector3 move = transform.forward * step;
+        GetComponent<CharacterController>().Move(move);
+    }
 }

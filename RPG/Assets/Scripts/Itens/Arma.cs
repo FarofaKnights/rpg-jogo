@@ -48,6 +48,7 @@ public class Arma : Equipamento, IAtacador {
 
     public GameObject GetSelf() { return gameObject; }
     public TriggerMode GetTriggerMode() { return TriggerMode.Trigger; }
+    public void MoveWithAttack(float step, float progress) { Player.instance. MoveWithAttack(step, progress); }
 
 
     // Quando o ataque da arma colide com um inimigo

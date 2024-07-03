@@ -16,6 +16,7 @@ public class AtaqueInstance {
 
     bool podeCancelar = false;
     int frameCounter = 0;
+    int totalFrameCounter = 0;
 
     public virtual void OnEnter() { }
     public virtual void OnAntecipacao() { }
@@ -42,10 +43,14 @@ public class AtaqueInstance {
                 animator.SetBool(atacador.AttackTriggerName(), true);
             }
         }
-       
-        
-        OnEnter();
 
+        AtaqueAnimationEvents ataqueAnimationEvents = atacador.GetAnimator().gameObject.GetComponent<AtaqueAnimationEvents>();
+        if (ataqueAnimationEvents != null && !info.usarTiming) {
+            ataqueAnimationEvents.ataqueInstance = this;
+        }
+       
+        totalFrameCounter = 0;
+        OnEnter();
         OnStateChange(Estado.Antecipacao);
     }
 
@@ -82,6 +87,15 @@ public class AtaqueInstance {
 
     public void Update() {
         frameCounter++;
+        totalFrameCounter++;
+
+        if (info.moveDuranteAtaque && totalFrameCounter >= info.moveStartFrame && totalFrameCounter <= info.moveEndFrame) {
+            MoveWithAttack();
+        }
+
+        if (!info.usarTiming) {
+            return;
+        }
 
         if (estadoAtual == Estado.Antecipacao) {
             if (frameCounter >= info.antecipacaoFrames) OnStateChange(Estado.Hit);
@@ -91,7 +105,22 @@ public class AtaqueInstance {
             if (frameCounter >= info.recoveryFrames) OnStateChange(Estado.End);
         }
 
+        if (!podeCancelar && info.cancelFrames >= 0 && totalFrameCounter >= info.cancelFrames) {
+            PermitirCancelamento();
+        }
+
         OnUpdate(estadoAtual);
+    }
+
+    public void MoveWithAttack() {
+        if (info.moveDuranteAtaque) {
+            float totalTime = info.moveEndFrame - info.moveStartFrame;
+            float speed = info.moveDistance / totalTime;
+            float progress = totalFrameCounter - info.moveStartFrame;
+            float progressPercent = progress / totalTime;
+
+            atacador.MoveWithAttack(speed, progressPercent);
+        }
     }
 
     public void PermitirCancelamento() {

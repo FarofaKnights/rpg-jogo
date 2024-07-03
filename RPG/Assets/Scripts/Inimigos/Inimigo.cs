@@ -39,7 +39,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public string AttackTriggerName() { return "Attack"; }
     public GameObject GetSelf() { return gameObject; }
     public TriggerMode GetTriggerMode() { return modoDeTriggerDeAnimacao; }
-
+    public void MoveWithAttack(float step, float progress) { /* Ainda não precisamos disso */ }
     
     
 

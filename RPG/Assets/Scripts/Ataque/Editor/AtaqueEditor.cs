@@ -60,7 +60,32 @@ public class AtaqueEditor : Editor {
 
         GUILayout.EndVertical();
 
-        
+        EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Copiar valores do ataque", GUILayout.Width(146));
+            MeleeAtaqueInfo copiarDo = null;
+            copiarDo = (MeleeAtaqueInfo)EditorGUILayout.ObjectField(copiarDo, typeof(MeleeAtaqueInfo), true);
+
+            if (copiarDo != null) {
+                ataque.hitboxOffset = copiarDo.hitboxOffset;
+                ataque.hitboxSize = copiarDo.hitboxSize;
+                ataque.hitboxRotation = copiarDo.hitboxRotation;
+
+                ataque.dano = copiarDo.dano;
+
+                ataque.antecipacaoFrames = copiarDo.antecipacaoFrames;
+                ataque.hitFrames = copiarDo.hitFrames;
+                ataque.recoveryFrames = copiarDo.recoveryFrames;
+                ataque.cancelFrames = copiarDo.cancelFrames;
+
+                ataque.animatorOverride = copiarDo.animatorOverride;
+
+                ataque.moveDuranteAtaque = copiarDo.moveDuranteAtaque;
+                ataque.moveStartFrame = copiarDo.moveStartFrame;
+                ataque.moveEndFrame = copiarDo.moveEndFrame;
+                ataque.moveDistance = copiarDo.moveDistance;
+            }
+            
+        EditorGUILayout.EndHorizontal();
     }
 
     T GetComponentSomewhere<T>(GameObject go) {
