@@ -9,7 +9,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public CharacterController controller;
     public Animator animator;
     public Text vidaText;
-
+    public GameObject meio;
 
     [Header("Configurações IA")]
     public float rangeProcurando = 5f; // Range que sai do Idle pro Walk
@@ -39,7 +39,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public string AttackTriggerName() { return "Attack"; }
     public GameObject GetSelf() { return gameObject; }
     public TriggerMode GetTriggerMode() { return modoDeTriggerDeAnimacao; }
-
+    public void MoveWithAttack(float step, float progress) { /* Ainda não precisamos disso */ }
     
     
 
@@ -64,7 +64,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
         };
 
         vidaController.onDeath += () => {
-            Player.instance.AddPecas(recompensaPecas);
+            Player.Atributos.pecas.Add(recompensaPecas);
         };
     }
 

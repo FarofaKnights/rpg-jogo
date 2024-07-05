@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour {
         controls = new Controls();
         itemManager = new ItemManager();
 
+        transform.SetParent(null);
         DontDestroyOnLoad(gameObject);
     }
 

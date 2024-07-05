@@ -6,6 +6,6 @@ public class PocaoDinheiro : Consumivel {
     public int pecas;
 
     public override void Use() {
-        Player.instance.AddPecas(pecas);
+        Player.Atributos.pecas.Add(pecas);
     }
 }

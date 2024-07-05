@@ -6,6 +6,6 @@ public class PocaoCalor : Consumivel {
     public int calor;
 
     public override void Use() {
-        Player.instance.AumentarCalor(calor);
+        Player.Atributos.calor.Add(calor);
     }
 }

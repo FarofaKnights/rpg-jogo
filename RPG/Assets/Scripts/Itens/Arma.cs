@@ -12,11 +12,11 @@ public class Arma : Equipamento, IAtacador {
     public System.Action onAttackHit, onAttackEnd;
     
     public override void Equip() {
-        Player.instance.EquiparArma(this);
+        Player.Inventario.EquiparArma(this);
     }
 
     public override void Unequip() {
-        Player.instance.DesequiparArma();
+        Player.Inventario.DesequiparArma();
     }
 
     public virtual AtaqueInstance Atacar(int index = -1) {
@@ -48,14 +48,15 @@ public class Arma : Equipamento, IAtacador {
 
     public GameObject GetSelf() { return gameObject; }
     public TriggerMode GetTriggerMode() { return TriggerMode.Trigger; }
+    public void MoveWithAttack(float step, float progress) { Player.instance. MoveWithAttack(step, progress); }
 
 
     // Quando o ataque da arma colide com um inimigo
     public virtual void OnAtaqueHit(GameObject inimigo) {
         if (!inimigo.CompareTag("Inimigo")) return;
 
-        Player.instance.AumentarCalor(10);
-        float adicional = Player.instance.stats.GetAdicionalForca(ataque.dano);
+        Player.Atributos.calor.Add(10);
+        float adicional = Player.Stats.GetAdicionalForca(ataque.dano);
         inimigo.GetComponent<PossuiVida>().LevarDano(ataque.dano + adicional);
     }
 }

@@ -20,6 +20,13 @@ public class InventarioManager : IInventario, Saveable {
         armas.onItemChange += HandleItemChange;
         bracos.onItemChange += HandleItemChange;
         resto.onItemChange += HandleItemChange;
+
+        Player.instance.StartCoroutine(SkipOneStartFrame());
+    }
+
+    IEnumerator SkipOneStartFrame() {
+        yield return null;
+        UIController.HUD.SetArmaEquipada(Player.instance.arma);
     }
 
     void HandleItemChange(ItemData item, int quantidade) {
@@ -37,6 +44,55 @@ public class InventarioManager : IInventario, Saveable {
             return resto;
         }
     }
+
+    public void EquiparArma(Arma arma) {
+        if (Player.instance.arma != null) DesequiparArma();
+
+        Player.instance.arma = arma;
+        arma.transform.SetParent(Player.instance.mao);
+        arma.transform.localPosition = Vector3.zero;
+        arma.transform.localRotation = Quaternion.identity;
+        // arma.onAttackEnd += OnAttackEnded;
+
+        UIController.equipamentos.RefreshUI();
+        UIController.HUD.SetArmaEquipada(arma);
+    }
+
+    public void DesequiparArma() {
+        if (Player.instance.arma == null) return;
+
+        // arma.onAttackEnd -= OnAttackEnded;
+        GameObject.Destroy(Player.instance.arma.gameObject);
+        Player.instance.arma = null;
+        UIController.equipamentos.RefreshUI();
+        UIController.HUD.SetArmaEquipada(null);
+
+        if (Player.instance.stateMachine.GetCurrentState() == Player.instance.attackState) {
+            Player.instance.stateMachine.SetState(Player.instance.moveState);
+        }
+    }
+
+    public void EquiparBraco(Braco braco) {
+        if (Player.instance.braco != null) DesequiparBraco();
+
+        Player.instance.braco = braco;
+        braco.transform.SetParent(Player.instance.bracoHolder);
+        braco.transform.localPosition = Vector3.zero;
+        braco.transform.localRotation = Quaternion.identity;
+
+        UIController.equipamentos.RefreshUI();
+    }
+
+    public void DesequiparBraco() {
+        if (Player.instance.braco == null) return;
+
+        GameObject.Destroy(Player.instance.braco.gameObject);
+        Player.instance.braco = null;
+
+        UIController.equipamentos.RefreshUI();
+    }
+
+    #region IInventario implementation
 
     public bool AddItem(ItemData item, int quantidade = 1) {
         Inventario inventario = GetInventario(item.tipo);
@@ -84,6 +140,10 @@ public class InventarioManager : IInventario, Saveable {
 
         instancia.FazerAcao();
     }
+
+    #endregion
+
+    #region Saveable implementation
     
     public JSONObject Save() {
         JSONObject obj = new JSONObject();
@@ -123,4 +183,7 @@ public class InventarioManager : IInventario, Saveable {
             resto.Load(restoObj);
         }
     }
+
+    #endregion
+
 }

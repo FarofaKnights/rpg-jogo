@@ -6,11 +6,12 @@ public class DeletarSe : MonoBehaviour {
     public CondicaoInfo condicaoInfo;
     Condicao condicao;
 
-    void Start()  {
+    IEnumerator Start()  {
+        yield return null;
+
         condicao = condicaoInfo.GetCondicao();
         condicao.Then(() => {
             Destroy(gameObject);
         });
-
     }
 }

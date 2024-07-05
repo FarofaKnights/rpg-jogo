@@ -9,11 +9,9 @@ public class Caixa : MonoBehaviour
 
     void Start()
     { 
-
-       PossuiVida HP = GetComponent<PossuiVida>();
-
-        HP.onDeath += Morreu;
-
+        PossuiVida HP = GetComponent<PossuiVida>();
+        
+        if (HP != null) HP.onDeath += Morreu;
     }
 
     public void Morreu()

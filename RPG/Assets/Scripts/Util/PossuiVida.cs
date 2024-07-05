@@ -3,6 +3,66 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+public class VidaAtributo: IAtributo<float> {
+    public System.Action<float, float> OnChange { get; set; }
+    PossuiVida vida;
+    float vidaMaxBase;
+
+    public VidaAtributo(PossuiVida vida) {
+        this.vida = vida;
+        vidaMaxBase = vida.VidaMax;
+        
+        vida.onChange += (valor) => {
+            OnChange(valor, vida.VidaMax);
+        };
+    }
+
+    public float Get() {
+        return vida.Vida;
+    }
+
+    public float GetMax() {
+        return vida.VidaMax;
+    }
+
+    public float GetMaxBase() {
+        return vidaMaxBase;
+    }
+
+    public void Set(float valor) {
+        vida.SobreescreverVida(valor);
+    }
+
+    public void SetMax(float valor) {
+        vida.SetarVidaMax(valor);
+    }
+
+    public void Add(float valor) {
+        vida.Curar(valor);
+    }
+
+    public void AddMax(float valor) {
+        float max = vida.VidaMax + valor;
+        vida.SetarVidaMax(max);
+    }
+
+    public void Sub(float valor) {
+        vida.LevarDano(valor);
+    }
+
+    public void SubMax(float valor) {
+        float max = vida.VidaMax - valor;
+        vida.SetarVidaMax(max);
+    }
+
+    
+    public void Reset() {
+        SetMax(vidaMaxBase);
+        Set(vidaMaxBase);
+        OnChange(vidaMaxBase, vidaMaxBase);
+    }
+}
+
 public class PossuiVida : MonoBehaviour {
     [SerializeField] protected float vida;
     [SerializeField] protected float vidaMax;
@@ -68,4 +128,7 @@ public class PossuiVida : MonoBehaviour {
         onChange?.Invoke(vida);
     }
 
+    public IAtributo<float> GetVidaAtributo() {
+        return new VidaAtributo(this);
+    }
 }

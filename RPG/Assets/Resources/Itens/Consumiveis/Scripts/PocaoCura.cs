@@ -6,6 +6,6 @@ public class PocaoCura : Consumivel {
     public int cura;
 
     public override void Use() {
-        Player.instance.CurarVida(cura);
+        Player.Atributos.vida.Add(cura);
     }
 }

@@ -14,4 +14,5 @@ public interface IAtacador {
     string AttackTriggerName();
     GameObject GetSelf();
     TriggerMode GetTriggerMode();
+    void MoveWithAttack(float step, float progress);
 }

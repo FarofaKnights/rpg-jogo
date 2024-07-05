@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class Cam : MonoBehaviour
 {
     public static Cam instance;
-    public PlayerRotation player;
     public Camera cameraObject;
 
     [Header("Configuracoes da Camera")]
@@ -34,7 +33,7 @@ public class Cam : MonoBehaviour
     }
     public void CameraActions()
     {
-        if(player != null) 
+        if(Player.instance != null) 
         {
             FollowTarget();
             Rotations();
@@ -43,14 +42,17 @@ public class Cam : MonoBehaviour
     }
     void FollowTarget()
     {
-        Vector3 targetCameraPosition = Vector3.SmoothDamp(transform.position, player.transform.position, ref cameraVelocity, cameraSmoothSpeed * Time.deltaTime);
+        Vector3 targetCameraPosition = Vector3.SmoothDamp(transform.position, Player.instance.transform.position, ref cameraVelocity, cameraSmoothSpeed * Time.deltaTime);
         transform.position = targetCameraPosition;
 
     }
     void Rotations()
     {
-        leftAndRightLookAngle += (player.mouseX * leftAndRightRotationSpeed) * Time.deltaTime;
-        upAndDownLookAngle -= (player.mouseY * upAndDownRotationSpeed) * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+
+        leftAndRightLookAngle += (mouseX * leftAndRightRotationSpeed) * Time.deltaTime;
+        upAndDownLookAngle -= (mouseY * upAndDownRotationSpeed) * Time.deltaTime;
         upAndDownLookAngle = Mathf.Clamp(upAndDownLookAngle, minimunPivot, maximunPivot);
 
         Vector3 cameraRotation = Vector3.zero;

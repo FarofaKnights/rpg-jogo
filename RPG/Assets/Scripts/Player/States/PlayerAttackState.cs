@@ -15,6 +15,7 @@ public class PlayerAttackState : IPlayerState {
     }
 
     public void Enter() {
+        // Debug.Log("call of enter");
         if (player.arma == null) {
             player.stateMachine.SetState(player.moveState);
             return;
@@ -30,8 +31,11 @@ public class PlayerAttackState : IPlayerState {
         }
 
         if (Input.GetMouseButtonDown(0) && !comboFull) {
-            comboCount++;
-            if (player.arma.ataques.Length <= comboCount + 1) comboFull = true;
+            //if (ataqueInstance == null || ataqueInstance.Cancelar()) {
+                comboCount++;
+                //Debug.Log("call of combo: " + comboCount + " index: " + comboIndex);
+                if (player.arma.ataques.Length <= comboCount + 1) comboFull = true;
+            //} 
         }
     }
 
@@ -52,6 +56,7 @@ public class PlayerAttackState : IPlayerState {
     }
 
     public void onAttackEnd() {
+        //Debug.Log("end > " + comboIndex + " < " + comboCount);
         if (player.arma != null && comboCount > 0 && comboIndex < comboCount) {
             if (ataqueInstance != null) {
                 ataqueInstance.onEnd -= onAttackEnd;

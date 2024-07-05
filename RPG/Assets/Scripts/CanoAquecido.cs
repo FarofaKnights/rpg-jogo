@@ -8,16 +8,15 @@ public class CanoAquecido : MonoBehaviour
     public GameObject Fogo;
     public GameObject Vapor;
     Color lerpedColor = Color.white;
-    float cor1 = 0.5F;
     bool Morte = false;
     Color orange = new Color(1.0f, 0.64f, 0, 255);
     Color brown = new Color(0.3f, 0.2f, 0.09f, 255 );
 
-    Renderer renderer;
+    Renderer _renderer;
 
     void Start()
     {
-        renderer = GetComponent<Renderer>();
+        _renderer = GetComponent<Renderer>();
         StartCoroutine(DangerCountdown());
       
     }
@@ -49,7 +48,7 @@ public class CanoAquecido : MonoBehaviour
     void DangerState()
     {
         Debug.Log("DangerState");
-        StartCoroutine(ChangeColor(renderer.material.color, orange,.005f));
+        StartCoroutine(ChangeColor(_renderer.material.color, orange,.005f));
         Vapor.SetActive(true);
         StartCoroutine(DeathCountdown());
     }
@@ -62,7 +61,7 @@ public class CanoAquecido : MonoBehaviour
     {
         Debug.Log("DeathState");
         Vapor.SetActive(false);
-        StartCoroutine(ChangeColor(renderer.material.color, Color.red,.005f));
+        StartCoroutine(ChangeColor(_renderer.material.color, Color.red,.005f));
         Fogo.SetActive(true);
         Morte = true;
         StartCoroutine(SafeCountdown());
@@ -77,7 +76,7 @@ public class CanoAquecido : MonoBehaviour
         Debug.Log("SafeState");
         Morte = false;
         Fogo.SetActive(false);
-        StartCoroutine(ChangeColor(renderer.material.color,brown,.005f));
+        StartCoroutine(ChangeColor(_renderer.material.color,brown,.005f));
         StartCoroutine(DangerCountdown());
     }
 
@@ -86,7 +85,7 @@ public class CanoAquecido : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         lerpedColor = Color.Lerp(start, destiny, time);
-        renderer.material.color = lerpedColor;                
+        _renderer.material.color = lerpedColor;                
 
         if(lerpedColor != destiny){
             StartCoroutine(ChangeColor(lerpedColor,destiny,time));
