@@ -77,8 +77,10 @@ public class EnemyWalkState : IEnemyState {
             }
         }
 
-        navMeshAgent.updateRotation = !pararDeRodar;
-        navMeshAgent.SetDestination(navMeshDest);
+        if (navMeshAgent.enabled) {
+            navMeshAgent.updateRotation = !pararDeRodar;
+            navMeshAgent.SetDestination(navMeshDest);
+        }
 
         Vector3 velocity = navMeshAgent.velocity.normalized;
         inimigo.animator.SetFloat("Vertical", velocity.z);

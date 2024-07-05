@@ -11,7 +11,7 @@ public class EnemyAttackState : IEnemyState {
     }
 
     public void Enter() {
-        inimigo.attackSound.Play();
+        // inimigo.attackSound.Play();
         GameManager.instance.StartCoroutine(Attack());
     }
 
@@ -25,6 +25,14 @@ public class EnemyAttackState : IEnemyState {
 
         ataqueInstance = inimigo.ataque.Atacar(inimigo);
         ataqueInstance.onEnd += LeaveState;
+
+        ataqueInstance.onAttack += () => {
+            inimigo.attackSound.Play();
+        };
+
+        ataqueInstance.onRecovery += () => {
+            inimigo.attackSound.Stop();
+        };
     }
 
     void LeaveState() {
@@ -32,7 +40,7 @@ public class EnemyAttackState : IEnemyState {
     }
 
     public void Exit() {
-        inimigo.attackSound.Stop();
+        // inimigo.attackSound.Stop();
         if (ataqueInstance != null)
             ataqueInstance.onEnd -= LeaveState;
     }

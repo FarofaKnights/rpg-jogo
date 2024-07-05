@@ -22,8 +22,11 @@ public class AtaqueShooter: AtaqueInstance {
         projetil.transform.forward = saida.forward;
 
         Projetil p = projetil.GetComponent<Projetil>();
-        p.tempoDeVida = tempoDeVida;
-        p.dano = dano;
-        p.velocidade = velocidade;
+        if (p != null) {
+            p.tempoDeVida = tempoDeVida;
+            p.dano = dano;
+            p.velocidade = velocidade;
+        
+        }
     }
 }
