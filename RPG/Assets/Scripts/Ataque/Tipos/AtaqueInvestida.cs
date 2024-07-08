@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AtaqueInvestida : AtaqueInstance {
     public float velocidade;
@@ -64,6 +65,15 @@ public class AtaqueInvestida : AtaqueInstance {
 
     public override void OnRecovery() {
         atacador.GetAnimator().SetBool(atacador.AttackTriggerName(), false);
+        GameManager.instance.StartCoroutine(UpdateLastLocation());
+    }
+
+    IEnumerator UpdateLastLocation() {
+        if (atacador.GetSelf().GetComponent<NavMeshAgent>() == null) yield break;
+
+        atacador.GetSelf().GetComponent<NavMeshAgent>().enabled = true;
+        yield return null;
+        atacador.GetSelf().GetComponent<NavMeshAgent>().enabled = false;
     }
 
     public override void OnEnd() {

@@ -22,7 +22,7 @@ public class EnemyHittedState : IEnemyState {
         inimigo.animator.SetFloat("Vertical", 0);
         inimigo.animator.SetFloat("Horizontal", 0);
 
-        float empurradoDistance = 0.75f;
+        float empurradoDistance = inimigo.empurradoAoSofrerHit;
         direction = Player.instance.transform.forward;
 
         inimigo.GetComponent<NavMeshAgent>().enabled = false;

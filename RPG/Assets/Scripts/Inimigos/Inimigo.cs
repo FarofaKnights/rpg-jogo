@@ -18,6 +18,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public float maxRangeProximidade = 0.75f; // Range que sai do Attack pro Walk
     public bool precisaDeVisaoDireta = false; // Se precisa de visão para atacar
     public float tomouDanoStun = 1f; // Tempo que fica parado ao tomar dano
+    public float empurradoAoSofrerHit = 0.75f;
     public TriggerMode modoDeTriggerDeAnimacao = TriggerMode.Trigger;
 
 
