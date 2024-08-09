@@ -102,6 +102,12 @@ public class Inventario<T> : IInventario, Saveable where T: Slot , new() {
 
     // Utility
 
+    public void Clear() {
+        ForEach((item, quantidade) => {
+            RemoveItem(item, quantidade);
+        });
+    }
+
     T GetSlotWithItem(ItemData item) {
         foreach (T slot in slots) {
             if (slot.item == item) {
@@ -142,6 +148,9 @@ public class Inventario<T> : IInventario, Saveable where T: Slot , new() {
 
     public void Load(JSONObject obj) {
         if (obj != null) {
+            
+            Clear();
+
             for (int i = 0; i < obj.list.Count; i++) {
 				string itemName = obj.keys[i];
 				int quantidade = obj.list[i].intValue;
