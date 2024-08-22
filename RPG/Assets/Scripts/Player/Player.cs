@@ -41,6 +41,7 @@ public class Player : MonoBehaviour, Saveable {
     public GameObject meio;
     public CinemachineFreeLook thirdPersonCam;
     public CinemachineVirtualCamera aimCam;
+    public GameObject look, aimLook;
     PossuiVida vidaController;
 
     void Awake() {
@@ -62,7 +63,7 @@ public class Player : MonoBehaviour, Saveable {
 
             if (cinemachineFreeLook != null) {
                 cinemachineFreeLook.Follow = transform;
-                cinemachineFreeLook.LookAt = transform.Find("Look");
+                cinemachineFreeLook.LookAt = look.transform;
             }
 
             Transform parent = thirdPersonCam.transform.parent;
@@ -74,8 +75,8 @@ public class Player : MonoBehaviour, Saveable {
         }
 
         if (aimCam != null) {
-            aimCam.Follow = transform.Find("Look");
-            aimCam.LookAt = transform.Find("Look");
+            aimCam.Follow = aimLook.transform;
+            aimCam.LookAt = aimLook.transform;
             aimCam.gameObject.SetActive(false);
         }
 
@@ -128,14 +129,6 @@ public class Player : MonoBehaviour, Saveable {
         if (Input.GetMouseButtonDown(0)) {
             if (arma != null) {
                 stateMachine.SetState(attackState);
-            }
-        }
-
-        if (Input.GetMouseButton(1)) {
-            Debug.Log("Ataque especial: " + braco);
-            if (braco != null) {
-                stateMachine.SetState(aimState);
-                braco.Ativar();
             }
         }
 
