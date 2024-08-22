@@ -32,39 +32,16 @@ public class PlayerMoveState : IPlayerState {
         info = player.informacoesMovimentacao;
         controller = player.GetComponent<CharacterController>();
         mainCameraTransform = Camera.main.transform;
-
-        CinemachineFreeLook cinemachineFreeLook = GameObject.FindObjectOfType<CinemachineFreeLook>();
-        virtualCamera = cinemachineFreeLook.GetComponent<CinemachineVirtualCamera>();
-
-        if (cinemachineFreeLook != null) {
-            cinemachineFreeLook.Follow = player.transform;
-            cinemachineFreeLook.LookAt = player.transform.Find("Look");
-        }
-
-        if (virtualCamera != null) {
-            virtualCamera.Follow = player.transform;
-            if (lockedTarget != null) {
-                virtualCamera.LookAt = lockedTarget;
-            }
-        }
+        virtualCamera = player.thirdPersonCam.GetComponent<CinemachineVirtualCamera>();
     }
 
     public void Execute() {
-        isGrounded = Physics.Raycast(player.transform.position, Vector3.down, 0.4f, info.groundLayer);
-
-        if (isGrounded) {
-            velocity.y = 0f;
-        } else {
-            velocity.y += info.gravity * Time.deltaTime;
-        }
-
         MovementControl();
-
-        controller.Move(velocity * Time.deltaTime);
-        animator.SetBool("IsGrounded", isGrounded);
     }
 
-    public void Exit() { }
+    public void Exit() {
+        AudioManager.instance.playerFootsteps.Pause();
+    }
 
     void MovementControl() {
         float moveX = Input.GetAxis("Horizontal");

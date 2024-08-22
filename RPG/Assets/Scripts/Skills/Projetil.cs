@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class Projetil : MonoBehaviour {
     public float velocidade = 10;
@@ -8,10 +9,15 @@ public class Projetil : MonoBehaviour {
     public float dano = 1;
 
     public string tagAlvo = "Player";
+    Cinemachine.CinemachineImpulseSource impulseSource;
+    public float impulseForce = 1f;
 
     bool alreadyHit = false;
 
     void Start() {
+        impulseSource = GetComponent<Cinemachine.CinemachineImpulseSource>();
+        impulseSource.GenerateImpulse(Camera.main.transform.forward * impulseForce);
+
         Destroy(gameObject, tempoDeVida);
     }
 
