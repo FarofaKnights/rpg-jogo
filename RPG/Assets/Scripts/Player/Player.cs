@@ -24,8 +24,9 @@ public class Player : MonoBehaviour, Saveable {
     [HideInInspector] public Arma arma;
     [HideInInspector] public Braco braco;
 
-    [Header("Movimentacao")]
+    [Header("Informações")]
     public PlayerMovementInfo informacoesMovimentacao;
+    public PlayerAimInfo informacoesMira;
     Vector3 velocity;
 
     // State Machine
@@ -33,6 +34,7 @@ public class Player : MonoBehaviour, Saveable {
     public PlayerMoveState moveState;
     public PlayerAttackState attackState;
     public PlayerAimState aimState;
+    [HideInInspector] public bool canChangeStateThisFrame = true;
 
     [Header("Referências")]
     public Animator animator;
@@ -64,6 +66,7 @@ public class Player : MonoBehaviour, Saveable {
             if (cinemachineFreeLook != null) {
                 cinemachineFreeLook.Follow = transform;
                 cinemachineFreeLook.LookAt = look.transform;
+                cinemachineFreeLook.Priority = 9;
             }
 
             Transform parent = thirdPersonCam.transform.parent;
@@ -76,8 +79,8 @@ public class Player : MonoBehaviour, Saveable {
 
         if (aimCam != null) {
             aimCam.Follow = aimLook.transform;
-            aimCam.LookAt = aimLook.transform;
-            aimCam.gameObject.SetActive(false);
+            // aimCam.LookAt = aimLook.transform;
+            aimCam.Priority = 9;
         }
 
         
@@ -126,24 +129,25 @@ public class Player : MonoBehaviour, Saveable {
         // Não queremos interações extras enquanto o player está atacando (cliques de combo são tratados no próprio estado)
         if (stateMachine.GetCurrentState() == attackState) return;
 
+        // Controlamos o input no aimState de forma diferente
+        if (stateMachine.GetCurrentState() == aimState) return;
+
         if (Input.GetMouseButtonDown(0)) {
             if (arma != null) {
                 stateMachine.SetState(attackState);
             }
         }
 
-        if (Input.GetMouseButtonDown(1)) {
-            if (braco != null) {
+        // Entrar no modo tiro
+        if (Input.GetMouseButtonDown(1) && canChangeStateThisFrame) {
+            if (braco.GetType() == typeof(BracoShooter)) {
                 stateMachine.SetState(aimState);
-            }
-        }
-
-        if (Input.GetMouseButtonUp(1)) {
-            if (braco != null) {
-                stateMachine.SetState(moveState);
+            } else if (braco != null) {
                 braco.Ativar();
             }
         }
+
+        canChangeStateThisFrame = true;
     }
 
     void FixedUpdate() {
