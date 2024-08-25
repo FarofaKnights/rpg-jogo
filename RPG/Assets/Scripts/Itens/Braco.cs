@@ -7,7 +7,7 @@ public abstract class Braco : Equipamento {
     public int calorNecessario;
 
     public void Ativar() {
-        if (Player.Atributos.calor.Get() < calorNecessario) {
+        if (!PodeAtivar()) {
             Debug.Log("Calor insuficiente!");
             return;
         }
@@ -24,5 +24,13 @@ public abstract class Braco : Equipamento {
 
     public override void Unequip() {
         Player.Inventario.DesequiparBraco();
+    }
+
+    public bool IsEquipped() {
+        return Player.instance.braco == this;
+    }
+
+    public bool PodeAtivar() {
+        return Player.Atributos.calor.Get() >= calorNecessario && IsEquipped();
     }
 }

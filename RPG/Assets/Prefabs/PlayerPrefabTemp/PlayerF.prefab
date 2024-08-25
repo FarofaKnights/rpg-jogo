@@ -242,6 +242,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8205832533739816991}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5634059988132962473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 369207836906998834}
+  m_Layer: 0
+  m_Name: LookAim
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &369207836906998834
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5634059988132962473}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.4, y: 1.5, z: -0.15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8205832533739816991}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7047949831012241440
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,6 +308,7 @@ Transform:
   m_Children:
   - {fileID: 3720303904088415048}
   - {fileID: 1654965251235135976}
+  - {fileID: 369207836906998834}
   - {fileID: 6690138759384810269}
   - {fileID: 7201780922600307057}
   - {fileID: 7230316264495275320}
@@ -362,7 +394,7 @@ MonoBehaviour:
     walkSpeed: 3
     runSpeed: 8
     rollSpeed: 12
-    gravity: -3
+    gravity: -9.8
     rollDuration: 0.5
     groundLayer:
       serializedVersion: 2
@@ -370,12 +402,21 @@ MonoBehaviour:
     rotationSpeed: 5
     backRotationSpeed: 6
     lockOnKey: 271
+  informacoesMira:
+    xRotationSpeed: 30
+    yRotationSpeed: 15
+    walkSpeed: 3
+  canChangeStateThisFrame: 1
   animator: {fileID: 7296113301196210482}
   mao: {fileID: 4326697389035201831}
   bracoHolder: {fileID: 4720954216271576728}
   pe: {fileID: 7230316264495275320}
   saidaTiro: {fileID: 4306946005866997567}
   meio: {fileID: 7903636412551551439}
+  thirdPersonCam: {fileID: 0}
+  aimCam: {fileID: 0}
+  look: {fileID: 1814733301629961599}
+  aimLook: {fileID: 5634059988132962473}
 --- !u!54 &7157283277772995028
 Rigidbody:
   m_ObjectHideFlags: 0

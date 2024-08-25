@@ -135,4 +135,8 @@ public class AtaqueInstance {
 
         return false;
     }
+
+    public bool PodeCancelar() {
+        return podeCancelar;
+    }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 using Defective.JSON;
 
 [RequireComponent(typeof(PossuiVida))]
@@ -22,19 +23,28 @@ public class Player : MonoBehaviour, Saveable {
     public ItemData[] itensJaPossuidos;
     [HideInInspector] public Arma arma;
     [HideInInspector] public Braco braco;
+    [HideInInspector] public ItemData consumivelSelecionado;
 
-    [Header("Movimentacao")]
+    [Header("Informações")]
     public PlayerMovementInfo informacoesMovimentacao;
+    public PlayerAimInfo informacoesMira;
+    Vector3 velocity;
 
     // State Machine
     public StateMachine<IPlayerState> stateMachine;
     public PlayerMoveState moveState;
     public PlayerAttackState attackState;
+    public PlayerAimState aimState;
+    [HideInInspector] public bool canChangeStateThisFrame = true;
 
     [Header("Referências")]
     public Animator animator;
+    CharacterController characterController;
     public Transform mao, bracoHolder, pe, saidaTiro;
     public GameObject meio;
+    public CinemachineFreeLook thirdPersonCam;
+    public CinemachineVirtualCamera aimCam;
+    public GameObject look, aimLook;
     PossuiVida vidaController;
 
     void Awake() {
@@ -46,6 +56,35 @@ public class Player : MonoBehaviour, Saveable {
         }
 
         vidaController = GetComponent<PossuiVida>();
+        characterController = GetComponent<CharacterController>();
+
+        // Setup cameras (pois ninguém vai fazer por conta própria e ainda vai falar que "tá dando erro")
+        CinemachineFreeLook cinemachineFreeLook = GameObject.FindObjectOfType<CinemachineFreeLook>();
+
+        if (cinemachineFreeLook != null) {
+            thirdPersonCam = cinemachineFreeLook.GetComponent<CinemachineFreeLook>();
+
+            if (cinemachineFreeLook != null) {
+                cinemachineFreeLook.Follow = transform;
+                cinemachineFreeLook.LookAt = look.transform;
+                cinemachineFreeLook.Priority = 9;
+            }
+
+            Transform parent = thirdPersonCam.transform.parent;
+            aimCam = parent.Find("AimCam").GetComponent<CinemachineVirtualCamera>();
+        }
+
+        if (thirdPersonCam != null) {
+            thirdPersonCam.Follow = transform;
+        }
+
+        if (aimCam != null) {
+            aimCam.Follow = aimLook.transform;
+            // aimCam.LookAt = aimLook.transform;
+            aimCam.Priority = 9;
+        }
+
+        
     }
 
     void Start() {
@@ -64,6 +103,7 @@ public class Player : MonoBehaviour, Saveable {
         stateMachine = new StateMachine<IPlayerState>();
         moveState = new PlayerMoveState(this);
         attackState = new PlayerAttackState(this);
+        aimState = new PlayerAimState(this);
         stateMachine.SetState(moveState);
 
         // Define que ao morrer chama o GameOver
@@ -87,11 +127,11 @@ public class Player : MonoBehaviour, Saveable {
     }
 
     void Update() {
-        // O teste do player quantico
-        Debug.DrawLine(Vector3.zero, transform.position, Color.red);
-
         // Não queremos interações extras enquanto o player está atacando (cliques de combo são tratados no próprio estado)
         if (stateMachine.GetCurrentState() == attackState) return;
+
+        // Controlamos o input no aimState de forma diferente
+        if (stateMachine.GetCurrentState() == aimState) return;
 
         if (Input.GetMouseButtonDown(0)) {
             if (arma != null) {
@@ -99,17 +139,33 @@ public class Player : MonoBehaviour, Saveable {
             }
         }
 
-        if (Input.GetMouseButtonDown(1)) {
-            Debug.Log("Ataque especial: " + braco);
-            if (braco != null) {
+        // Entrar no modo tiro
+        if (Input.GetMouseButtonDown(1) && canChangeStateThisFrame) {
+            if (braco.GetType() == typeof(BracoShooter)) {
+                stateMachine.SetState(aimState);
+            } else if (braco != null) {
                 braco.Ativar();
             }
         }
+
+        canChangeStateThisFrame = true;
     }
 
     void FixedUpdate() {
         if (GameManager.instance.IsPaused()) return;
         stateMachine.Execute();
+
+        // Movement
+        bool isGrounded = IsGrounded();
+
+        if (isGrounded) {
+            velocity.y = 0f;
+        } else {
+            velocity.y = informacoesMovimentacao.gravity;
+        }
+
+        characterController.Move(velocity * Time.deltaTime);
+        animator.SetBool("IsGrounded", isGrounded);
     }
 
     // Atualiza os atributos baseado no valor dos Stats
@@ -137,10 +193,9 @@ public class Player : MonoBehaviour, Saveable {
 
     // Teleporta player para uma posição (pois o CharacterController sobreescreve o transform)
     public void TeleportTo(Vector3 position) {
-        CharacterController controller = GetComponent<CharacterController>();
-        controller.enabled = false;
+        characterController.enabled = false;
         transform.position = position;
-        controller.enabled = true;
+        characterController.enabled = true;
     }
 
     #region Saveable implementation
@@ -199,6 +254,14 @@ public class Player : MonoBehaviour, Saveable {
     // O Ataque pode ocorrer de mexer o player (isso acontece), e aqui nós tratamos o movimento
     public void MoveWithAttack(float step, float progress) {
         Vector3 move = transform.forward * step;
-        GetComponent<CharacterController>().Move(move);
+        characterController.Move(move);
+    }
+
+    public bool IsGrounded() {
+        return Physics.Raycast(transform.position, Vector3.down, 0.1f, informacoesMovimentacao.groundLayer);
+    }
+
+    public void SetMovement(Vector3 move) {
+        velocity = move;
     }
 }

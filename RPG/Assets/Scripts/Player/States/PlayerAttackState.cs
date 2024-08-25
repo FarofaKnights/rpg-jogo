@@ -26,15 +26,17 @@ public class PlayerAttackState : IPlayerState {
     }
 
     public void Execute() {
-        if (ataqueInstance != null) {
-            ataqueInstance.Update();
-        }
+        if (ataqueInstance == null) return;
 
-        if (Input.GetMouseButtonDown(0) && !comboFull) {
+        ataqueInstance.Update();
+
+        if (Input.GetMouseButtonDown(0) && !comboFull && ataqueInstance.PodeCancelar()) {
             //if (ataqueInstance == null || ataqueInstance.Cancelar()) {
                 comboCount++;
                 //Debug.Log("call of combo: " + comboCount + " index: " + comboIndex);
                 if (player.arma.ataques.Length <= comboCount + 1) comboFull = true;
+
+                ataqueInstance.Cancelar();
             //} 
         }
     }

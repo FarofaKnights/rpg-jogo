@@ -12,21 +12,22 @@ public class SettingsManager : MonoBehaviour
     public const float minVolume = -80, maxVolume = 20;
     [Range(minVolume, maxVolume)]
     public float masterVolume, musicVolume, effectVolume;
-    public Slider masterSlider, musicSlider, effectSlider, sensiX, sensiY;
+    public Slider masterSlider, musicSlider, effectSlider, sensi;
     public AudioMixerGroup master, music, effect;
     string settingsPath;
-    public GameObject settingsPanel;
-    public GameObject cinemachineCamera;
+    GameObject cinemachineCamera;
     public bool invertedX = false, invertedY = true;
 
+    public Toggle invertXBtn, invertYBtn, dontInvertXBtn, dontInvertYBtn;
+    public bool hasChanged = false;
 
-    [Range(100, 1000)]
-    public float senseX;
 
-    [Range(1, 5)]
-    public float senseY;
+    [Range(0, 1)]
+    public float sense;
 
-    public GameObject checkBoxX, checkBoxY;
+    public float senseX { get { return sense * 1000 + 100; } }
+    public float senseY { get { return sense * 5 + 1; } }
+
     public void Start()
     {
         if(instance == null)
@@ -34,6 +35,9 @@ public class SettingsManager : MonoBehaviour
             instance = this;
         }
         settingsPath = Application.dataPath + "Settings.txt";
+
+        invertXBtn.onValueChanged.AddListener(delegate { ChangeInvertX(); });
+        invertYBtn.onValueChanged.AddListener(delegate { ChangeInvertY(); });
 
         masterSlider.onValueChanged.AddListener(delegate { ChangeMasterVolume(); });
         masterSlider.minValue = minVolume;
@@ -47,15 +51,11 @@ public class SettingsManager : MonoBehaviour
         effectSlider.minValue = minVolume;
         effectSlider.maxValue = maxVolume;
 
-        sensiX.onValueChanged.AddListener(delegate { ChangeSenseX(); });
-        sensiX.minValue = 100;
-        sensiX.maxValue = 1000;
-        sensiX.value = 300;
+        sensi.onValueChanged.AddListener(delegate { ChangeSense(); });
+        sense = 0.33f;
 
-        sensiY.onValueChanged.AddListener(delegate { ChangeSenseY(); });
-        sensiY.minValue = 1;
-        sensiY.maxValue = 5;
-        sensiY.value = 2;
+        if (Player.instance != null)
+            cinemachineCamera = Player.instance.thirdPersonCam.gameObject;
 
         LoadValues();
     }
@@ -66,35 +66,34 @@ public class SettingsManager : MonoBehaviour
     {
         masterVolume = masterSlider.value;
         master.audioMixer.SetFloat("VolumeMaster", masterVolume);
+
+        hasChanged = true;
     }
     public void ChangeMusicVolume()
     {
         musicVolume = musicSlider.value;
         music.audioMixer.SetFloat("VolumeMusic", musicVolume);
+
+        hasChanged = true;
     }
 
     public void ChangeEffectVolume()
     {
         effectVolume = effectSlider.value;
         effect.audioMixer.SetFloat("VolumeEffects", effectVolume);
+
+        hasChanged = true;
     }
 
-    public void ChangeSenseX()
+    public void ChangeSense()
     {
-        senseX = sensiX.value;
-        if (cinemachineCamera != null)
-        {
+        sense = sensi.value;
+        if (cinemachineCamera != null) {
             cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_XAxis.m_MaxSpeed = senseX;
-        }
-    }
-
-    public void ChangeSenseY()
-    {
-        senseY = sensiY.value;
-        if (cinemachineCamera != null)
-        {
             cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_YAxis.m_MaxSpeed = senseY;
         }
+
+        hasChanged = true;
     }
 
     public void WriteValues()
@@ -105,8 +104,7 @@ public class SettingsManager : MonoBehaviour
         sv.effectVolume = effectVolume;
         sv.cameraInvertX = invertedX;
         sv.cameraInvertY = invertedY;
-        sv.senseX = senseX;
-        sv.senseY = senseY;
+        sv.sense = sense;
         string saveSettings = JsonUtility.ToJson(sv, true);
         File.WriteAllText(settingsPath, saveSettings);
     }
@@ -131,10 +129,8 @@ public class SettingsManager : MonoBehaviour
         invertedX = loadValues.cameraInvertX;
         invertedY = loadValues.cameraInvertY;
 
-        senseX = loadValues.senseX;
-        sensiX.value = senseX;
-        senseY = loadValues.senseY;
-        sensiY.value = senseY;
+        sense = loadValues.sense;
+        sensi.value = sense;
         LoadCam();
     }
 
@@ -146,7 +142,8 @@ public class SettingsManager : MonoBehaviour
             {
                 cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_XAxis.m_InvertInput = false;
             }
-            checkBoxX.SetActive(false);
+
+            dontInvertXBtn.isOn = true;
             invertedX = false;
         }
 
@@ -157,9 +154,11 @@ public class SettingsManager : MonoBehaviour
                 cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_XAxis.m_InvertInput = true;
             }
 
-            checkBoxX.SetActive(true);
+            invertXBtn.isOn = true;
             invertedX = true;
         }
+
+        WriteValues();
     }
 
     public void ChangeInvertY()
@@ -170,7 +169,8 @@ public class SettingsManager : MonoBehaviour
             {
                 cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_YAxis.m_InvertInput = false;
             }
-            checkBoxY.SetActive(false);
+
+            dontInvertYBtn.isOn = true;
             invertedY = false;
         }
 
@@ -181,9 +181,11 @@ public class SettingsManager : MonoBehaviour
                 cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_YAxis.m_InvertInput = true;
             }
 
-            checkBoxY.SetActive(true);
+            invertYBtn.isOn = true;
             invertedY = true;
         }
+
+        WriteValues();
     }
 
     public void LoadCam()
@@ -192,7 +194,7 @@ public class SettingsManager : MonoBehaviour
         //X
         if(invertedX)
         {
-            checkBoxX.SetActive(true);
+            invertXBtn.isOn = true;
             if (cinemachineCamera != null)
             {
                 cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_XAxis.m_InvertInput = true;
@@ -201,7 +203,7 @@ public class SettingsManager : MonoBehaviour
         }
         else
         {
-            checkBoxX.SetActive(false);
+            dontInvertXBtn.isOn = true;
             if (cinemachineCamera != null)
             {
                 cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_XAxis.m_InvertInput = false;
@@ -214,7 +216,7 @@ public class SettingsManager : MonoBehaviour
         //Y
         if (invertedY)
         {
-            checkBoxY.SetActive(true);
+            invertYBtn.isOn = true;
             if (cinemachineCamera != null)
             {
                 cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_YAxis.m_InvertInput = true;
@@ -223,7 +225,7 @@ public class SettingsManager : MonoBehaviour
         }
         else
         {
-            checkBoxY.SetActive(false);
+            dontInvertYBtn.isOn = true;
             if (cinemachineCamera != null)
             {
                 cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_YAxis.m_InvertInput = false;
@@ -239,8 +241,7 @@ public class SettingsValues
     public float masterVolume;
     public float musicVolume;
     public float effectVolume;
-    public float senseX;
-    public float senseY;
+    public float sense;
     public bool cameraInvertX;
     public bool cameraInvertY;
 }

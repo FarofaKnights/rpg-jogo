@@ -31,6 +31,13 @@ public class Cam : MonoBehaviour
         instance = this;
         cameraZPosition = cameraObject.transform.localPosition.z;
     }
+
+    void Update()
+    {
+        CameraActions();
+    }
+
+
     public void CameraActions()
     {
         if(Player.instance != null) 
