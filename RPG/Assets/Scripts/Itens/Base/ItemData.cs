@@ -35,6 +35,15 @@ public class ItemData : ScriptableObject {
         return CheckInstance(tipo.GetComponent<Item>());
     }
 
+    public bool CheckInstance(ItemData item) {
+        if (item == null) return false;
+        return item == this;
+    }
+
+    public bool IsEquipped() {
+        return CheckInstance(Player.instance.arma) || CheckInstance(Player.instance.braco) || CheckInstance(Player.instance.consumivelSelecionado);
+    }
+
     public string ToSaveString() {
         string tipoStr = TipoToStringPath(tipo);
         return tipoStr + "/" + name;

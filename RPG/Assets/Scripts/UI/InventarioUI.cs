@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 public class InventarioUI : MonoBehaviour {
-    public Action<ItemData> onSlotClick;
+    public Action<ItemData> onSlotClick, onSlotFocus;
     public GameObject slotPrefab;
     public int minSlots = 1;
 
@@ -20,6 +20,12 @@ public class InventarioUI : MonoBehaviour {
 
     public void RefreshUI() {
         SetupUI(inventario);
+    }
+
+    AreaEquipamentosUI parent;
+    AreaEquipamentosUI GetParent() {
+        if (parent == null) parent = GetComponentInParent<AreaEquipamentosUI>();
+        return parent;
     }
 
     void ClearUI() {
@@ -86,6 +92,24 @@ public class InventarioUI : MonoBehaviour {
     public void HandleSlotClick(ItemData item) {
         if (item != null) {
             onSlotClick?.Invoke(item);
+        }
+    }
+
+    public void HandleFocusSlot(SlotUI slot) {
+        onSlotFocus?.Invoke(slot.item);
+    }
+
+    public void UnfocusItem(ItemData item) {
+        SlotUI slot = slotsUI.Find(s => s.item == item);
+        if (slot != null) {
+            slot.OnUnfocus();
+        }
+    }
+
+    public void FocusItem(ItemData item) {
+        SlotUI slot = slotsUI.Find(s => s.item == item);
+        if (slot != null) {
+            slot.OnFocus();
         }
     }
 

@@ -16,7 +16,8 @@ public class Projetil : MonoBehaviour {
 
     void Start() {
         impulseSource = GetComponent<Cinemachine.CinemachineImpulseSource>();
-        impulseSource.GenerateImpulse(Camera.main.transform.forward * impulseForce);
+        if (impulseSource != null)
+            impulseSource.GenerateImpulse(Camera.main.transform.forward * impulseForce);
 
         Destroy(gameObject, tempoDeVida);
     }

@@ -23,6 +23,7 @@ public class Player : MonoBehaviour, Saveable {
     public ItemData[] itensJaPossuidos;
     [HideInInspector] public Arma arma;
     [HideInInspector] public Braco braco;
+    [HideInInspector] public ItemData consumivelSelecionado;
 
     [Header("Informações")]
     public PlayerMovementInfo informacoesMovimentacao;

@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour {
     public static HUDController HUD;
     public static AreaEquipamentosUI equipamentos;
     public static ConfiguracoesUI configuracoes;
+    public static SistemaUI sistema;
     public static DialogoController dialogo;
     public static CheatController cheat;
     public GameObject menu;
@@ -21,6 +22,17 @@ public class UIController : MonoBehaviour {
     [Header("Black Screen")]
     public GameObject blackScreen;
     public float fadeSpeed = 1f;
+
+    [Header("Tabs")]
+    public int selectedTabSize = 22;
+    public Color selectedTabColor;
+    public int unselectedTabSize = 14;
+    public Color unselectedTabColor;
+    public Text equipamentosTab, configuracoesTab, sistemaTab;
+
+    #if UNITY_EDITOR
+        public bool updateTabsOnValidate = false;
+    #endif
 
     void Awake() {
         if (instance == null) instance = this;
@@ -32,6 +44,7 @@ public class UIController : MonoBehaviour {
         HUD = GetComponentInChildren<HUDController>(true);
         equipamentos = GetComponentInChildren<AreaEquipamentosUI>(true);
         configuracoes = GetComponentInChildren<ConfiguracoesUI>(true);
+        sistema = GetComponentInChildren<SistemaUI>(true);
         dialogo = GetComponentInChildren<DialogoController>(true);
         cheat = GetComponentInChildren<CheatController>(true);
     }
@@ -120,6 +133,8 @@ public class UIController : MonoBehaviour {
 
         menu.SetActive(false);
         equipamentos.Hide();
+        configuracoes.Hide();
+        sistema.Hide();
 
         GameManager.instance.SetState(GameState.Playing);
     }
@@ -130,15 +145,38 @@ public class UIController : MonoBehaviour {
     }
 
     public void SetTab(string nome) {
+        Text tab = null;
+
         switch (nome) {
             case "Equipamentos":
                 equipamentos.Show();
                 configuracoes.Hide();
+                sistema.Hide();
+                tab = equipamentosTab;
                 break;
             case "Configuracoes":
-                configuracoes.Show();
                 equipamentos.Hide();
+                configuracoes.Show();
+                sistema.Hide();
+                tab = configuracoesTab;
                 break;
+            case "Sistema":
+                equipamentos.Hide();
+                configuracoes.Hide();
+                sistema.Show();
+                tab = sistemaTab;
+                break;
+        }
+
+        Text[] tabs = {equipamentosTab, configuracoesTab, sistemaTab};
+        foreach (Text t in tabs) {
+            if (t == tab) {
+                t.fontSize = selectedTabSize;
+                t.color = selectedTabColor;
+            } else {
+                t.fontSize = unselectedTabSize;
+                t.color = unselectedTabColor;
+            }
         }
     }
 
@@ -156,4 +194,15 @@ public class UIController : MonoBehaviour {
         GameManager.instance.controls.Dialog.Pause.performed -= ShowConfiguracoes;
         GameManager.instance.controls.Dialog.Itens.performed -= ShowEquipamentos;
     }
+
+    #if UNITY_EDITOR
+    void OnValidate() {
+        if (!updateTabsOnValidate) return;
+        equipamentos = GetComponentInChildren<AreaEquipamentosUI>(true);
+        configuracoes = GetComponentInChildren<ConfiguracoesUI>(true);
+        sistema = GetComponentInChildren<SistemaUI>(true);
+
+        SetTab("Configuracoes");
+    }
+    #endif
 }
