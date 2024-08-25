@@ -158,7 +158,7 @@ public class SettingsManager : MonoBehaviour
             invertedX = true;
         }
 
-        hasChanged = true;
+        WriteValues();
     }
 
     public void ChangeInvertY()
@@ -185,7 +185,7 @@ public class SettingsManager : MonoBehaviour
             invertedY = true;
         }
 
-        hasChanged = true;
+        WriteValues();
     }
 
     public void LoadCam()
