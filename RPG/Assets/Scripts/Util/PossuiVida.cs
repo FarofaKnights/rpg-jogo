@@ -73,6 +73,9 @@ public class PossuiVida : MonoBehaviour {
     public System.Action onDeath;
     public Func<float, float> modificadorDeDano;
 
+    [SerializeField] private GameObject VFXBlood;
+
+
     public void LevarDano(float dano) {
         float oldVida = vida;
 
@@ -88,7 +91,11 @@ public class PossuiVida : MonoBehaviour {
             vida = 0;
             dano = oldVida;
         }
-        
+        if (VFXBlood != null)
+        {
+            Instantiate(VFXBlood, transform.position, Quaternion.identity);
+        }
+
         onDamage?.Invoke(dano);
         onChange?.Invoke(vida);
         
