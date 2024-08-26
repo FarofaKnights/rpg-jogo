@@ -28,6 +28,11 @@ public class MenuStart : MonoBehaviour {
     public void ShowCreditos(){
         SceneManager.LoadScene("Creditos");
     }
+    public void ShowChangeLog()
+    {
+        SceneManager.LoadScene("ChangeLog");
+    }
+
 
     public void TelaInicial() {
         SceneManager.LoadScene("Start");
