@@ -76,6 +76,7 @@ public class Player : MonoBehaviour, Saveable {
 
         if (thirdPersonCam != null) {
             thirdPersonCam.Follow = transform;
+            thirdPersonCam.Priority = 11;
         }
 
         if (aimCam != null) {

@@ -28,6 +28,9 @@ public class PlayerMoveState : IPlayerState {
     }
 
     public void Enter() {
+        player.aimCam.Priority = 9;
+        player.thirdPersonCam.Priority = 11;
+
         animator = player.animator;
         info = player.informacoesMovimentacao;
         controller = player.GetComponent<CharacterController>();
