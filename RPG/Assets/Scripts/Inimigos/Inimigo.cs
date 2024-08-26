@@ -50,6 +50,8 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public EnemyWalkState walkState;
     public EnemyHittedState hittedState;
 
+    public int hittedDir = 0;
+
     
     string estado_atual = "nenhum";
     

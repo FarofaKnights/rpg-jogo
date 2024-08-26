@@ -63,6 +63,7 @@ MonoBehaviour:
   maxRangeProximidade: 0.75
   precisaDeVisaoDireta: 0
   tomouDanoStun: 1
+  empurradoAoSofrerHit: 0.15
   modoDeTriggerDeAnimacao: 0
   target: {fileID: 0}
   recompensaPecas: 10
@@ -73,6 +74,7 @@ MonoBehaviour:
   detectado: 0
   ataque: {fileID: 11400000, guid: 98cdf69b53649b64bbe859824daec676, type: 2}
   attackHitboxHolder: {fileID: 4956725987033806652}
+  hittedDir: 0
 --- !u!114 &3659390629168933768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,6 +89,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vida: 30
   vidaMax: 30
+  VFXBlood: {fileID: 0}
 --- !u!143 &2361325265758478374
 CharacterController:
   m_ObjectHideFlags: 0

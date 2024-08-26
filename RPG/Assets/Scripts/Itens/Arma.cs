@@ -57,6 +57,7 @@ public class Arma : Equipamento, IAtacador {
 
         Player.Atributos.calor.Add(10);
         float adicional = Player.Stats.GetAdicionalForca(ataque.dano);
+        inimigo.GetComponent<Inimigo>().hittedDir = ataqueIndex;
         inimigo.GetComponent<PossuiVida>().LevarDano(ataque.dano + adicional);
     }
 }
