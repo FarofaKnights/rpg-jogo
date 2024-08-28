@@ -2,12 +2,27 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[System.Serializable]
+public class ChangeLogRelation {
+    public string versao;
+    public GameObject referenciaObjeto;
+}
+
 public class MenuStart : MonoBehaviour {
     public string gameSceneName = "Jogo";
     private bool visivel = false;
     public GameObject uiConfig;
 
-    public GameObject settingsPanel, controlsPanel;
+    public GameObject settingsPanel;
+    public GameObject jogarPanel;
+
+
+    [Header("Changelog")]
+    public Transform changeLogPanel;
+    public ScrollRect changeLogScrollRect;
+    public GameObject selectChangeLogButtonPrefab;
+    public Transform changeLogSelectHolder;
+    public ChangeLogRelation[] changeLogItems;
 
     void Start() {
         Cursor.lockState = CursorLockMode.None;
@@ -15,6 +30,18 @@ public class MenuStart : MonoBehaviour {
         Time.timeScale = 1;
 
         GameManager.instance.SetState(GameState.NotStarted);
+    }
+
+    public void ShowPlayOptions() {
+        if (GameManager.instance.save.HasSave(0)) {
+            jogarPanel.SetActive(true);
+        } else {
+            StartGame();
+        }
+    }
+
+    public void ClosePlayOptions() {
+        jogarPanel.SetActive(false);
     }
 
     public void StartGame(int slot = 0){
@@ -28,11 +55,6 @@ public class MenuStart : MonoBehaviour {
     public void ShowCreditos(){
         SceneManager.LoadScene("Creditos");
     }
-    public void ShowChangeLog()
-    {
-        SceneManager.LoadScene("ChangeLog");
-    }
-
 
     public void TelaInicial() {
         SceneManager.LoadScene("Start");
@@ -53,19 +75,10 @@ public class MenuStart : MonoBehaviour {
         uiConfig.SetActive(visivel);        
     }
 
-    public void CarregarConfigs()
-    {
-        SceneManager.LoadScene("Settings");
-    }
-
-    public void OpenVolumeSettings()
-    {
-        controlsPanel.SetActive(false);
+    public void OpenSettings() {
         settingsPanel.SetActive(true);
     }
-    public void OpenControlSettings()
-    {
-        controlsPanel.SetActive(true);
+    public void CloseSettings() {
         settingsPanel.SetActive(false);
     }
 
@@ -73,5 +86,40 @@ public class MenuStart : MonoBehaviour {
     {
         SettingsManager.instance.WriteValues();
         SceneManager.LoadScene("Start");
+    }
+
+
+    // ChangeLog
+
+    public void ShowChangeLog() {
+        LoadChangeLog();
+        changeLogPanel.gameObject.SetActive(true);
+    }
+
+    public void CloseChangeLog() {
+        changeLogPanel.gameObject.SetActive(false);
+    }
+
+    public void LoadChangeLog() {
+        foreach (Transform child in changeLogSelectHolder) {
+            Destroy(child.gameObject);
+        }
+
+        foreach (ChangeLogRelation item in changeLogItems) {
+            GameObject newButton = Instantiate(selectChangeLogButtonPrefab, changeLogSelectHolder);
+            newButton.GetComponentInChildren<Text>().text = item.versao;
+            newButton.GetComponent<Button>().onClick.AddListener(() => ShowChangeLogItem(item.versao));
+        }
+    }
+
+    public void ShowChangeLogItem(string versao) {
+        foreach (ChangeLogRelation item in changeLogItems) {
+            if (item.versao == versao) {
+                changeLogScrollRect.content = item.referenciaObjeto.GetComponent<RectTransform>();
+                item.referenciaObjeto.SetActive(true);
+            } else {
+                item.referenciaObjeto.SetActive(false);
+            }
+        }
     }
 }
