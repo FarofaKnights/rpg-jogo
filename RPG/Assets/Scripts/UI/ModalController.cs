@@ -42,11 +42,17 @@ public class ModalController : MonoBehaviour {
     public Text texto;
     public GameObject modal;
     QuestionCallback callback;
+    bool hideModalOnYes = true;
+    bool hideModalOnNo = true;
 
-    public QuestionCallback OpenModal(string texto) {
-        texto.text = texto;
+    public QuestionCallback OpenModal(string txt) {
+        texto.text = txt;
         callback = new QuestionCallback();
         modal.SetActive(true);
+        
+        hideModalOnYes = true;
+        hideModalOnNo = true;
+
         return callback;
     }
 
@@ -56,17 +62,31 @@ public class ModalController : MonoBehaviour {
 
     public void HandleYes() {
         callback.AnsweredYes();
+        if (hideModalOnYes) modal.SetActive(false);
+        callback = null;
     }
 
     public void HandleNo() {
         callback.AnsweredNo();
+        if (hideModalOnNo) modal.SetActive(false);
+        callback = null;
     }
 
-    public void OnYes(System.Action callback) {
-        callback.OnYes(callback);
+    public void OnYes(System.Action callbackAction) {
+        callback.OnYes(callbackAction);
     }
 
-    public void OnNo(System.Action callback) {
-        callback.OnNo(callback);
+    public void OnYes(System.Action callbackAction, bool hideModal) {
+        hideModalOnYes = hideModal;
+        OnYes(callbackAction);
+    }
+
+    public void OnNo(System.Action callbackAction) {
+        callback.OnNo(callbackAction);
+    }
+
+    public void OnNo(System.Action callbackAction, bool hideModal) {
+        hideModalOnNo = hideModal;
+        OnNo(callbackAction);
     }
 }

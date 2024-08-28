@@ -34,11 +34,11 @@ RectTransform:
   - {fileID: 2801797696928756604}
   - {fileID: 6013834219209413323}
   - {fileID: 6603043900704433870}
+  - {fileID: 1249257634605693485}
   - {fileID: 6299081144665858884}
   - {fileID: 2392597954137150254}
   - {fileID: 6457021795625661921}
   - {fileID: 1072427175322084682}
-  - {fileID: 1249257634605693485}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -12885,13 +12885,14 @@ GameObject:
   - component: {fileID: 1249257634605693485}
   - component: {fileID: 2642857158327931284}
   - component: {fileID: 4918397326112338475}
+  - component: {fileID: 7288105187307906251}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: TelaConfirmacao
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1249257634605693485
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12947,6 +12948,20 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &7288105187307906251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7664332539391541798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a239c6aef2dc744b22be8515096654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texto: {fileID: 8092432162828306059}
+  modal: {fileID: 7664332539391541798}
 --- !u!1 &7668198029162359828
 GameObject:
   m_ObjectHideFlags: 0
@@ -16834,6 +16849,21 @@ PrefabInstance:
       propertyPath: m_Text
       value: Sim
       objectReference: {fileID: 0}
+    - target: {fileID: 5947133626148322942, guid: 031f5d112e8c1b34cbbf7a31dd463f69,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7288105187307906251}
+    - target: {fileID: 5947133626148322942, guid: 031f5d112e8c1b34cbbf7a31dd463f69,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HandleYes
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947133626148322942, guid: 031f5d112e8c1b34cbbf7a31dd463f69,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ModalController, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 5985462418274195296, guid: 031f5d112e8c1b34cbbf7a31dd463f69,
         type: 3}
       propertyPath: m_Name
@@ -17131,6 +17161,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947133626148322942, guid: 031f5d112e8c1b34cbbf7a31dd463f69,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7288105187307906251}
+    - target: {fileID: 5947133626148322942, guid: 031f5d112e8c1b34cbbf7a31dd463f69,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HandleNo
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947133626148322942, guid: 031f5d112e8c1b34cbbf7a31dd463f69,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ModalController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5985462418274195296, guid: 031f5d112e8c1b34cbbf7a31dd463f69,
         type: 3}

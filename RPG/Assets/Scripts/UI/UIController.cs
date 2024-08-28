@@ -17,6 +17,7 @@ public class UIController : MonoBehaviour {
     public static SistemaUI sistema;
     public static DialogoController dialogo;
     public static CheatController cheat;
+    public static ModalController modal;
     public GameObject menu;
 
     [Header("Black Screen")]
@@ -47,6 +48,7 @@ public class UIController : MonoBehaviour {
         sistema = GetComponentInChildren<SistemaUI>(true);
         dialogo = GetComponentInChildren<DialogoController>(true);
         cheat = GetComponentInChildren<CheatController>(true);
+        modal = GetComponentInChildren<ModalController>(true);
     }
 
     void Start() {
