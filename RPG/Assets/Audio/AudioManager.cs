@@ -12,6 +12,9 @@ public class AudioManager : MonoBehaviour
     public AudioSource playerFootsteps;
     public AudioSource enemyDeath;
 
+    public AudioSource doorOpen;
+    public AudioSource doorClose;
+
     public AudioSource musica;
     
     public void Awake()
