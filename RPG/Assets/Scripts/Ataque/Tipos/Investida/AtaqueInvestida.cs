@@ -6,11 +6,13 @@ using UnityEngine.AI;
 public class AtaqueInvestida : HitboxAttackBehaviour {
     public float velocidade;
     public int dano;
+    InvestidaAtaqueInfo infoInvestida;
+    bool canWalk = true;
 
     public AtaqueInvestida(AtaqueInfo ataqueInfo, IAtacador atacador) : base(ataqueInfo, atacador) {
-        InvestidaAtaqueInfo info = (InvestidaAtaqueInfo)ataqueInfo;
-        velocidade = info.velocidade;
-        dano = info.dano;
+        infoInvestida = (InvestidaAtaqueInfo)ataqueInfo;
+        velocidade = infoInvestida.velocidade;
+        dano = infoInvestida.dano;
     }
 
     public override GameObject GetHitbox() {
@@ -29,20 +31,14 @@ public class AtaqueInvestida : HitboxAttackBehaviour {
     }
 
     public override void OnHit(GameObject hit) {
+        if (infoInvestida.pararAoAcertar) canWalk = false;
         atacador.OnAtaqueHit(hit);
-        GameManager.instance.StartCoroutine(SlowdownOnHit());
-    }
-
-    IEnumerator SlowdownOnHit() {
-        Time.timeScale = 0.1f;
-        yield return new WaitForSecondsRealtime(0.05f);
-        if (!GameManager.instance.IsPaused()) Time.timeScale = 1;
-        else Time.timeScale = 0;
+        GameManager.instance.SlowdownOnHit();
     }
 
 
     public override void OnUpdate(AtaqueInstance.Estado estado) {
-        if (estado == AtaqueInstance.Estado.Hit) {
+        if (canWalk && estado == AtaqueInstance.Estado.Hit) {
             GameObject hit = atacador.GetSelf();
             CharacterController cc = hit.GetComponent<CharacterController>();
             cc.Move(hit.transform.forward * velocidade * Time.deltaTime);

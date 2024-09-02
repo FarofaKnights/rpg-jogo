@@ -31,6 +31,9 @@ public class AtaqueInstance  {
     int frameCounter = 0;
     int totalFrameCounter = 0;
 
+    // Propriedade relacionada ao descanso longo (caso houver)
+    float recoveryMultiplier = 1;
+
     public virtual void OnEnter() {
         hitListener.OnEnter();
         attackBehaviour.OnEnter();
@@ -80,7 +83,7 @@ public class AtaqueInstance  {
         }
 
         AtaqueAnimationEvents ataqueAnimationEvents = atacador.GetAnimator().gameObject.GetComponent<AtaqueAnimationEvents>();
-        if (ataqueAnimationEvents != null && !info.usarTiming) {
+        if (ataqueAnimationEvents != null) {
             ataqueAnimationEvents.ataqueInstance = this;
         }
 
@@ -131,20 +134,18 @@ public class AtaqueInstance  {
             MoveWithAttack();
         }
 
-        if (!info.usarTiming) {
-            return;
-        }
+        if (info.usarTiming) {
+            if (estadoAtual == Estado.Antecipacao) {
+                if (frameCounter >= info.antecipacaoFrames) OnStateChange(Estado.Hit);
+            } else if (estadoAtual == Estado.Hit) {
+                if (frameCounter >= info.hitFrames) OnStateChange(Estado.Recovery);
+            } else if (estadoAtual == Estado.Recovery) {
+                if (frameCounter >= info.recoveryFrames * recoveryMultiplier) OnStateChange(Estado.End);
+            }
 
-        if (estadoAtual == Estado.Antecipacao) {
-            if (frameCounter >= info.antecipacaoFrames) OnStateChange(Estado.Hit);
-        } else if (estadoAtual == Estado.Hit) {
-            if (frameCounter >= info.hitFrames) OnStateChange(Estado.Recovery);
-        } else if (estadoAtual == Estado.Recovery) {
-            if (frameCounter >= info.recoveryFrames) OnStateChange(Estado.End);
-        }
-
-        if (!podeCancelar && info.cancelFrames >= 0 && totalFrameCounter >= info.cancelFrames) {
-            PermitirCancelamento();
+            if (!podeCancelar && info.cancelFrames >= 0 && totalFrameCounter >= info.cancelFrames) {
+                PermitirCancelamento();
+            }
         }
 
         OnUpdate(estadoAtual);
@@ -176,5 +177,15 @@ public class AtaqueInstance  {
 
     public bool PodeCancelar() {
         return podeCancelar;
+    }
+
+    public void TriggerAHit() {
+        if (typeof(AtaqueAnimacao).IsInstanceOfType(hitListener)) {
+            ((AtaqueAnimacao)hitListener).TriggerAHit();
+        }
+    }
+
+    public void RecoveryLongo(float recoveryMultiplier = 2f) {
+        this.recoveryMultiplier = recoveryMultiplier;
     }
 }

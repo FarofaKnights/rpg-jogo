@@ -94,8 +94,7 @@ GameObject:
   - component: {fileID: 5764620971657352021}
   - component: {fileID: 6807790331073739869}
   - component: {fileID: 6025625439545781973}
-  - component: {fileID: 5792537434750684473}
-  - component: {fileID: 6534309653554018155}
+  - component: {fileID: -533069879679223049}
   m_Layer: 0
   m_Name: Projetil Bomba De Metal derretido
   m_TagString: Untagged
@@ -169,7 +168,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5792537434750684473
+--- !u!114 &-533069879679223049
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,36 +177,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 2075655749729690687}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7684eae5846c5043a52550fa7f557f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 98b58527ea2b8a54090ba76e832e322b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   velocidade: 15
   tempoDeVida: 2
   dano: 1
-  Explosao: {fileID: 5574295336723188846, guid: f2ddb614f32da5f4799acccb8ead6345,
+  explosao: {fileID: 5574295336723188846, guid: f2ddb614f32da5f4799acccb8ead6345,
     type: 3}
   tagAlvo: Player
---- !u!135 &6534309653554018155
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2075655749729690687}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.29756
-  m_Center: {x: 0, y: 0, z: 0}
+  impulseForce: 1
+  ignoreList: []
 --- !u!1 &7153299814970484618
 GameObject:
   m_ObjectHideFlags: 0

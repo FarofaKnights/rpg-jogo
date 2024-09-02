@@ -258,4 +258,15 @@ public class GameManager : MonoBehaviour {
     public T[] GetObjectsOfType<T>() where T : MonoBehaviour {
         return FindObjectsOfType<T>();
     }
+
+    public IEnumerator SlowdownOnHitCoroutine() {
+        Time.timeScale = 0.1f;
+        yield return new WaitForSecondsRealtime(0.05f);
+        if (!GameManager.instance.IsPaused()) Time.timeScale = 1;
+        else Time.timeScale = 0;
+    }
+
+    public void SlowdownOnHit() {
+        StartCoroutine(SlowdownOnHitCoroutine());
+    }
 }

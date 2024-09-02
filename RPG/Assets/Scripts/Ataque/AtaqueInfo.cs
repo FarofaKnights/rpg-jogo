@@ -34,7 +34,7 @@ public abstract class AtaqueInfo : ScriptableObject {
             case TipoInfligirDano.Continuo:
                 return new AtaqueContinuo(ataque);
             case TipoInfligirDano.PorAnimacao:
-                return null;
+                return new AtaqueAnimacao(ataque);
             case TipoInfligirDano.Projetil:
                 return new AtaqueProjetil(ataque);
             default:

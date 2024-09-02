@@ -10,6 +10,9 @@ public class EnemyIdleState : IEnemyState {
     }
 
     public void Enter() {
+        inimigo.debug.estado_atual = "Idle";
+        inimigo.ataquesFeitos = 0; // Condicao especial de descanso longo
+
         inimigo.animator.SetFloat("Vertical", 0);
         inimigo.animator.SetFloat("Horizontal", 0);
     }

@@ -7,12 +7,15 @@ public class Projetil : MonoBehaviour {
     public float velocidade = 10;
     public float tempoDeVida = 2;
     public float dano = 1;
+    public GameObject explosao;
+
 
     public string tagAlvo = "Player";
     Cinemachine.CinemachineImpulseSource impulseSource;
     public float impulseForce = 1f;
 
     bool alreadyHit = false;
+    public List<GameObject> ignoreList = new List<GameObject>();
 
     void Start() {
         impulseSource = GetComponent<Cinemachine.CinemachineImpulseSource>();
@@ -22,20 +25,25 @@ public class Projetil : MonoBehaviour {
         Destroy(gameObject, tempoDeVida);
     }
 
-    void Update() {
-        transform.position += transform.forward * velocidade * Time.deltaTime;
+    void FixedUpdate() {
+        transform.position += transform.forward * velocidade * Time.fixedDeltaTime;
     }
 
     void OnTriggerEnter(Collider other) {
+        if (ignoreList.Contains(other.gameObject)) return;
+
+        if (alreadyHit) return;
+        alreadyHit = true;
+
         if (other.CompareTag(tagAlvo)) {
-            if (alreadyHit) return;
-            alreadyHit = true;
-            
             PossuiVida vida = other.GetComponent<PossuiVida>();
             if (vida != null) {
                 vida.LevarDano(dano);
             }
-            Destroy(gameObject);
+        } else if(explosao != null) {
+            Instantiate(explosao, transform.position, transform.rotation);
         }
+
+        Destroy(gameObject);
     }
 }

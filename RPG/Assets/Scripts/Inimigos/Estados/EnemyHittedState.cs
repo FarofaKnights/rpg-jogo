@@ -15,6 +15,8 @@ public class EnemyHittedState : IEnemyState {
     }
 
     public void Enter() {
+        inimigo.debug.estado_atual = "Hitted";
+
         inimigo.animator.SetInteger("DamageDir", inimigo.hittedDir);
         inimigo.animator.SetTrigger("Damaged");
         maxTimer = inimigo.tomouDanoStun;

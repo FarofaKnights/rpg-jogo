@@ -9,9 +9,7 @@ public class InvestidaAtaqueInfo : AtaqueInfo {
     
 
     [Header("Configurações Especificas")]
-    public bool pararAoAcertar = true;
-    public int cooldownMaiorACada = -1;
-    public float cooldownMaiorACadaValor = 0;
+    public bool pararAoAcertar = false;
 
     public override AtaqueInstance Atacar(IAtacador atacador) {
         return InvestidaAtaqueInfo.Atacar(this, atacador);

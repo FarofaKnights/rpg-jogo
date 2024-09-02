@@ -39,5 +39,11 @@ public class AtaqueAnimationEvents : MonoBehaviour {
 
         ataqueInstance.PermitirCancelamento();
     }
+
+    public void TriggerAHit() {
+        if (ataqueInstance == null) return;
+
+        ataqueInstance.TriggerAHit();
+    }
     
 }

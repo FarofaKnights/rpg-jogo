@@ -51,15 +51,28 @@ public abstract class AtaqueComHitbox : HitListener {
         if (hitbox != null) {
             hitbox.SetActive(false);
             Object.Destroy(hitbox);
+
+            hits.Clear();
+        }
+    }
+
+    public override void OnEnd() {
+        if (hitbox != null) {
+            hitbox.SetActive(false);
+            Object.Destroy(hitbox);
+
+            hits.Clear();
         }
     }
 
     public void AtivarHitbox() {
-        hitbox.SetActive(true);
+        if (hitbox != null)
+            hitbox.SetActive(true);
     }
 
     public void DesativarHitbox() {
-        hitbox.SetActive(false);
+        if (hitbox != null)
+            hitbox.SetActive(false);
     }
 
     public HitInfo GetHit(GameObject hit) {

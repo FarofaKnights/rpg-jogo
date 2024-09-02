@@ -50,7 +50,10 @@ MonoBehaviour:
   velocidade: 0
   tempoDeVida: 1
   dano: 15
+  explosao: {fileID: 0}
   tagAlvo: Player
+  impulseForce: 1
+  ignoreList: []
 --- !u!135 &2127221860508063842
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -101,6 +104,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7362654254912860039}
     m_Modifications:
+    - target: {fileID: -533069879679223049, guid: 9d10d958af9b6d946b60305db30a6059,
+        type: 3}
+      propertyPath: explosao
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 236601144294143171, guid: 9d10d958af9b6d946b60305db30a6059,
         type: 3}
       propertyPath: lengthInSec
@@ -533,6 +541,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5792537434750684473, guid: 9d10d958af9b6d946b60305db30a6059, type: 3}
+    - {fileID: -533069879679223049, guid: 9d10d958af9b6d946b60305db30a6059, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5741414201234459150, guid: 9d10d958af9b6d946b60305db30a6059, type: 3}
     - {fileID: 7153299814970484618, guid: 9d10d958af9b6d946b60305db30a6059, type: 3}

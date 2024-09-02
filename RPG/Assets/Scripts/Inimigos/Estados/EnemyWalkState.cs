@@ -13,6 +13,7 @@ public class EnemyWalkState : IEnemyState {
     }
 
     public void Enter() {
+        inimigo.debug.estado_atual = "Walk";
         GameObject target = inimigo.target;
         if(inimigo.detectado == false)
         {
@@ -30,6 +31,7 @@ public class EnemyWalkState : IEnemyState {
     }
 
     public void Exit() {
+        inimigo.debug.walk_debug = "";
         navMeshAgent.enabled = false;
         inimigo.animator.SetFloat("Vertical", 0);
         inimigo.animator.SetFloat("Horizontal", 0);
@@ -40,11 +42,14 @@ public class EnemyWalkState : IEnemyState {
         bool pararDeRodar = false;
 
         float dist = Vector3.Distance(inimigo.transform.position, inimigo.target.transform.position);
+        inimigo.debug.distancia_alvo = dist;
 
         if (dist > inimigo.rangePerderTarget) { // Caso o target esteja muito longe, ele perde o target
             inimigo.target = null;
             inimigo.stateMachine.SetState(inimigo.idleState);
         } else if (dist < inimigo.maxRangeProximidade) { // Caso o target esteja muito perto, tenta se distanciar (ainda olhando pro target)
+            inimigo.debug.walk_debug = "Distanciando";
+
 
             // Essa parte do código calcula um ponto, no range de proximidade ideal, que ele deve ir
             Vector3 newPos = inimigo.transform.position;
@@ -54,6 +59,8 @@ public class EnemyWalkState : IEnemyState {
             navMeshDest = newPos;
             pararDeRodar = true;
         } else if (inimigo.precisaDeVisaoDireta) { // Caso precise de visão direta, ele verifica se está olhando pro target
+            inimigo.debug.walk_debug = "Olho: " + DirectlyLooking() + " Dist: " + navMeshAgent.remainingDistance;
+
             float remainingDistance = navMeshAgent.remainingDistance;
 
             if (remainingDistance <= inimigo.minRangeProximidade && DirectlyLooking()) { // Se na distancia correta e olhando pro target, ele ataca
@@ -72,6 +79,7 @@ public class EnemyWalkState : IEnemyState {
 
             }
         } else { // Caso não precise de visão direta, ele só checa a distancia para atacar
+            inimigo.debug.walk_debug = "Sem olhar e andando";
             if (navMeshAgent.remainingDistance <= inimigo.minRangeProximidade) {
                 inimigo.stateMachine.SetState(inimigo.attackState);
             }
@@ -91,9 +99,12 @@ public class EnemyWalkState : IEnemyState {
         // Basicamente, compara o forward do inimigo com a direção do target para saber se ele está olhando pro target
         Vector3 direction = (inimigo.target.transform.position - inimigo.transform.position).normalized;
         float dotProd = Vector3.Dot(inimigo.transform.forward, direction); // Em suma, o dot product retorna o quão parecidos são os vetores, -1 é opostos, 1 é iguais
+        inimigo.debug.dot_prod_olhando = dotProd;
 
         // Isso aqui é bem engraçado, mas ele nunca chega a 1.0f, então eu coloquei 0.999f para ser preciso
         // E pode parecer que é muita precisão, mas não é, 0.99f tem muita chance dele ficar preso errando o ataque.
-        return dotProd >= 0.999f;
+        // ERRATA: Isso tá certo de fato, mas precisão perfeita tem muita chance de ficar preso.
+        // Na maioria das situações é melhor ser impreciso e usar outros métodos para garantir que o inimigo não erre o ataque.
+        return dotProd >= inimigo.precisaoDaVisao;
     }
 }

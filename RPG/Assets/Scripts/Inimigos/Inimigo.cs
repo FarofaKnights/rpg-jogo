@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
+public struct InimigoIADebug {
+    public string estado_atual;
+    public float distancia_alvo;
+    public float dot_prod_olhando;
+    public string walk_debug;
+    public string attack_debug;
+}
+
+
+
 [RequireComponent(typeof(PossuiVida))]
 public class Inimigo : MonoBehaviour, IAtacador {
     [Header("Referência de Componentes")]
@@ -17,9 +28,14 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public float minRangeProximidade = 1.25f; // Range que sai do Walk pro Attack
     public float maxRangeProximidade = 0.75f; // Range que sai do Attack pro Walk
     public bool precisaDeVisaoDireta = false; // Se precisa de visão para atacar
+    [Range(0.9f, 1f)] public float precisaoDaVisao = 0.99f; // Precisão da visão
     public float tomouDanoStun = 1f; // Tempo que fica parado ao tomar dano
     public float empurradoAoSofrerHit = 0.75f;
     public TriggerMode modoDeTriggerDeAnimacao = TriggerMode.Trigger;
+    public InimigoIADebug debug;
+    public int descansoMaiorAposXAtaques = -1;
+    public float multDescansoMaior = 2f;
+    [HideInInspector] public int ataquesFeitos = 0;
 
 
     [Header("MISC")]

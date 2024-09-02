@@ -9,6 +9,10 @@ public class ShooterAtaqueInfo : AtaqueInfo {
 
     public float tempoDeVida = 2;
     public float velocidade = 10;
+    public bool autoAim = true;
+
+    [Header("Comportamento")]
+    public bool olharEnquantoCarrega = true;
 
     public override AtaqueInstance Atacar(IAtacador atacador) {
         return ShooterAtaqueInfo.Atacar(this, atacador);
