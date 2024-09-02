@@ -3,42 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AtaqueInvestida : AtaqueInstance {
+public class AtaqueInvestida : HitboxAttackBehaviour {
     public float velocidade;
     public int dano;
-    public GameObject hitbox;
-    List<GameObject> hits = new List<GameObject>();
-
 
     public AtaqueInvestida(AtaqueInfo ataqueInfo, IAtacador atacador) : base(ataqueInfo, atacador) {
         InvestidaAtaqueInfo info = (InvestidaAtaqueInfo)ataqueInfo;
         velocidade = info.velocidade;
         dano = info.dano;
-
-        CreateHitbox();
     }
 
-    protected void CreateHitbox() {
-        hitbox = new GameObject("AttackHitbox");
-        InvestidaAtaqueInfo infoMelee = (InvestidaAtaqueInfo)info;
+    public override GameObject GetHitbox() {
+        GameObject hitbox = new GameObject("AttackHitbox_Investida");
+        InvestidaAtaqueInfo infoInvestida = (InvestidaAtaqueInfo)info;
 
         // Transform
         hitbox.transform.SetParent(atacador.GetAttackHolder().transform);
         hitbox.transform.localPosition = Vector3.zero;
-        hitbox.transform.localScale = Vector3.one * infoMelee.raio;
+        hitbox.transform.localScale = Vector3.one * infoInvestida.raio;
         hitbox.transform.localEulerAngles = Vector3.zero;
 
-        // Trigger
-        hitbox.AddComponent<SphereCollider>().isTrigger = true;
-        hitbox.AddComponent<OnTrigger>().onTriggerEnter += OnHitATarget;
+        hitbox.AddComponent<SphereCollider>();
 
-        hitbox.SetActive(false);
+        return hitbox;
     }
 
-    void OnHitATarget(GameObject hit) {
-        if (hits.Contains(hit)) return;
-        hits.Add(hit);
-
+    public override void OnHit(GameObject hit) {
         atacador.OnAtaqueHit(hit);
         GameManager.instance.StartCoroutine(SlowdownOnHit());
     }
@@ -50,17 +40,15 @@ public class AtaqueInvestida : AtaqueInstance {
         else Time.timeScale = 0;
     }
 
-    public override void OnAttack() {
-        hitbox.SetActive(true);
-    }
-
 
     public override void OnUpdate(AtaqueInstance.Estado estado) {
-        if (estadoAtual == AtaqueInstance.Estado.Hit) {
+        if (estado == AtaqueInstance.Estado.Hit) {
             GameObject hit = atacador.GetSelf();
             CharacterController cc = hit.GetComponent<CharacterController>();
             cc.Move(hit.transform.forward * velocidade * Time.deltaTime);
         }
+
+       base.OnUpdate(estado);
     }
 
     public override void OnRecovery() {
@@ -77,11 +65,7 @@ public class AtaqueInvestida : AtaqueInstance {
     }
 
     public override void OnEnd() {
-        if (hitbox != null) {
-            hitbox.SetActive(false);
-            Object.Destroy(hitbox);
-        }
-    
+        base.OnEnd();
         animator.applyRootMotion = false;
     }
 }

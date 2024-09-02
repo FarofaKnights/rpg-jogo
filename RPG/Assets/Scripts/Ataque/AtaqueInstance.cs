@@ -2,10 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public interface IAttackEventListener {
+    void OnEnter() { }
+    void OnAntecipacao() { }
+    void OnAttack() { }
+    void OnRecovery() { }
+    void OnEnd() { }
 
-public class AtaqueInstance {
+    void OnUpdate(AtaqueInstance.Estado estado) { }
+}
+
+
+public class AtaqueInstance  {
     public enum Estado { Enter, Antecipacao, Hit, Recovery, End }
     public Estado estadoAtual = Estado.Enter;
+
+    public HitListener hitListener;
+    public AttackBehaviour attackBehaviour;
 
     public AtaqueInfo info;
     public IAtacador atacador;
@@ -18,13 +31,35 @@ public class AtaqueInstance {
     int frameCounter = 0;
     int totalFrameCounter = 0;
 
-    public virtual void OnEnter() { }
-    public virtual void OnAntecipacao() { }
-    public virtual void OnAttack() { }
-    public virtual void OnRecovery() { }
-    public virtual void OnEnd() { }
+    public virtual void OnEnter() {
+        hitListener.OnEnter();
+        attackBehaviour.OnEnter();
+    }
 
-    public virtual void OnUpdate(Estado estado) { }
+    public virtual void OnAntecipacao() {
+        hitListener.OnAntecipacao();
+        attackBehaviour.OnAntecipacao();
+    }
+
+    public virtual void OnAttack() {
+        hitListener.OnAttack();
+        attackBehaviour.OnAttack();
+    }
+
+    public virtual void OnRecovery() {
+        hitListener.OnRecovery();
+        attackBehaviour.OnRecovery();
+    }
+
+    public virtual void OnEnd() {
+        hitListener.OnEnd();
+        attackBehaviour.OnEnd();
+    }
+
+    public virtual void OnUpdate(Estado estado) {
+        hitListener.OnUpdate(estado);
+        attackBehaviour.OnUpdate(estado);
+    }
 
 
     public AtaqueInstance(AtaqueInfo info, IAtacador atacador) {
@@ -48,6 +83,9 @@ public class AtaqueInstance {
         if (ataqueAnimationEvents != null && !info.usarTiming) {
             ataqueAnimationEvents.ataqueInstance = this;
         }
+
+        this.attackBehaviour = info.GetBehaviour(atacador);
+        hitListener = info.GetHitListener(this.attackBehaviour);
        
         totalFrameCounter = 0;
         OnEnter();

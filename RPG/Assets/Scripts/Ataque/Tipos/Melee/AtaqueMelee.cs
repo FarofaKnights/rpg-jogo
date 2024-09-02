@@ -2,34 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AtaqueMelee: AtaqueInstance {
+public class AtaqueMelee: HitboxAttackBehaviour {
     public GameObject hitbox;
     List<GameObject> hits = new List<GameObject>();
 
     public AtaqueMelee(MeleeAtaqueInfo info, IAtacador atacador) : base(info, atacador) {
-        CreateHitbox();
-    }
-
-    public override void OnAttack() {
-        AtivarHitbox();
-    }
-
-    public override void OnRecovery() {
-        DesativarHitbox();
     }
 
     public override void OnEnd() {
-        if (hitbox != null) {
-            hitbox.SetActive(false);
-            Object.Destroy(hitbox);
-        }
-    
         animator.applyRootMotion = false;
     }
 
 
-    protected void CreateHitbox() {
-        hitbox = new GameObject("AttackHitbox");
+    public override GameObject GetHitbox() {
+        GameObject hitbox = new GameObject("AttackHitbox_Melee");
         MeleeAtaqueInfo infoMelee = (MeleeAtaqueInfo)info;
 
         // Transform
@@ -39,16 +25,11 @@ public class AtaqueMelee: AtaqueInstance {
         hitbox.transform.localEulerAngles = infoMelee.hitboxRotation;
 
         // Trigger
-        hitbox.AddComponent<BoxCollider>().isTrigger = true;
-        hitbox.AddComponent<OnTrigger>().onTriggerEnter += OnHitATarget;
-
-        hitbox.SetActive(false);
+        hitbox.AddComponent<BoxCollider>();
+        return hitbox;
     }
 
-    void OnHitATarget(GameObject hit) {
-        if (hits.Contains(hit)) return;
-        hits.Add(hit);
-
+    public override void OnHit(GameObject hit) {
         atacador.OnAtaqueHit(hit);
         GameManager.instance.StartCoroutine(SlowdownOnHit());
     }
@@ -58,13 +39,5 @@ public class AtaqueMelee: AtaqueInstance {
         yield return new WaitForSecondsRealtime(0.05f);
         if (!GameManager.instance.IsPaused()) Time.timeScale = 1;
         else Time.timeScale = 0;
-    }
-
-    public void AtivarHitbox() {
-        hitbox.SetActive(true);
-    }
-
-    public void DesativarHitbox() {
-        hitbox.SetActive(false);
     }
 }

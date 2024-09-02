@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class AtaqueShooter: AtaqueInstance {
+public class AtaqueShooter: AttackBehaviour {
     public GameObject projetilPrefab;
     public float tempoDeVida;
     public float velocidade;
@@ -29,4 +29,6 @@ public class AtaqueShooter: AtaqueInstance {
         
         }
     }
+
+    public override void OnHit(GameObject hit) {}
 }

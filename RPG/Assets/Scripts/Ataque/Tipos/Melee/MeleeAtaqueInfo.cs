@@ -13,8 +13,12 @@ public class MeleeAtaqueInfo : AtaqueInfo {
         return MeleeAtaqueInfo.Atacar(this, atacador);
     }
 
+    public override AttackBehaviour GetBehaviour(IAtacador atacador) {
+        return new AtaqueMelee(this, atacador);
+    }
+
     public static AtaqueInstance Atacar(MeleeAtaqueInfo AtaqueInfo, IAtacador atacador) {
-        return new AtaqueMelee(AtaqueInfo, atacador);
+        return new AtaqueInstance(AtaqueInfo, atacador);
     }
 
 }

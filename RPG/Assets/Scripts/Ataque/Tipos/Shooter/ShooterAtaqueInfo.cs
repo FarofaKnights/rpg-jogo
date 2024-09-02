@@ -14,8 +14,12 @@ public class ShooterAtaqueInfo : AtaqueInfo {
         return ShooterAtaqueInfo.Atacar(this, atacador);
     }
 
-    public static AtaqueInstance Atacar(ShooterAtaqueInfo AtaqueInfo, IAtacador atacador) {
-        return new AtaqueShooter(AtaqueInfo, atacador);
+    public override AttackBehaviour GetBehaviour(IAtacador atacador) {
+        return new AtaqueShooter(this, atacador);
+    }
+
+    public static AtaqueInstance Atacar(ShooterAtaqueInfo ataqueInfo, IAtacador atacador) {
+        return new AtaqueInstance(ataqueInfo, atacador);
     }
 
 }

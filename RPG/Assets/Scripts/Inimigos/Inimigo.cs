@@ -99,29 +99,36 @@ public class Inimigo : MonoBehaviour, IAtacador {
 
     // draw gizmos
     void OnDrawGizmosSelected() {
+        Matrix4x4 oldMatrix = Gizmos.matrix;
+        Vector3 tickness = new Vector3(1, 0.01f, 1);
+        Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, tickness);
+
         if (stateMachine == null) {
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, rangeProcurando);
+            Gizmos.DrawWireSphere(Vector3.zero, rangeProcurando);
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, minRangeProximidade);
+            Gizmos.DrawWireSphere(Vector3.zero, minRangeProximidade);
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, rangePerderTarget);
+            Gizmos.DrawWireSphere(Vector3.zero, rangePerderTarget);
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, maxRangeProximidade);
+            Gizmos.DrawWireSphere(Vector3.zero, maxRangeProximidade);
         } else if (stateMachine.GetCurrentState() == idleState) {
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, rangeProcurando);
+            Gizmos.DrawWireSphere(Vector3.zero, rangeProcurando);
         } else if (stateMachine.GetCurrentState() == walkState) {
+            Gizmos.matrix = Matrix4x4.TRS(target.transform.position, target.transform.rotation, tickness);
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(target.transform.position, minRangeProximidade);
+            Gizmos.DrawWireSphere(Vector3.zero, minRangeProximidade);
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(target.transform.position, rangePerderTarget);
+            Gizmos.DrawWireSphere(Vector3.zero, rangePerderTarget);
         } else if (stateMachine.GetCurrentState() == attackState) {
+            Gizmos.matrix = Matrix4x4.TRS(target.transform.position, target.transform.rotation, tickness);
+
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(target.transform.position, maxRangeProximidade);
+            Gizmos.DrawWireSphere(Vector3.zero, maxRangeProximidade);
         }
       
-        
+        Gizmos.matrix = oldMatrix;
     }
 
     public void SpawnParticle()
