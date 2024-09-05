@@ -102,7 +102,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     }
 
 
-    void Update()  {
+    void FixedUpdate()  {
         stateMachine.Execute();
     }
 
