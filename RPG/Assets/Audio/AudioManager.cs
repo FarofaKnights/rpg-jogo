@@ -14,6 +14,10 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource doorOpen;
     public AudioSource doorClose;
+    public AudioSource vaultSlam;
+
+    public AudioSource elevatorUp;
+
 
     public AudioSource musica;
     

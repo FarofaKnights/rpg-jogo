@@ -4,7 +4,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(Interagivel))]
 public class PortaCondicional : MonoBehaviour {
-    public float rotationSpeed;
 
     public Collider col;
 
@@ -12,14 +11,13 @@ public class PortaCondicional : MonoBehaviour {
 
     public CondicaoInfo condicaoInfo;
 
-    public AudioSource abriu;
-    public AudioSource naoAbriu;
 
     public Animator[] animacoes; 
 
     Condicao condicao;
 
     public bool consumirItem = false;
+    public bool isVault = false;
 
     void Start() {
 
@@ -37,6 +35,11 @@ public class PortaCondicional : MonoBehaviour {
             Interagivel inte = GetComponent<Interagivel>();
             if (inte.tagFilter == null) inte.tagFilter = "Player";
         }
+
+        if(isVault)
+        {
+            AudioManager.instance.vaultSlam.Play();
+        }
     }
 
     public void OnPlayerInteract() {
@@ -51,7 +54,6 @@ public class PortaCondicional : MonoBehaviour {
         }
         else
         {
-            Debug.Log("nao");
             AudioManager.instance.doorClose.Play();
         }
     }
