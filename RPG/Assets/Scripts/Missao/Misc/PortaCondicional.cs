@@ -7,6 +7,8 @@ public class PortaCondicional : MonoBehaviour {
 
     public Collider col;
 
+    public Collider[] doorCols;
+
     Interagivel interagivel;
 
     public CondicaoInfo condicaoInfo;
@@ -49,6 +51,10 @@ public class PortaCondicional : MonoBehaviour {
             {
                 anim.SetTrigger("Abrir");
                 AudioManager.instance.doorOpen.Play();
+            }
+            foreach (Collider col in doorCols)
+            {
+                col.enabled = false;
             }
             Destroy(this.gameObject);
         }
