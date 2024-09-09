@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class QuestStep {
+public class QuestStepLegacy {
     public int step;
     public GameObject[] toActivate;
     public GameObject[] toDeactivate;
@@ -13,7 +13,7 @@ public class QuestController : MonoBehaviour {
     public string questVariableName;
 
     [SerializeField]
-    public QuestStep[] steps;
+    public QuestStepLegacy[] steps;
     LocalVariable<int> currentStep;
 
     void Start() {
@@ -31,7 +31,7 @@ public class QuestController : MonoBehaviour {
         int step = (int)stepObj;
         if (step < 0) return;
 
-        QuestStep questStep = GetStep(step);
+        QuestStepLegacy questStep = GetStep(step);
         if (questStep == null) return;
 
         foreach (GameObject go in questStep.toActivate) {
@@ -47,8 +47,8 @@ public class QuestController : MonoBehaviour {
         currentStep.Unwatch(OnStepChange);
     }
 
-    QuestStep GetStep(int step) {
-        foreach (QuestStep questStep in steps) {
+    QuestStepLegacy GetStep(int step) {
+        foreach (QuestStepLegacy questStep in steps) {
             if (questStep.step == step) {
                 return questStep;
             }
