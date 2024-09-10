@@ -15,6 +15,7 @@ public class UIController : MonoBehaviour {
     public static AreaEquipamentosUI equipamentos;
     public static ConfiguracoesUI configuracoes;
     public static SistemaUI sistema;
+    public static MissaoUI missao;
     public static DialogoController dialogo;
     public static CheatController cheat;
     public static ModalController modal;
@@ -29,7 +30,7 @@ public class UIController : MonoBehaviour {
     public Color selectedTabColor;
     public int unselectedTabSize = 14;
     public Color unselectedTabColor;
-    public Text equipamentosTab, configuracoesTab, sistemaTab;
+    public Text equipamentosTab, configuracoesTab, sistemaTab, missaoTab;
 
     #if UNITY_EDITOR
         public bool updateTabsOnValidate = false;
@@ -46,6 +47,7 @@ public class UIController : MonoBehaviour {
         equipamentos = GetComponentInChildren<AreaEquipamentosUI>(true);
         configuracoes = GetComponentInChildren<ConfiguracoesUI>(true);
         sistema = GetComponentInChildren<SistemaUI>(true);
+        missao = GetComponentInChildren<MissaoUI>(true);
         dialogo = GetComponentInChildren<DialogoController>(true);
         cheat = GetComponentInChildren<CheatController>(true);
         modal = GetComponentInChildren<ModalController>(true);
@@ -154,23 +156,33 @@ public class UIController : MonoBehaviour {
                 equipamentos.Show();
                 configuracoes.Hide();
                 sistema.Hide();
+                missao.Hide();
                 tab = equipamentosTab;
                 break;
             case "Configuracoes":
                 equipamentos.Hide();
                 configuracoes.Show();
                 sistema.Hide();
+                missao.Hide();
                 tab = configuracoesTab;
                 break;
             case "Sistema":
                 equipamentos.Hide();
                 configuracoes.Hide();
                 sistema.Show();
+                missao.Hide();
                 tab = sistemaTab;
+                break;
+            case "Missao":
+                equipamentos.Hide();
+                configuracoes.Hide();
+                sistema.Hide();
+                missao.Show();
+                tab = missaoTab;
                 break;
         }
 
-        Text[] tabs = {equipamentosTab, configuracoesTab, sistemaTab};
+        Text[] tabs = {equipamentosTab, configuracoesTab, sistemaTab, missaoTab};
         foreach (Text t in tabs) {
             if (t == tab) {
                 t.fontSize = selectedTabSize;

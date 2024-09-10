@@ -17,6 +17,9 @@ public class QuestInfo : ScriptableObject {
     [Header("Quest Info")]
     public string questId;
     
+    public string titulo;
+    [TextArea(3, 10)] public string descricao;
+    
     public Fala[] introductionFalas;
     public Fala[] questFalas;
     public Fala[] finishingFalas;

@@ -32,10 +32,8 @@ public class QuestManager : MonoBehaviour {
 
         foreach (Quest quest in quests.Values) {
             if (quest.info.requirementsInfo != null && quest.info.requirementsInfo.GetCondicao() != null) {
-                Debug.Log("Adicionando evento para a condição da quest " + quest.info.questId);
                 Condicao condicao = quest.info.requirementsInfo.GetCondicao();
                 condicao.Then(() => {
-                    Debug.Log("Condição da quest " + quest.info.questId + " foi satisfeita");
                     ChangeQuestState(quest.info.questId, QuestState.CAN_START);
                 });
             } else {
