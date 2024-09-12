@@ -6,8 +6,9 @@ using UnityEngine.UI;
 public class MissaoUI : MonoBehaviour, UITab {
     [Header("Static Components")]
     public Text titulo;
-    public Text descricao;
+    public Text descricao, statusMissaoAtual;
     public Transform missaoConteudoHolder, missaoBtnHolder;
+    public Color missaoTextoConcluido;
 
     [Header("Prefabs")]
     public GameObject missaoBtnPrefab;
@@ -41,6 +42,7 @@ public class MissaoUI : MonoBehaviour, UITab {
 
         titulo.text = "";
         descricao.text = "";
+        statusMissaoAtual.text = "";
         
         foreach (Transform child in missaoConteudoHolder) {
             Destroy(child.gameObject);
@@ -54,5 +56,40 @@ public class MissaoUI : MonoBehaviour, UITab {
         foreach (Transform child in missaoConteudoHolder) {
             Destroy(child.gameObject);
         }
+
+        int i = 0;
+        bool encerrada = false;
+
+        switch(quest.state) {
+            case QuestState.WAITING_REQUIREMENTS:
+                statusMissaoAtual.text = "Aguardando requisitos";
+                break;
+            case QuestState.CAN_START:
+                statusMissaoAtual.text = "Pode começar";
+                break;
+            case QuestState.IN_PROGRESS:
+                statusMissaoAtual.text = "Missão em progresso";
+                break;
+            case QuestState.CAN_FINISH:
+                statusMissaoAtual.text = "Pode finalizar";
+                encerrada = true;
+                break;
+            case QuestState.FINISHED:
+                statusMissaoAtual.text = "Missão concluída";
+                encerrada = true;
+                break;
+        }
+
+        string[] messages = quest.AllMessagesUntillNow();
+        foreach (string message in messages) {
+            GameObject text = Instantiate(missaoTextPrefab, missaoConteudoHolder);
+            GameObject divisoria = Instantiate(divisoriaPrefab, missaoConteudoHolder);
+            text.GetComponent<Text>().text = "- " + message;
+            if (i < messages.Length - 1 || encerrada) {
+                text.GetComponent<Text>().color = missaoTextoConcluido;
+            }
+            i++;
+        }
+        
     }
 }

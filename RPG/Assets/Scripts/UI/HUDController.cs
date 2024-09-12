@@ -5,8 +5,12 @@ using UnityEngine.UI;
 
 public class HUDController : MonoBehaviour {
     public Slider vidaSlider, calorSlider;
-    public Text pecasText;
+    public Text pecasText, missaoText;
     public Image imagemArma, imagemSave;
+
+    void Start() {
+        UpdateMissaoText("");
+    }
 
     public void UpdateVida(float vida, float vidaMax) {
         vidaSlider.maxValue = vidaMax;
@@ -20,6 +24,10 @@ public class HUDController : MonoBehaviour {
 
     public void UpdatePecas(int pecas) {
         pecasText.text = "" + pecas;
+    }
+
+    public void UpdateMissaoText(string texto) {
+        missaoText.text = texto;
     }
 
     public void SetArmaEquipada(Arma arma) {

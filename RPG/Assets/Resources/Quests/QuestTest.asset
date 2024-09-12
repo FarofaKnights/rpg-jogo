@@ -16,33 +16,33 @@ MonoBehaviour:
   titulo: "Miss\xE3o de Teste"
   descricao: "Essa \xE9 s\xF3 uma miss\xE3o de testes, n\xE3o leve a s\xE9rio ou
     tente acha-la pelo mapa (ela est\xE1 no HUD_Testes)"
-  introductionFalas:
-  - text: Fala tal e tal e tal e tal
-    autoNext: 0
-    acao:
-      acao: 0
-      parametros:
-        id: 
-        type: 0
-        isGlobal: 0
-        intValue: 0
-        floatValue: 0
-        stringValue: 
-        boolValue: 0
-  - text: e slarrrr
-    autoNext: 0
-    acao:
-      acao: 0
-      parametros:
-        id: 
-        type: 0
-        isGlobal: 0
-        intValue: 0
-        floatValue: 0
-        stringValue: 
-        boolValue: 0
-  questFalas: []
-  finishingFalas: []
+  falasCarregadas:
+  - nome: fala_final
+    falas:
+    - text: "Esse \xE9 o fim....."
+      autoNext: 0
+      acao:
+        acao: 0
+        parametros:
+          id: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
+    - text: Eu vou abrir a porta aqui pra vc :)
+      autoNext: 0
+      acao:
+        acao: 0
+        parametros:
+          id: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
   requirementsInfo:
     condicao: 2
     parametros:
@@ -56,13 +56,97 @@ MonoBehaviour:
       comparacaoValue: 1
       dinamic: 1
   steps:
-  - gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
-      type: 3}
-    parameter: 1
-  - gameObject: {fileID: 1368148330828971028, guid: 23788a0b99f9dc84d87936d3428a2218,
-      type: 3}
-    parameter: 2
-  - gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
-      type: 3}
-    parameter: 3
+  - type: 1
+    gameObject: {fileID: 0}
+    parameter: 
+    informativo: 
+    children:
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
+        type: 3}
+      parameter: handle_trigger1
+      informativo: 
+      children: []
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+        type: 3}
+      parameter: trigger1
+      informativo: "V\xE1 para o canto de l\xE1"
+      children: []
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 23788a0b99f9dc84d87936d3428a2218,
+        type: 3}
+      parameter: handle_trigger1
+      informativo: 
+      children: []
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
+        type: 3}
+      parameter: teste_recompensa1
+      informativo: 
+      children: []
+  - type: 1
+    gameObject: {fileID: 0}
+    parameter: 
+    informativo: 
+    children:
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
+        type: 3}
+      parameter: handle_trigger2
+      informativo: 
+      children: []
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+        type: 3}
+      parameter: trigger2
+      informativo: Agora vai pro outro canto
+      children: []
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 23788a0b99f9dc84d87936d3428a2218,
+        type: 3}
+      parameter: handle_trigger2
+      informativo: 
+      children: []
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
+        type: 3}
+      parameter: fala_final
+      informativo: 
+      children: []
+  - type: 1
+    gameObject: {fileID: 0}
+    parameter: 
+    informativo: 
+    children:
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 23788a0b99f9dc84d87936d3428a2218,
+        type: 3}
+      parameter: porta_teste
+      informativo: 
+      children: []
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
+        type: 3}
+      parameter: handle_trigger_porta
+      informativo: 
+      children: []
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+        type: 3}
+      parameter: trigger_porta
+      informativo: Atravesse a porta
+      children: []
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 23788a0b99f9dc84d87936d3428a2218,
+        type: 3}
+      parameter: handle_trigger_porta
+      informativo: 
+      children: []
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
+        type: 3}
+      parameter: teste_recompensa2
+      informativo: 
+      children: []
   rewardsInfo: []

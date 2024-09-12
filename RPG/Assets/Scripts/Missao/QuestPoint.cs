@@ -26,16 +26,10 @@ public class QuestPoint : MonoBehaviour {    public QuestInfo questInfo;
         if (!other.CompareTag("Player")) return;
 
         if (questState == QuestState.CAN_START) {
-            UIController.dialogo.StartDialogo(questInfo.introductionFalas, () => {
-                QuestManager.instance.StartQuest(questInfo.questId);
-            });
-
+            QuestManager.instance.StartQuest(questInfo.questId);
+            gameObject.SetActive(false);
         } else if (questState == QuestState.CAN_FINISH) {
-            UIController.dialogo.StartDialogo(questInfo.finishingFalas);
             QuestManager.instance.FinishQuest(questInfo.questId);
-
-        } else if (questState == QuestState.IN_PROGRESS) {
-            UIController.dialogo.StartDialogo(questInfo.questFalas);
         }
     }
 }

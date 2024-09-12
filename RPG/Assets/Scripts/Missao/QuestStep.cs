@@ -5,7 +5,7 @@ using UnityEngine;
 // Uma classe que representa um passo de uma missão
 public abstract class QuestStep : MonoBehaviour {
     bool isFinished = false;
-    string questId;
+    protected string questId;
 
     public void Initialize(string questId) {
         this.questId = questId;

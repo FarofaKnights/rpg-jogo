@@ -13,6 +13,17 @@ public class QuestManager : MonoBehaviour {
     public Action<string> OnQuestStart, OnQuestAdvance, OnQuestFinish;
     public Action<Quest> OnQuestStateChanged;
 
+    public Quest selectedQuest = null;
+
+    // Em relação aos Steps de trigger (bem comum)
+    class Quest_Trigger {
+        public string questId;
+        public string triggerName;
+        public System.Action action;
+    }
+
+    List<Quest_Trigger> questTriggers = new List<Quest_Trigger>();
+
     void Awake() {
         if (instance == null) {
             instance = this;
@@ -62,7 +73,7 @@ public class QuestManager : MonoBehaviour {
                 OnQuestAdvance(questId);
             }
         } else {
-            ChangeQuestState(questId, QuestState.CAN_FINISH);
+            ChangeQuestState(questId, QuestState.FINISHED);
         }
     }
 
@@ -128,5 +139,42 @@ public class QuestManager : MonoBehaviour {
         }
 
         return null;
+    }
+
+    Quest_Trigger GetQuestTrigger(string questId, string triggerName) {
+        foreach (Quest_Trigger trigger in questTriggers) {
+            if (trigger.questId == questId && trigger.triggerName == triggerName) {
+                return trigger;
+            }
+        }
+
+        return null;
+    }
+
+    public void RegisterQuestTrigger(string questId, string triggerName, System.Action action) {
+        Quest_Trigger trigger = GetQuestTrigger(questId, triggerName);
+        if (trigger == null) {
+            trigger = new Quest_Trigger();
+            trigger.questId = questId;
+            trigger.triggerName = triggerName;
+            questTriggers.Add(trigger);
+        }
+
+        trigger.action += action;
+    }
+
+    public void TriggerQuest(string questId, string triggerName) {
+        Quest_Trigger trigger = GetQuestTrigger(questId, triggerName);
+        if (trigger != null) {
+            trigger.action();
+        }
+    }
+
+    public void ClearQuestTriggers(string questId, string triggerName) {
+        for (int i = questTriggers.Count - 1; i >= 0; i--) {
+            if (questTriggers[i].questId == questId && questTriggers[i].triggerName == triggerName) {
+                questTriggers.RemoveAt(i);
+            }
+        }
     }
 }

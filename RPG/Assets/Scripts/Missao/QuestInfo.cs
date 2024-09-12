@@ -2,10 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum QuestStepType { ACAO, PAI }
+
+
 [System.Serializable]
 public class GameObjectParameter {
+    public QuestStepType type = QuestStepType.ACAO;
     public GameObject gameObject;
     public string parameter;
+    public string informativo;
+    public GameObjectParameter[] children;
+}
+
+
+[System.Serializable]
+public class FalaCarregada {
+    public string nome;
+    public Fala[] falas;
 }
 
 public interface IQuestInformations {
@@ -20,9 +33,7 @@ public class QuestInfo : ScriptableObject {
     public string titulo;
     [TextArea(3, 10)] public string descricao;
     
-    public Fala[] introductionFalas;
-    public Fala[] questFalas;
-    public Fala[] finishingFalas;
+    public FalaCarregada[] falasCarregadas;
 
     [Header("Quest Requirements")]
     public CondicaoInfo requirementsInfo;
@@ -39,5 +50,15 @@ public class QuestInfo : ScriptableObject {
         questId = this.name;
         UnityEditor.EditorUtility.SetDirty(this);
         #endif
+    }
+
+    public Fala[] GetFalas(string nome) {
+        foreach (FalaCarregada falaCarregada in falasCarregadas) {
+            if (falaCarregada.nome == nome) {
+                return falaCarregada.falas;
+            }
+        }
+
+        return null;
     }
 }
