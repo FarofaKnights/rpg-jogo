@@ -69,6 +69,21 @@ public class CondicaoInfoDrawer : PropertyDrawer {
         if (parametro == "value") {
             DrawValorParametro(parametros, parametro, displayText, ref pos);
             return;
+        } else {
+            switch (parametro) {
+                case "intValue":
+                    parametros.FindPropertyRelative("type").enumValueIndex = (int)CondicaoParams.Tipo.INT;
+                    break;
+                case "floatValue":
+                    parametros.FindPropertyRelative("type").enumValueIndex = (int)CondicaoParams.Tipo.FLOAT;
+                    break;
+                case "stringValue":
+                    parametros.FindPropertyRelative("type").enumValueIndex = (int)CondicaoParams.Tipo.STRING;
+                    break;
+                case "boolValue":
+                    parametros.FindPropertyRelative("type").enumValueIndex = (int)CondicaoParams.Tipo.BOOL;
+                    break;
+            }
         }
 
         SerializedProperty prop = parametros.FindPropertyRelative(parametro);

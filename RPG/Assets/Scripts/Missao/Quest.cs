@@ -27,7 +27,9 @@ public class Quest {
 
         GameObjectParameter step = info.steps[currentStep];
         if (step.type == QuestStepType.PAI) {
-            if (internalStep < step.children.Length - 1) {
+            GameObjectParameterParent parent = (GameObjectParameterParent)step;
+
+            if (internalStep < parent.children.Length - 1) {
                 internalStep++;
                 return true;
             }
@@ -51,7 +53,7 @@ public class Quest {
         GameObjectParameter step = info.steps[currentStep];
 
         if (step.type == QuestStepType.PAI) {
-            return HandlePai(step, parent);
+            return HandlePai((GameObjectParameterParent)step, parent);
         } else if (step.type == QuestStepType.ACAO) {
             return HandleAcao(step, parent);
         }
@@ -71,7 +73,7 @@ public class Quest {
         return stepObject;
     }
 
-    GameObject HandlePai(GameObjectParameter parentStep, Transform parent) {
+    GameObject HandlePai(GameObjectParameterParent parentStep, Transform parent) {
         GameObjectParameter step = parentStep.children[internalStep];
         return HandleAcao(step, parent);
     }
@@ -106,9 +108,11 @@ public class Quest {
             string inf = "";
 
             if (step.type == QuestStepType.PAI) {
-                int size = i == currentStep && !acabou ? internalStep : step.children.Length - 1;
+                GameObjectParameterParent parent = (GameObjectParameterParent)step;
+
+                int size = i == currentStep && !acabou ? internalStep : parent.children.Length - 1;
                 for (int j = 0; j <= size; j++) {                 
-                    inf = step.children[j].informativo;
+                    inf = parent.children[j].informativo;
                     if (inf != null && inf != "") messages.Add(inf);
                 }
             } else {

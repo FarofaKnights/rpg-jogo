@@ -11,6 +11,15 @@ public class GameObjectParameter {
     public GameObject gameObject;
     public string parameter;
     public string informativo;
+
+    #if UNITY_EDITOR
+    // Essa parte é referente a visualização do passo no editor
+    public bool mostrandoConteudo = true;
+    #endif
+}
+
+[System.Serializable]
+public class GameObjectParameterParent : GameObjectParameter {
     public GameObjectParameter[] children;
 }
 
@@ -39,7 +48,7 @@ public class QuestInfo : ScriptableObject {
     public CondicaoInfo requirementsInfo;
 
     [Header("Quest Steps")]
-    public GameObjectParameter[] steps;
+    public GameObjectParameterParent[] steps;
 
     [Header("Quest Rewards")]
     public AcaoInfo[] rewardsInfo;
@@ -56,6 +65,16 @@ public class QuestInfo : ScriptableObject {
         foreach (FalaCarregada falaCarregada in falasCarregadas) {
             if (falaCarregada.nome == nome) {
                 return falaCarregada.falas;
+            }
+        }
+
+        return null;
+    }
+
+    public FalaCarregada GetFalaCarregada(string nome) {
+        foreach (FalaCarregada falaCarregada in falasCarregadas) {
+            if (falaCarregada.nome == nome) {
+                return falaCarregada;
             }
         }
 

@@ -13,6 +13,11 @@ public class Fala {
         this.text = text;
         acao = null;
     }
+
+    public Fala() {
+        text = "";
+        acao = null;
+    }
 }
 
 

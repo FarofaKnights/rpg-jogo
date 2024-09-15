@@ -33,4 +33,40 @@ public class AcaoParams {
             _ => null
         };
     }
+
+    public Tipo GetTipo() {
+        return type;
+    }
+
+    public static Tipo GetTipo(string tipo) {
+        return (Tipo)System.Enum.Parse(typeof(Tipo), tipo);
+    }
+
+    public string GetTipoString() {
+        return type.ToString();
+    }
+
+    public static AcaoParams Create(string id, string type, string val, string global) {
+        AcaoParams acaoParams = new AcaoParams();
+        acaoParams.id = id;
+        acaoParams.type = GetTipo(type);
+        acaoParams.isGlobal = bool.Parse(global);
+
+        switch (acaoParams.type) {
+            case Tipo.INT:
+                acaoParams.intValue = int.Parse(val);
+                break;
+            case Tipo.FLOAT:
+                acaoParams.floatValue = float.Parse(val);
+                break;
+            case Tipo.STRING:
+                acaoParams.stringValue = val;
+                break;
+            case Tipo.BOOL:
+                acaoParams.boolValue = bool.Parse(val);
+                break;
+        }
+
+        return acaoParams;
+    }
 }

@@ -8,6 +8,7 @@ public class QuestActivateStep : QuestStep, IQuestInformations {
 
     bool objectActivated = false;
 
+
     void Start() {
         ActivateObject();
     }
@@ -32,4 +33,8 @@ public class QuestActivateStep : QuestStep, IQuestInformations {
         this.questInfo = questInfo;
         this.questObjectId = parameter;
     }
+
+    #if UNITY_EDITOR
+    public override string GetEditorName() { return "AÇÃO: Ativar objeto"; }
+    #endif
 }

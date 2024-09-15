@@ -38,4 +38,42 @@ public class CondicaoParams: AcaoParams {
 
     public Comparacao comparacaoValue;
     public bool dinamic;
+
+    public static Comparacao GetComparacao(string comparacao) {
+        return (Comparacao)System.Enum.Parse(typeof(Comparacao), comparacao);
+    }
+
+    public string GetComparacaoString() {
+        return comparacaoValue.ToString();
+    }
+
+    public string[] GetComparacaoStringArray() {
+        return System.Enum.GetNames(typeof(Comparacao));
+    }
+
+    public static CondicaoParams Create(string id, string type, string val, string global, string comparacao, string dinamic) {
+        CondicaoParams condicaoParams = new CondicaoParams();
+        condicaoParams.id = id;
+        condicaoParams.type = GetTipo(type);
+        condicaoParams.isGlobal = bool.Parse(global);
+        condicaoParams.comparacaoValue = GetComparacao(comparacao);
+        condicaoParams.dinamic = bool.Parse(dinamic);
+
+        switch (condicaoParams.type) {
+            case Tipo.INT:
+                condicaoParams.intValue = int.Parse(val);
+                break;
+            case Tipo.FLOAT:
+                condicaoParams.floatValue = float.Parse(val);
+                break;
+            case Tipo.STRING:
+                condicaoParams.stringValue = val;
+                break;
+            case Tipo.BOOL:
+                condicaoParams.boolValue = bool.Parse(val);
+                break;
+        }
+
+        return condicaoParams;
+    }
 }

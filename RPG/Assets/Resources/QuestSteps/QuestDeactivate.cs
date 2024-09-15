@@ -32,4 +32,8 @@ public class QuestDeactivateStep : QuestStep, IQuestInformations {
         this.questInfo = questInfo;
         this.questObjectId = parameter;
     }
+
+    #if UNITY_EDITOR
+    public override string GetEditorName() { return "AÇÃO: Desativar objeto"; }
+    #endif
 }

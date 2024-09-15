@@ -22,4 +22,16 @@ public class RegistroAcoes {
 
         return null;
     }
+
+    public static AcoesRegistradas GetAcao(string acao) {
+        return (AcoesRegistradas)System.Enum.Parse(typeof(AcoesRegistradas), acao);
+    }
+
+    public static string GetAcaoString(AcoesRegistradas acao) {
+        return acao.ToString();
+    }
+
+    public static string[] GetAcoesString() {
+        return System.Enum.GetNames(typeof(AcoesRegistradas));
+    }
 }

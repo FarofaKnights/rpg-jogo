@@ -23,4 +23,16 @@ public class RegistroCondicoes {
 
         return null;
     }
+
+    public static CondicoesRegistradas GetCondicao(string condicao) {
+        return (CondicoesRegistradas)System.Enum.Parse(typeof(CondicoesRegistradas), condicao);
+    }
+
+    public static string GetCondicaoString(CondicoesRegistradas condicao) {
+        return condicao.ToString();
+    }
+
+    public static string[] GetCondicoesString() {
+        return System.Enum.GetNames(typeof(CondicoesRegistradas));
+    }
 }
