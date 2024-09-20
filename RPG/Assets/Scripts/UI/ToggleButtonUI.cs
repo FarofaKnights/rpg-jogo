@@ -19,7 +19,11 @@ public class ToggleButtonUI : MonoBehaviour {
         OnToggle(toggle.isOn);
     }
 
-    void OnToggle(bool isOn) {
+    public void OnToggle(bool isOn) {
+        // Caso você clique no toggle para desativa-lo, é possivel que o parametro venha como true mesmo que internamente ele esteja false
+        // Por isso, é melhor pegar o valor direto do toggle (aprendendo na prática, isso resolve)
+        isOn = toggle.isOn; 
+
         if (isOn) {
             text.color = onTextColor;
             background.color = onBackgroundColor;

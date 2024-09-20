@@ -4,22 +4,25 @@ using UnityEngine.UI;
 using JetBrains.Annotations;
 using System.IO;
 using Cinemachine;
+using Defective.JSON;
 
-
-public class SettingsManager : MonoBehaviour
+public class SettingsManager : MonoBehaviour, Saveable
 {
     public static SettingsManager instance;
-    public const float minVolume = -80, maxVolume = 20;
+    public const float minVolume = -60, maxVolume = 10;
     [Range(minVolume, maxVolume)]
     public float masterVolume, musicVolume, effectVolume;
     public Slider masterSlider, musicSlider, effectSlider, sensi;
     public AudioMixerGroup master, music, effect;
-    string settingsPath;
+    
     GameObject cinemachineCamera;
+    CinemachineFreeLook playerCamera;
+
     public bool invertedX = false, invertedY = true;
 
     public Toggle invertXBtn, invertYBtn, dontInvertXBtn, dontInvertYBtn;
     public bool hasChanged = false;
+    bool isLoading = false;
 
 
     [Range(0, 1)]
@@ -28,13 +31,25 @@ public class SettingsManager : MonoBehaviour
     public float senseX { get { return sense * 1000 + 100; } }
     public float senseY { get { return sense * 5 + 1; } }
 
+    public float SenseXInverse(float value) {
+        return (value - 100) / 1000;
+    }
+
+    public CinemachineFreeLook PlayerCamera {
+        get {
+            if (Player.instance != null && playerCamera == null) {
+                playerCamera = Player.instance.thirdPersonCam.GetComponent<CinemachineFreeLook>();
+            }
+            return playerCamera;
+        }
+    }
+
     public void Start()
     {
         if(instance == null)
         {
             instance = this;
         }
-        settingsPath = Application.dataPath + "Settings.txt";
 
         invertXBtn.onValueChanged.AddListener(delegate { ChangeInvertX(); });
         invertYBtn.onValueChanged.AddListener(delegate { ChangeInvertY(); });
@@ -54,12 +69,21 @@ public class SettingsManager : MonoBehaviour
         sensi.onValueChanged.AddListener(delegate { ChangeSense(); });
         sense = 0.33f;
 
-        if (Player.instance != null)
-            cinemachineCamera = Player.instance.thirdPersonCam.gameObject;
-
         LoadValues();
     }
 
+    public void RefreshUI() {
+        masterSlider.value = 0;
+        musicSlider.value = 0;
+        effectSlider.value = 0;
+        masterSlider.value = masterVolume;
+        musicSlider.value = musicVolume;
+        effectSlider.value = effectVolume;
+        sensi.value = sense;
+        
+        invertXBtn.isOn = invertedX;
+        invertYBtn.isOn = invertedY;
+    }
 
 
     public void ChangeMasterVolume()
@@ -67,62 +91,83 @@ public class SettingsManager : MonoBehaviour
         masterVolume = masterSlider.value;
         master.audioMixer.SetFloat("VolumeMaster", masterVolume);
 
-        hasChanged = true;
+        SetDirty();
     }
     public void ChangeMusicVolume()
     {
         musicVolume = musicSlider.value;
         music.audioMixer.SetFloat("VolumeMusic", musicVolume);
 
-        hasChanged = true;
+        SetDirty();
     }
-
     public void ChangeEffectVolume()
     {
         effectVolume = effectSlider.value;
         effect.audioMixer.SetFloat("VolumeEffects", effectVolume);
 
-        hasChanged = true;
+        SetDirty();
     }
 
     public void ChangeSense()
     {
         sense = sensi.value;
-        if (cinemachineCamera != null) {
-            cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_XAxis.m_MaxSpeed = senseX;
-            cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_YAxis.m_MaxSpeed = senseY;
+        if (PlayerCamera != null) {
+            PlayerCamera.m_XAxis.m_MaxSpeed = senseX;
+            PlayerCamera.m_YAxis.m_MaxSpeed = senseY;
         }
 
-        hasChanged = true;
+        SetDirty();
     }
 
-    public void WriteValues()
+    public float NormalizeValues(float value)
     {
-        SettingsValues sv = new SettingsValues();
-        sv.masterVolume = masterVolume;
-        sv.musicVolume = musicVolume;
-        sv.effectVolume = effectVolume;
-        sv.cameraInvertX = invertedX;
-        sv.cameraInvertY = invertedY;
-        sv.sense = sense;
-        string saveSettings = JsonUtility.ToJson(sv, true);
-        File.WriteAllText(settingsPath, saveSettings);
+        return (value - minVolume) / (maxVolume - minVolume);
+    }
+
+    public float DenormalizeValues(float value)
+    {
+        return value * (maxVolume - minVolume) + minVolume;
+    }
+
+    public void SaveValues()
+    {
+        if (!hasChanged || isLoading) return;
+        ClearDirty();
+        SaveSystem.instance.SaveSettings();
     }
 
     public void LoadValues()
     {
-        string loadSettings = File.ReadAllText(settingsPath);
-        SettingsValues loadValues = JsonUtility.FromJson<SettingsValues>(loadSettings);
+        isLoading = true;
+        SaveSystem.instance.LoadSettings();
+        isLoading = false;
+    }
 
-        masterVolume = loadValues.masterVolume;
+    public JSONObject Save()
+    {
+        SettingsValues sv = new SettingsValues();
+        sv.masterVolume = NormalizeValues(masterVolume);
+        sv.musicVolume = NormalizeValues(musicVolume);
+        sv.effectVolume = NormalizeValues(effectVolume);
+        sv.cameraInvertX = invertedX;
+        sv.cameraInvertY = invertedY;
+        sv.sense = sense;
+        return sv.ToJson();
+    }
+
+    public void Load(JSONObject json)
+    {
+        SettingsValues loadValues = new SettingsValues(json);
+
+        masterVolume = DenormalizeValues(loadValues.masterVolume);
         master.audioMixer.SetFloat("VolumeMaster", masterVolume);
         masterSlider.value = masterVolume;
 
-        musicVolume = loadValues.musicVolume;
+        musicVolume = DenormalizeValues(loadValues.musicVolume);
         music.audioMixer.SetFloat("VolumeMusic", musicVolume);
         musicSlider.value = musicVolume;
 
-        effectVolume = loadValues.effectVolume;
+        effectVolume = DenormalizeValues(loadValues.effectVolume);
         effect.audioMixer.SetFloat("VolumeEffects", effectVolume);
         effectSlider.value = effectVolume;
 
@@ -134,106 +179,110 @@ public class SettingsManager : MonoBehaviour
         LoadCam();
     }
 
+    public void LoadDefault()
+    {
+        masterVolume = masterSlider.value;
+        master.audioMixer.SetFloat("VolumeMaster", masterVolume);
+
+        musicVolume = musicSlider.value;
+        music.audioMixer.SetFloat("VolumeMusic", musicVolume);
+
+        effectVolume = effectSlider.value;
+        effect.audioMixer.SetFloat("VolumeEffects", effectVolume);
+
+        invertedX = false;
+        invertedY = true;
+        sense = 0.33f;
+
+        if (PlayerCamera != null)
+        {
+            invertedX = PlayerCamera.m_XAxis.m_InvertInput;
+            invertedY = PlayerCamera.m_YAxis.m_InvertInput;
+            sense = SenseXInverse(PlayerCamera.m_XAxis.m_MaxSpeed);
+        }
+
+        RefreshUI();
+        LoadCam();
+    }
+
     public void ChangeInvertX()
     {
-        if(invertedX)
-        {
-            if (cinemachineCamera != null)
-            {
-                cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_XAxis.m_InvertInput = false;
-            }
+        bool invertValue = invertXBtn.isOn;
 
-            dontInvertXBtn.isOn = true;
-            invertedX = false;
+        if (PlayerCamera != null)
+        {
+            PlayerCamera.m_XAxis.m_InvertInput = invertValue;
         }
 
-        else
-        {
-            if (cinemachineCamera != null)
-            {
-                cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_XAxis.m_InvertInput = true;
-            }
 
-            invertXBtn.isOn = true;
-            invertedX = true;
-        }
+        if (invertValue) invertXBtn.isOn = true;
+        else dontInvertXBtn.isOn = true;
 
-        WriteValues();
+        if (invertValue != invertedX) SetDirty();
+
+        invertedX = invertValue;
+
+        SaveValues();
     }
 
     public void ChangeInvertY()
     {
-        if (invertedY)
-        {
-            if (cinemachineCamera != null)
-            {
-                cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_YAxis.m_InvertInput = false;
-            }
+        bool invertValue = invertYBtn.isOn;
 
-            dontInvertYBtn.isOn = true;
-            invertedY = false;
+        if (PlayerCamera != null)
+        {
+            PlayerCamera.m_YAxis.m_InvertInput = invertValue;
         }
 
-        else
-        {
-            if (cinemachineCamera != null)
-            {
-                cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_YAxis.m_InvertInput = true;
-            }
+        if (invertValue) invertYBtn.isOn = true;
+        else dontInvertYBtn.isOn = true;
 
-            invertYBtn.isOn = true;
-            invertedY = true;
-        }
+        if (invertValue != invertedY) SetDirty();
 
-        WriteValues();
+        invertedY = invertValue;
+
+        SaveValues();
     }
 
     public void LoadCam()
     {
 
-        //X
-        if(invertedX)
-        {
-            invertXBtn.isOn = true;
-            if (cinemachineCamera != null)
-            {
-                cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_XAxis.m_InvertInput = true;
-                cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_XAxis.m_MaxSpeed = senseX;
-            }
-        }
-        else
-        {
-            dontInvertXBtn.isOn = true;
-            if (cinemachineCamera != null)
-            {
-                cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_XAxis.m_InvertInput = false;
-                cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_XAxis.m_MaxSpeed = senseX;
-            }
-        }
+        // X
+        if (invertedX) invertXBtn.isOn = true;
+        else dontInvertXBtn.isOn = true;
 
-
+        if (PlayerCamera != null)
+        {
+            PlayerCamera.m_XAxis.m_InvertInput = invertedX;
+            PlayerCamera.m_XAxis.m_MaxSpeed = senseX;
+        }
 
         //Y
-        if (invertedY)
+        if (invertedY) invertYBtn.isOn = true;
+        else dontInvertYBtn.isOn = true;
+
+        if (PlayerCamera != null)
         {
-            invertYBtn.isOn = true;
-            if (cinemachineCamera != null)
-            {
-                cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_YAxis.m_InvertInput = true;
-                cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_YAxis.m_MaxSpeed = senseY;
-            }
-        }
-        else
-        {
-            dontInvertYBtn.isOn = true;
-            if (cinemachineCamera != null)
-            {
-                cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_YAxis.m_InvertInput = false;
-                cinemachineCamera.GetComponent<Cinemachine.CinemachineFreeLook>().m_YAxis.m_MaxSpeed = senseY;
-            }
+            PlayerCamera.m_YAxis.m_InvertInput = invertedY;
+            PlayerCamera.m_YAxis.m_MaxSpeed = senseY;
         }
     }
 
+    protected void SetDirty()
+    {
+        if (!isLoading) hasChanged = true;
+    }
+
+    protected void ClearDirty()
+    {
+        hasChanged = false;
+    }
+
+    void OnApplicationQuit()
+    {
+        SaveValues();
+        Debug.Log("Application ending after " + Time.time + " seconds");
+    }
 }
 
 public class SettingsValues
@@ -244,4 +293,46 @@ public class SettingsValues
     public float sense;
     public bool cameraInvertX;
     public bool cameraInvertY;
+
+    public SettingsValues()
+    {
+        masterVolume = 0;
+        musicVolume = 0;
+        effectVolume = 0;
+        sense = 0;
+        cameraInvertX = false;
+        cameraInvertY = false;
+    }
+
+    public SettingsValues(float masterVolume, float musicVolume, float effectVolume, float sense, bool cameraInvertX, bool cameraInvertY)
+    {
+        this.masterVolume = masterVolume;
+        this.musicVolume = musicVolume;
+        this.effectVolume = effectVolume;
+        this.sense = sense;
+        this.cameraInvertX = cameraInvertX;
+        this.cameraInvertY = cameraInvertY;
+    }
+
+    public SettingsValues(JSONObject json)
+    {
+        masterVolume = json.GetField("masterVolume").floatValue;
+        musicVolume = json.GetField("musicVolume").floatValue;
+        effectVolume = json.GetField("effectVolume").floatValue;
+        sense = json.GetField("sense").floatValue;
+        cameraInvertX = json.GetField("invertedX").boolValue;
+        cameraInvertY = json.GetField("invertedY").boolValue;
+    }
+
+    public JSONObject ToJson()
+    {
+        JSONObject obj = new JSONObject();
+        obj.AddField("masterVolume", masterVolume);
+        obj.AddField("musicVolume", musicVolume);
+        obj.AddField("effectVolume", effectVolume);
+        obj.AddField("sense", sense);
+        obj.AddField("invertedX", cameraInvertX);
+        obj.AddField("invertedY", cameraInvertY);
+        return obj;
+    }
 }

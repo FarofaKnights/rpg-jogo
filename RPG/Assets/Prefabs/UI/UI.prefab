@@ -14066,8 +14066,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1249257634605693485}
   - component: {fileID: 2642857158327931284}
-  - component: {fileID: 4918397326112338475}
   - component: {fileID: 7288105187307906251}
+  - component: {fileID: 8013698558597390724}
   m_Layer: 5
   m_Name: TelaConfirmacao
   m_TagString: Untagged
@@ -14103,33 +14103,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7664332539391541798}
   m_CullTransparentMesh: 1
---- !u!114 &4918397326112338475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7664332539391541798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: a180b3a9733528d44b45b401892fc5ca, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Texture: {fileID: 0}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
 --- !u!114 &7288105187307906251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14144,6 +14117,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   texto: {fileID: 8092432162828306059}
   modal: {fileID: 7664332539391541798}
+--- !u!114 &8013698558597390724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7664332539391541798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 44c5a8a0fc003ff46a6d7030e42e91ff, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.31764707}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &7668198029162359828
 GameObject:
   m_ObjectHideFlags: 0
@@ -19355,7 +19358,7 @@ PrefabInstance:
     - target: {fileID: 632604586027717387, guid: a3b6886ebe979f2458960ac72180d20d,
         type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1750928360268044689, guid: a3b6886ebe979f2458960ac72180d20d,
         type: 3}
@@ -19450,7 +19453,7 @@ PrefabInstance:
     - target: {fileID: 3157167080629597748, guid: a3b6886ebe979f2458960ac72180d20d,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.9999999
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3157167080629597748, guid: a3b6886ebe979f2458960ac72180d20d,
         type: 3}

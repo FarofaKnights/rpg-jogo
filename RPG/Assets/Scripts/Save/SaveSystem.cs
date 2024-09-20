@@ -121,4 +121,34 @@ public class SaveSystem {
         string path = Application.persistentDataPath + "/save_" + slot + ".json";
         return System.IO.File.Exists(path);
     }
+
+
+
+    // Separei um pedaço do SaveSystem para salvar as Configurações.
+    // Apesar de que idealmente o SaveSystem deveria ser uma classe utilizavel em varios contextos,
+    // e instanciada multiplas vezes, pelo tempo e prioridades (e considerando o estado que já está),
+    // seria muito trabalhoso refatorar o SaveSystem para ser mais genérico.
+    // Portanto ele acaba tendo que ser um Singleton
+
+    public void SaveSettings() {
+        JSONObject obj = SettingsManager.instance.Save();
+
+
+        string path = Application.persistentDataPath + "/settings.json";
+        System.IO.File.WriteAllText(path, obj.ToString(true));
+    }
+
+    public JSONObject LoadSettings() {
+        string path = Application.persistentDataPath + "/settings.json";
+        if (!System.IO.File.Exists(path)) {
+            SettingsManager.instance.LoadDefault();
+            return null;
+        }
+
+        string json = System.IO.File.ReadAllText(path);
+        JSONObject obj = new JSONObject(json);
+
+        SettingsManager.instance.Load(obj);
+        return obj;
+    }
 }

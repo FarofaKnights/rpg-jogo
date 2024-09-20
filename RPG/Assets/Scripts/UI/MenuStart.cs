@@ -79,15 +79,9 @@ public class MenuStart : MonoBehaviour {
         settingsPanel.SetActive(true);
     }
     public void CloseSettings() {
+        SettingsManager.instance.SaveValues();
         settingsPanel.SetActive(false);
     }
-
-    public void Return()
-    {
-        SettingsManager.instance.WriteValues();
-        SceneManager.LoadScene("Start");
-    }
-
 
     // ChangeLog
 

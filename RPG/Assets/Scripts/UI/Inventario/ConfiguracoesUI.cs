@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ConfiguracoesUI : MonoBehaviour, UITab {
     public void Show() {
+        SettingsManager.instance.RefreshUI();
         gameObject.SetActive(true);
     }
 
@@ -12,8 +13,7 @@ public class ConfiguracoesUI : MonoBehaviour, UITab {
         gameObject.SetActive(false);
 
         if (SettingsManager.instance.hasChanged) {
-            SettingsManager.instance.hasChanged = false;
-            SettingsManager.instance.WriteValues();
+            SettingsManager.instance.SaveValues();
         }
     }
 }
