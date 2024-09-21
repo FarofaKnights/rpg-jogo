@@ -65,7 +65,7 @@ public class QuestTriggerStep : QuestStep, IQuestInformations {
 
     public override string GetEditorParameters(CurrentStepAcaoInfo stepInfo) {
         string[] parameters = SeparateParameters(stepInfo.step.parameter);
-        string nomeDoTrigger = parameters[0];
+        string nomeDoTrigger = parameters.Length > 0 ? parameters[0] : "";
         nomeDoTrigger = EditorGUILayout.TextField("Nome do trigger", nomeDoTrigger);
 
         string holder = parameters.Length > 1 ? parameters[1] : "";

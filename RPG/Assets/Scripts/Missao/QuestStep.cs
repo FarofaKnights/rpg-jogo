@@ -38,6 +38,7 @@ public abstract class QuestStep : MonoBehaviour {
     }
 
     public string[] SeparateParameters(string parameters) {
+        if (parameters == null || parameters == "") return new string[0];
         return parameters.Split(';');
     }
 
