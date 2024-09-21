@@ -1,0 +1,212 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee36e9f26966264bb3dc6d4b55b7d5d, type: 3}
+  m_Name: QuestCacadora
+  m_EditorClassIdentifier: 
+  questId: QuestCacadora
+  titulo: AASS
+  descricao: "Encontre um tanque de Oxig\xEAnio para Adrian\n"
+  falasCarregadas:
+  - nome: Fala2
+    falas:
+    - text: "Eu tive que matar para sobreviver, pessoas, n\xE3o rob\xF4s. E voc\xEA
+        vioulou o seu proprio corpo, vendeu a sua propria humanidade, para os responsaveis
+        pelo fim do meu mundo"
+      autoNext: 1
+      acao:
+        acao: 0
+        parametros:
+          id: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
+    - text: "Todos n\xF3s nos perdemos aqui. Se existe a chance de algo puro l\xE1
+        fora, eu n\xE3o vou arriscar que algu\xE9m infecte o resto mundo com essa
+        doen\xE7a que n\xF3s carregamos. Voc\xEA me ajudou algumas vezes, ent\xE3o
+        eu estou te avisando: Se voc\xEA tentar sair da cidade, eu vou te matar"
+      autoNext: 0
+      acao:
+        acao: 0
+        parametros:
+          id: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
+  - nome: aaaaa
+    falas:
+    - text: "Obrigado, voc\xEA literalmente salvou a minha vida, toma isso aqui"
+      autoNext: 0
+      acao:
+        acao: 2
+        parametros:
+          id: Consumiveis/PocaoVidaData
+          type: 1
+          isGlobal: 0
+          intValue: 2
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
+  - nome: 
+    falas:
+    - text: 
+      autoNext: 0
+      acao:
+        acao: 0
+        parametros:
+          id: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
+  - nome: 
+    falas:
+    - text: 
+      autoNext: 0
+      acao:
+        acao: 0
+        parametros:
+          id: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
+  - nome: Fala2
+    falas: []
+  - nome: Fala2
+    falas:
+    - text: 
+      autoNext: 0
+      acao:
+        acao: 0
+        parametros:
+          id: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
+  - nome: Fala2
+    falas:
+    - text: 
+      autoNext: 0
+      acao:
+        acao: 0
+        parametros:
+          id: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
+  - nome: Fala
+    falas:
+    - text: "Obvio que voc\xEA ia chegar tamb\xE9m, os poucos que restam, todos juntos
+        pertos de um aquecedor, voc\xEAs me enojam. T\xE1 vendo aquele pr\xE9dio
+        caido? Eu preciso discutir algo com voc\xEA, me encontre l\xE1"
+      autoNext: 0
+      acao:
+        acao: 0
+        parametros:
+          id: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
+  requirementsInfo:
+    condicao: 0
+    parametros:
+      id: 
+      type: 0
+      isGlobal: 0
+      intValue: 0
+      floatValue: 0
+      stringValue: 
+      boolValue: 0
+      comparacaoValue: 0
+      dinamic: 0
+  steps:
+  - type: 1
+    gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+      type: 3}
+    parameter: trigger1;tri1
+    informativo: aasasasasassa
+    mostrandoConteudo: 1
+    children:
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+        type: 3}
+      parameter: trigger1;tri1
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
+        type: 3}
+      parameter: Fala
+      informativo: 
+      mostrandoConteudo: 1
+  - type: 1
+    gameObject: {fileID: 0}
+    parameter: 
+    informativo: 
+    mostrandoConteudo: 1
+    children:
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+        type: 3}
+      parameter: trigger2;tri2
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
+        type: 3}
+      parameter: cdc
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 23788a0b99f9dc84d87936d3428a2218,
+        type: 3}
+      parameter: cdc1
+      informativo: 
+      mostrandoConteudo: 1
+  - type: 1
+    gameObject: {fileID: 0}
+    parameter: 
+    informativo: 
+    mostrandoConteudo: 1
+    children:
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+        type: 3}
+      parameter: trigger3;tri3
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
+        type: 3}
+      parameter: Fala2
+      informativo: 
+      mostrandoConteudo: 1
+  rewardsInfo: []
