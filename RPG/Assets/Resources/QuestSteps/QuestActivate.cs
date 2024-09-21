@@ -13,6 +13,8 @@ public class QuestActivateStep : QuestStep, IQuestInformations {
         ActivateObject();
     }
 
+    public override bool IsEfeitoPersistente { get { return true; } }
+
     public void ActivateObject() {
         if (objectActivated) {
             return;
@@ -31,7 +33,10 @@ public class QuestActivateStep : QuestStep, IQuestInformations {
 
     public void HandleQuestInformations(QuestInfo questInfo, string parameter) {
         this.questInfo = questInfo;
+        this.questId = questInfo.questId;
         this.questObjectId = parameter;
+
+        ActivateObject();
     }
 
     #if UNITY_EDITOR

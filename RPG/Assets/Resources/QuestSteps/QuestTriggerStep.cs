@@ -11,6 +11,8 @@ public class QuestTriggerStep : QuestStep, IQuestInformations {
     public string triggerHolder;
     bool alreadySet = false;
 
+    public override bool IsEfeitoPersistente { get { return true; } }
+
     void Start() {
         Set();
     }
@@ -28,7 +30,7 @@ public class QuestTriggerStep : QuestStep, IQuestInformations {
                 }
             }
         }
-        QuestManager.instance.RegisterQuestTrigger(questId, triggerName, OnTrigger);
+        QuestManager.instance.RegisterQuestTrigger(questId, triggerName, FinishStep);
     }
 
     public void HandleQuestInformations(QuestInfo questInfo, string parameter) {
@@ -45,7 +47,7 @@ public class QuestTriggerStep : QuestStep, IQuestInformations {
         Set();
     }
 
-    public void OnTrigger() {
+    public override void OnEnd() {
         QuestManager.instance.ClearQuestTriggers(questId, triggerName);
 
         if (triggerHolder != "") {
@@ -56,8 +58,6 @@ public class QuestTriggerStep : QuestStep, IQuestInformations {
                 }
             }
         }
-
-        FinishStep();
     }
 
     #if UNITY_EDITOR

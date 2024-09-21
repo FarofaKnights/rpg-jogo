@@ -9,6 +9,7 @@ public class QuestCondicaoStep : QuestStep, IQuestInformations {
     public QuestInfo questInfo;
     public CondicaoInfo condicao;
     bool alreadySet = false;
+    Condicao condicaoInstance;
 
     void Start() {
         Set();
@@ -19,8 +20,8 @@ public class QuestCondicaoStep : QuestStep, IQuestInformations {
 
         alreadySet = true;
 
-        Condicao condicaoInstance = condicao.GetCondicao();
-        condicaoInstance.Then(OnConditionRealizada);
+        condicaoInstance = condicao.GetCondicao();
+        condicaoInstance.Then(FinishStep);
     }
 
     public void HandleQuestInformations(QuestInfo questInfo, string parameter) {
@@ -47,8 +48,8 @@ public class QuestCondicaoStep : QuestStep, IQuestInformations {
         Set();
     }
 
-    void OnConditionRealizada() {
-        FinishStep();
+    public override void OnEnd() {
+        condicaoInstance.Clear();
     }
 
     #if UNITY_EDITOR

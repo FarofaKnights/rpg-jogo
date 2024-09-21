@@ -19,6 +19,7 @@ public class QuestPoint : MonoBehaviour {    public QuestInfo questInfo;
             questState = quest.state;
 
             if (questState == QuestState.CAN_START) gameObject.SetActive(true);
+            else gameObject.SetActive(false);
         }
     }
 
@@ -28,8 +29,6 @@ public class QuestPoint : MonoBehaviour {    public QuestInfo questInfo;
         if (questState == QuestState.CAN_START) {
             QuestManager.instance.StartQuest(questInfo.questId);
             gameObject.SetActive(false);
-        } else if (questState == QuestState.CAN_FINISH) {
-            QuestManager.instance.FinishQuest(questInfo.questId);
         }
     }
 }

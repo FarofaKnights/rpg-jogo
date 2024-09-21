@@ -15,10 +15,24 @@ public abstract class QuestStep : MonoBehaviour {
         this.questId = questId;
     }
 
-    protected void FinishStep() {
+    public virtual bool IsEfeitoPersistente { get { return false; } }
+
+    public virtual void OnEnd() { }
+
+    public void FinishStep() {
         if (!isFinished) {
             isFinished = true;
+            OnEnd();
             QuestManager.instance.AdvanceQuest(questId);
+            Destroy(gameObject);
+        }
+    }
+
+    // No caso de carregamento de missão (50 horas de contexto, só aceita)
+    public void DummyFinishStep() {
+        if (!isFinished) {
+            isFinished = true;
+            OnEnd();
             Destroy(gameObject);
         }
     }

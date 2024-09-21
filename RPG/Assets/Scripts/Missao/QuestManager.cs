@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Defective.JSON;
 
-public class QuestManager : MonoBehaviour {
+public class QuestManager : MonoBehaviour, Saveable {
     public static QuestManager instance;
 
     // Armazena todas as quests
@@ -12,6 +13,19 @@ public class QuestManager : MonoBehaviour {
     // Eventos chamados quando o estado de uma quest muda
     public Action<string> OnQuestStart, OnQuestAdvance, OnQuestFinish;
     public Action<Quest> OnQuestStateChanged;
+    Action _OnQuestsLoaded;
+    bool loadingFromSave = false;
+
+    public Action OnQuestsLoaded {
+        get { return _OnQuestsLoaded; }
+        set {
+            if (quests.Count > 0) {
+                value?.Invoke();
+            } else {
+                _OnQuestsLoaded = value;
+            }
+        }
+    }
 
     public Quest selectedQuest = null;
 
@@ -51,6 +65,8 @@ public class QuestManager : MonoBehaviour {
                 ChangeQuestState(quest.info.questId, QuestState.CAN_START);
             }
         }
+        
+        OnQuestsLoaded?.Invoke();
     }
 
     public void StartQuest(string questId) {
@@ -63,6 +79,7 @@ public class QuestManager : MonoBehaviour {
     }
 
     public void AdvanceQuest(string questId) {
+        if (loadingFromSave) return; // Sim, isso é uma gambiarra
         Quest quest = GetQuestById(questId);
         
         if (quest.NextStep()) {
@@ -91,7 +108,7 @@ public class QuestManager : MonoBehaviour {
         Debug.Log("ClaimReward não implementado");
     }
 
-    void ChangeQuestState(string questId, QuestState state) {
+    public void ChangeQuestState(string questId, QuestState state) {
         Quest quest = GetQuestById(questId);
         quest.state = state;
 
@@ -175,6 +192,45 @@ public class QuestManager : MonoBehaviour {
             if (questTriggers[i].questId == questId && questTriggers[i].triggerName == triggerName) {
                 questTriggers.RemoveAt(i);
             }
+        }
+    }
+
+    public JSONObject Save() {
+        JSONObject obj = new JSONObject();
+
+        JSONObject questsObj = new JSONObject();
+        foreach (Quest quest in quests.Values) {
+            if (quest.state == QuestState.WAITING_REQUIREMENTS) continue;
+            questsObj.AddField(quest.info.questId, quest.Save());
+        }
+
+        obj.AddField("quests", questsObj);
+
+        return obj;
+    }
+
+    public void Load(JSONObject obj) {
+        loadingFromSave = true;
+        JSONObject questsObj = obj.GetField("quests");
+        if (questsObj == null || questsObj.list == null) return;
+
+        for (int i = 0; i < questsObj.list.Count; i++) {
+            string questId = questsObj.keys[i];
+            JSONObject questObj = questsObj.list[i];
+
+            if (quests.ContainsKey(questId)) {
+                Quest quest = quests[questId];
+                quest.Load(questObj);
+            }
+        }
+        loadingFromSave = false;
+    }
+
+    public void RunQuestStepOnLoad(string questId) {
+        Quest quest = GetQuestById(questId);
+        if (quest.state == QuestState.IN_PROGRESS) {
+            GameObject stepGO = quest.InstantiateStep(transform);
+            stepGO.GetComponent<QuestStep>().Initialize(questId);
         }
     }
 }

@@ -23,7 +23,7 @@ public class QuestFalaStep : QuestStep, IQuestInformations {
         Fala[] falas = questInfo.GetFalas(falaName);
 
         if (falas != null && falas.Length > 0)
-            UIController.dialogo.StartDialogo(falas, OnTrigger);
+            UIController.dialogo.StartDialogo(falas, FinishStep);
         else
             FinishStep();
     }
@@ -33,10 +33,6 @@ public class QuestFalaStep : QuestStep, IQuestInformations {
         this.falaName = parameter;
 
         Set();
-    }
-
-    public void OnTrigger() {
-        FinishStep();
     }
 
     #if UNITY_EDITOR

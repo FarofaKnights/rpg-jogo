@@ -12,6 +12,8 @@ public class QuestDeactivateStep : QuestStep, IQuestInformations {
         DeactivateObject();
     }
 
+    public override bool IsEfeitoPersistente { get { return true; } }
+
     public void DeactivateObject() {
         if (objectDeactivated) {
             return;
@@ -30,7 +32,10 @@ public class QuestDeactivateStep : QuestStep, IQuestInformations {
 
     public void HandleQuestInformations(QuestInfo questInfo, string parameter) {
         this.questInfo = questInfo;
+        this.questId = questInfo.questId;
         this.questObjectId = parameter;
+
+        DeactivateObject();
     }
 
     #if UNITY_EDITOR

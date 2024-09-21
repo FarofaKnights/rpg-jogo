@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Defective.JSON;
 
 public enum QuestState {
     WAITING_REQUIREMENTS,
@@ -10,11 +11,12 @@ public enum QuestState {
     FINISHED
 }
 
-public class Quest {
+public class Quest : Saveable {
     public QuestInfo info;
     public QuestState state = QuestState.WAITING_REQUIREMENTS;
     int currentStep = 0;
     int internalStep = 0; // Para steps que são pais
+    QuestStep currentStepObject;
 
     public Quest(QuestInfo info) {
         this.info = info;
@@ -63,6 +65,7 @@ public class Quest {
 
     GameObject HandleAcao(GameObjectParameter step, Transform parent) {
         GameObject stepObject = GameObject.Instantiate(step.gameObject, parent);
+        currentStepObject = stepObject.GetComponent<QuestStep>();
 
         IQuestInformations questParameter = stepObject.GetComponent<IQuestInformations>();
         if (questParameter != null) {
@@ -126,5 +129,81 @@ public class Quest {
 
     bool isCurrentStepParent() {
         return info.steps[currentStep].type == QuestStepType.PAI;
+    }
+
+    public JSONObject Save() {
+        JSONObject obj = new JSONObject();
+        obj.AddField("state", (int)state);
+        if (state == QuestState.IN_PROGRESS) {
+            obj.AddField("currentStep", currentStep);
+            obj.AddField("internalStep", internalStep);
+        }
+        return obj;
+    }
+
+    public void Load(JSONObject obj) {
+        QuestState oldState = state;
+        QuestState atEndState = (QuestState)obj.GetField("state").intValue;
+        
+        if (oldState == QuestState.WAITING_REQUIREMENTS && obj.GetField("state").intValue > 0) {
+            Condicao condicao = info.requirementsInfo.GetCondicao();
+            condicao.Clear();
+        }
+
+        if (obj.GetField("state").intValue < 2) {
+            QuestManager.instance.ChangeQuestState(info.questId, atEndState);
+            return;
+        }
+
+        int target_currentStep = obj.GetField("currentStep") != null ? (int)obj.GetField("currentStep").intValue : 0;
+        int target_internalStep = obj.GetField("internalStep") != null ? (int)obj.GetField("internalStep").intValue : 0;
+
+        if (atEndState == QuestState.CAN_FINISH || atEndState == QuestState.FINISHED) {
+            target_currentStep = info.steps.Length - 1;
+            if (info.steps[target_currentStep].type == QuestStepType.PAI) {
+                target_internalStep = ((GameObjectParameterParent)info.steps[target_currentStep]).children.Length - 1;
+            } else {
+                target_internalStep = 0;
+            }
+        }
+
+        currentStep = 0;
+        internalStep = 0;
+        QuestManager.instance.ChangeQuestState(info.questId, QuestState.IN_PROGRESS);
+
+        // Percorre pelos passos, executando passos persistentes
+        while(!(currentStep == target_currentStep && internalStep == target_internalStep)) {
+            QuestStep questStep = null;
+            if (info.steps[currentStep].type == QuestStepType.PAI) {
+                GameObjectParameterParent parent = (GameObjectParameterParent)info.steps[currentStep];
+                questStep = parent.children[internalStep].gameObject.GetComponent<QuestStep>();
+            } else {
+                questStep = info.steps[currentStep].gameObject.GetComponent<QuestStep>();
+            }
+
+            if (questStep.IsEfeitoPersistente) {
+                QuestManager.instance.RunQuestStepOnLoad(info.questId);
+                currentStepObject.DummyFinishStep();
+            }
+
+            NextStep();
+        }
+
+        // Carrega o ultimo passo
+        QuestManager.instance.RunQuestStepOnLoad(info.questId);
+        QuestManager.instance.ChangeQuestState(info.questId, atEndState);
+    }
+
+    QuestStep CurrentStepObject() {
+        if (currentStep >= info.steps.Length) {
+            return null;
+        }
+
+        GameObjectParameter step = info.steps[currentStep];
+        if (step.type == QuestStepType.PAI) {
+            return ((GameObjectParameterParent)step).children[internalStep].gameObject.GetComponent<QuestStep>();
+        }
+
+        return step.gameObject.GetComponent<QuestStep>();
     }
 }

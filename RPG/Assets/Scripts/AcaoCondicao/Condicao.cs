@@ -30,6 +30,10 @@ public abstract class Condicao {
         if (realizada) action();
         else OnRealizada += action;
     }
+
+    public void Clear() {
+        OnRealizada = null;
+    }
 }
 
 [System.Serializable]
@@ -40,7 +44,11 @@ public class CondicaoParams: AcaoParams {
     public bool dinamic;
 
     public static Comparacao GetComparacao(string comparacao) {
-        return (Comparacao)System.Enum.Parse(typeof(Comparacao), comparacao);
+        // Primeiro checa se comparacao é algum valor do enum Comparacao
+        foreach (Comparacao comp in System.Enum.GetValues(typeof(Comparacao))) {
+            if (comparacao == comp.ToString()) return comp;
+        }
+        return Comparacao.NULL;
     }
 
     public string GetComparacaoString() {

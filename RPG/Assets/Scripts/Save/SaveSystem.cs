@@ -31,6 +31,7 @@ public class SaveSystem {
         obj.AddField("inventory", Player.instance.inventario.Save());
         obj.AddField("personagens", dialogaveis.Save());
         obj.AddField("loja", LojaController.instance != null ? LojaController.instance.Save() : null);
+        obj.AddField("missao", QuestManager.instance.Save());
 
         string path = Application.persistentDataPath + "/save_" + slot + ".json";
 
@@ -46,6 +47,7 @@ public class SaveSystem {
         obj.AddField("inventory", Player.instance.inventario.Save());
         obj.AddField("personagens", dialogaveis.Save());
         obj.AddField("loja", LojaController.instance != null ? LojaController.instance.Save() : null);
+        obj.AddField("missao", QuestManager.instance.Save());
 
         return obj;
     }
@@ -56,6 +58,7 @@ public class SaveSystem {
             Player.instance.inventario.Load(obj.GetField("inventory"));
             Player.instance.LoadEquipados(obj.GetField("player"));
             dialogaveis.Load(obj.GetField("personagens"));
+            QuestManager.instance.OnQuestsLoaded += () => QuestManager.instance.Load(obj.GetField("missao"));
 
             if (LojaController.instance != null)
                 LojaController.instance.Load(obj.GetField("loja"));
@@ -82,6 +85,9 @@ public class SaveSystem {
                 Player.instance.inventario.Load(obj.GetField("inventory"));
                 Player.instance.LoadEquipados(obj.GetField("player"));
             }
+
+            if (QuestManager.instance != null)
+                QuestManager.instance.OnQuestsLoaded += () => QuestManager.instance.Load(obj.GetField("missao"));
             
             dialogaveis.Load(obj.GetField("personagens"));
 
@@ -107,6 +113,8 @@ public class SaveSystem {
         Player.instance.inventario.Load(obj.GetField("inventory"));
         Player.instance.LoadEquipados(obj.GetField("player"));
         dialogaveis.Load(obj.GetField("personagens"));
+        if (QuestManager.instance != null)
+                QuestManager.instance.OnQuestsLoaded += () => QuestManager.instance.Load(obj.GetField("missao"));
 
         if (LojaController.instance != null)
             LojaController.instance.Load(obj.GetField("loja"));
