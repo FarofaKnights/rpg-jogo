@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class HUDController : MonoBehaviour {
     public Slider vidaSlider, calorSlider;
     public Text pecasText, missaoText;
-    public Image imagemArma, imagemSave;
+    public Image imagemArma, imagemSave, playerAim;
+    public Color normalAimColor, targetAimColor;
 
     void Start() {
         UpdateMissaoText("");
@@ -58,5 +59,19 @@ public class HUDController : MonoBehaviour {
         imagemSave.gameObject.SetActive(true);
         yield return new WaitForSeconds(2f);
         imagemSave.gameObject.SetActive(false);
+    }
+
+    public void ShowAim(bool show) {
+        playerAim.gameObject.SetActive(show);
+    }
+
+    public void AimHasTarget(bool hasTarget) {
+        playerAim.color = hasTarget ? targetAimColor : normalAimColor;
+    }
+
+    void OnValidate() {
+        if (playerAim != null) {
+            playerAim.color = normalAimColor;
+        }
     }
 }

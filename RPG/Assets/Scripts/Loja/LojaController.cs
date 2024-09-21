@@ -41,6 +41,8 @@ public class LojaController : MonoBehaviour, Saveable {
     }
 
     public void EntrouLoja() {
+        Player.instance.gameObject.SetActive(false);
+
         // Enable cursor
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -61,6 +63,8 @@ public class LojaController : MonoBehaviour, Saveable {
     }
 
     public void SaiuLoja() {
+        Player.instance.gameObject.SetActive(true);
+
         // Disable cursor
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

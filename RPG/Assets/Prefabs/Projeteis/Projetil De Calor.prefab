@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7821341379133922254}
   - component: {fileID: 7888675318398920916}
   - component: {fileID: 5682131278907000692}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 972039547520645939}
   - component: {fileID: 1027075561321926088}
   - component: {fileID: 6920236245016850914}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4925,7 +4925,7 @@ GameObject:
   - component: {fileID: 7479965851863628254}
   - component: {fileID: 4835623263960724420}
   - component: {fileID: 6527834837965702751}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Projetil De Calor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4965,8 +4965,11 @@ MonoBehaviour:
   velocidade: 10
   tempoDeVida: 2
   dano: 10
+  explosao: {fileID: 0}
   tagAlvo: Inimigo
   impulseForce: 0.1
+  ignoreList: []
+  ignoreTags: []
 --- !u!135 &4835623263960724420
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5049,6 +5052,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4022311177449224517}
     m_Modifications:
+    - target: {fileID: 2304792560442637841, guid: 10b6cf93873804541a862d4b71d11466,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3259845615351729452, guid: 10b6cf93873804541a862d4b71d11466,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -5104,10 +5112,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4951081069869169647, guid: 10b6cf93873804541a862d4b71d11466,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5584468572091611464, guid: 10b6cf93873804541a862d4b71d11466,
         type: 3}
       propertyPath: m_Name
       value: HeatBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 5584468572091611464, guid: 10b6cf93873804541a862d4b71d11466,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7271053955869064081, guid: 10b6cf93873804541a862d4b71d11466,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7738293006894595456, guid: 10b6cf93873804541a862d4b71d11466,
         type: 3}

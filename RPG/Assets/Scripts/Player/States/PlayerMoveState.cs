@@ -38,8 +38,12 @@ public class PlayerMoveState : IPlayerState {
         virtualCamera = player.thirdPersonCam.GetComponent<CinemachineVirtualCamera>();
     }
 
-    public void Execute() {
+    public void Update() {
         MovementControl();
+    }
+
+    public void Execute() {
+        if (rolamento) Roll();
     }
 
     public void Exit() {
@@ -72,9 +76,7 @@ public class PlayerMoveState : IPlayerState {
         animator.SetFloat("inputX", moveX);
         animator.SetFloat("inputZ", moveZ);
 
-        if (rolamento) {
-            Roll();
-        } else {
+        if (!rolamento) {
             if (!Input.GetKey(KeyCode.S) && canMove && move != Vector3.zero)
             {
                 if (lockedTarget != null)

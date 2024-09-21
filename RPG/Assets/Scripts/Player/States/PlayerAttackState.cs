@@ -29,7 +29,9 @@ public class PlayerAttackState : IPlayerState {
         if (ataqueInstance == null) return;
 
         ataqueInstance.Update();
+    }
 
+    public void Update() {
         if (Input.GetMouseButtonDown(0) && !comboFull && ataqueInstance.PodeCancelar()) {
             //if (ataqueInstance == null || ataqueInstance.Cancelar()) {
                 comboCount++;

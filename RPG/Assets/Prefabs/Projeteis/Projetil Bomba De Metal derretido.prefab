@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7684715796136401802}
   - component: {fileID: 10430666438138382}
   - component: {fileID: 103958039591274918}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 6807790331073739869}
   - component: {fileID: 6025625439545781973}
   - component: {fileID: -533069879679223049}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Projetil Bomba De Metal derretido
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,6 +188,7 @@ MonoBehaviour:
   tagAlvo: Player
   impulseForce: 1
   ignoreList: []
+  ignoreTags: []
 --- !u!1 &7153299814970484618
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,7 +200,7 @@ GameObject:
   - component: {fileID: 4900776534070474229}
   - component: {fileID: 1936135281427103393}
   - component: {fileID: 1890677758550929224}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5087,7 +5088,7 @@ GameObject:
   - component: {fileID: 2813460516447660368}
   - component: {fileID: 5596267172084504691}
   - component: {fileID: 4677696909097966698}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9919,6 +9920,11 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2304792560442637841, guid: 10b6cf93873804541a862d4b71d11466,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2883134699539711324, guid: 10b6cf93873804541a862d4b71d11466,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -9979,10 +9985,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4951081069869169647, guid: 10b6cf93873804541a862d4b71d11466,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5584468572091611464, guid: 10b6cf93873804541a862d4b71d11466,
         type: 3}
       propertyPath: m_Name
       value: HeatBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 5584468572091611464, guid: 10b6cf93873804541a862d4b71d11466,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7271053955869064081, guid: 10b6cf93873804541a862d4b71d11466,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7738293006894595456, guid: 10b6cf93873804541a862d4b71d11466,
         type: 3}

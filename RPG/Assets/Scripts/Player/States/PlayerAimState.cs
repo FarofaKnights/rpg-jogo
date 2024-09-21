@@ -8,6 +8,7 @@ public class PlayerAimState : IPlayerState {
     Transform aimLook;
     PlayerAimInfo info;
     CharacterController controller;
+    bool aimingAtEnemy = false;
 
     public PlayerAimState(Player player) {
         this.player = player;
@@ -20,6 +21,7 @@ public class PlayerAimState : IPlayerState {
     public void Enter() {
         player.aimCam.Priority = 11;
         player.thirdPersonCam.Priority = 9;
+        UIController.HUD.ShowAim(true);
 
         animator.SetBool("Correr", false);
         animator.SetFloat("inputX", 0);
@@ -37,11 +39,20 @@ public class PlayerAimState : IPlayerState {
 
         Vector3 move = player.transform.right * moveX + player.transform.forward * moveY;
 
-        player.transform.Rotate(Vector3.up, rotX * Time.deltaTime * info.xRotationSpeed);
-        aimLook.Rotate(Vector3.right, -rotY * Time.deltaTime * info.yRotationSpeed);
+        player.transform.Rotate(Vector3.up, rotX * Time.fixedDeltaTime * info.xRotationSpeed);
+        aimLook.Rotate(Vector3.right, -rotY * Time.fixedDeltaTime * info.yRotationSpeed);
+        
+        float aimLookRotation = aimLook.localRotation.eulerAngles.x;
+        if (aimLookRotation > info.yRotationLimit && aimLookRotation < 180) {
+            aimLook.localRotation = Quaternion.Euler(info.yRotationLimit, aimLook.localRotation.eulerAngles.y, aimLook.localRotation.eulerAngles.z);
+        } else if (aimLookRotation < 360 - info.yRotationLimit && aimLookRotation > 180) {
+            aimLook.localRotation = Quaternion.Euler(360 - info.yRotationLimit, aimLook.localRotation.eulerAngles.y, aimLook.localRotation.eulerAngles.z);
+        }
 
-        controller.Move(move * info.walkSpeed * Time.deltaTime);
+        controller.Move(move * info.walkSpeed * Time.fixedDeltaTime);
+    }
 
+    public void Update() {
         // Atirar no modo mira
         if (Input.GetMouseButtonDown(0)) {
             if (player.braco != null) {
@@ -55,6 +66,21 @@ public class PlayerAimState : IPlayerState {
         if (Input.GetMouseButtonDown(1)) {
             CallExit();
         }
+
+        // Get middle screen position
+        Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+        Ray ray = Camera.main.ScreenPointToRay(screenCenter);
+        RaycastHit hit;
+        bool currentlyAimingAtEnemy = false;
+        if (Physics.Raycast(ray, out hit, 100, info.layerMask)) {
+            Debug.DrawLine(ray.origin, hit.point, Color.red);
+            currentlyAimingAtEnemy = true;
+        }
+
+        if (currentlyAimingAtEnemy != aimingAtEnemy) {
+            aimingAtEnemy = currentlyAimingAtEnemy;
+            UIController.HUD.AimHasTarget(aimingAtEnemy);
+        }
     }
 
     void CallExit() {
@@ -65,6 +91,7 @@ public class PlayerAimState : IPlayerState {
     public void Exit() {
         player.aimCam.Priority = 9;
         player.thirdPersonCam.Priority = 11;
+        UIController.HUD.ShowAim(false);
         Vector3 aimCamRot = player.aimCam.transform.rotation.eulerAngles;
         player.thirdPersonCam.transform.rotation = Quaternion.Euler(0, aimCamRot.y, 0);
     }

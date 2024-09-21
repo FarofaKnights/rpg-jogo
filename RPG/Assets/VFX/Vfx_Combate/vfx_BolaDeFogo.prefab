@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 219098922979833487}
   - component: {fileID: 3046704556859645308}
   - component: {fileID: 9141570681847899739}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: vfx_BolaDeFogo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,8 +51,11 @@ MonoBehaviour:
   velocidade: 10
   tempoDeVida: 2
   dano: 1
+  explosao: {fileID: 0}
   tagAlvo: Inimigo
   impulseForce: 0.1
+  ignoreList: []
+  ignoreTags: []
 --- !u!135 &3046704556859645308
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -137,7 +140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2940817561599947092}
   - component: {fileID: 8876909219911622038}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +304,7 @@ GameObject:
   - component: {fileID: 7201267033313593596}
   - component: {fileID: 2610201108653914347}
   - component: {fileID: 5973925209678558043}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: vfx_BolaDeFogo
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,1 +1,3 @@
-public interface IPlayerState : IState {}
+public interface IPlayerState : IState {
+    void Update();
+}

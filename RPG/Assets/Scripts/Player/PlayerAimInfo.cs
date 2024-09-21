@@ -8,4 +8,5 @@ public class PlayerAimInfo {
     public float yRotationSpeed = 15f;
     public float walkSpeed = 3f;
     public float yRotationLimit = 45f;
+    public LayerMask layerMask;
 }

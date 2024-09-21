@@ -16,6 +16,7 @@ public class Projetil : MonoBehaviour {
 
     bool alreadyHit = false;
     public List<GameObject> ignoreList = new List<GameObject>();
+    public List<string> ignoreTags = new List<string>();
 
     void Start() {
         impulseSource = GetComponent<Cinemachine.CinemachineImpulseSource>();
@@ -31,6 +32,7 @@ public class Projetil : MonoBehaviour {
 
     void OnTriggerEnter(Collider other) {
         if (ignoreList.Contains(other.gameObject)) return;
+        if (ignoreTags.Contains(other.tag)) return;
 
         if (alreadyHit) return;
         alreadyHit = true;

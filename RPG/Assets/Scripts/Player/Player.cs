@@ -128,6 +128,9 @@ public class Player : MonoBehaviour, Saveable {
     }
 
     void Update() {
+        if (GameManager.instance.IsPaused()) return;
+        
+        stateMachine.GetCurrentState().Update();
         // Não queremos interações extras enquanto o player está atacando (cliques de combo são tratados no próprio estado)
         if (stateMachine.GetCurrentState() == attackState) return;
 
