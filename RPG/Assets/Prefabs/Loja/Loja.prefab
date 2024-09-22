@@ -436,6 +436,8 @@ GameObject:
   - component: {fileID: 8405357961057772020}
   - component: {fileID: 7442157490358018757}
   - component: {fileID: 3699636943272173769}
+  - component: {fileID: 6422890894684845452}
+  - component: {fileID: 6821171608435833383}
   m_Layer: 0
   m_Name: Loja
   m_TagString: Untagged
@@ -545,8 +547,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.488328, y: 1.2943151, z: 3.2578192}
-  m_Center: {x: -0.37503958, y: 0.38323712, z: 0.10889959}
+  m_Size: {x: 0.17084599, y: 1.2943151, z: 3.2578192}
+  m_Center: {x: -1.5337727, y: 0.38323712, z: 0.10889959}
 --- !u!65 &3699636943272173769
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -568,6 +570,48 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.488328, y: 0.42311764, z: 3.2578192}
   m_Center: {x: -0.37503958, y: 2.5553327, z: 0.10889959}
+--- !u!65 &6422890894684845452
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3789465395683198125}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.413871, y: 1.2943151, z: 0.29959035}
+  m_Center: {x: 0.08773218, y: 0.38323712, z: -1.3702193}
+--- !u!65 &6821171608435833383
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3789465395683198125}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.0855093, y: 1.2943151, z: 0.26031733}
+  m_Center: {x: -0.07644807, y: 0.38323712, z: 1.6076522}
 --- !u!1 &6180357385729423114
 GameObject:
   m_ObjectHideFlags: 0
@@ -1409,6 +1453,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 6.048
       objectReference: {fileID: 0}
+    - target: {fileID: 693831556318334217, guid: 2625ef19420e12b499d934ea2a76c596,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 808443984141771060, guid: 2625ef19420e12b499d934ea2a76c596,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1917125524773574974, guid: 2625ef19420e12b499d934ea2a76c596,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328253601574646829, guid: 2625ef19420e12b499d934ea2a76c596,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3249219806372215893, guid: 2625ef19420e12b499d934ea2a76c596,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3556720709252561836, guid: 2625ef19420e12b499d934ea2a76c596,
         type: 3}
       propertyPath: slot.item
@@ -1419,6 +1488,11 @@ PrefabInstance:
         type: 3}
       propertyPath: slot.preco
       value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4008172082678816344, guid: 2625ef19420e12b499d934ea2a76c596,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5420841724236734102, guid: 2625ef19420e12b499d934ea2a76c596,
         type: 3}
@@ -1529,6 +1603,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -6.048
+      objectReference: {fileID: 0}
+    - target: {fileID: 6816823828468218543, guid: 2625ef19420e12b499d934ea2a76c596,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7445324396177846958, guid: 2625ef19420e12b499d934ea2a76c596,
         type: 3}
@@ -1684,8 +1763,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5, y: 1.8, z: 0.32505807}
-  m_Center: {x: 0.00000024021435, y: -0.95000017, z: -0.003818815}
+  m_Size: {x: 0.77721405, y: 1.8, z: 0.48100433}
+  m_Center: {x: -0.13860609, y: -0.95000017, z: -0.024370812}
 --- !u!114 &3258597843797284181
 MonoBehaviour:
   m_ObjectHideFlags: 0

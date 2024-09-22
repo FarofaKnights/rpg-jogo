@@ -74,7 +74,7 @@ MonoBehaviour:
     gameObject: {fileID: 0}
     parameter: 
     informativo: 
-    mostrandoConteudo: 1
+    mostrandoConteudo: 0
     children:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
@@ -130,12 +130,18 @@ MonoBehaviour:
     gameObject: {fileID: 0}
     parameter: 
     informativo: 
-    mostrandoConteudo: 0
+    mostrandoConteudo: 1
     children:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: 23788a0b99f9dc84d87936d3428a2218,
         type: 3}
       parameter: porta_teste
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: REMOVER_ITEM;Quests/BombaData;INT;1;False
       informativo: 
       mostrandoConteudo: 1
     - type: 0
@@ -147,7 +153,25 @@ MonoBehaviour:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
         type: 3}
+      parameter: porta_teste
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
+        type: 3}
       parameter: teste_recompensa2
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+        type: 3}
+      parameter: trigger_porta2;handle_trigger_porta2
+      informativo: Saia do lugar estranho
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 23788a0b99f9dc84d87936d3428a2218,
+        type: 3}
+      parameter: porta_teste2
       informativo: 
       mostrandoConteudo: 1
   rewardsInfo: []

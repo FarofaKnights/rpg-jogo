@@ -5,13 +5,15 @@ using UnityEngine;
 public enum AcoesRegistradas {
     NULL,
     SETAR_VARIAVEL,
-    ADICIONAR_ITEM
+    ADICIONAR_ITEM,
+    REMOVER_ITEM
 }
 
 public class RegistroAcoes {
     public static Dictionary<AcoesRegistradas, System.Type> acoesRegistradas = new Dictionary<AcoesRegistradas, System.Type>() {
         { AcoesRegistradas.SETAR_VARIAVEL, typeof(AcaoSetVariavel) },
-        { AcoesRegistradas.ADICIONAR_ITEM, typeof(AcaoDaItem) }
+        { AcoesRegistradas.ADICIONAR_ITEM, typeof(AcaoDaItem) },
+        { AcoesRegistradas.REMOVER_ITEM, typeof(AcaoRemoveItem) }
     };
 
 
