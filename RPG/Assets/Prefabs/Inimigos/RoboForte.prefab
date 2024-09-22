@@ -58,7 +58,7 @@ MonoBehaviour:
   meio: {fileID: 5953211538680871530}
   maxYProcurando: 1.5
   rangeProcurando: 7.5
-  rangePerderTarget: 10
+  rangePerderTarget: 12.5
   minRangeProximidade: 1.25
   maxRangeProximidade: 0.75
   precisaDeVisaoDireta: 1
@@ -75,6 +75,8 @@ MonoBehaviour:
     attack_debug: 
   descansoMaiorAposXAtaques: -1
   multDescansoMaior: 2
+  maxStunHits: 3
+  semStunTime: 2.5
   ataquesFeitos: 0
   target: {fileID: 0}
   recompensaPecas: 10
@@ -137,7 +139,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.6
-  m_Speed: 4
+  m_Speed: 2.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 360

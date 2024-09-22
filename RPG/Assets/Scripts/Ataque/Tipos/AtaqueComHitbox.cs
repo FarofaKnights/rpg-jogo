@@ -40,6 +40,9 @@ public abstract class AtaqueComHitbox : HitListener {
         hitbox.AddComponent<OnTrigger>().onTriggerEnter += OnEnterHitbox;
         hitbox.GetComponent<OnTrigger>().onTriggerExit += OnLeaveHitbox;
 
+        int layer = LayerMask.NameToLayer("Ataque");
+        hitbox.layer = layer;
+
         DesativarHitbox();
     }
 

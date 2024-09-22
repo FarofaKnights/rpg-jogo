@@ -37,6 +37,11 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public InimigoIADebug debug;
     public int descansoMaiorAposXAtaques = -1;
     public float multDescansoMaior = 2f;
+    int stunHits = 0;
+    public int maxStunHits = 3;
+    float semStunTimer = 0;
+    public float semStunTime = 2.5f;
+    public bool IsSemStun { get { return semStunTimer > 0; } }
     [HideInInspector] public int ataquesFeitos = 0;
 
 
@@ -82,7 +87,16 @@ public class Inimigo : MonoBehaviour, IAtacador {
             float porcentagem = vida / vidaController.VidaMax;
             vidaText.text = (porcentagem * 100).ToString("0") + "%";
 
-            stateMachine.SetState(hittedState);
+            if (IsSemStun) return;
+
+            if (stunHits >= maxStunHits) {
+                stunHits = 0;
+                semStunTimer = semStunTime;
+            }
+            else {
+                stunHits++;
+                stateMachine.SetState(hittedState);
+            }
         };
 
         vidaController.onDeath += () => {
@@ -108,6 +122,8 @@ public class Inimigo : MonoBehaviour, IAtacador {
     void FixedUpdate()  {
         if (GameManager.instance.IsPaused()) return;
         stateMachine.Execute();
+
+        if (semStunTimer > 0) semStunTimer -= Time.fixedDeltaTime;
     }
 
     public void OnAtaqueHit(GameObject other) {
