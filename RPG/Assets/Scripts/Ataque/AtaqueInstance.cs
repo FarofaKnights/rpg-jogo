@@ -70,16 +70,17 @@ public class AtaqueInstance  {
         this.atacador = atacador;
         podeCancelar = false;
 
-        if (info.animatorOverride != null) {
-            animator = atacador.GetAnimator();
-            animator.runtimeAnimatorController = info.animatorOverride;
-            animator.applyRootMotion = false;
+        animator = atacador.GetAnimator();
 
-            if (atacador.GetTriggerMode() == TriggerMode.Trigger) {
-                animator.SetTrigger(atacador.AttackTriggerName());
-            } else if (atacador.GetTriggerMode() == TriggerMode.Bool) {
-                animator.SetBool(atacador.AttackTriggerName(), true);
-            }
+        if (info.animatorOverride != null) {
+            animator.runtimeAnimatorController = info.animatorOverride;
+        }
+
+        animator.applyRootMotion = false;
+        if (atacador.GetTriggerMode() == TriggerMode.Trigger) {
+            animator.SetTrigger(atacador.AttackTriggerName());
+        } else if (atacador.GetTriggerMode() == TriggerMode.Bool) {
+            animator.SetBool(atacador.AttackTriggerName(), true);
         }
 
         AtaqueAnimationEvents ataqueAnimationEvents = atacador.GetAnimator().gameObject.GetComponent<AtaqueAnimationEvents>();

@@ -41,7 +41,11 @@ public class AtaqueInvestida : HitboxAttackBehaviour {
         if (canWalk && estado == AtaqueInstance.Estado.Hit) {
             GameObject hit = atacador.GetSelf();
             CharacterController cc = hit.GetComponent<CharacterController>();
-            cc.Move(hit.transform.forward * velocidade * Time.deltaTime);
+            Vector3 move = hit.transform.forward * velocidade * Time.fixedDeltaTime;
+            
+            if (!cc.isGrounded) move.y = -9.8f * Time.fixedDeltaTime;
+                
+            cc.Move(move);
         }
 
        base.OnUpdate(estado);

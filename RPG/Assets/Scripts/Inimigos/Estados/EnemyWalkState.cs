@@ -38,13 +38,19 @@ public class EnemyWalkState : IEnemyState {
     }
 
     public void Execute() {
+        if (inimigo.target == null || inimigo.target.gameObject.activeSelf == false) {
+            inimigo.stateMachine.SetState(inimigo.idleState);
+            return;
+        }
+
         Vector3 navMeshDest = inimigo.target.transform.position;
         bool pararDeRodar = false;
 
         float dist = Vector3.Distance(inimigo.transform.position, inimigo.target.transform.position);
+        float yDist = Mathf.Abs(inimigo.transform.position.y - inimigo.target.transform.position.y);
         inimigo.debug.distancia_alvo = dist;
 
-        if (dist > inimigo.rangePerderTarget) { // Caso o target esteja muito longe, ele perde o target
+        if (dist > inimigo.rangePerderTarget || yDist > inimigo.maxYProcurando) { // Caso o target esteja muito longe, ele perde o target
             inimigo.target = null;
             inimigo.stateMachine.SetState(inimigo.idleState);
         } else if (dist < inimigo.maxRangeProximidade) { // Caso o target esteja muito perto, tenta se distanciar (ainda olhando pro target)
@@ -62,6 +68,7 @@ public class EnemyWalkState : IEnemyState {
             inimigo.debug.walk_debug = "Olho: " + DirectlyLooking() + " Dist: " + navMeshAgent.remainingDistance;
 
             float remainingDistance = navMeshAgent.remainingDistance;
+            if (remainingDistance < dist) remainingDistance = dist;
 
             if (remainingDistance <= inimigo.minRangeProximidade && DirectlyLooking()) { // Se na distancia correta e olhando pro target, ele ataca
                 inimigo.stateMachine.SetState(inimigo.attackState);

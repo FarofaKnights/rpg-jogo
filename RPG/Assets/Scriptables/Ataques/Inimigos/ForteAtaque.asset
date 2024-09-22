@@ -10,13 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b85c52d04b09ff4b8c1674b5a5d2991, type: 3}
-  m_Name: InimigoAtaque
+  m_Name: ForteAtaque
   m_EditorClassIdentifier: 
-  animatorOverride: {fileID: 22100000, guid: 1316a9eebc244d64289204e13feb3f0e, type: 2}
-  hitboxOffset: {x: 0, y: 0, z: 0.68}
-  hitboxSize: {x: 0.75, y: 1.25, z: 1}
+  animatorOverride: {fileID: 0}
+  dano: 30
+  tipoInfligirDano: 0
+  frequenciaDeDano: 0
+  usarTiming: 0
+  antecipacaoFrames: -1
+  hitFrames: -1
+  recoveryFrames: -1
+  cancelFrames: -1
+  moveDuranteAtaque: 0
+  moveStartFrame: 0
+  moveEndFrame: 0
+  moveDistance: 0
+  hitboxOffset: {x: 0, y: 0, z: 0.75}
+  hitboxSize: {x: 2, y: 2, z: 1.75}
   hitboxRotation: {x: 0, y: 0, z: 0}
-  antecipacaoFrames: 30
-  hitFrames: 15
-  recoveryFrames: 20
-  dano: 25

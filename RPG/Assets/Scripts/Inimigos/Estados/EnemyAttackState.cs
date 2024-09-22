@@ -17,7 +17,7 @@ public class EnemyAttackState : IEnemyState {
     }
 
     IEnumerator Attack() {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(inimigo.tempoAntesDoAtaque);
         StartAttack();
     }
 

@@ -56,12 +56,14 @@ MonoBehaviour:
   animator: {fileID: 5572963100227560880}
   vidaText: {fileID: 7809733842273777756}
   meio: {fileID: 2803775974780335940}
+  maxYProcurando: 0.5
   rangeProcurando: 10
   rangePerderTarget: 15
-  minRangeProximidade: 10
+  minRangeProximidade: 6.29
   maxRangeProximidade: 3
   precisaDeVisaoDireta: 1
   precisaoDaVisao: 0.99
+  tempoAntesDoAtaque: 0.25
   tomouDanoStun: 1
   empurradoAoSofrerHit: 0.75
   modoDeTriggerDeAnimacao: 0
@@ -1227,6 +1229,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5572963100227560880}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 80dbd75d2f584a14fa801c8bd7ac3748,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2102187727186487635}
   m_SourcePrefab: {fileID: 100100000, guid: 80dbd75d2f584a14fa801c8bd7ac3748, type: 3}
 --- !u!1 &514690860184615539 stripped
 GameObject:
@@ -1255,6 +1261,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2102187727186487635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514690860184615539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 675ca8e801548204fb1f0417bb2fd444, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &896036215734788297 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 80dbd75d2f584a14fa801c8bd7ac3748,

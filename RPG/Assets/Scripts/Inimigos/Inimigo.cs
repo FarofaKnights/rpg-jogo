@@ -23,12 +23,14 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public GameObject meio;
 
     [Header("Configurações IA")]
+    public float maxYProcurando = 0.5f; // Altura máxima que o inimigo procura
     public float rangeProcurando = 5f; // Range que sai do Idle pro Walk
     public float rangePerderTarget = 15f; // Range que sai do Walk pro Idle
     public float minRangeProximidade = 1.25f; // Range que sai do Walk pro Attack
     public float maxRangeProximidade = 0.75f; // Range que sai do Attack pro Walk
     public bool precisaDeVisaoDireta = false; // Se precisa de visão para atacar
     [Range(0.9f, 1f)] public float precisaoDaVisao = 0.99f; // Precisão da visão
+    public float tempoAntesDoAtaque = 0.25f; // Tempo antes de atacar
     public float tomouDanoStun = 1f; // Tempo que fica parado ao tomar dano
     public float empurradoAoSofrerHit = 0.75f;
     public TriggerMode modoDeTriggerDeAnimacao = TriggerMode.Trigger;
@@ -104,6 +106,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
 
 
     void FixedUpdate()  {
+        if (GameManager.instance.IsPaused()) return;
         stateMachine.Execute();
     }
 

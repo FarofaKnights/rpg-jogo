@@ -23,6 +23,9 @@ public class EnemyIdleState : IEnemyState {
     public void Execute() {
         Collider[] colliders = Physics.OverlapSphere(inimigo.transform.position, inimigo.rangeProcurando);
         foreach (Collider collider in colliders) {
+            float yDist = Mathf.Abs(collider.transform.position.y - inimigo.transform.position.y);
+            if (yDist > inimigo.maxYProcurando) continue;
+
             if (collider.CompareTag("Player")) {
                 inimigo.target = collider.gameObject;
                 inimigo.stateMachine.SetState(inimigo.walkState);

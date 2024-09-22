@@ -281,7 +281,6 @@ public class SettingsManager : MonoBehaviour, Saveable
     void OnApplicationQuit()
     {
         SaveValues();
-        Debug.Log("Application ending after " + Time.time + " seconds");
     }
 }
 
