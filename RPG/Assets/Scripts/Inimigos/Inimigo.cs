@@ -46,6 +46,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public AudioSource AlertSound;
     public AudioSource attackSound;
     public bool detectado = false;
+    public System.Action OnDestroied; // Diferente do OnDeath, esse é chamado quando o inimigo é destruído, isso tbm conta destruição por integridade (foi morto em outro save e é destruido para não ser carregado)
 
 
     [Header("Configurações de Ataque")]
@@ -107,7 +108,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     }
 
     public void OnAtaqueHit(GameObject other) {
-        if (other.CompareTag("Player")) {
+        if (other != null && other.CompareTag("Player")) {
             other.GetComponent<PossuiVida>().LevarDano(ataque.dano);
         }
     }
@@ -157,5 +158,11 @@ public class Inimigo : MonoBehaviour, IAtacador {
         AudioManager.instance.enemyDeath.Play();
         SpawnParticle();
         Destroy(gameObject);
+    }
+
+    void OnDestroy() {
+        if (Application.isPlaying) {
+            OnDestroied?.Invoke();
+        }
     }
 }

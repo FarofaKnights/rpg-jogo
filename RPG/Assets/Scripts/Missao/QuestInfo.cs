@@ -34,6 +34,10 @@ public interface IQuestInformations {
     void HandleQuestInformations(QuestInfo questInfo, string parameter);
 }
 
+public interface IInformativoAtualizavel {
+    void UpdateInformativo(System.Action informativoUpdate);
+}
+
 [CreateAssetMenu(fileName = "QuestInfo", menuName = "RPG/QuestInfo")]
 public class QuestInfo : ScriptableObject {
     [Header("Quest Info")]

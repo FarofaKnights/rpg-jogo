@@ -46,6 +46,15 @@ public abstract class QuestStep : MonoBehaviour {
         return string.Join(";", parameters);
     }
 
+    // Define keywords que podem ser utilizadas no informativo
+    public virtual Dictionary<string, string> GetDynamicInfo() {
+        return new Dictionary<string, string>();
+    }
+
+    public virtual string AddToInformativo(string informativo) {
+        return informativo;
+    }
+
     #if UNITY_EDITOR
 
     public abstract string GetEditorName();

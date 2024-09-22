@@ -70,8 +70,16 @@ public class Quest : Saveable {
         IQuestInformations questParameter = stepObject.GetComponent<IQuestInformations>();
         if (questParameter != null) {
             questParameter.HandleQuestInformations(info, step.parameter);
-            UIController.HUD.UpdateMissaoText(CurrentMessage());
         }
+
+        IInformativoAtualizavel informativo = stepObject.GetComponent<IInformativoAtualizavel>();
+        if (informativo != null) {
+            informativo.UpdateInformativo(() => {
+                UIController.HUD.UpdateMissaoText(CurrentMessage());
+            });
+        }
+
+        UIController.HUD.UpdateMissaoText(CurrentMessage());
 
         return stepObject;
     }
@@ -87,10 +95,19 @@ public class Quest : Saveable {
         }
 
         if (currentStep < info.steps.Length) {
+            string message = info.steps[currentStep].informativo;
             if (isCurrentStepParent()) {
-                return info.steps[currentStep].children[internalStep].informativo;
+                message = info.steps[currentStep].children[internalStep].informativo;
             }
-            return info.steps[currentStep].informativo;
+
+            message = currentStepObject.AddToInformativo(message);
+
+            Dictionary<string, string> dynamicInfo = currentStepObject.GetDynamicInfo();
+            foreach (KeyValuePair<string, string> entry in dynamicInfo) {
+                message = message.Replace("{" + entry.Key + "}", entry.Value);
+            }
+
+            return message;
         }
 
         return "";
