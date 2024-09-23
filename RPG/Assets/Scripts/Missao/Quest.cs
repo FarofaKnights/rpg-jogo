@@ -207,8 +207,18 @@ public class Quest : Saveable {
         }
 
         // Carrega o ultimo passo
-        QuestManager.instance.RunQuestStepOnLoad(info.questId);
+        QuestStep ultimoStep = null;
+        if (info.steps[currentStep].type == QuestStepType.PAI) {
+            GameObjectParameterParent parent = (GameObjectParameterParent) info.steps[currentStep];
+            ultimoStep = parent.children[internalStep].gameObject.GetComponent<QuestStep>();
+        } else info.steps[currentStep].gameObject.GetComponent<QuestStep>();
+
+        
+        if (atEndState != QuestState.CAN_START && (atEndState == QuestState.IN_PROGRESS || ultimoStep.IsEfeitoPersistente))
+            QuestManager.instance.RunQuestStepOnLoad(info.questId);
         QuestManager.instance.ChangeQuestState(info.questId, atEndState);
+
+        UIController.HUD.UpdateMissaoText();
     }
 
     QuestStep CurrentStepObject() {

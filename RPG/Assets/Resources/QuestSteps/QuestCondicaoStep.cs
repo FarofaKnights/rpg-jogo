@@ -55,14 +55,50 @@ public class QuestCondicaoStep : QuestStep, IQuestInformations {
     #if UNITY_EDITOR
     public override string GetEditorName() { return "CONDIÇÃO: Condição"; }
 
+    public void DrawCondicao(SerializedProperty condicaoProperty) {
+        int quantLinhas = condicao.GetQuantidadeParametros();
+        if (quantLinhas > 3) quantLinhas += 2;
+        else quantLinhas += 1;
+
+        CondicaoInfoDrawer drawer = new CondicaoInfoDrawer();
+        GUIContent content = new GUIContent(condicaoProperty.displayName);
+        Rect drawerRect = EditorGUILayout.GetControlRect(true, drawer.GetPropertyHeight(condicaoProperty, content) * quantLinhas);
+        drawer.OnGUI(drawerRect, condicaoProperty, content);
+    }
+
     public override string GetEditorParameters(CurrentStepAcaoInfo stepInfo) {
         string[] parameters = SeparateParameters(stepInfo.step.parameter ?? "");
+
+        CondicaoInfo condicaoOld = new CondicaoInfo(condicao);
+        CondicaoParams oldParams = new CondicaoParams(condicao.parametros);
+
+        if (parameters != null && parameters.Length > 0) {
+            string condicaoRegistrada = parameters[0];
+
+            foreach (string condicaoRegName in RegistroCondicoes.GetCondicoesString()) {
+                if (condicaoRegName == condicaoRegistrada) {
+                    condicao.condicao = RegistroCondicoes.GetCondicao(condicaoRegistrada);
+                    break;
+                }
+            }
+
+            if (parameters.Length > 5) {
+                CondicaoParams p = condicao.parametros;
+                p.id = parameters[1];
+                p.SetTipo(parameters[2]);
+                p.SetValue(parameters[3]);
+                p.isGlobal = parameters[4] == "True";
+                p.comparacaoValue = CondicaoParams.GetComparacao(parameters[5]);
+            }
+        }
         
         SerializedObject serializedObject = new SerializedObject(this);
+        
         SerializedProperty condicaoProperty = serializedObject.FindProperty("condicao");
-        EditorGUILayout.PropertyField(condicaoProperty, true);
-
+        DrawCondicao(condicaoProperty);
         serializedObject.ApplyModifiedProperties();
+        serializedObject.Update();
+        
 
         string nomeDaCondicao = RegistroCondicoes.GetCondicaoString(condicao.condicao);
         string param_id = "", param_type = "", param_value = "", param_global = "", param_comparacao = "";
@@ -74,6 +110,9 @@ public class QuestCondicaoStep : QuestStep, IQuestInformations {
             param_comparacao = condicao.parametros.GetComparacaoString();
             param_comparacao = "True"; // Lembrar de voltar aqui qualquer coisa
         }
+
+        this.condicao = condicaoOld;
+        this.condicao.parametros = oldParams;
 
         return JoinParameters(new string[] { nomeDaCondicao, param_id, param_type, param_value, param_global, param_comparacao });
     }

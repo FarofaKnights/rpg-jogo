@@ -39,6 +39,8 @@ public class HUDController : MonoBehaviour {
         pecasText.text = "" + pecas;
     }
 
+    
+
     public void UpdateMissaoText(QuestInfo quest, string texto) {
         bool achou = false;
         foreach (Missao_Texto mt in missoesTextos) {
@@ -53,8 +55,12 @@ public class HUDController : MonoBehaviour {
             missoesTextos.Add(new Missao_Texto(quest, texto));
         }
 
+        UpdateMissaoText();
+    }
+
+    public void UpdateMissaoText() {
         for (int i = missoesTextos.Count - 1; i >= 0; i--) {
-            if (missoesTextos[i].texto == "") {
+            if (missoesTextos[i].texto == "" || QuestManager.instance.IsQuestFinished(missoesTextos[i].questInfo.questId)) {
                 missoesTextos.RemoveAt(i);
             }
         }
@@ -66,8 +72,6 @@ public class HUDController : MonoBehaviour {
 
         missaoText.text = missao;
     }
-
-
 
     public void SetArmaEquipada(Arma arma) {
         if (arma == null) {

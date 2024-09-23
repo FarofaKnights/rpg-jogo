@@ -24,6 +24,30 @@ public class AcaoParams {
     public string stringValue;
     public bool boolValue;
 
+    public AcaoParams() {
+        type = Tipo.NULL;
+    }
+
+    public AcaoParams(string id, Tipo type, bool isGlobal, int intValue, float floatValue, string stringValue, bool boolValue) {
+        this.id = id;
+        this.type = type;
+        this.isGlobal = isGlobal;
+        this.intValue = intValue;
+        this.floatValue = floatValue;
+        this.stringValue = stringValue;
+        this.boolValue = boolValue;
+    }
+
+    public AcaoParams(AcaoParams parametros) {
+        id = parametros.id;
+        type = parametros.type;
+        isGlobal = parametros.isGlobal;
+        intValue = parametros.intValue;
+        floatValue = parametros.floatValue;
+        stringValue = parametros.stringValue;
+        boolValue = parametros.boolValue;
+    }
+
     public object GetValue() {
         return type switch {
             Tipo.INT => intValue,
@@ -44,6 +68,27 @@ public class AcaoParams {
 
     public string GetTipoString() {
         return type.ToString();
+    }
+
+    public void SetValue(string value) {
+        switch (type) {
+            case Tipo.INT:
+                intValue = int.Parse(value);
+                break;
+            case Tipo.FLOAT:
+                floatValue = float.Parse(value);
+                break;
+            case Tipo.STRING:
+                stringValue = value;
+                break;
+            case Tipo.BOOL:
+                boolValue = bool.Parse(value);
+                break;
+        }
+    }
+
+    public void SetTipo(string tipo) {
+        type = GetTipo(tipo);
     }
 
     public static AcaoParams Create(string id, string type, string val, string global) {

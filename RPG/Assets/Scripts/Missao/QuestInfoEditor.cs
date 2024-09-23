@@ -9,6 +9,7 @@ public class CurrentStepAcaoInfo {
     public QuestInfo questInfo;
     public GameObjectParameter step;
     public SerializedObject serializedObject;
+    public string id;
 }
 
 public class NamedStepPrefab {
@@ -77,6 +78,7 @@ public class QuestInfoEditor : Editor {
     public void DrawCondicao() {
         SerializedProperty requirementsInfo = serializedObject.FindProperty("requirementsInfo");
         EditorGUILayout.PropertyField(requirementsInfo, true);
+        serializedObject.ApplyModifiedProperties();
     }
 
     public void DrawStepsHolder() {
@@ -130,7 +132,7 @@ public class QuestInfoEditor : Editor {
         GUILayout.EndVertical();
     }
 
-    public GameObjectParameter DrawStepHeader(GameObjectParameter step, string title, int i, int size, out MoveStep moveStep) {
+    public GameObjectParameter DrawStepHeader(GameObjectParameter step, string title, int i, int size, out MoveStep moveStep, int j = -1) {
         GUILayout.BeginHorizontal();
         moveStep = null;
 
@@ -140,7 +142,8 @@ public class QuestInfoEditor : Editor {
             step.mostrandoConteudo = !step.mostrandoConteudo;
         }
 
-        title += " " + i;
+        if (j > -1) title += " " + j + "." + i;
+        else  title += " " + i;
 
         if (step.informativo != "") title += " - " + step.informativo;
         else if (step.type == QuestStepType.PAI) title += " - PAI [" + ((GameObjectParameterParent)step).children.Length + "]";
@@ -207,7 +210,7 @@ public class QuestInfoEditor : Editor {
         return step;
     }
 
-    public GameObjectParameter DrawStep(GameObjectParameter step, int i, int size, bool isChild, out MoveStep moveStep) {
+    public GameObjectParameter DrawStep(GameObjectParameter step, int i, int size, bool isChild, out MoveStep moveStep, int j = -1) {
         moveStep = null;
         if (step == null) return null;
 
@@ -216,7 +219,7 @@ public class QuestInfoEditor : Editor {
         GUILayout.BeginVertical("box");
         GUILayout.Space(padding);
 
-        step = DrawStepHeader(step, "Passo", i, size, out moveStep);
+        step = DrawStepHeader(step, "Passo", i, size, out moveStep, j);
 
         if (step != null && step.mostrandoConteudo) {
             step.informativo = EditorGUILayout.TextField("Informativo", step.informativo);
@@ -234,6 +237,7 @@ public class QuestInfoEditor : Editor {
                     infos.questInfo = questInfo;
                     infos.step = step;
                     infos.serializedObject = serializedObject;
+                    infos.id = i + "." + j;
                     
                     string pars = questStep.GetEditorParameters(infos);
                     questStep.SetEditorParameters(infos, pars);
@@ -241,7 +245,7 @@ public class QuestInfoEditor : Editor {
 
             } else {
                 GameObjectParameterParent parent = (GameObjectParameterParent)step;
-                parent.children = DrawStepChildren(parent.children);
+                parent.children = DrawStepChildren(parent.children, i);
             }
         }
 
@@ -251,7 +255,7 @@ public class QuestInfoEditor : Editor {
         return step;
     }
 
-    public GameObjectParameter[] DrawStepChildren(GameObjectParameter[] children) {
+    public GameObjectParameter[] DrawStepChildren(GameObjectParameter[] children, int i) {
         GUI.backgroundColor = Color.white;
         GUILayout.Space(padding);
 
@@ -284,7 +288,7 @@ public class QuestInfoEditor : Editor {
 
         foreach (GameObjectParameter child in children) {
             MoveStep moveStep;
-            GameObjectParameter res = DrawStep(child, counter, children.Length, true, out moveStep);
+            GameObjectParameter res = DrawStep(child, counter, children.Length, true, out moveStep, i);
             if (res==null) childToDelete = counter;
             if (moveStep != null) {
                 actuallMoveInfo = moveStep;

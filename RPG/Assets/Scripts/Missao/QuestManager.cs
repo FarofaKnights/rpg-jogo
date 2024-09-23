@@ -66,6 +66,7 @@ public class QuestManager : MonoBehaviour, Saveable {
             }
         }
         
+        UIController.HUD.UpdateMissaoText();
         OnQuestsLoaded?.Invoke();
     }
 
@@ -98,6 +99,7 @@ public class QuestManager : MonoBehaviour, Saveable {
         Quest quest = GetQuestById(questId);
         ClaimReward(quest);
         ChangeQuestState(questId, QuestState.FINISHED);
+        UIController.HUD.UpdateMissaoText(quest.info, "");
     }
 
     void ClaimReward(Quest quest) {
@@ -132,6 +134,10 @@ public class QuestManager : MonoBehaviour, Saveable {
         }
 
         return QuestState.WAITING_REQUIREMENTS;
+    }
+
+    public bool IsQuestFinished(string questId) {
+        return GetQuestState(questId) == QuestState.FINISHED;
     }
 
     // Carrega quests e salva em um dicionário

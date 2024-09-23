@@ -8,12 +8,30 @@ public class CondicaoInfo {
     public CondicoesRegistradas condicao;
     public CondicaoParams parametros;
 
+    public CondicaoInfo() {
+        parametros = new CondicaoParams();
+    }
+
+    public CondicaoInfo(CondicaoInfo condicaoInfo) {
+        condicao = condicaoInfo.condicao;
+        parametros = new CondicaoParams(condicaoInfo.parametros);
+    }
+
     public Condicao GetCondicao() {
         var tipo = RegistroCondicoes.GetRegistro(condicao);
         if (tipo != null) {
             return (Condicao)System.Activator.CreateInstance(tipo, parametros);
         }
         return null;
+    }
+
+    public int GetQuantidadeParametros() {
+        var tipo = RegistroCondicoes.GetRegistro(condicao);
+        if (tipo != null) {
+            string[] p = (string[]) tipo.GetMethod("GetParametrosUtilizados").Invoke(null, null);
+            return p.Length;
+        }
+        return 0;
     }
 }
 

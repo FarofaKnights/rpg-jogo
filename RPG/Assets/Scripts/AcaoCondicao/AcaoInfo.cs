@@ -9,6 +9,15 @@ public class AcaoInfo {
     public AcoesRegistradas acao;
     public AcaoParams parametros;
 
+    public AcaoInfo() {
+        parametros = new AcaoParams();
+    }
+
+    public AcaoInfo(AcaoInfo acaoInfo) {
+        acao = acaoInfo.acao;
+        parametros = new AcaoParams(acaoInfo.parametros);
+    }
+
     public Acao GetAcao() {
         System.Type type = RegistroAcoes.GetRegistro(acao);
         if (type != null) {
@@ -16,6 +25,15 @@ public class AcaoInfo {
         }
 
         return null;
+    }
+
+    public int GetQuantidadeParametros() {
+        var tipo = RegistroAcoes.GetRegistro(acao);
+        if (tipo != null) {
+            string[] p = (string[]) tipo.GetMethod("GetParametrosUtilizados").Invoke(null, null);
+            return p.Length;
+        }
+        return 0;
     }
 }
 

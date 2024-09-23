@@ -43,6 +43,36 @@ public class CondicaoParams: AcaoParams {
     public Comparacao comparacaoValue;
     public bool dinamic;
 
+    public CondicaoParams() {
+        type = Tipo.NULL;
+        comparacaoValue = Comparacao.NULL;
+        dinamic = false;
+    }
+
+    public CondicaoParams(string id, Tipo type, bool isGlobal, int intValue, float floatValue, string stringValue, bool boolValue, Comparacao comparacao, bool dinamic) {
+        this.id = id;
+        this.type = type;
+        this.isGlobal = isGlobal;
+        this.intValue = intValue;
+        this.floatValue = floatValue;
+        this.stringValue = stringValue;
+        this.boolValue = boolValue;
+        this.comparacaoValue = comparacao;
+        this.dinamic = dinamic;
+    }
+
+    public CondicaoParams(CondicaoParams parametros) {
+        id = parametros.id;
+        type = parametros.type;
+        isGlobal = parametros.isGlobal;
+        intValue = parametros.intValue;
+        floatValue = parametros.floatValue;
+        stringValue = parametros.stringValue;
+        boolValue = parametros.boolValue;
+        comparacaoValue = parametros.comparacaoValue;
+        dinamic = parametros.dinamic;
+    }
+
     public static Comparacao GetComparacao(string comparacao) {
         // Primeiro checa se comparacao é algum valor do enum Comparacao
         foreach (Comparacao comp in System.Enum.GetValues(typeof(Comparacao))) {

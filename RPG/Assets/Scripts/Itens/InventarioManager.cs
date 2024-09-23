@@ -95,21 +95,25 @@ public class InventarioManager : IInventario, Saveable {
     #region IInventario implementation
 
     public bool AddItem(ItemData item, int quantidade = 1) {
+        if (item == null) return false;
         Inventario inventario = GetInventario(item.tipo);
         return inventario.AddItem(item, quantidade);
     }
 
     public bool RemoveItem(ItemData item, int quantidade = 1) {
+        if (item == null) return false;
         Inventario inventario = GetInventario(item.tipo);
         return inventario.RemoveItem(item, quantidade);
     }
 
     public bool ContainsItem(ItemData item) {
+        if (item == null) return false;
         Inventario inventario = GetInventario(item.tipo);
         return inventario.ContainsItem(item);
     }
 
     public int GetQuantidade(ItemData item) {
+        if (item == null) return 0;
         Inventario inventario = GetInventario(item.tipo);
         return inventario.GetQuantidade(item);
     }

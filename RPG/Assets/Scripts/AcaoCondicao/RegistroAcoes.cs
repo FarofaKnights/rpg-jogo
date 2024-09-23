@@ -6,14 +6,18 @@ public enum AcoesRegistradas {
     NULL,
     SETAR_VARIAVEL,
     ADICIONAR_ITEM,
-    REMOVER_ITEM
+    REMOVER_ITEM,
+    TRIGGAR_MISSAO,
+    COMECAR_MISSAO
 }
 
 public class RegistroAcoes {
     public static Dictionary<AcoesRegistradas, System.Type> acoesRegistradas = new Dictionary<AcoesRegistradas, System.Type>() {
         { AcoesRegistradas.SETAR_VARIAVEL, typeof(AcaoSetVariavel) },
         { AcoesRegistradas.ADICIONAR_ITEM, typeof(AcaoDaItem) },
-        { AcoesRegistradas.REMOVER_ITEM, typeof(AcaoRemoveItem) }
+        { AcoesRegistradas.REMOVER_ITEM, typeof(AcaoRemoveItem) },
+        { AcoesRegistradas.TRIGGAR_MISSAO, typeof(AcaoTriggaMissao) },
+        { AcoesRegistradas.COMECAR_MISSAO, typeof(AcaoComecaMissao) }
     };
 
 
