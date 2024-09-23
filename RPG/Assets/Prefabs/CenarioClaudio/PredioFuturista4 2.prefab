@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &405452305649678209
+--- !u!1 &6977420250729207904
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,42 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6602885017769397047}
-  - component: {fileID: 3343754697774857692}
-  - component: {fileID: 2105457228774724075}
-  - component: {fileID: 7253438349546395311}
+  - component: {fileID: 8982051732659140232}
+  - component: {fileID: 8786616764655212002}
   m_Layer: 0
-  m_Name: PredioFuturista4
+  m_Name: PredioFuturista4 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
---- !u!4 &6602885017769397047
+--- !u!4 &8982051732659140232
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 405452305649678209}
+  m_GameObject: {fileID: 6977420250729207904}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -40, y: 62.44, z: -101.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2735995366936998522}
-  - {fileID: 4512067008327042820}
-  - {fileID: 938201194929884751}
+  - {fileID: 1584260151269485062}
+  - {fileID: 5207034038966677192}
+  - {fileID: 880018801969083673}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!205 &3343754697774857692
+--- !u!205 &8786616764655212002
 LODGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 405452305649678209}
+  m_GameObject: {fileID: 6977420250729207904}
   serializedVersion: 2
   m_LocalReferencePoint: {x: 0, y: 0, z: 0}
   m_Size: 25
@@ -54,65 +52,23 @@ LODGroup:
   - screenRelativeHeight: 0.38887778
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 2111631703704040736}
+    - renderer: {fileID: 2052894504047332982}
   - screenRelativeHeight: 0.23022753
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 3374667084620905579}
+    - renderer: {fileID: 6343378359969781159}
   - screenRelativeHeight: 0
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 3869464641129875733}
+    - renderer: {fileID: 411869264965177705}
   m_Enabled: 1
---- !u!65 &2105457228774724075
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 405452305649678209}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 15.995796, y: 17.65091, z: 11.698128}
-  m_Center: {x: 0.20626068, y: -48.684982, z: 16.434307}
---- !u!65 &7253438349546395311
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 405452305649678209}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 61.848915, y: 13.153191, z: 33.159935}
-  m_Center: {x: -0.17126179, y: -51.50214, z: -7.013218}
---- !u!1001 &760985713177651620
+--- !u!1001 &845776287530570482
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6602885017769397047}
+    m_TransformParent: {fileID: 8982051732659140232}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 526e8d74e74cf294ea8f00a5bd635e6a,
         type: 3}
@@ -168,46 +124,52 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ecc53ca4ba23b4142b02457218277313, type: 2}
+      objectReference: {fileID: 2100000, guid: 764d3e7771af7574c99c57a8d657fb37, type: 2}
     - target: {fileID: -7511558181221131132, guid: 526e8d74e74cf294ea8f00a5bd635e6a,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 764d3e7771af7574c99c57a8d657fb37, type: 2}
+      objectReference: {fileID: 2100000, guid: 65de715faece0c74c8534290387ccb12, type: 2}
     - target: {fileID: -7511558181221131132, guid: 526e8d74e74cf294ea8f00a5bd635e6a,
         type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
-      objectReference: {fileID: 2100000, guid: 65de715faece0c74c8534290387ccb12, type: 2}
+      objectReference: {fileID: -4858212528326514590, guid: a7fd8958291df44468bc3dc0069402ce,
+        type: 3}
     - target: {fileID: 919132149155446097, guid: 526e8d74e74cf294ea8f00a5bd635e6a,
         type: 3}
       propertyPath: m_Name
       value: PredioFuturista4LOD0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 526e8d74e74cf294ea8f00a5bd635e6a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 526e8d74e74cf294ea8f00a5bd635e6a, type: 3}
---- !u!4 &938201194929884751 stripped
+--- !u!4 &880018801969083673 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 526e8d74e74cf294ea8f00a5bd635e6a,
     type: 3}
-  m_PrefabInstance: {fileID: 760985713177651620}
+  m_PrefabInstance: {fileID: 845776287530570482}
   m_PrefabAsset: {fileID: 0}
---- !u!23 &2111631703704040736 stripped
+--- !u!23 &2052894504047332982 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 526e8d74e74cf294ea8f00a5bd635e6a,
     type: 3}
-  m_PrefabInstance: {fileID: 760985713177651620}
+  m_PrefabInstance: {fileID: 845776287530570482}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &2482200513288443281
+--- !u!1001 &1330485261297257965
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6602885017769397047}
+    m_TransformParent: {fileID: 8982051732659140232}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 3cba90f73fec91841829528d50c9e328,
         type: 3}
@@ -263,7 +225,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ecc53ca4ba23b4142b02457218277313, type: 2}
+      objectReference: {fileID: 2100000, guid: 764d3e7771af7574c99c57a8d657fb37, type: 2}
     - target: {fileID: -7511558181221131132, guid: 3cba90f73fec91841829528d50c9e328,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
@@ -273,36 +235,42 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
-      objectReference: {fileID: 2100000, guid: 764d3e7771af7574c99c57a8d657fb37, type: 2}
+      objectReference: {fileID: -4858212528326514590, guid: a7fd8958291df44468bc3dc0069402ce,
+        type: 3}
     - target: {fileID: 919132149155446097, guid: 3cba90f73fec91841829528d50c9e328,
         type: 3}
       propertyPath: m_Name
       value: PredioFuturista4LOD2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3cba90f73fec91841829528d50c9e328,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cba90f73fec91841829528d50c9e328, type: 3}
---- !u!4 &2735995366936998522 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3cba90f73fec91841829528d50c9e328,
-    type: 3}
-  m_PrefabInstance: {fileID: 2482200513288443281}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &3869464641129875733 stripped
+--- !u!23 &411869264965177705 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 3cba90f73fec91841829528d50c9e328,
     type: 3}
-  m_PrefabInstance: {fileID: 2482200513288443281}
+  m_PrefabInstance: {fileID: 1330485261297257965}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &4113101977077588207
+--- !u!4 &1584260151269485062 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3cba90f73fec91841829528d50c9e328,
+    type: 3}
+  m_PrefabInstance: {fileID: 1330485261297257965}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5749303024195766563
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6602885017769397047}
+    m_TransformParent: {fileID: 8982051732659140232}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: aeb7066d1af9c294cb1bb9f7786a20ca,
         type: 3}
@@ -358,36 +326,42 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ecc53ca4ba23b4142b02457218277313, type: 2}
+      objectReference: {fileID: 2100000, guid: 764d3e7771af7574c99c57a8d657fb37, type: 2}
     - target: {fileID: -7511558181221131132, guid: aeb7066d1af9c294cb1bb9f7786a20ca,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 764d3e7771af7574c99c57a8d657fb37, type: 2}
+      objectReference: {fileID: 2100000, guid: 65de715faece0c74c8534290387ccb12, type: 2}
     - target: {fileID: -7511558181221131132, guid: aeb7066d1af9c294cb1bb9f7786a20ca,
         type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
-      objectReference: {fileID: 2100000, guid: 65de715faece0c74c8534290387ccb12, type: 2}
+      objectReference: {fileID: -4858212528326514590, guid: a7fd8958291df44468bc3dc0069402ce,
+        type: 3}
     - target: {fileID: 919132149155446097, guid: aeb7066d1af9c294cb1bb9f7786a20ca,
         type: 3}
       propertyPath: m_Name
       value: PredioFuturista4LOD1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: aeb7066d1af9c294cb1bb9f7786a20ca,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aeb7066d1af9c294cb1bb9f7786a20ca, type: 3}
---- !u!23 &3374667084620905579 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: aeb7066d1af9c294cb1bb9f7786a20ca,
-    type: 3}
-  m_PrefabInstance: {fileID: 4113101977077588207}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &4512067008327042820 stripped
+--- !u!4 &5207034038966677192 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: aeb7066d1af9c294cb1bb9f7786a20ca,
     type: 3}
-  m_PrefabInstance: {fileID: 4113101977077588207}
+  m_PrefabInstance: {fileID: 5749303024195766563}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6343378359969781159 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: aeb7066d1af9c294cb1bb9f7786a20ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 5749303024195766563}
   m_PrefabAsset: {fileID: 0}
