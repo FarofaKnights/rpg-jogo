@@ -120,15 +120,18 @@ public class InventarioManager : IInventario, Saveable {
         resto.ForEach(action);
     }
 
-    public void HandleSlotClick(ItemData itemData) {
-        if (itemData == null) return;
+    public bool HandleSlotClick(ItemData itemData) {
+        if (itemData == null) return false;
 
         TipoAbstrato especificacoes = itemData.prefab.GetComponent<TipoAbstrato>();
-        if (!especificacoes.IsUsavel) return;
+        if (!especificacoes.IsUsavel) return false;
 
         TipoAbstrato instancia = especificacoes;
 
         if (itemData.tipo == ItemData.Tipo.Consumivel) {
+            Consumivel consumivel = (Consumivel) especificacoes;
+            if (!consumivel.PodeUsar()) return false;
+
             RemoveItem(itemData);
         }
 
@@ -139,6 +142,7 @@ public class InventarioManager : IInventario, Saveable {
         }
 
         instancia.FazerAcao();
+        return true;
     }
 
     #endregion

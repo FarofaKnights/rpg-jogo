@@ -152,6 +152,17 @@ public class Player : MonoBehaviour, Saveable {
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.F)) {
+            // overlap sphere 
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, 3f);
+            foreach (Collider hitCollider in hitColliders) {
+                Drop drop = hitCollider.GetComponent<Drop>();
+                if (drop != null) {
+                    drop.OnCollect();
+                }
+            }
+        }
+
         canChangeStateThisFrame = true;
     }
 
@@ -184,15 +195,6 @@ public class Player : MonoBehaviour, Saveable {
         float adicionalCalor = stats.GetAdicionalCalor(calor.GetMaxBase());
         calor.SetMax(calor.GetMaxBase() + adicionalCalor);
         if (calor.Get() < calor.GetMax()) calor.Add(adicionalCalor);
-    }
-
-    
-    // Coletar item ao passar por cima
-    void OnTriggerEnter(Collider other) {
-        if (other.GetComponent<Drop>() != null) {
-            Drop drop = other.GetComponent<Drop>();
-            drop.OnCollect();
-        }
     }
 
     // Teleporta player para uma posição (pois o CharacterController sobreescreve o transform)

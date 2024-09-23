@@ -52,10 +52,12 @@ public class AreaEquipamentosUI : MonoBehaviour, UITab {
     }
 
     public void HandleEquiparBtn() {
-        if (focusedItem == null) return;
-
-        onSlotClick?.Invoke(focusedItem);
-        Player.instance.inventario.HandleSlotClick(focusedItem);
+        if (focusedItem != null) {
+            onSlotClick?.Invoke(focusedItem);
+            Player.instance.inventario.HandleSlotClick(focusedItem);
+        }
+        
+        UpdateFocusedItem();
     }
 
     void HandleSlotFocus(ItemData itemData) {
@@ -67,6 +69,10 @@ public class AreaEquipamentosUI : MonoBehaviour, UITab {
     public void UpdateFocusedItem() {
         if (lastFocusedItem != null) {
             GetInventario(lastFocusedItem).UnfocusItem(lastFocusedItem);
+        }
+
+        if (focusedItem != null && !Player.instance.inventario.ContainsItem(focusedItem)) {
+            focusedItem = null;
         }
 
         if (focusedItem == null) {
@@ -83,7 +89,17 @@ public class AreaEquipamentosUI : MonoBehaviour, UITab {
             focusedItemDescription.text = focusedItem.descricao;
             focusItemPanel.SetActive(true);
 
-            equiparBtn.SetActive(!focusedItem.IsEquipped());
+            if (focusedItem.tipo == ItemData.Tipo.Consumivel) {
+                Consumivel consumivel = focusedItem.prefab.GetComponent<Consumivel>();
+                equiparBtn.GetComponentInChildren<Text>().text = "Usar";
+                equiparBtn.SetActive(consumivel.PodeUsar());
+            } else if (focusedItem.tipo == ItemData.Tipo.Arma || focusedItem.tipo == ItemData.Tipo.Braco) {
+                equiparBtn.GetComponentInChildren<Text>().text = "Equipar";
+                equiparBtn.SetActive(!focusedItem.IsEquipped());
+            } else if (focusedItem.tipo == ItemData.Tipo.Quest) {
+                equiparBtn.SetActive(false);
+            }
+
             GetInventario(focusedItem).FocusItem(focusedItem);
         }
     }

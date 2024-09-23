@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9029822383348900725}
   - component: {fileID: 2368492420722311148}
+  - component: {fileID: 1290981911304606848}
   m_Layer: 0
   m_Name: Informativo
   m_TagString: Untagged
@@ -26,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 1526322531574961772}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.35, z: -0.4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8009162637303316001}
@@ -50,6 +51,27 @@ MonoBehaviour:
   lockZ: 0
   faceCamera: 1
   targetObj: {fileID: 0}
+--- !u!65 &1290981911304606848
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526322531574961772}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.08, y: 0.08, z: 0.01}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1830167379542925702
 GameObject:
   m_ObjectHideFlags: 0

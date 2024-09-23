@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemDropado : Drop {
+public class ItemDropadoNew : Drop {
     public Item item;
     public int quantidade = 1;
-    // public bool seUsuarioNaoTiver = false; // Garante que o item só esteja disponível se o jogador não tiver ele no inventário
+    bool playerDentro = false;
+    Informativo informativo;
 
     void Start() {
+        informativo = GetComponent<Informativo>();
+
         if (item == null) {
             Debug.LogError("ItemDropado sem item definido!");
             Destroy(gameObject);
@@ -32,7 +35,15 @@ public class ItemDropado : Drop {
 
     public void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
-            OnCollect();
+            playerDentro = true;
+            informativo.informativo.SetActive(true);
+        }
+    }
+
+    public void OnTriggerExit(Collider other) {
+        if (other.CompareTag("Player")) {
+            playerDentro = false;
+            informativo.informativo.SetActive(false);
         }
     }
 }

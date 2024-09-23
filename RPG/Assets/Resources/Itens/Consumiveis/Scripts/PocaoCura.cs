@@ -8,4 +8,8 @@ public class PocaoCura : Consumivel {
     public override void Use() {
         Player.Atributos.vida.Add(cura);
     }
+
+    public override bool PodeUsar() {
+        return Player.instance.atributos.vida.Get() < Player.instance.atributos.vida.GetMax();
+    }
 }
