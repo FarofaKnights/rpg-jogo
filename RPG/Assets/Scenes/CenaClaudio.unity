@@ -2384,6 +2384,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1009156718}
+  - {fileID: 425648580}
   - {fileID: 1487026432}
   - {fileID: 198920233}
   m_Father: {fileID: 1047076739}
@@ -4340,10 +4341,9 @@ GameObject:
   - component: {fileID: 198920233}
   - component: {fileID: 198920237}
   - component: {fileID: 198920236}
-  - component: {fileID: 198920235}
   - component: {fileID: 198920234}
   m_Layer: 0
-  m_Name: C1
+  m_Name: StartCacadora
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4379,20 +4379,6 @@ MonoBehaviour:
   questInfo: {fileID: 11400000, guid: 5e8550355affe0943b5e4db785daab41, type: 2}
   triggerName: trigger1
   activateOnTriggerEnter: 1
---- !u!114 &198920235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198920232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 650264cb7e8741f4190c9f4aa6b725d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questInfo: {fileID: 11400000, guid: 5e8550355affe0943b5e4db785daab41, type: 2}
-  falaName: Fala
 --- !u!114 &198920236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5524,6 +5510,73 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31fd55cf9d98df5498251f364c03653f, type: 3}
+--- !u!1 &246202251
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 246202252}
+  - component: {fileID: 246202254}
+  - component: {fileID: 246202253}
+  m_Layer: 0
+  m_Name: StartAdrian
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &246202252
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246202251}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.5, y: -0.67, z: 0.38}
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1926252125}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &246202253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246202251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931f4f2cf0921ae4a9df0adc39cb1049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questInfo: {fileID: 11400000, guid: 6e2d7aa8746f1de438a13258c39e4fb6, type: 2}
+--- !u!65 &246202254
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246202251}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &247945302
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12125,10 +12178,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2122915646}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b848c13c7b370d418ff9f08b187dcc0,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2122915645}
   m_SourcePrefab: {fileID: 100100000, guid: 9b848c13c7b370d418ff9f08b187dcc0, type: 3}
 --- !u!1001 &403554516
 PrefabInstance:
@@ -12363,6 +12412,90 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c78d433b5a57fa94ba65b5686fbe460c, type: 3}
+--- !u!1 &425648579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 425648580}
+  - component: {fileID: 425648583}
+  - component: {fileID: 425648582}
+  - component: {fileID: 425648581}
+  m_Layer: 0
+  m_Name: Cacadora_comecoPredioCaido
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &425648580
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425648579}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -90.8, y: 6.05, z: -193.56}
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 78896200}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &425648581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425648579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f404ed0e849a40542bca4f235df6ac99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questInfo: {fileID: 11400000, guid: 5e8550355affe0943b5e4db785daab41, type: 2}
+  objectId: handle_trigger_comeco_prediocaido
+--- !u!114 &425648582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425648579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b423509e20ef12648871271e73fc3c9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questInfo: {fileID: 11400000, guid: 5e8550355affe0943b5e4db785daab41, type: 2}
+  triggerName: trigger_comeco_prediocaido
+  activateOnTriggerEnter: 1
+--- !u!65 &425648583
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425648579}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 9.556506, y: 1.8887184, z: 2.1335692}
+  m_Center: {x: -4.278253, y: 0.44435915, z: -0.08608818}
 --- !u!1 &427223812
 GameObject:
   m_ObjectHideFlags: 0
@@ -19367,105 +19500,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 566955838}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &569538941
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 569538942}
-  - component: {fileID: 569538946}
-  - component: {fileID: 569538945}
-  - component: {fileID: 569538944}
-  - component: {fileID: 569538943}
-  m_Layer: 0
-  m_Name: A3
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &569538942
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 569538941}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.35000014, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1926252125}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &569538943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 569538941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 650264cb7e8741f4190c9f4aa6b725d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questInfo: {fileID: 11400000, guid: 6e2d7aa8746f1de438a13258c39e4fb6, type: 2}
-  falaName: aaaaa
---- !u!114 &569538944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 569538941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b423509e20ef12648871271e73fc3c9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questInfo: {fileID: 11400000, guid: 6e2d7aa8746f1de438a13258c39e4fb6, type: 2}
-  triggerName: triggerItem
-  activateOnTriggerEnter: 1
---- !u!114 &569538945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 569538941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f404ed0e849a40542bca4f235df6ac99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questInfo: {fileID: 11400000, guid: 6e2d7aa8746f1de438a13258c39e4fb6, type: 2}
-  objectId: tritem
---- !u!65 &569538946
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 569538941}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &570640756
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25841,14 +25875,13 @@ GameObject:
   - component: {fileID: 1009156722}
   - component: {fileID: 1009156721}
   - component: {fileID: 1009156720}
-  - component: {fileID: 1009156719}
   m_Layer: 0
-  m_Name: C5
+  m_Name: Cacadora_predioCaido
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1009156718
 Transform:
   m_ObjectHideFlags: 0
@@ -25858,26 +25891,12 @@ Transform:
   m_GameObject: {fileID: 1009156717}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -86.42, y: 11.13, z: -164.28}
+  m_LocalPosition: {x: -85.571, y: 10.816, z: -164.28}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 78896200}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1009156719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1009156717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 650264cb7e8741f4190c9f4aa6b725d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questInfo: {fileID: 11400000, guid: 5e8550355affe0943b5e4db785daab41, type: 2}
-  falaName: Fala2
 --- !u!114 &1009156720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25891,7 +25910,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questInfo: {fileID: 11400000, guid: 5e8550355affe0943b5e4db785daab41, type: 2}
-  objectId: tri3
+  objectId: handle_trigger_cacadora_conversa
 --- !u!114 &1009156721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25905,7 +25924,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questInfo: {fileID: 11400000, guid: 5e8550355affe0943b5e4db785daab41, type: 2}
-  triggerName: trigger3
+  triggerName: trigger_cacadora_conversa
   activateOnTriggerEnter: 1
 --- !u!65 &1009156722
 BoxCollider:
@@ -32172,12 +32191,12 @@ GameObject:
   - component: {fileID: 1487026434}
   - component: {fileID: 1487026433}
   m_Layer: 0
-  m_Name: C3
+  m_Name: Cacadora_ponte
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1487026432
 Transform:
   m_ObjectHideFlags: 0
@@ -32206,7 +32225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questInfo: {fileID: 11400000, guid: 5e8550355affe0943b5e4db785daab41, type: 2}
-  objectId: tri2
+  objectId: handle_trigger_cacadora_ponte
 --- !u!114 &1487026434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32220,7 +32239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questInfo: {fileID: 11400000, guid: 5e8550355affe0943b5e4db785daab41, type: 2}
-  triggerName: trigger2
+  triggerName: trigger_cacadora_ponte
   activateOnTriggerEnter: 1
 --- !u!65 &1487026436
 BoxCollider:
@@ -35171,16 +35190,15 @@ GameObject:
   m_Component:
   - component: {fileID: 1633574703}
   - component: {fileID: 1633574707}
-  - component: {fileID: 1633574706}
   - component: {fileID: 1633574705}
-  - component: {fileID: 1633574704}
+  - component: {fileID: 1633574708}
   m_Layer: 0
   m_Name: A1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1633574703
 Transform:
   m_ObjectHideFlags: 0
@@ -35190,26 +35208,12 @@ Transform:
   m_GameObject: {fileID: 1633574702}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.53, y: -0.99, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1926252125}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1633574704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1633574702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 650264cb7e8741f4190c9f4aa6b725d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questInfo: {fileID: 11400000, guid: 6e2d7aa8746f1de438a13258c39e4fb6, type: 2}
-  falaName: Fala
 --- !u!114 &1633574705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35223,21 +35227,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questInfo: {fileID: 11400000, guid: 6e2d7aa8746f1de438a13258c39e4fb6, type: 2}
-  triggerName: trigger1
+  triggerName: trigger_devolvePurificador
   activateOnTriggerEnter: 1
---- !u!114 &1633574706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1633574702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 931f4f2cf0921ae4a9df0adc39cb1049, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questInfo: {fileID: 11400000, guid: 6e2d7aa8746f1de438a13258c39e4fb6, type: 2}
 --- !u!65 &1633574707
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -35259,6 +35250,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1633574708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633574702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f404ed0e849a40542bca4f235df6ac99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questInfo: {fileID: 11400000, guid: 6e2d7aa8746f1de438a13258c39e4fb6, type: 2}
+  objectId: handle_trigger_devolvePurificador
 --- !u!1 &1643394324 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: 995a24d2ef324ea46b049a2d54e87e7a,
@@ -35580,7 +35585,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9b848c13c7b370d418ff9f08b187dcc0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 16.260002
+      value: 15.68
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9b848c13c7b370d418ff9f08b187dcc0,
         type: 3}
@@ -35640,10 +35645,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1811044778}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b848c13c7b370d418ff9f08b187dcc0,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1811044779}
   m_SourcePrefab: {fileID: 100100000, guid: 9b848c13c7b370d418ff9f08b187dcc0, type: 3}
 --- !u!1001 &1659825533
 PrefabInstance:
@@ -38991,22 +38992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questInfo: {fileID: 11400000, guid: 5e8550355affe0943b5e4db785daab41, type: 2}
-  objectId: cdc
---- !u!114 &1811044779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811044777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b423509e20ef12648871271e73fc3c9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questInfo: {fileID: 11400000, guid: 5e8550355affe0943b5e4db785daab41, type: 2}
-  triggerName: cdc
-  activateOnTriggerEnter: 0
+  objectId: cacadora_2
 --- !u!1001 &1812084038
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40835,8 +40821,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 569538942}
   - {fileID: 1633574703}
+  - {fileID: 246202252}
   m_Father: {fileID: 1047076739}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1933665868 stripped
@@ -44791,21 +44777,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 402545164}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2122915645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122915643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b423509e20ef12648871271e73fc3c9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questInfo: {fileID: 11400000, guid: 5e8550355affe0943b5e4db785daab41, type: 2}
-  triggerName: cdc1
-  activateOnTriggerEnter: 0
 --- !u!114 &2122915646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44819,7 +44790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questInfo: {fileID: 11400000, guid: 5e8550355affe0943b5e4db785daab41, type: 2}
-  objectId: cdc1
+  objectId: cacadora_1
 --- !u!4 &2126674927 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9029822383348900725, guid: 14c6e3197dec9744b981b93c387b46d7,

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: QuestCacadora
   m_EditorClassIdentifier: 
   questId: QuestCacadora
-  titulo: AASS
-  descricao: "Encontre um tanque de Oxig\xEAnio para Adrian\n"
+  titulo: "Ca\xE7adora"
+  descricao: "A ca\xE7adora quer conversar comigo,o que ser\xE1 que ela quer?"
   falasCarregadas:
   - nome: Fala2
     falas:
@@ -152,15 +152,9 @@ MonoBehaviour:
     gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
       type: 3}
     parameter: trigger1;tri1
-    informativo: aasasasasassa
+    informativo: 
     mostrandoConteudo: 1
     children:
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
-        type: 3}
-      parameter: trigger1;tri1
-      informativo: 
-      mostrandoConteudo: 1
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
         type: 3}
@@ -176,19 +170,19 @@ MonoBehaviour:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
         type: 3}
-      parameter: trigger2;tri2
-      informativo: 
+      parameter: trigger_cacadora_ponte;handle_trigger_cacadora_ponte
+      informativo: Atravesse a ponte
       mostrandoConteudo: 1
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
         type: 3}
-      parameter: cdc
+      parameter: cacadora_2
       informativo: 
       mostrandoConteudo: 1
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: 23788a0b99f9dc84d87936d3428a2218,
         type: 3}
-      parameter: cdc1
+      parameter: cacadora_1
       informativo: 
       mostrandoConteudo: 1
   - type: 1
@@ -200,8 +194,14 @@ MonoBehaviour:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
         type: 3}
-      parameter: trigger3;tri3
-      informativo: 
+      parameter: trigger_comeco_prediocaido;handle_trigger_comeco_prediocaido
+      informativo: "V\xE1 ao pr\xE9dio caido"
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+        type: 3}
+      parameter: trigger_cacadora_conversa;handle_trigger_cacadora_conversa
+      informativo: "Encontre a ca\xE7adora no pr\xE9dio ca\xEDdo"
       mostrandoConteudo: 1
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,

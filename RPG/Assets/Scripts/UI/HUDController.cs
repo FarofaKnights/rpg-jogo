@@ -9,8 +9,20 @@ public class HUDController : MonoBehaviour {
     public Image imagemArma, imagemSave, playerAim;
     public Color normalAimColor, targetAimColor;
 
+    class Missao_Texto {
+        public string texto;
+        public QuestInfo questInfo;
+
+        public Missao_Texto(QuestInfo questInfo, string texto) {
+            this.questInfo = questInfo;
+            this.texto = texto;
+        }
+    }
+
+    List<Missao_Texto> missoesTextos = new List<Missao_Texto>();
+
     void Start() {
-        UpdateMissaoText("");
+        missaoText.text = "";
     }
 
     public void UpdateVida(float vida, float vidaMax) {
@@ -27,9 +39,35 @@ public class HUDController : MonoBehaviour {
         pecasText.text = "" + pecas;
     }
 
-    public void UpdateMissaoText(string texto) {
-        missaoText.text = texto;
+    public void UpdateMissaoText(QuestInfo quest, string texto) {
+        bool achou = false;
+        foreach (Missao_Texto mt in missoesTextos) {
+            if (mt.questInfo == quest) {
+                mt.texto = texto;
+                achou = true;
+                break;
+            }
+        }
+
+        if (!achou) {
+            missoesTextos.Add(new Missao_Texto(quest, texto));
+        }
+
+        for (int i = missoesTextos.Count - 1; i >= 0; i--) {
+            if (missoesTextos[i].texto == "") {
+                missoesTextos.RemoveAt(i);
+            }
+        }
+
+        string missao = "";
+        foreach (Missao_Texto mt in missoesTextos) {
+            missao += "- " + mt.texto + "\n";
+        }
+
+        missaoText.text = missao;
     }
+
+
 
     public void SetArmaEquipada(Arma arma) {
         if (arma == null) {

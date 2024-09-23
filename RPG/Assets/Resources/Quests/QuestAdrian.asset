@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: QuestAdrian
   m_EditorClassIdentifier: 
   questId: QuestAdrian
-  titulo: AASS
+  titulo: "Oxig\xEAnio"
   descricao: "Encontre um tanque de Oxig\xEAnio para Adrian\n"
   falasCarregadas:
   - nome: Fala
@@ -42,7 +42,7 @@ MonoBehaviour:
           id: Consumiveis/PocaoVidaData
           type: 1
           isGlobal: 0
-          intValue: 2
+          intValue: 1
           floatValue: 0
           stringValue: 
           boolValue: 0
@@ -59,19 +59,6 @@ MonoBehaviour:
       comparacaoValue: 0
       dinamic: 0
   steps:
-  - type: 1
-    gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
-      type: 3}
-    parameter: trigger1;tri1
-    informativo: aasasasasassa
-    mostrandoConteudo: 1
-    children:
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
-        type: 3}
-      parameter: trigger1;tri1
-      informativo: 
-      mostrandoConteudo: 1
   - type: 0
     gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
       type: 3}
@@ -89,12 +76,18 @@ MonoBehaviour:
       gameObject: {fileID: 1368148330828971028, guid: a15d69b65074b5f439959bfe84b0ec77,
         type: 3}
       parameter: SE_TEM_ITEM;Quests/PurificadorData;INT;1;False;True
-      informativo: 
+      informativo: Pegue o purificador nas proximidades da ponte
       mostrandoConteudo: 1
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
         type: 3}
-      parameter: triggerItem;Quests/PurificadorData
+      parameter: trigger_devolvePurificador;handle_trigger_devolvePurificador
+      informativo: Devolva o purificador ao Adrian
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: REMOVER_ITEM;Quests/PurificadorData;INT;1;False
       informativo: 
       mostrandoConteudo: 1
     - type: 0

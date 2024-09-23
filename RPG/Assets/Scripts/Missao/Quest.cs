@@ -48,7 +48,7 @@ public class Quest : Saveable {
 
     public GameObject InstantiateStep(Transform parent) {
         if (currentStep >= info.steps.Length) {
-            UIController.HUD.UpdateMissaoText("");
+            UIController.HUD.UpdateMissaoText(info, "");
             return null;
         }
 
@@ -75,11 +75,11 @@ public class Quest : Saveable {
         IInformativoAtualizavel informativo = stepObject.GetComponent<IInformativoAtualizavel>();
         if (informativo != null) {
             informativo.UpdateInformativo(() => {
-                UIController.HUD.UpdateMissaoText(CurrentMessage());
+                UIController.HUD.UpdateMissaoText(info, CurrentMessage());
             });
         }
 
-        UIController.HUD.UpdateMissaoText(CurrentMessage());
+        UIController.HUD.UpdateMissaoText(info, CurrentMessage());
 
         return stepObject;
     }
