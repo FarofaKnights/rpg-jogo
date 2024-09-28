@@ -4,7 +4,7 @@ Uma ação que começa um dialogo independente de onde esteja
 
 | Atributo | Informativo |
 | -- | -- |
-| **Script** | QuestFalaStep |
+| **Script** | [QuestFalaStep](../../../RPG/Assets/Resources/QuestSteps/QuestFalaStep.cs) |
 | **Nome** | Começa dialogo |
 | **Tipo** | Ação |
 | **Parâmetro** | Nome da fala |

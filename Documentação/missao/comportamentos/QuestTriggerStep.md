@@ -4,7 +4,7 @@ Uma condição aguarda um trigger ser ativado
 
 | Atributo | Informativo |
 | -- | -- |
-| **Script** | QuestTriggerStep |
+| **Script** | [QuestTriggerStep](../../../RPG/Assets/Resources/QuestSteps/QuestTriggerStep.cs) |
 | **Nome** | Trigger  |
 | **Tipo** | Condição |
 

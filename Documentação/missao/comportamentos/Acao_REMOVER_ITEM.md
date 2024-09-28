@@ -4,7 +4,7 @@ Uma ação que remove uma determinada quantidade de um item ao inventário.
 
 | Atributo | Informativo |
 | -- | -- |
-| **Script** | AcaoRemoveItem |
+| **Script** | [AcaoRemoveItem](../../../RPG/Assets/Scripts/AcaoCondicao/Acoes/AcaoRemoveItem.cs) |
 | **Nome** | Ação => REMOVER_ITEM |
 | **Tipo** | Ação (Ação de Fala) |
 

@@ -4,7 +4,7 @@ Uma condição que aciona quando uma determinada variável de ambiente respeita 
 
 | Atributo | Informativo |
 | -- | -- |
-| **Script** | CondicaoIfVariavel |
+| **Script** | [CondicaoIfVariavel](../../../RPG/Assets/Scripts/AcaoCondicao/Condicoes/CondicaoIfVariavel.cs) |
 | **Nome** | Condição => SE_VARIAVEL |
 | **Tipo** | Condição (Condição de Fala) |
 

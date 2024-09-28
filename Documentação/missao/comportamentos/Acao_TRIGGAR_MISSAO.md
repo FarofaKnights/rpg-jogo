@@ -4,7 +4,7 @@ Uma ação que aciona um **trigger** em outra missão.
 
 | Atributo | Informativo |
 | -- | -- |
-| **Script** | AcaoTriggaMissao |
+| **Script** | [AcaoTriggaMissao](../../../RPG/Assets/Scripts/AcaoCondicao/Acoes/AcaoTriggaMissao.cs) |
 | **Nome** | Ação => TRIGGAR_MISSAO |
 | **Tipo** | Ação (Ação de Fala) |
 

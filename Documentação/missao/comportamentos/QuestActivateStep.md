@@ -4,7 +4,7 @@ Uma ação que ativa um GameObject
 
 | Atributo | Informativo |
 | -- | -- |
-| **Script** | QuestActivateStep |
+| **Script** | [QuestActivateStep](../../../RPG/Assets/Resources/QuestSteps/QuestActivateStep.cs) |
 | **Nome** | Ativar objeto |
 | **Tipo** | Ação |
 | **Parâmetro** | Id do componente `QuestObject` |

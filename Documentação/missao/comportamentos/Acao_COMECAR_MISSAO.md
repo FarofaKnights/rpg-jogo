@@ -4,7 +4,7 @@ Uma ação que tenta começar uma missão.
 
 | Atributo | Informativo |
 | -- | -- |
-| **Script** | AcaoComecaMissao |
+| **Script** | [AcaoComecaMissao](../../../RPG/Assets/Scripts/AcaoCondicao/Acoes/AcaoComecaMissao.cs) |
 | **Nome** | Ação => COMECAR_MISSAO |
 | **Tipo** | Ação (Ação de Fala) |
 | **Parâmetro** | O nome do arquivo `QuestInfo` da missão |

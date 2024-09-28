@@ -4,7 +4,7 @@ Uma condição que aciona quando um determinado item atinge uma determinada quan
 
 | Atributo | Informativo |
 | -- | -- |
-| **Script** | CondicaoTemItem |
+| **Script** | [CondicaoTemItem](../../../RPG/Assets/Scripts/AcaoCondicao/Condicoes/CondicaoTemItem.cs) |
 | **Nome** | Condição => SE_TEM_ITEM  |
 | **Tipo** | Condição (Condição de Fala) |
 

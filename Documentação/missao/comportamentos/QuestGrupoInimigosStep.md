@@ -4,7 +4,7 @@ Uma condição que espera todos os inimigos de um grupo (definido por `EnemyGrou
 
 | Atributo | Informativo |
 | -- | -- |
-| **Script** | QuestGrupoInimigosStep |
+| **Script** | [QuestGrupoInimigosStep](../../../RPG/Assets/Resources/QuestSteps/QuestGrupoInimigosStep.cs) |
 | **Nome** | Grupo de inimigos |
 | **Tipo** | Condição |
 
@@ -21,5 +21,5 @@ O grupo e os inimigos vão permanecer em seu estado e não haverá nenhuma alter
 
 Recomendo também colocar o `SaveIntegridade` em cada inimigo para que eles não apareçam de novo quando reloadar a cena. Não se preocupe, utilizar isso não causa conflito com o progresso da missão.
 
-Você tamb´me pode mostrar o progresso da missão (quantos inimigos faltam matar) através do *Show Quantity*, porém esta informação só aparecerá na indicação do HUD, e não na listagem do Menu de Missões.
+Você também pode mostrar o progresso da missão (quantos inimigos faltam matar) através do *Show Quantity*, porém esta informação só aparecerá na indicação do HUD, e não na listagem do Menu de Missões.
 

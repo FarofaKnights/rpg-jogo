@@ -4,7 +4,7 @@ Uma ação que adiciona uma determinada quantidade de um item ao inventário.
 
 | Atributo | Informativo |
 | -- | -- |
-| **Script** | AcaoDaItem |
+| **Script** | [AcaoDaItem](../../../RPG/Assets/Scripts/AcaoCondicao/Acoes/AcaoDaItem.cs) |
 | **Nome** | Ação => ADICIONAR_ITEM |
 | **Tipo** | Ação (Ação de Fala) |
 

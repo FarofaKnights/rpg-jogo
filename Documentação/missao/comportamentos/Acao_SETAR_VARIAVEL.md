@@ -4,7 +4,7 @@ Uma ação que define um valor a uma determinada variável de ambiente.
 
 | Atributo | Informativo |
 | -- | -- |
-| **Script** | AcaoSetVariavel |
+| **Script** | [AcaoSetVariavel](../../../RPG/Assets/Scripts/AcaoCondicao/Acoes/AcaoSetVariavel.cs) |
 | **Nome** | Ação => SETAR_VARIAVEL |
 | **Tipo** | Ação (Ação de Fala) |
 

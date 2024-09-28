@@ -4,7 +4,7 @@ Uma ação que desativa um GameObject
 
 | Atributo | Informativo |
 | -- | -- |
-| **Script** | QuestDeactivateStep |
+| **Script** | [QuestDeactivateStep](../../../RPG/Assets/Resources/QuestSteps/QuestDeactivateStep.cs) |
 | **Nome** | Desativar objeto |
 | **Tipo** | Ação |
 | **Parâmetro** | Id do componente `QuestObject` |
