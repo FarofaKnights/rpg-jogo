@@ -91,7 +91,12 @@ public class QuestGrupoInimigosStep : QuestStep, IQuestInformations, IInformativ
     public override string GetEditorParameters(CurrentStepAcaoInfo stepInfo) {
         string[] parameters = SeparateParameters(stepInfo.step.parameter);
         string groupID = parameters.Length > 0 ? parameters[0] : "";
-        bool showQuantity = parameters.Length > 1 ? bool.Parse(parameters[1]) : true;
+        bool showQuantity = true;
+
+        // Solução feia para o caso de que o parâmetro esteja sujo com valores de outro QuestStep
+        try {
+            showQuantity = parameters.Length > 1 ? bool.Parse(parameters[1]) : true;
+        } catch { }
 
         groupID = EditorGUILayout.TextField("EnemyGroup GroupID", groupID);
         showQuantity = EditorGUILayout.Toggle("Show Quantity", showQuantity);

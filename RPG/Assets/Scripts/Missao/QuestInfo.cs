@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum QuestStepType { ACAO, PAI }
+public enum QuestStepType { PADRAO, PAI }
 
 
 [System.Serializable]
 public class GameObjectParameter {
-    public QuestStepType type = QuestStepType.ACAO;
+    public QuestStepType type = QuestStepType.PADRAO;
     public GameObject gameObject;
     public string parameter;
     public string informativo;

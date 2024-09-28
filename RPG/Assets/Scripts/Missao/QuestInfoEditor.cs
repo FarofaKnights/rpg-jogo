@@ -148,7 +148,7 @@ public class QuestInfoEditor : Editor {
         if (step.informativo != "") title += " - " + step.informativo;
         else if (step.type == QuestStepType.PAI) title += " - PAI [" + ((GameObjectParameterParent)step).children.Length + "]";
         else if (step.gameObject != null) title += " - " + step.gameObject.GetComponent<QuestStep>().GetEditorName() + (step.parameter != "" ? " [" + step.parameter + "]" : "");
-        else title += " - ACAO";
+        else title += " - PADRAO";
 
 
         title += step.mostrandoConteudo ? ":" : "";
@@ -193,11 +193,11 @@ public class QuestInfoEditor : Editor {
             }
         }
         int indexOld = index;
-        index = EditorGUILayout.Popup("Ação", index, options);
+        index = EditorGUILayout.Popup("Comportamento", index, options);
 
         if (index == 0) {
             selected = null;
-            selected = (GameObject)EditorGUILayout.ObjectField("Ação customizada", selected, typeof(GameObject), true);
+            selected = (GameObject)EditorGUILayout.ObjectField("Comportamento custom", selected, typeof(GameObject), true);
         } else if (index <= stepsPrefabs.Count) {
             selected = stepsPrefabs[index - 1].prefab;
         }
@@ -214,7 +214,7 @@ public class QuestInfoEditor : Editor {
         moveStep = null;
         if (step == null) return null;
 
-        GUI.backgroundColor = step.type == QuestStepType.ACAO ? Color.magenta : Color.cyan;
+        GUI.backgroundColor = step.type == QuestStepType.PADRAO ? Color.magenta : Color.cyan;
 
         GUILayout.BeginVertical("box");
         GUILayout.Space(padding);
@@ -224,11 +224,11 @@ public class QuestInfoEditor : Editor {
         if (step != null && step.mostrandoConteudo) {
             step.informativo = EditorGUILayout.TextField("Informativo", step.informativo);
             
-            if (isChild) step.type = QuestStepType.ACAO;
+            if (isChild) step.type = QuestStepType.PADRAO;
             else step.type = (QuestStepType)EditorGUILayout.EnumPopup("Tipo", step.type);
 
 
-            if (step.type == QuestStepType.ACAO) {
+            if (step.type == QuestStepType.PADRAO) {
                 DrawSelectPrefab(step);
 
                 if (step.gameObject != null) {

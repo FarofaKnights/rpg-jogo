@@ -56,7 +56,7 @@ public class Quest : Saveable {
 
         if (step.type == QuestStepType.PAI) {
             return HandlePai((GameObjectParameterParent)step, parent);
-        } else if (step.type == QuestStepType.ACAO) {
+        } else if (step.type == QuestStepType.PADRAO) {
             return HandleAcao(step, parent);
         }
 
