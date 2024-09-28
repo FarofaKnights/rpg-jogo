@@ -2,10 +2,12 @@
 
 Uma ação que ativa um GameObject
 
-**Script:** QuestActivateStep
-**Nome:** Ativar objeto
-**Tipo:** Ação
-**Parâmetro:** Id do componente `QuestObject`
+| Atributo | Informativo |
+| -- | -- |
+| **Script** | QuestActivateStep |
+| **Nome** | Ativar objeto |
+| **Tipo** | Ação |
+| **Parâmetro** | Id do componente `QuestObject` |
 
 ## ⚙️ Funcionamento
 

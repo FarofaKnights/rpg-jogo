@@ -1,14 +1,17 @@
-﻿
-# QuestGrupoInimigosStep
+﻿# QuestGrupoInimigosStep
 
 Uma condição que espera todos os inimigos de um grupo (definido por `EnemyGroup`) terem morrido.
 
-**Script:** QuestGrupoInimigosStep
-**Nome:** Grupo de inimigos
-**Tipo:** Condição
-**Parâmetros:**
-- **EnemyGroup Group ID:** ID do `EnemyGroup`
-- **Show Quantity:** Boleano que define se deve mostrar o progresso no informativo
+| Atributo | Informativo |
+| -- | -- |
+| **Script** | QuestGrupoInimigosStep |
+| **Nome** | Grupo de inimigos |
+| **Tipo** | Condição |
+
+| Parâmetro | Descrição |
+| -- | -- |
+| **EnemyGroup Group ID** | ID do `EnemyGroup` |
+| **Show Quantity** | Boleano que define se deve mostrar o progresso no informativo |
 
 ## ⚙️ Funcionamento
 

@@ -2,10 +2,12 @@
 
 Uma ação que tenta começar uma missão.
 
-**Script:** AcaoComecaMissao
-**Nome:** Ação => COMECAR_MISSAO
-**Tipo:** Ação (Ação de Fala)
-**Parâmetro:** O nome do arquivo `QuestInfo` da missão
+| Atributo | Informativo |
+| -- | -- |
+| **Script** | AcaoComecaMissao |
+| **Nome** | Ação => COMECAR_MISSAO |
+| **Tipo** | Ação (Ação de Fala) |
+| **Parâmetro** | O nome do arquivo `QuestInfo` da missão |
 
 ## ⚙️ Funcionamento
 Você pode começar uma missão de algumas formas diferentes, veja mais sobre no [tutorial de começar uma missão](../comecar_missao.md). Esta é uma dessas formas.

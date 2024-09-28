@@ -1,12 +1,13 @@
-﻿
-# 🗣️ QuestFalaStep
+﻿# QuestFalaStep
 
 Uma ação que começa um dialogo independente de onde esteja
 
-**Script:** QuestFalaStep
-**Nome:** Começa dialogo
-**Tipo:** Ação
-**Parâmetro:** Nome da fala
+| Atributo | Informativo |
+| -- | -- |
+| **Script** | QuestFalaStep |
+| **Nome** | Começa dialogo |
+| **Tipo** | Ação |
+| **Parâmetro** | Nome da fala |
 
 ## ⚙️ Funcionamento
 

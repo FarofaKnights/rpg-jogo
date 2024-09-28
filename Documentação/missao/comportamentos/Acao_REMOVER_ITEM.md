@@ -2,12 +2,16 @@
 
 Uma ação que remove uma determinada quantidade de um item ao inventário.
 
-**Script:** AcaoRemoveItem
-**Nome:** Ação => REMOVER_ITEM
-**Tipo:** Ação (Ação de Fala)
-**Parâmetros:**
-- **Path do item:** O `id` do item
-- **Quantidade:** A quantidade a ser removida
+| Atributo | Informativo |
+| -- | -- |
+| **Script** | AcaoRemoveItem |
+| **Nome** | Ação => REMOVER_ITEM |
+| **Tipo** | Ação (Ação de Fala) |
+
+| Parâmetro | Descrição |
+| -- | -- |
+| **Path do item** | O `id` do item |
+| **Quantidade** | A quantidade a ser removida |
 
 ## ⚙️ Funcionamento
 

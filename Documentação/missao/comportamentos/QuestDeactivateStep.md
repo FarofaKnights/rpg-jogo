@@ -2,10 +2,12 @@
 
 Uma ação que desativa um GameObject
 
-**Script:** QuestDeactivateStep
-**Nome:** Desativar objeto
-**Tipo:** Ação
-**Parâmetro:** Id do componente `QuestObject`
+| Atributo | Informativo |
+| -- | -- |
+| **Script** | QuestDeactivateStep |
+| **Nome** | Desativar objeto |
+| **Tipo** | Ação |
+| **Parâmetro** | Id do componente `QuestObject` |
 
 ## ⚙️ Funcionamento
 

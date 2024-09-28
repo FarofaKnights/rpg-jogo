@@ -2,13 +2,17 @@
 
 Uma condição que aciona quando um determinado item atinge uma determinada quantidade mínima no inventário.
 
-**Script:** CondicaoTemItem
-**Nome:** Condição => SE_TEM_ITEM 
-**Tipo:** Condição (Condição de Fala)
-**Parâmetros:**
-- **Path do item:** O `id` do item
-- **Quantidade:** A quantidade mínima
-- **É dinâmico:** Sempre `true` ou trava a missão se não houver na primeira vez
+| Atributo | Informativo |
+| -- | -- |
+| **Script** | CondicaoTemItem |
+| **Nome** | Condição => SE_TEM_ITEM  |
+| **Tipo** | Condição (Condição de Fala) |
+
+| Parâmetro | Descrição |
+| -- | -- |
+| **Path do item** | O `id` do item |
+| **Quantidade** | A quantidade mínima |
+| **É dinâmico** | Sempre `true` ou trava a missão se não houver na primeira vez |
 
 ## ⚙️ Funcionamento
 

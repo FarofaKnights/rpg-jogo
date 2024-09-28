@@ -3,14 +3,14 @@ Este documento tem o foco de ensinar de forma geral a como criar uma missão que
 
 Uma missão é definida pelo ScriptableObject `QuestInfo`. Nele podemos definir informações básicas como nome e descrição, e também o próprio funcionamento da missão, como quais são os _passos_ da missão. Note que não definimos onde a missão se inicia no jogo, isto é tratado em [outro documento](./comecar_missao.md).
 
-## Criando o QuestInfo
+## 🫄 Criando o QuestInfo
 Primeiro precisamos criar um ScriptableObject do tipo `QuestInfo` no projeto. Todas as missões que estão no jogo **devem** ser filhas diretas da pasta `Resources/Quests`, e qualquer QuestInfo fora da pasta será **ignorado** pelo sistema.
 
 Para criar este ScriptableObject, entre na pasta desejada e clique com o botão direito. Um menu de opções deve aparecer, neste menu vá até `Create`, e então uma nova lista deve aparecer. No topo dessa lista você deve encontrar a opção `RPG`, lá é onde está localizado todos os ScriptableObjects exclusivos do projeto. Navegue até a opção `QuestInfo`e por fim clique nela para criar o objeto.
 
 É importante **renomear o arquivo** com algo que identifique a missão, uma vez que o nome do arquivo será usado como `id` da missão, ou seja, não pode haver dois arquivos com o mesmo nome.
 
-## Definindo valores básicos
+## 🧑‍🍼 Definindo valores básicos
 Com o ScriptableObject recém criado, temos que definir as informações básicas da nossa missão.
 
 Note que no menu do inspetor, a primeira propriedade é um checkbox com o label `Use Custom Editor`. Essa opção é utilizada apenas para debug do objeto cru (ou seja, sem os fru-frus do editor customizado) e deve ser ignorada na maioria dos casos.
@@ -21,9 +21,9 @@ A **descrição da missão** só aparece ao selecionar a missão na lista de mis
 
 A **condição da missão** pode ser vista abaixo de uma separação "Quest Requirements". Este campo define as condições necessárias para que uma missão esteja disponível. Caso seu valor seja `NULL` a missão já começa disponível. Clicando no seletor, uma lista de possiveis condições é exibida, essas são as mesmas condições utilizadas no sistema de Falas. Lembre de **sempre** definir o valor `É dinamico` como verdadeiro, isso garante que no momento que a condição se tornar verdadeira a missão estará disponível.
 
-Uma vez que uma missão se torna disponível, ela não pode voltar a ficar indisponível, leve isso em consideração quando montar missões. Lembrando que, estar disponível não significa que a missão foi iniciada. Para definir onde a missão se inicia, veja o [tutorial de iniciar missão](./comecar_missao).
+Uma vez que uma missão se torna disponível, ela não pode voltar a ficar indisponível, leve isso em consideração quando montar missões. Lembrando que, estar disponível não significa que a missão foi iniciada. Para definir onde a missão se inicia, veja o [tutorial de iniciar missão](./comecar_missao.md).
 
-## 🦶 Definindo passos
+## 🚶 Definindo passos
 Passos constituem o que é a missão na prática. A missão possui uma lista ordenada de passos, estes passos podem ser **condições**, ou seja, objetivos a serem cumpridos pelo jogador, ou **ações** que ocorrem durante o progresso da missão. Sempre que um passo é concluído, ele prossegue para o passo após ele. Nos casos de **condições**, o passo só será concluído quando a condição for cumprida. Já no caso de **ações**, no momento que entrar no passo, a ação definida será executada e logo em seguida irá prosseguir para o próximo passo.
 
 Inicialmente começamos com uma lista vazia de passos. Podemos adicionar passos novos a lista através do botão de [+] localizado a direita do campo. Um passo possui alguns atributos a serem notados:

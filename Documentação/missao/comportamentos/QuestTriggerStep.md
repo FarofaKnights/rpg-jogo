@@ -1,14 +1,17 @@
-﻿
-# QuestTriggerStep
+﻿# QuestTriggerStep
 
 Uma condição aguarda um trigger ser ativado
 
-**Script:** QuestTriggerStep
-**Nome:** Trigger 
-**Tipo:** Condição
-**Parâmetros:**
-- **Nome do Trigger:** Nome do trigger aguardado
-- **Objeto do Trigger (opcional):** ID do `QuestObject` que aparecerá apenas enquanto o trigger não foi ativo
+| Atributo | Informativo |
+| -- | -- |
+| **Script** | QuestTriggerStep |
+| **Nome** | Trigger  |
+| **Tipo** | Condição |
+
+| Parâmetro | Descrição |
+| -- | -- |
+| **Nome do Trigger** | Nome do trigger aguardado |
+| **Objeto do Trigger (opcional)** | ID do `QuestObject` que aparecerá apenas enquanto o trigger não foi ativo |
 
 ## ⚙️ Funcionamento
 

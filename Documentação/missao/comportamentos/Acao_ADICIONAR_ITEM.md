@@ -2,12 +2,16 @@
 
 Uma ação que adiciona uma determinada quantidade de um item ao inventário.
 
-**Script:** AcaoDaItem
-**Nome:** Ação => ADICIONAR_ITEM
-**Tipo:** Ação (Ação de Fala)
-**Parâmetros:**
-- **Path do item:** O `id` do item
-- **Quantidade:** A quantidade a ser adicionada
+| Atributo | Informativo |
+| -- | -- |
+| **Script** | AcaoDaItem |
+| **Nome** | Ação => ADICIONAR_ITEM |
+| **Tipo** | Ação (Ação de Fala) |
+
+| Parâmetro | Descrição |
+| -- | -- |
+| **Path do item** | O `id` do item |
+| **Quantidade** | A quantidade a ser adicionada |
 
 ## ⚙️ Funcionamento
 
