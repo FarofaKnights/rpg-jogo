@@ -54,6 +54,11 @@ public class PlayerMoveState : IPlayerState {
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
 
+        if (GameManager.instance.state != GameState.Playing) {
+            moveX = 0;
+            moveZ = 0;
+        }
+
         // Se não estiver se movendo
         if (moveX == 0 && moveZ == 0) {
             animator.SetFloat("inputX", 0);

@@ -12,6 +12,8 @@ public class DialogoController : MonoBehaviour {
     Fala[] falas;
     int index = 0;
 
+    bool playerLocked = false;
+
 
     Fala onHoldToAutoNext, currentFala;
 
@@ -19,7 +21,11 @@ public class DialogoController : MonoBehaviour {
         texto.text = "";
     }
 
-    public void StartDialogo(Fala[] falas, System.Action OnDialogoEnd = null) {
+    public void StartDialogo(Dialogo dialogo, System.Action OnDialogoEnd = null, bool lockPlayer = true) {
+        StartDialogo(dialogo.falas.ToArray(), OnDialogoEnd, lockPlayer);
+    }
+
+    public void StartDialogo(Fala[] falas, System.Action OnDialogoEnd = null, bool lockPlayer = true) {
         if (this.falas != null) {
             HandleDialogoEnd();
             StopAllCoroutines();
@@ -28,9 +34,14 @@ public class DialogoController : MonoBehaviour {
         this.falas = falas;
         index = 0;
 
-        GameManager.instance.controls.UI.Interact.performed += Proximo;
-        GameManager.instance.controls.Dialog.Enable();
-        GameManager.instance.SetState(GameState.Dialog);
+        playerLocked = lockPlayer;
+
+        if (lockPlayer) {
+            GameManager.instance.controls.Dialog.Interact.performed += Proximo;
+            GameManager.instance.SetIntermediaryState(GameState.Dialog);
+        } else {
+            GameManager.instance.controls.UI.Interact.performed += Proximo;
+        }
 
         this.OnDialogoEnd += OnDialogoEnd;
 
@@ -90,10 +101,12 @@ public class DialogoController : MonoBehaviour {
 
         texto.text = "";
 
-        GameManager.instance.controls.UI.Interact.performed -= Proximo;
-        GameManager.instance.controls.Dialog.Disable();
-
-        GameManager.instance.SetState(GameState.Playing);
+        if (playerLocked) {
+            GameManager.instance.controls.Dialog.Interact.performed -= Proximo;
+            GameManager.instance.RestoreIntermediaryState();
+        } else {
+            GameManager.instance.controls.UI.Interact.performed -= Proximo;
+        }
     }
 
     public void RemoveDialogoEndEvent() {

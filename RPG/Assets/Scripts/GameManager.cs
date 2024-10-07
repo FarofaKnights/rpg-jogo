@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance;
 
     protected GameState _state;
+    protected Stack<GameState> _intermediaryState = new Stack<GameState>();
+
     public GameState state {
         get { return _state; }
         set {
@@ -22,6 +24,7 @@ public class GameManager : MonoBehaviour {
     public string gameOverSceneName { get { return "GameOver"; } }
     public string startSceneName = "Start", firstSceneName = "Introducao";
     public string firstPointName = "TutorialStart";
+    public string _debugCurrentState = "";
 
     public Controls controls;
     public SaveSystem save;
@@ -94,6 +97,19 @@ public class GameManager : MonoBehaviour {
         SceneManager.LoadScene(startSceneName);
     }
 
+    public void SetIntermediaryState(GameState newState){
+        _intermediaryState.Push(_state);
+        SetState(newState);
+    }
+
+    public void RestoreIntermediaryState(GameState defaultState = GameState.Playing){
+        if (_intermediaryState.Count > 0){
+            SetState(_intermediaryState.Pop());
+        } else {
+            SetState(defaultState);
+        }
+    }
+
     public void SetState(GameState newState){
         GameState oldState = _state;
         _state = newState;
@@ -104,16 +120,17 @@ public class GameManager : MonoBehaviour {
                 controls.UI.Enable();
                 controls.Player.Disable();
                 controls.Loja.Disable();
+                controls.Dialog.Disable();
                 break;
             case GameState.Playing:
                 Despausar();
+                controls.Dialog.Disable();
                 controls.UI.Disable();
                 controls.Loja.Disable();
                 controls.Player.Enable();
                 break;
             case GameState.Dialog:
-                controls.UI.Enable();
-                controls.Player.Disable();
+                controls.Dialog.Enable();
                 break;
             case GameState.GameOver:
                 GameOver();
@@ -121,6 +138,7 @@ public class GameManager : MonoBehaviour {
             case GameState.CheatMode:
                 controls.Player.Disable();
                 controls.Loja.Disable();
+                controls.Dialog.Disable();
                 controls.Cheat.Enable();
                 UIController.cheat.Entrar(oldState);
                 break;
@@ -129,6 +147,8 @@ public class GameManager : MonoBehaviour {
                 controls.Loja.Enable();
                 break;
         }
+
+        _debugCurrentState = newState.ToString();
     }
 
 

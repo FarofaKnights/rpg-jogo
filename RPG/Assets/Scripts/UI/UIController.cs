@@ -116,7 +116,7 @@ public class UIController : MonoBehaviour {
     public void ShowMenu() {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        GameManager.instance.SetState(GameState.PauseMenu);
+        GameManager.instance.SetIntermediaryState(GameState.PauseMenu);
 
         menu.SetActive(true);
         equipamentos.Show();
@@ -140,7 +140,7 @@ public class UIController : MonoBehaviour {
         configuracoes.Hide();
         sistema.Hide();
 
-        GameManager.instance.SetState(GameState.Playing);
+        GameManager.instance.RestoreIntermediaryState();
     }
 
     public void ToggleMenu() {

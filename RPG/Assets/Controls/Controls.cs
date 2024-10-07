@@ -122,6 +122,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""93d1b772-3eab-495b-bb1b-d1bd7d0c07f0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Arm"",
+                    ""type"": ""Button"",
+                    ""id"": ""7593d811-a08e-4813-880b-231a3427c47b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -298,6 +316,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Itens"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""32fbb630-22a7-4015-a35e-bd91564c9673"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6129458b-8510-4e6a-bf02-e3717240bb34"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Arm"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -499,6 +539,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""6a66d9dd-3e8b-48a8-8a85-ab40bd409e24"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -523,6 +572,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c7ba25a7-b3b8-4459-9373-ad8f8114a5c1"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -543,6 +603,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_CheatMode = m_Player.FindAction("CheatMode", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Itens = m_Player.FindAction("Itens", throwIfNotFound: true);
+        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        m_Player_Arm = m_Player.FindAction("Arm", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Interact = m_UI.FindAction("Interact", throwIfNotFound: true);
@@ -560,6 +622,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Dialog = asset.FindActionMap("Dialog", throwIfNotFound: true);
         m_Dialog_Itens = m_Dialog.FindAction("Itens", throwIfNotFound: true);
         m_Dialog_Pause = m_Dialog.FindAction("Pause", throwIfNotFound: true);
+        m_Dialog_Interact = m_Dialog.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -669,6 +732,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_CheatMode;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Itens;
+    private readonly InputAction m_Player_Attack;
+    private readonly InputAction m_Player_Arm;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -683,6 +748,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @CheatMode => m_Wrapper.m_Player_CheatMode;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @Itens => m_Wrapper.m_Player_Itens;
+        public InputAction @Attack => m_Wrapper.m_Player_Attack;
+        public InputAction @Arm => m_Wrapper.m_Player_Arm;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -722,6 +789,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Itens.started += instance.OnItens;
             @Itens.performed += instance.OnItens;
             @Itens.canceled += instance.OnItens;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
+            @Arm.started += instance.OnArm;
+            @Arm.performed += instance.OnArm;
+            @Arm.canceled += instance.OnArm;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -756,6 +829,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Itens.started -= instance.OnItens;
             @Itens.performed -= instance.OnItens;
             @Itens.canceled -= instance.OnItens;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
+            @Arm.started -= instance.OnArm;
+            @Arm.performed -= instance.OnArm;
+            @Arm.canceled -= instance.OnArm;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -949,12 +1028,14 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private List<IDialogActions> m_DialogActionsCallbackInterfaces = new List<IDialogActions>();
     private readonly InputAction m_Dialog_Itens;
     private readonly InputAction m_Dialog_Pause;
+    private readonly InputAction m_Dialog_Interact;
     public struct DialogActions
     {
         private @Controls m_Wrapper;
         public DialogActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Itens => m_Wrapper.m_Dialog_Itens;
         public InputAction @Pause => m_Wrapper.m_Dialog_Pause;
+        public InputAction @Interact => m_Wrapper.m_Dialog_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Dialog; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -970,6 +1051,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         private void UnregisterCallbacks(IDialogActions instance)
@@ -980,6 +1064,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         public void RemoveCallbacks(IDialogActions instance)
@@ -1012,6 +1099,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnCheatMode(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnItens(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
+        void OnArm(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
@@ -1033,5 +1122,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     {
         void OnItens(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

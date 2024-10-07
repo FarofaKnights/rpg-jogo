@@ -22,7 +22,7 @@ public class TutorialMessage : MonoBehaviour {
             if (gameObject != null) {
                 Destroy(gameObject);
             }
-        });
+        }, false);
     }
 
     void OnTriggerEnter(Collider other) {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Cinemachine;
 using Defective.JSON;
 
@@ -125,44 +126,67 @@ public class Player : MonoBehaviour, Saveable {
                 }
             }
         }
+
+
+        GameManager.instance.controls.Player.Attack.performed += HandleAttackTriggered;
+        GameManager.instance.controls.Player.Arm.performed += HandleArmTriggered;
+        GameManager.instance.controls.Player.Interact.performed += HandleInteractTriggered;
+    }
+
+    public void HandleAttackTriggered(InputAction.CallbackContext ctx) {
+        HandleAttackTriggered();
+    }
+
+    public void HandleAttackTriggered() {
+        if (GameManager.instance.IsPaused()) return;
+        if (stateMachine.GetCurrentState() == attackState || stateMachine.GetCurrentState() == aimState) return;
+
+        if (arma != null) {
+            stateMachine.SetState(attackState);
+        }
+    }
+
+    public void HandleArmTriggered(InputAction.CallbackContext ctx) {
+        HandleArmTriggered();
+    }
+
+    public void HandleArmTriggered() {
+        if (GameManager.instance.IsPaused()) return;
+        if (stateMachine.GetCurrentState() == attackState || stateMachine.GetCurrentState() == aimState) return;
+        if (!canChangeStateThisFrame) return;
+
+        Debug.Log("HandleArmTriggered: " + braco);
+
+        if (braco.GetType() == typeof(BracoShooter)) {
+            Debug.Log("entrou");
+            stateMachine.SetState(aimState);
+        } else if (braco != null) {
+            Debug.Log("entrou2");
+            braco.Ativar();
+        }
+    }
+
+    public void HandleInteractTriggered(InputAction.CallbackContext ctx) {
+        HandleInteractTriggered();
+    }
+
+    public void HandleInteractTriggered() {
+        if (GameManager.instance.IsPaused()) return;
+        if (stateMachine.GetCurrentState() == attackState || stateMachine.GetCurrentState() == aimState) return;
+
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 3f);
+        foreach (Collider hitCollider in hitColliders) {
+            Drop drop = hitCollider.GetComponent<Drop>();
+            if (drop != null) {
+                drop.OnCollect();
+            }
+        }
     }
 
     void Update() {
         if (GameManager.instance.IsPaused()) return;
         
         stateMachine.GetCurrentState().Update();
-        // Não queremos interações extras enquanto o player está atacando (cliques de combo são tratados no próprio estado)
-        if (stateMachine.GetCurrentState() == attackState) return;
-
-        // Controlamos o input no aimState de forma diferente
-        if (stateMachine.GetCurrentState() == aimState) return;
-
-        if (Input.GetMouseButtonDown(0)) {
-            if (arma != null) {
-                stateMachine.SetState(attackState);
-            }
-        }
-
-        // Entrar no modo tiro
-        if (Input.GetMouseButtonDown(1) && canChangeStateThisFrame) {
-            if (braco.GetType() == typeof(BracoShooter)) {
-                stateMachine.SetState(aimState);
-            } else if (braco != null) {
-                braco.Ativar();
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.F)) {
-            // overlap sphere 
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, 3f);
-            foreach (Collider hitCollider in hitColliders) {
-                Drop drop = hitCollider.GetComponent<Drop>();
-                if (drop != null) {
-                    drop.OnCollect();
-                }
-            }
-        }
-
         canChangeStateThisFrame = true;
     }
 
@@ -269,5 +293,14 @@ public class Player : MonoBehaviour, Saveable {
 
     public void SetMovement(Vector3 move) {
         velocity = move;
+    }
+
+    void OnDestroy() {
+        if (GameManager.instance != null) {
+            GameManager.instance.controls.Player.Attack.performed -= HandleAttackTriggered;
+            GameManager.instance.controls.Player.Arm.performed -= HandleArmTriggered;
+            GameManager.instance.controls.Player.Interact.performed -= HandleInteractTriggered;
+        }
+        
     }
 }
