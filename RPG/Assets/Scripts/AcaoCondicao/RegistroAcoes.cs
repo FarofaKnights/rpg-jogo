@@ -8,7 +8,8 @@ public enum AcoesRegistradas {
     ADICIONAR_ITEM,
     REMOVER_ITEM,
     TRIGGAR_MISSAO,
-    COMECAR_MISSAO
+    COMECAR_MISSAO,
+    TRIGGAR_ANIMATOR,
 }
 
 public class RegistroAcoes {
@@ -17,7 +18,8 @@ public class RegistroAcoes {
         { AcoesRegistradas.ADICIONAR_ITEM, typeof(AcaoDaItem) },
         { AcoesRegistradas.REMOVER_ITEM, typeof(AcaoRemoveItem) },
         { AcoesRegistradas.TRIGGAR_MISSAO, typeof(AcaoTriggaMissao) },
-        { AcoesRegistradas.COMECAR_MISSAO, typeof(AcaoComecaMissao) }
+        { AcoesRegistradas.COMECAR_MISSAO, typeof(AcaoComecaMissao) },
+        { AcoesRegistradas.TRIGGAR_ANIMATOR, typeof(AcaoTriggaAnimator) }
     };
 
 

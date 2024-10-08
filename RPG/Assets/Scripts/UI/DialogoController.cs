@@ -93,9 +93,6 @@ public class DialogoController : MonoBehaviour {
     }
 
     void HandleDialogoEnd() {
-        OnDialogoEnd?.Invoke();
-        OnDialogoEnd = null;
-
         falas = null;
         index = 0;
 
@@ -107,6 +104,10 @@ public class DialogoController : MonoBehaviour {
         } else {
             GameManager.instance.controls.UI.Interact.performed -= Proximo;
         }
+
+        System.Action end = OnDialogoEnd;
+        OnDialogoEnd = null;
+        end?.Invoke();
     }
 
     public void RemoveDialogoEndEvent() {

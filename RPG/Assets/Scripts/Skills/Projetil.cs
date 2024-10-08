@@ -48,4 +48,8 @@ public class Projetil : MonoBehaviour {
 
         Destroy(gameObject);
     }
+
+    public void Direcionar(Transform alvo) {
+        transform.LookAt(alvo);
+    }
 }

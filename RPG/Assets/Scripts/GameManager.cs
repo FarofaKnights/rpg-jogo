@@ -275,6 +275,10 @@ public class GameManager : MonoBehaviour {
         return new string[] { save.variables.GetVariable<string>("lastScene"), save.variables.GetVariable<string>("lastSpawnpoint") };
     }
 
+    public T[] GetObjectsOfType<T>(bool val) where T : MonoBehaviour {
+        return FindObjectsOfType<T>(val);
+    }
+
     public T[] GetObjectsOfType<T>() where T : MonoBehaviour {
         return FindObjectsOfType<T>();
     }
