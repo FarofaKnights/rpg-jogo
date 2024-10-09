@@ -41,9 +41,11 @@ public class SniperController : MonoBehaviour {
         Transform target = Player.instance.meio.transform;
         exitVector = target.position - pontaSniper.position;
 
+        Debug.Log("Atirando");
 
         RaycastHit hit;
         if (Physics.Raycast(pontaSniper.position, exitVector, out hit)) {
+            Debug.Log("Acertou");
             Acertou(hit.transform);
         }
     }
@@ -71,7 +73,7 @@ public class SniperController : MonoBehaviour {
                 controller.Move(directionMove * Time.fixedDeltaTime);
                 break;
             case EstadoPulo.CAINDO:
-                if (Physics.Raycast(controller.transform.position, Vector3.down, out hit, 0.01f, floor)) {
+                if (Physics.Raycast(controller.transform.position, Vector3.down, out hit, 0.1f, floor)) {
                     estadoPulo = EstadoPulo.PARADO;
                     animator.SetBool("Pulando", false);
                     controller.enabled = false;

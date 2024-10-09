@@ -22,7 +22,7 @@ public class AdrianSearchState : StateMachineBehaviour
         agent = sniperController.agent;
 
         bracoCooldownTimer = 0f;
-
+        
         agent.enabled = true;
     }
 
@@ -33,13 +33,14 @@ public class AdrianSearchState : StateMachineBehaviour
         if (distance >= longeRadius) {
             bracoCooldownTimer = 0;
             agent.enabled = false;
+            sniperController.Mirar();
             animator.SetTrigger("Atirar");
         } else if (distance <= pertoRadius) {
             agent.enabled = false;
             animator.SetTrigger("Coronhada");
         } else {
-            agent.SetDestination(player.position);
             agent.enabled = true;
+            agent.SetDestination(player.position);
 
             if (bracoCooldownTimer < bracoCooldown) {
                 bracoCooldownTimer += Time.deltaTime;
