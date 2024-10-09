@@ -10,6 +10,7 @@ public enum AcoesRegistradas {
     TRIGGAR_MISSAO,
     COMECAR_MISSAO,
     TRIGGAR_ANIMATOR,
+    PARAMETRO_ANIMATOR,
 }
 
 public class RegistroAcoes {
@@ -19,7 +20,8 @@ public class RegistroAcoes {
         { AcoesRegistradas.REMOVER_ITEM, typeof(AcaoRemoveItem) },
         { AcoesRegistradas.TRIGGAR_MISSAO, typeof(AcaoTriggaMissao) },
         { AcoesRegistradas.COMECAR_MISSAO, typeof(AcaoComecaMissao) },
-        { AcoesRegistradas.TRIGGAR_ANIMATOR, typeof(AcaoTriggaAnimator) }
+        { AcoesRegistradas.TRIGGAR_ANIMATOR, typeof(AcaoTriggaAnimator) },
+        { AcoesRegistradas.PARAMETRO_ANIMATOR, typeof(AcaoParamsAnimator) },
     };
 
 

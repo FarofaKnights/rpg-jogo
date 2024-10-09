@@ -56,8 +56,8 @@ public class DialogoController : MonoBehaviour {
         }
 
         Fala fala = falas[index];
-        ProcessarFala(fala);
         index++;
+        ProcessarFala(fala);
     }
 
     void ProcessarFala(Fala fala) {
@@ -72,8 +72,12 @@ public class DialogoController : MonoBehaviour {
         }
 
         if (fala.autoNext) {
-            onHoldToAutoNext = fala;
-            StartCoroutine(AutoNext());
+            
+            if (fala.text != "") {
+                StartCoroutine(AutoNext());
+                onHoldToAutoNext = fala;
+            }
+            else Proximo();
         }
     }
 

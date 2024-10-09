@@ -29,7 +29,8 @@ Um passo possui o atributo `comportamento` que define qual vai ser seu comportam
 | [Ação/REMOVER_ITEM](./comportamentos/Acao_REMOVER_ITEM.md) | *Ação de Fala* que remove um item no inventário |
 | [Ação/TRIGGAR_MISSAO](./comportamentos/Acao_TRIGGAR_MISSAO.md) | *Ação de Fala* que ativa um trigger em uma missão |
 | [Ação/COMECAR_MISSAO](./comportamentos/Acao_COMECAR_MISSAO.md) | *Ação de Fala* que tenta iniciar uma missão |
-| [Ação/TRIGGAR_ANIMATOR](./comportamentos/Acao_TRIGGAR_ANIMATOR.md) | *Ação de Fala* que ativa um trigger (ou booleano) em um animator |
+| [Ação/TRIGGAR_ANIMATOR](./comportamentos/Acao_TRIGGAR_ANIMATOR.md) | *Ação de Fala* que ativa um trigger em um animator |
+| [Ação/PARAMETRO_ANIMATOR](./comportamentos/Acao_PARAMETRO_ANIMATOR.md) | *Ação de Fala* que seta o valor de um parâmetro em um animator |
 
 
 ## 🤓 Comportamentos customizados

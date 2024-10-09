@@ -10,7 +10,6 @@ public class PlayerMoveState : IPlayerState {
     bool isGrounded;
     bool rolamento = false;
     float rollTimer;
-    bool invulnerable = false;
     bool canMove = true;
     Transform lockedTarget;
 
@@ -21,6 +20,7 @@ public class PlayerMoveState : IPlayerState {
     Transform mainCameraTransform;
     CinemachineVirtualCamera virtualCamera;
     Animator animator;
+    PossuiVida vidaPlayer;
 
 
     public PlayerMoveState(Player player) {
@@ -34,6 +34,7 @@ public class PlayerMoveState : IPlayerState {
         animator = player.animator;
         info = player.informacoesMovimentacao;
         controller = player.GetComponent<CharacterController>();
+        vidaPlayer = player.GetComponent<PossuiVida>();
         mainCameraTransform = Camera.main.transform;
         virtualCamera = player.thirdPersonCam.GetComponent<CinemachineVirtualCamera>();
     }
@@ -47,6 +48,7 @@ public class PlayerMoveState : IPlayerState {
     }
 
     public void Exit() {
+        vidaPlayer.SetInvulneravel(false);
         AudioManager.instance.playerFootsteps.Pause();
     }
 
@@ -144,7 +146,7 @@ public class PlayerMoveState : IPlayerState {
         }
 
         animator.SetBool("Rolamento", true);
-        invulnerable = true;
+        SetInvulnerable(true);
         canMove = false;
     }
 
@@ -155,9 +157,13 @@ public class PlayerMoveState : IPlayerState {
         } else {
             rolamento = false;
             animator.SetBool("Rolamento", false);
-            invulnerable = false;
+            SetInvulnerable(false);
             canMove = true;
         }
+    }
+
+    void SetInvulnerable(bool val) {
+        vidaPlayer.SetInvulneravel(val);
     }
 
     /*void LockOn()

@@ -5,49 +5,60 @@ using UnityEngine;
 public class SniperController : MonoBehaviour {
     public Projetil projetil;
     public Transform pontaSniper;
+    public LineRenderer lineRenderer;
+    public float dano = 40f;
+    public GameObject explosaoPrefab;
     
-    Transform hittedTarget;
-    bool atirou = false;
-    Projetil currentProjetil;
+    bool mirando = false;
     Vector3 exitVector;
 
+    public void Mirar() {
+        mirando = true;
+    }
+
+    public void PararDeMirar() {
+        mirando = false;
+        lineRenderer.SetPosition(0, Vector3.zero);
+        lineRenderer.SetPosition(1, Vector3.zero);
+        lineRenderer.enabled = false;
+    }
+
     public void Atirar() {
+        PararDeMirar();
+
         Transform target = Player.instance.meio.transform;
+        exitVector = target.position - pontaSniper.position;
 
-        GameObject projetilInstanciado = Instantiate(projetil.gameObject, pontaSniper.position, pontaSniper.rotation);
-        currentProjetil = projetilInstanciado.GetComponent<Projetil>();
-        currentProjetil.Direcionar(target);
-
-        exitVector = currentProjetil.transform.forward;
 
         RaycastHit hit;
         if (Physics.Raycast(pontaSniper.position, exitVector, out hit)) {
-            hittedTarget = hit.transform;
-            atirou = true;
-        } else {
-            Debug.Log("Nao acertou nada");
+            Acertou(hit.transform);
         }
     }
 
     void FixedUpdate() {
-        if (atirou && currentProjetil != null) {
-            Vector3 dirProjetilToTarget = hittedTarget.position - currentProjetil.transform.position;
-            float dot = Vector3.Dot(dirProjetilToTarget, exitVector);
+        if (mirando) {
+            Transform target = Player.instance.meio.transform;
+            Vector3 fromPontaToTarget = target.position - pontaSniper.position;
 
-            if (dot < 0.5f) {
-                Acertou();
+            RaycastHit hit;
+            if (Physics.Raycast(pontaSniper.position, fromPontaToTarget, out hit)) {
+                lineRenderer.SetPosition(0, pontaSniper.position);
+                lineRenderer.SetPosition(1, hit.point);
+                lineRenderer.enabled = true;
             }
         }
     }
 
-    void Acertou() {
-        atirou = false;
+    void Acertou(Transform hittedTarget) {
+        if (hittedTarget == null) return;
 
         if (hittedTarget.GetComponent<PossuiVida>() != null) {
-            hittedTarget.GetComponent<PossuiVida>().LevarDano(currentProjetil.dano);
+            hittedTarget.GetComponent<PossuiVida>().LevarDano(dano);
         }
 
-        Destroy(currentProjetil.gameObject);
+        if (explosaoPrefab != null)
+            Instantiate(explosaoPrefab, hittedTarget.position, Quaternion.identity);
     }
 
     public void AlertarPlayer() {

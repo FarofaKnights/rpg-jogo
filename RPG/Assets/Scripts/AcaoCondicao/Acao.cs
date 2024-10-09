@@ -17,6 +17,7 @@ public class AcaoParams {
     public enum Tipo { NULL, INT, FLOAT, STRING, BOOL }
 
     public string id;
+    public string id2; // Um id extra para casos especiais
     public Tipo type;
     public bool isGlobal;
     public int intValue;
@@ -28,8 +29,9 @@ public class AcaoParams {
         type = Tipo.NULL;
     }
 
-    public AcaoParams(string id, Tipo type, bool isGlobal, int intValue, float floatValue, string stringValue, bool boolValue) {
+    public AcaoParams(string id, string id2, Tipo type, bool isGlobal, int intValue, float floatValue, string stringValue, bool boolValue) {
         this.id = id;
+        this.id2 = id2;
         this.type = type;
         this.isGlobal = isGlobal;
         this.intValue = intValue;
@@ -40,6 +42,7 @@ public class AcaoParams {
 
     public AcaoParams(AcaoParams parametros) {
         id = parametros.id;
+        id2 = parametros.id2;
         type = parametros.type;
         isGlobal = parametros.isGlobal;
         intValue = parametros.intValue;
@@ -91,9 +94,14 @@ public class AcaoParams {
         type = GetTipo(tipo);
     }
 
-    public static AcaoParams Create(string id, string type, string val, string global) {
+    public static AcaoParams Create(string id, string type, string val, string global){
+        return Create(id, "", type, val, global);
+    }
+
+    public static AcaoParams Create(string id, string id2, string type, string val, string global) {
         AcaoParams acaoParams = new AcaoParams();
         acaoParams.id = id;
+        acaoParams.id2 = id2;
         acaoParams.type = GetTipo(type);
         acaoParams.isGlobal = bool.Parse(global);
 

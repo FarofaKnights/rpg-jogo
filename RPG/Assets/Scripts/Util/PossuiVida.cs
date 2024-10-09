@@ -69,6 +69,8 @@ public class PossuiVida : MonoBehaviour {
     public float Vida { get { return vida; } }
     public float VidaMax { get { return vidaMax; } }
 
+    protected bool invulneravel = false;
+
     public System.Action<float> onChange, onHeal, onDamage;
     public System.Action onDeath;
     public Func<float, float> modificadorDeDano;
@@ -77,6 +79,8 @@ public class PossuiVida : MonoBehaviour {
 
 
     public void LevarDano(float dano) {
+        if (invulneravel) return;
+
         float oldVida = vida;
 
         if (modificadorDeDano != null) {
@@ -137,5 +141,9 @@ public class PossuiVida : MonoBehaviour {
 
     public IAtributo<float> GetVidaAtributo() {
         return new VidaAtributo(this);
+    }
+
+    public void SetInvulneravel(bool invulneravel) {
+        this.invulneravel = invulneravel;
     }
 }
