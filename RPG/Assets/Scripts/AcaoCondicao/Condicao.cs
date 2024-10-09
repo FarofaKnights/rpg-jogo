@@ -49,8 +49,9 @@ public class CondicaoParams: AcaoParams {
         dinamic = false;
     }
 
-    public CondicaoParams(string id, Tipo type, bool isGlobal, int intValue, float floatValue, string stringValue, bool boolValue, Comparacao comparacao, bool dinamic) {
+    public CondicaoParams(string id, string id2, Tipo type, bool isGlobal, int intValue, float floatValue, string stringValue, bool boolValue, Comparacao comparacao, bool dinamic) {
         this.id = id;
+        this.id2 = id2;
         this.type = type;
         this.isGlobal = isGlobal;
         this.intValue = intValue;
@@ -63,6 +64,7 @@ public class CondicaoParams: AcaoParams {
 
     public CondicaoParams(CondicaoParams parametros) {
         id = parametros.id;
+        id2 = parametros.id2;
         type = parametros.type;
         isGlobal = parametros.isGlobal;
         intValue = parametros.intValue;
@@ -89,7 +91,11 @@ public class CondicaoParams: AcaoParams {
         return System.Enum.GetNames(typeof(Comparacao));
     }
 
-    public static CondicaoParams Create(string id, string type, string val, string global, string comparacao, string dinamic) {
+    public static CondicaoParams Create(string id, string type, string val, string global, string comparacao, string dinamic){
+        return Create(id, "", type, val, global, comparacao, dinamic);
+    }
+
+    public static CondicaoParams Create(string id, string id2, string type, string val, string global, string comparacao, string dinamic) {
         CondicaoParams condicaoParams = new CondicaoParams();
         condicaoParams.id = id;
         condicaoParams.type = GetTipo(type);

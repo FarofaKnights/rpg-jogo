@@ -39,8 +39,8 @@ public class QuestCondicaoStep : QuestStep, IQuestInformations {
             }
         }
 
-        if (parameters.Length > 5) {
-            condicao.parametros = CondicaoParams.Create(parameters[1], parameters[2], parameters[3], parameters[4], parameters[5], "True");
+        if (parameters.Length > 6) {
+            condicao.parametros = CondicaoParams.Create(parameters[1], parameters[6], parameters[2], parameters[3], parameters[4], parameters[5], "True");
             // Vou deixar sempre como dinamico até que seja necessário não ser dinamico
             condicao.parametros.dinamic = true;
         }
@@ -82,13 +82,14 @@ public class QuestCondicaoStep : QuestStep, IQuestInformations {
                 }
             }
 
-            if (parameters.Length > 5) {
+            if (parameters.Length > 6) {
                 CondicaoParams p = condicao.parametros;
                 p.id = parameters[1];
                 p.SetTipo(parameters[2]);
                 p.SetValue(parameters[3]);
                 p.isGlobal = parameters[4] == "True";
                 p.comparacaoValue = CondicaoParams.GetComparacao(parameters[5]);
+                p.id2 = parameters[6];
             }
         }
         
@@ -101,9 +102,10 @@ public class QuestCondicaoStep : QuestStep, IQuestInformations {
         
 
         string nomeDaCondicao = RegistroCondicoes.GetCondicaoString(condicao.condicao);
-        string param_id = "", param_type = "", param_value = "", param_global = "", param_comparacao = "";
+        string param_id = "", param_id2 = "", param_type = "", param_value = "", param_global = "", param_comparacao = "";
         if (condicao.parametros != null) {
             param_id = condicao.parametros.id;
+            param_id2 = condicao.parametros.id2;
             param_type = condicao.parametros.GetTipoString();
             param_value = "" + condicao.parametros.GetValue();
             param_global = condicao.parametros.isGlobal ? "True" : "False";
@@ -114,7 +116,7 @@ public class QuestCondicaoStep : QuestStep, IQuestInformations {
         this.condicao = condicaoOld;
         this.condicao.parametros = oldParams;
 
-        return JoinParameters(new string[] { nomeDaCondicao, param_id, param_type, param_value, param_global, param_comparacao });
+        return JoinParameters(new string[] { nomeDaCondicao, param_id, param_type, param_value, param_global, param_comparacao, param_id2 });
     }
     #endif
 }

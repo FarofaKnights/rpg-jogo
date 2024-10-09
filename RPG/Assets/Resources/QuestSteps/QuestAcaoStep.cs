@@ -40,8 +40,8 @@ public class QuestAcaoStep : QuestStep, IQuestInformations {
             }
         }
 
-        if (parameters.Length > 4) {
-            acao.parametros = AcaoParams.Create(parameters[1], parameters[2], parameters[3], parameters[4]);
+        if (parameters.Length > 5) {
+            acao.parametros = AcaoParams.Create(parameters[1], parameters[5], parameters[2], parameters[3], parameters[4]);
         }
 
         Set();
@@ -77,12 +77,13 @@ public class QuestAcaoStep : QuestStep, IQuestInformations {
                 }
             }
 
-            if (parameters.Length > 4) {
+            if (parameters.Length > 5) {
                 AcaoParams p = acao.parametros;
                 p.id = parameters[1];
                 p.SetTipo(parameters[2]);
                 p.SetValue(parameters[3]);
                 p.isGlobal = parameters[4] == "True";
+                p.id2 = parameters[5];
             }
         }
 
@@ -96,9 +97,10 @@ public class QuestAcaoStep : QuestStep, IQuestInformations {
 
         string nomeDaAcao = RegistroAcoes.GetAcaoString(acao.acao);
 
-        string param_id = "", param_type = "", param_value = "", param_global = "";
+        string param_id = "", param_id2 = "", param_type = "", param_value = "", param_global = "";
         if (acao.parametros != null) {
             param_id = acao.parametros.id;
+            param_id2 = acao.parametros.id2;
             param_type = acao.parametros.GetTipoString();
             param_value = "" + acao.parametros.GetValue();
             param_global = acao.parametros.isGlobal ? "True" : "False";
@@ -107,7 +109,7 @@ public class QuestAcaoStep : QuestStep, IQuestInformations {
         this.acao = acaoOld;
         this.acao.parametros = oldParams;
 
-        return JoinParameters(new string[] { nomeDaAcao, param_id, param_type, param_value, param_global });
+        return JoinParameters(new string[] { nomeDaAcao, param_id, param_type, param_value, param_global, param_id2 });
     }
     #endif
 }

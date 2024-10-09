@@ -15,6 +15,7 @@ Um passo possui o atributo `comportamento` que define qual vai ser seu comportam
 |--|--|
 | [Trigger](./comportamentos/QuestTriggerStep.md) | Aguarda um trigger ser ativado (por script) |
 | [Grupo de inimigos](./comportamentos/QuestGrupoInimigosStep.md) | Matar um grupo de inimigos |
+| [Esperar segundos](./comportamentos/QuestWaitSecondsStep.md) | Aguarda tantos segundos |
 | [Condição/SE_TEM_ITEM](./comportamentos/Condicao_SE_TEM_ITEM.md) | *Condição de Fala* que compara a quantidade de um determinado item no inventário |
 | [Condição/SE_VARIAVEL](./comportamentos/Condicao_SE_VARIAVEL.md) | *Condição de Fala* que compara valores de variáveis de ambiente |
 
@@ -31,6 +32,7 @@ Um passo possui o atributo `comportamento` que define qual vai ser seu comportam
 | [Ação/COMECAR_MISSAO](./comportamentos/Acao_COMECAR_MISSAO.md) | *Ação de Fala* que tenta iniciar uma missão |
 | [Ação/TRIGGAR_ANIMATOR](./comportamentos/Acao_TRIGGAR_ANIMATOR.md) | *Ação de Fala* que ativa um trigger em um animator |
 | [Ação/PARAMETRO_ANIMATOR](./comportamentos/Acao_PARAMETRO_ANIMATOR.md) | *Ação de Fala* que seta o valor de um parâmetro em um animator |
+| [Ação/TROCAR_CAMERA](./comportamentos/Acao_TROCAR_CAMERA.md) | *Ação de Fala* que troca a câmera ativa (ou retorna para a padrão) |
 
 
 ## 🤓 Comportamentos customizados

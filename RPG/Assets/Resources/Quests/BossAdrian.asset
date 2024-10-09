@@ -18,6 +18,19 @@ MonoBehaviour:
   falasCarregadas:
   - nome: inicio
     falas:
+    - text: 
+      autoNext: 1
+      acao:
+        acao: 8
+        parametros:
+          id: AdrianCam
+          id2: Atirando
+          type: 4
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 1
     - text: "Ei, vi que conseguiu entrar no cofre, par\xE1bens!"
       autoNext: 1
       acao:
@@ -60,9 +73,9 @@ MonoBehaviour:
     - text: 
       autoNext: 1
       acao:
-        acao: 7
+        acao: 8
         parametros:
-          id: AdrianBoss
+          id: 
           id2: Atirando
           type: 4
           isGlobal: 0
@@ -84,6 +97,19 @@ MonoBehaviour:
           intValue: 0
           floatValue: 0
           stringValue: Atirando
+          boolValue: 0
+    - text: 
+      autoNext: 1
+      acao:
+        acao: 8
+        parametros:
+          id: AdrianCam
+          id2: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
           boolValue: 0
     - text: "Ah, voc\xEA \xE9 bem ligeiro n\xE9"
       autoNext: 1
@@ -113,6 +139,19 @@ MonoBehaviour:
           boolValue: 0
   - nome: fase2_meio
     falas:
+    - text: 
+      autoNext: 1
+      acao:
+        acao: 8
+        parametros:
+          id: AdrianCam
+          id2: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
     - text: "Olha s\xF3! Acho que voc\xEA tem companhia"
       autoNext: 1
       acao:
@@ -126,8 +165,34 @@ MonoBehaviour:
           floatValue: 0
           stringValue: 
           boolValue: 0
+    - text: 
+      autoNext: 1
+      acao:
+        acao: 8
+        parametros:
+          id: 
+          id2: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
   - nome: fase3_inicio
     falas:
+    - text: 
+      autoNext: 1
+      acao:
+        acao: 8
+        parametros:
+          id: AdrianCam
+          id2: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
     - text: "Ah, voc\xEA faz jus ao seu nome John Frostbite"
       autoNext: 1
       acao:
@@ -180,11 +245,23 @@ MonoBehaviour:
       parameter: inicio
       informativo: 
       mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e7c3c187bd710d9489c1a402d032ae66,
+        type: 3}
+      parameter: 2
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: PARAMETRO_ANIMATOR;AdrianBoss;BOOL;True;False;Atirando
+      informativo: 
+      mostrandoConteudo: 1
   - type: 1
     gameObject: {fileID: 0}
     parameter: 
     informativo: Fase 2
-    mostrandoConteudo: 1
+    mostrandoConteudo: 0
     children:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
@@ -205,11 +282,23 @@ MonoBehaviour:
       informativo: 
       mostrandoConteudo: 0
     - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: TROCAR_CAMERA;entulhosCaidosCam;INT;1;False;
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e7c3c187bd710d9489c1a402d032ae66,
+        type: 3}
+      parameter: 4
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
       gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
         type: 3}
       parameter: fase2_meio
       informativo: 
-      mostrandoConteudo: 0
+      mostrandoConteudo: 1
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
         type: 3}
@@ -226,12 +315,42 @@ MonoBehaviour:
     gameObject: {fileID: 0}
     parameter: 
     informativo: Fase 3
-    mostrandoConteudo: 0
+    mostrandoConteudo: 1
     children:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
         type: 3}
       parameter: fase3_inicio
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: PARAMETRO_ANIMATOR;AdrianBoss;INT;3;False;Fase
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: TRIGGAR_ANIMATOR;AdrianBoss;STRING;TrocouFase;False;
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: TROCAR_CAMERA;AdrianJumpCam;INT;1;False;
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e7c3c187bd710d9489c1a402d032ae66,
+        type: 3}
+      parameter: 4
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: TROCAR_CAMERA;;INT;1;False;
       informativo: 
       mostrandoConteudo: 1
   rewardsInfo: []

@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class DialogoController : MonoBehaviour {
     public Text texto;
     public System.Action OnDialogoEnd;
     public float autoNextDelay = 5f;
+
+
+    // Para cameras de cutscene
+    CinemachineVirtualCamera currentCam;
 
     Fala[] falas;
     int index = 0;
@@ -116,5 +121,15 @@ public class DialogoController : MonoBehaviour {
 
     public void RemoveDialogoEndEvent() {
         OnDialogoEnd = null;
+    }
+
+    public void SetCamera(CinemachineVirtualCamera cam) {
+        if (currentCam != null) {
+            currentCam.Priority = 0;
+        }
+
+        currentCam = cam;
+        if (currentCam != null)
+            currentCam.Priority = 20;
     }
 }
