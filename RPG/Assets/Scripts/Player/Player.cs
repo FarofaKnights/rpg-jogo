@@ -155,13 +155,9 @@ public class Player : MonoBehaviour, Saveable {
         if (stateMachine.GetCurrentState() == attackState || stateMachine.GetCurrentState() == aimState) return;
         if (!canChangeStateThisFrame) return;
 
-        Debug.Log("HandleArmTriggered: " + braco);
-
         if (braco.GetType() == typeof(BracoShooter)) {
-            Debug.Log("entrou");
             stateMachine.SetState(aimState);
         } else if (braco != null) {
-            Debug.Log("entrou2");
             braco.Ativar();
         }
     }
