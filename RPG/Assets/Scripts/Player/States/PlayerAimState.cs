@@ -9,6 +9,7 @@ public class PlayerAimState : IPlayerState {
     PlayerAimInfo info;
     CharacterController controller;
     bool aimingAtEnemy = false;
+    bool firstRun = false;
 
     public PlayerAimState(Player player) {
         this.player = player;
@@ -26,6 +27,8 @@ public class PlayerAimState : IPlayerState {
         animator.SetBool("Correr", false);
         animator.SetFloat("inputX", 0);
         animator.SetFloat("inputZ", 0);
+
+        firstRun = true;
     }
 
     public void Execute() {
@@ -63,7 +66,7 @@ public class PlayerAimState : IPlayerState {
         }
 
         // Sair do modo tiro
-        if (Input.GetMouseButtonDown(1)) {
+        if (Input.GetMouseButtonDown(1) && !firstRun) {
             CallExit();
         }
 
@@ -81,6 +84,8 @@ public class PlayerAimState : IPlayerState {
             aimingAtEnemy = currentlyAimingAtEnemy;
             UIController.HUD.AimHasTarget(aimingAtEnemy);
         }
+
+        firstRun = false;
     }
 
     void CallExit() {
@@ -94,5 +99,7 @@ public class PlayerAimState : IPlayerState {
         UIController.HUD.ShowAim(false);
         Vector3 aimCamRot = player.aimCam.transform.rotation.eulerAngles;
         player.thirdPersonCam.transform.rotation = Quaternion.Euler(0, aimCamRot.y, 0);
+
+        Debug.Log("exit");
     }
 }

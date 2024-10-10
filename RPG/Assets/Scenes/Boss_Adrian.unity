@@ -778,7 +778,7 @@ PrefabInstance:
     - target: {fileID: 894904428649046929, guid: 99f896a820bc8044ab74db83384c5b90,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 894904428649046929, guid: 99f896a820bc8044ab74db83384c5b90,
         type: 3}
@@ -1975,11 +1975,7 @@ MonoBehaviour:
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
-    ModeOverride: 0
     LensShift: {x: 0, y: 0}
-    GateFit: 2
-    FocusDistance: 10
-    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2603,6 +2599,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1775354522}
+    - targetCorrespondingSourceObject: {fileID: -6900959734367227333, guid: fc0cf8ff164f0d24895710b9bee7f778,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1448247997}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fc0cf8ff164f0d24895710b9bee7f778,
         type: 3}
@@ -2617,6 +2617,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1970641658}
   m_SourcePrefab: {fileID: 100100000, guid: fc0cf8ff164f0d24895710b9bee7f778, type: 3}
+--- !u!4 &951171478 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -6900959734367227333, guid: fc0cf8ff164f0d24895710b9bee7f778,
+    type: 3}
+  m_PrefabInstance: {fileID: 951171477}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1044363192
 GameObject:
   m_ObjectHideFlags: 0
@@ -2767,6 +2773,7 @@ Transform:
   - {fileID: 2138970816}
   - {fileID: 1771279400}
   - {fileID: 599275164}
+  - {fileID: 1989300605}
   m_Father: {fileID: 1044363193}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!143 &1294081177
@@ -3027,6 +3034,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1447559971}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1448247996
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1448247997}
+  m_Layer: 0
+  m_Name: PontaPistola
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1448247997
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448247996}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.031825233, y: 0.6891317, z: 0.049315877, w: 0.7222552}
+  m_LocalPosition: {x: 0.002536, y: 0.000358, z: 0.000277}
+  m_LocalScale: {x: 0.01, y: 0.010000001, z: 0.010000002}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 951171478}
+  m_LocalEulerAnglesHint: {x: -6.543, y: 87.221, z: 1.579}
 --- !u!1 &1450276614
 GameObject:
   m_ObjectHideFlags: 0
@@ -3775,6 +3813,12 @@ MonoBehaviour:
   dano: 40
   explosaoPrefab: {fileID: 0}
   reloadStunTime: 5
+  pistolaPrefab: {fileID: 5435533441090609111, guid: 493fed6c631cd794d8f477486e4f3e83,
+    type: 3}
+  pistolaPonta: {fileID: 1448247996}
+  hitboxPrefab: {fileID: 1546545520172413231, guid: 520fa088a51bf074db68c04e4525fe33,
+    type: 3}
+  hitboxHolder: {fileID: 1989300604}
 --- !u!114 &1970641656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3809,6 +3853,37 @@ MonoBehaviour:
   vida: 100
   vidaMax: 100
   VFXBlood: {fileID: 0}
+--- !u!1 &1989300604
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1989300605}
+  m_Layer: 0
+  m_Name: HitboxHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1989300605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989300604}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.99999976, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1294081176}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2034512798
 GameObject:
   m_ObjectHideFlags: 0
@@ -4191,11 +4266,7 @@ MonoBehaviour:
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
-    ModeOverride: 0
     LensShift: {x: 0, y: 0}
-    GateFit: 2
-    FocusDistance: 10
-    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4277,11 +4348,7 @@ MonoBehaviour:
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
-    ModeOverride: 0
     LensShift: {x: 0, y: 0}
-    GateFit: 2
-    FocusDistance: 10
-    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

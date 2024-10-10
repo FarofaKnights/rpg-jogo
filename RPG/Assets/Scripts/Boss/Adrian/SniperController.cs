@@ -41,6 +41,11 @@ public class SniperController : MonoBehaviour {
     float reloadStunTimer = 0f;
     bool canStun = true;
 
+    [Header("Boss Ataque e tals")]
+    public GameObject pistolaPrefab, pistolaPonta;
+    public GameObject hitboxPrefab, hitboxHolder;
+    GameObject hitboxInstantiated;
+
 
     void Awake() {
         vidaController = GetComponent<PossuiVida>();
@@ -200,5 +205,30 @@ public class SniperController : MonoBehaviour {
                 SetEstadoFase(EstadoFase.FASE4);
                 break;
         }
+    }
+
+    public void PistolaAtirar() {
+        GameObject projetil = GameObject.Instantiate(pistolaPrefab, pistolaPonta.transform.position, pistolaPonta.transform.rotation);
+        projetil.transform.forward = pistolaPonta.transform.forward;
+
+        Projetil p = projetil.GetComponent<Projetil>();
+        if (p != null)
+        {
+            p.ignoreList.Add(gameObject);
+        }
+    }
+
+    public void StartCoronhada() {
+        // return;
+        hitboxInstantiated = GameObject.Instantiate(hitboxPrefab, hitboxHolder.transform);
+
+        int layer = LayerMask.NameToLayer("Ataque");
+        hitboxInstantiated.layer = layer;
+    }
+
+
+    public void EndCoronhada() {
+        // return;
+        Destroy(hitboxInstantiated);
     }
 }
