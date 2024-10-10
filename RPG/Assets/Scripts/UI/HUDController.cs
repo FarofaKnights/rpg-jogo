@@ -9,6 +9,8 @@ public class HUDController : MonoBehaviour {
     public Image imagemArma, imagemSave, playerAim;
     public Color normalAimColor, targetAimColor;
 
+    public Slider bossVidaSlider;
+
     class Missao_Texto {
         public string texto;
         public QuestInfo questInfo;
@@ -115,5 +117,14 @@ public class HUDController : MonoBehaviour {
         if (playerAim != null) {
             playerAim.color = normalAimColor;
         }
+    }
+
+    public void ShowBossVida(bool show) {
+        bossVidaSlider.gameObject.SetActive(show);
+    }
+
+    public void UpdateBossVida(float vida, float vidaMax) {
+        bossVidaSlider.maxValue = vidaMax;
+        bossVidaSlider.value = vida;
     }
 }

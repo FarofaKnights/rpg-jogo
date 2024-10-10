@@ -70,6 +70,7 @@ public class PossuiVida : MonoBehaviour {
     public float VidaMax { get { return vidaMax; } }
 
     protected bool invulneravel = false;
+    protected bool destroyOnDeath = true;
 
     public System.Action<float> onChange, onHeal, onDamage;
     public System.Action onDeath;
@@ -110,7 +111,9 @@ public class PossuiVida : MonoBehaviour {
 
     public void Morrer() {
         onDeath?.Invoke();
-        Destroy(gameObject);
+
+        if (destroyOnDeath)
+            Destroy(gameObject);
     }
 
     public void Curar(float cura) {
@@ -145,5 +148,9 @@ public class PossuiVida : MonoBehaviour {
 
     public void SetInvulneravel(bool invulneravel) {
         this.invulneravel = invulneravel;
+    }
+
+    public void SetDestroyOnDeath(bool destroyOnDeath) {
+        this.destroyOnDeath = destroyOnDeath;
     }
 }

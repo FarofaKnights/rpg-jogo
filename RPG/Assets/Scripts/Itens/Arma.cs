@@ -59,6 +59,10 @@ public class Arma : Equipamento, IAtacador {
         float adicional = Player.Stats.GetAdicionalForca(ataque.dano);
         if (inimigo.GetComponent<Inimigo>() != null)
             inimigo.GetComponent<Inimigo>().hittedDir = ataqueIndex;
-        inimigo.GetComponent<PossuiVida>().LevarDano(ataque.dano + adicional);
+        
+        if (inimigo.GetComponent<PossuiVida>() != null)
+            inimigo.GetComponent<PossuiVida>().LevarDano(ataque.dano + adicional);
+        else if (inimigo.GetComponentInChildren<PossuiVida>() != null)
+            inimigo.GetComponentInChildren<PossuiVida>().LevarDano(ataque.dano + adicional);
     }
 }

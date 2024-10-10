@@ -5,6 +5,10 @@ using UnityEngine.AI;
 
 public class AdrianSearchState : StateMachineBehaviour
 {
+    public float cooldownStart = 2f;
+    float cooldownStartTimer = 0f;
+    bool comecou = false;
+
     public float longeRadius = 10f;
     public float medioRadius = 5f;
     public float pertoRadius = 2f;
@@ -14,6 +18,7 @@ public class AdrianSearchState : StateMachineBehaviour
     Transform player;
     NavMeshAgent agent;
     SniperController sniperController;
+    CharacterController characterController;
 
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
@@ -21,13 +26,28 @@ public class AdrianSearchState : StateMachineBehaviour
         sniperController = animator.GetComponent<SniperController>();
         agent = sniperController.agent;
 
+
+        characterController = sniperController.controller;
+        characterController.enabled = true;
+
         bracoCooldownTimer = 0f;
+        cooldownStartTimer = 0f;
+        comecou = false;
         
         agent.enabled = true;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+        if (!comecou) {
+            if (cooldownStartTimer < cooldownStart) {
+                cooldownStartTimer += Time.deltaTime;
+                return;
+            } else {
+                comecou = true;
+            }
+        }
+
         float distance = Vector3.Distance(player.position, animator.transform.position);
 
         if (distance >= longeRadius) {

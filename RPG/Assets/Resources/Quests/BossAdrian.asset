@@ -55,7 +55,7 @@ MonoBehaviour:
           isGlobal: 0
           intValue: 0
           floatValue: 0
-          stringValue: Equipar
+          stringValue: TrocouFase
           boolValue: 1
     - text: "Uma pena que ningu\xE9m vai ficar sabendo"
       autoNext: 1
@@ -261,7 +261,7 @@ MonoBehaviour:
     gameObject: {fileID: 0}
     parameter: 
     informativo: Fase 2
-    mostrandoConteudo: 0
+    mostrandoConteudo: 1
     children:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
@@ -274,7 +274,7 @@ MonoBehaviour:
         type: 3}
       parameter: fase2_comeco
       informativo: 
-      mostrandoConteudo: 1
+      mostrandoConteudo: 0
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
         type: 3}
@@ -297,6 +297,12 @@ MonoBehaviour:
       gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
         type: 3}
       parameter: fase2_meio
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e7c3c187bd710d9489c1a402d032ae66,
+        type: 3}
+      parameter: 1
       informativo: 
       mostrandoConteudo: 1
     - type: 0
@@ -351,6 +357,30 @@ MonoBehaviour:
       gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
         type: 3}
       parameter: TROCAR_CAMERA;;INT;1;False;
+      informativo: 
+      mostrandoConteudo: 1
+  - type: 1
+    gameObject: {fileID: 0}
+    parameter: 
+    informativo: 
+    mostrandoConteudo: 1
+    children:
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+        type: 3}
+      parameter: acabaFase3;
+      informativo: Derrote Adrian
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: PARAMETRO_ANIMATOR;AdrianBoss;INT;4;False;Fase
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: TRIGGAR_ANIMATOR;AdrianBoss;STRING;TrocouFase;False;
       informativo: 
       mostrandoConteudo: 1
   rewardsInfo: []
