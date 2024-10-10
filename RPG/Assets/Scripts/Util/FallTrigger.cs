@@ -28,7 +28,8 @@ public class FallTrigger : MonoBehaviour {
                 }
             }
         } else if (other.CompareTag("Enemy") || other.CompareTag("Inimigo")) {
-            other.GetComponent<Inimigo>().Morrer();
+            if (other.GetComponent<Inimigo>() != null) 
+                other.GetComponent<Inimigo>().Morrer();
         }
     }
 

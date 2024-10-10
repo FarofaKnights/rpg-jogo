@@ -44,13 +44,16 @@ public class SettingsManager : MonoBehaviour, Saveable
         }
     }
 
-    public void Start()
+    void Awake() 
     {
         if(instance == null)
         {
             instance = this;
         }
+    }
 
+    public void Start()
+    {
         invertXBtn.onValueChanged.AddListener(delegate { ChangeInvertX(); });
         invertYBtn.onValueChanged.AddListener(delegate { ChangeInvertY(); });
 
