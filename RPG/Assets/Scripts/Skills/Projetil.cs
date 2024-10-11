@@ -37,7 +37,12 @@ public class Projetil : MonoBehaviour {
         if (alreadyHit) return;
         alreadyHit = true;
 
-        if (other.CompareTag(tagAlvo)) {
+        if(other.CompareTag("PuzzleTarget")){
+            Debug.Log("Colisoa");
+            other.GetComponent<PuzzleTarget>().AcaoDoPuzzle.Action();
+        }
+
+        else if (other.CompareTag(tagAlvo)) {
             PossuiVida vida = other.GetComponent<PossuiVida>();
             if (vida != null) {
                 vida.LevarDano(dano);
@@ -45,6 +50,7 @@ public class Projetil : MonoBehaviour {
         } else if(explosao != null) {
             Instantiate(explosao, transform.position, transform.rotation);
         }
+
 
         Destroy(gameObject);
     }
