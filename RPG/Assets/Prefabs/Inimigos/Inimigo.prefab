@@ -63,6 +63,7 @@ MonoBehaviour:
   maxRangeProximidade: 0.75
   precisaDeVisaoDireta: 1
   precisaoDaVisao: 0.98
+  tempoAntesDoAtaque: 0.25
   tomouDanoStun: 1
   empurradoAoSofrerHit: 0.1
   modoDeTriggerDeAnimacao: 0
@@ -74,6 +75,8 @@ MonoBehaviour:
     attack_debug: 
   descansoMaiorAposXAtaques: -1
   multDescansoMaior: 2
+  maxStunHits: 3
+  semStunTime: 2.5
   ataquesFeitos: 0
   target: {fileID: 0}
   recompensaPecas: 10
@@ -97,8 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 009cd79c3cad4314b800f21d04c3324f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida: 30
-  vidaMax: 30
+  vida: 200
+  vidaMax: 200
   VFXBlood: {fileID: 0}
 --- !u!143 &2361325265758478374
 CharacterController:
