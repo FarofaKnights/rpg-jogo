@@ -11,7 +11,7 @@ public abstract class AttackBehaviour : IAttackEventListener {
     public AttackBehaviour(AtaqueInfo ataqueInfo, IAtacador atacador) {
         this.info = ataqueInfo;
         this.atacador = atacador;
-        this.animator = atacador.GetAnimator();
+        this.animator = atacador.GetInfo().animator;
     }
 
     public abstract void OnHit(GameObject hit);

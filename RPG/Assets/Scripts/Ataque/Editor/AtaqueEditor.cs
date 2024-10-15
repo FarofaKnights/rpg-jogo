@@ -108,7 +108,7 @@ public class AtaqueEditor : Editor {
             atacador = GetComponentSomewhere<IAtacador>(visualizer);
 
             if (atacador == null) visualizer = null;
-            else animator = atacador.GetAnimator();
+            else animator = atacador.GetInfo().animator;
         }
     }
 
@@ -120,7 +120,7 @@ public class AtaqueEditor : Editor {
             Vector3 scale = ataque.hitboxSize;
             Vector3 rotation = ataque.hitboxRotation;
 
-            Vector3 rootPosition = atacador.GetAttackHolder().transform.position;
+            Vector3 rootPosition = atacador.GetInfo().attackHolder.transform.position;
 
             Vector3 position = rootPosition + offset;
             Quaternion rot = visualizer.transform.rotation * Quaternion.Euler(rotation);

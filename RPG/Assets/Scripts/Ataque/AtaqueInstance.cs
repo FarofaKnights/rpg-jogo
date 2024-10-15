@@ -22,6 +22,7 @@ public class AtaqueInstance  {
 
     public AtaqueInfo info;
     public IAtacador atacador;
+    public AtacadorInfo atacadorInfo;
     protected Animator animator;
 
     public System.Action onEnter, onAntecipacao, onAttack, onRecovery, onEnd;
@@ -70,20 +71,22 @@ public class AtaqueInstance  {
         this.atacador = atacador;
         podeCancelar = false;
 
-        animator = atacador.GetAnimator();
+        atacadorInfo = atacador.GetInfo();
+        animator = atacadorInfo.animator;
 
         if (info.animatorOverride != null) {
             animator.runtimeAnimatorController = info.animatorOverride;
         }
 
         animator.applyRootMotion = false;
-        if (atacador.GetTriggerMode() == TriggerMode.Trigger) {
-            animator.SetTrigger(atacador.AttackTriggerName());
-        } else if (atacador.GetTriggerMode() == TriggerMode.Bool) {
-            animator.SetBool(atacador.AttackTriggerName(), true);
+
+        if (atacadorInfo.triggerMode == TriggerMode.Trigger) {
+            animator.SetTrigger(atacadorInfo.attackTriggerName);
+        } else if (atacadorInfo.triggerMode == TriggerMode.Bool) {
+            animator.SetBool(atacadorInfo.attackTriggerName, true);
         }
 
-        AtaqueAnimationEvents ataqueAnimationEvents = atacador.GetAnimator().gameObject.GetComponent<AtaqueAnimationEvents>();
+        AtaqueAnimationEvents ataqueAnimationEvents = animator.gameObject.GetComponent<AtaqueAnimationEvents>();
         if (ataqueAnimationEvents != null) {
             ataqueAnimationEvents.ataqueInstance = this;
         }
@@ -117,8 +120,8 @@ public class AtaqueInstance  {
                 OnEnd();
                 onEnd?.Invoke();
 
-                if (info.animatorOverride != null && atacador.GetTriggerMode() == TriggerMode.Bool) {
-                    animator.SetBool(atacador.AttackTriggerName(), false);
+                if (info.animatorOverride != null && atacadorInfo.triggerMode == TriggerMode.Bool) {
+                    animator.SetBool(atacadorInfo.attackTriggerName, false);
                 }
 
                 break;

@@ -8,11 +8,14 @@ public enum TriggerMode {
 
 public interface IAtacador {
     void OnAtaqueHit(GameObject hit);
-
-    Animator GetAnimator();
-    GameObject GetAttackHolder();
-    string AttackTriggerName();
-    GameObject GetSelf();
-    TriggerMode GetTriggerMode();
+    AtacadorInfo GetInfo();
     void MoveWithAttack(float step, float progress);
+}
+
+public class AtacadorInfo {
+    public Animator animator;
+    public GameObject attackHolder;
+    public string attackTriggerName;
+    public GameObject gameObject;
+    public TriggerMode triggerMode;
 }

@@ -59,13 +59,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     [Header("Configurações de Ataque")]
     public AtaqueInfo ataque;
     [SerializeField] GameObject attackHitboxHolder;
-    public GameObject GetAttackHolder() { return attackHitboxHolder; }
-    public Animator GetAnimator() { return animator; }
-    public string AttackTriggerName() { return "Attack"; }
-    public GameObject GetSelf() { return gameObject; }
-    public TriggerMode GetTriggerMode() { return modoDeTriggerDeAnimacao; }
-    public void MoveWithAttack(float step, float progress) { /* Ainda não precisamos disso */ }
-    
+    AtacadorInfo atacadorInfo;
     
 
     public StateMachine<IEnemyState> stateMachine;
@@ -131,6 +125,21 @@ public class Inimigo : MonoBehaviour, IAtacador {
             other.GetComponent<PossuiVida>().LevarDano(ataque.dano);
         }
     }
+
+    public AtacadorInfo GetInfo() {
+        if (atacadorInfo != null) return atacadorInfo;
+        
+        atacadorInfo = new AtacadorInfo();
+        atacadorInfo.animator = animator;
+        atacadorInfo.attackHolder = attackHitboxHolder;
+        atacadorInfo.attackTriggerName = "Attack";
+        atacadorInfo.gameObject = gameObject;
+        atacadorInfo.triggerMode = modoDeTriggerDeAnimacao;
+
+        return atacadorInfo;
+    }
+
+    public void MoveWithAttack(float step, float progress) { /* Ainda não precisamos disso */ }
 
 
     // draw gizmos

@@ -19,7 +19,7 @@ public class AtaqueMelee: HitboxAttackBehaviour {
         MeleeAtaqueInfo infoMelee = (MeleeAtaqueInfo)info;
 
         // Transform
-        hitbox.transform.SetParent(atacador.GetAttackHolder().transform);
+        hitbox.transform.SetParent(atacador.GetInfo().attackHolder.transform);
         hitbox.transform.localPosition = infoMelee.hitboxOffset;
         hitbox.transform.localScale = infoMelee.hitboxSize;
         hitbox.transform.localEulerAngles = infoMelee.hitboxRotation;

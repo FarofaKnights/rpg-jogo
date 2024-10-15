@@ -8,7 +8,7 @@ using Defective.JSON;
 [RequireComponent(typeof(PossuiVida))]
 public class Player : MonoBehaviour, Saveable {
 
-    // Singleton
+    // Singleton refs
     public static Player instance;
     public static StatsController Stats { get { return instance.stats; } }
     public static AtributosController Atributos { get { return instance.atributos; } }
@@ -30,6 +30,7 @@ public class Player : MonoBehaviour, Saveable {
     public PlayerMovementInfo informacoesMovimentacao;
     public PlayerAimInfo informacoesMira;
     Vector3 velocity;
+    AtacadorInfo atacadorInfo;
 
     // State Machine
     public StateMachine<IPlayerState> stateMachine;
@@ -135,6 +136,19 @@ public class Player : MonoBehaviour, Saveable {
 
     public void HandleAttackTriggered(InputAction.CallbackContext ctx) {
         HandleAttackTriggered();
+    }
+
+    public AtacadorInfo GetInfo() {
+        if (atacadorInfo != null) return atacadorInfo;
+
+        atacadorInfo = new AtacadorInfo();
+        atacadorInfo.animator = animator;
+        atacadorInfo.attackHolder = meio;
+        atacadorInfo.attackTriggerName = "Ataque";
+        atacadorInfo.gameObject = gameObject;
+        atacadorInfo.triggerMode = TriggerMode.Trigger;
+
+        return atacadorInfo;
     }
 
     public void HandleAttackTriggered() {

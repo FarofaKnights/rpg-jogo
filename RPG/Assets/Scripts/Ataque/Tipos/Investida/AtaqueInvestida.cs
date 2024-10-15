@@ -8,11 +8,14 @@ public class AtaqueInvestida : HitboxAttackBehaviour {
     public int dano;
     InvestidaAtaqueInfo infoInvestida;
     bool canWalk = true;
+    AtacadorInfo atacadorInfo;
 
     public AtaqueInvestida(AtaqueInfo ataqueInfo, IAtacador atacador) : base(ataqueInfo, atacador) {
         infoInvestida = (InvestidaAtaqueInfo)ataqueInfo;
         velocidade = infoInvestida.velocidade;
         dano = infoInvestida.dano;
+
+        atacadorInfo = atacador.GetInfo();
     }
 
     public override GameObject GetHitbox() {
@@ -20,7 +23,7 @@ public class AtaqueInvestida : HitboxAttackBehaviour {
         InvestidaAtaqueInfo infoInvestida = (InvestidaAtaqueInfo)info;
 
         // Transform
-        hitbox.transform.SetParent(atacador.GetAttackHolder().transform);
+        hitbox.transform.SetParent(atacadorInfo.attackHolder.transform);
         hitbox.transform.localPosition = Vector3.zero;
         hitbox.transform.localScale = Vector3.one * infoInvestida.raio;
         hitbox.transform.localEulerAngles = Vector3.zero;
@@ -39,7 +42,7 @@ public class AtaqueInvestida : HitboxAttackBehaviour {
 
     public override void OnUpdate(AtaqueInstance.Estado estado) {
         if (canWalk && estado == AtaqueInstance.Estado.Hit) {
-            GameObject hit = atacador.GetSelf();
+            GameObject hit = atacadorInfo.gameObject;
             CharacterController cc = hit.GetComponent<CharacterController>();
             Vector3 move = hit.transform.forward * velocidade * Time.fixedDeltaTime;
             
@@ -52,16 +55,17 @@ public class AtaqueInvestida : HitboxAttackBehaviour {
     }
 
     public override void OnRecovery() {
-        atacador.GetAnimator().SetBool(atacador.AttackTriggerName(), false);
+        atacadorInfo.animator.SetBool(atacadorInfo.attackTriggerName, false);
         GameManager.instance.StartCoroutine(UpdateLastLocation());
     }
 
     IEnumerator UpdateLastLocation() {
-        if (atacador.GetSelf().GetComponent<NavMeshAgent>() == null) yield break;
+        NavMeshAgent agent = atacadorInfo.gameObject.GetComponent<NavMeshAgent>();
+        if (agent == null) yield break;
 
-        atacador.GetSelf().GetComponent<NavMeshAgent>().enabled = true;
+        agent.enabled = true;
         yield return null;
-        atacador.GetSelf().GetComponent<NavMeshAgent>().enabled = false;
+        agent.enabled = false;
     }
 
     public override void OnEnd() {

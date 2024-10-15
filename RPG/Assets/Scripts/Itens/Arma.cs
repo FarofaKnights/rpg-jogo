@@ -42,14 +42,11 @@ public class Arma : Equipamento, IAtacador {
         ataqueIndex = 0;
     }
 
-    public Animator GetAnimator() { return Player.instance.animator; }
-    public GameObject GetAttackHolder() { return Player.instance.meio; }
-    public string AttackTriggerName() { return "Ataque"; }
-
-    public GameObject GetSelf() { return gameObject; }
-    public TriggerMode GetTriggerMode() { return TriggerMode.Trigger; }
     public void MoveWithAttack(float step, float progress) { Player.instance. MoveWithAttack(step, progress); }
 
+    public AtacadorInfo GetInfo() {
+        return Player.instance.GetInfo();
+    }
 
     // Quando o ataque da arma colide com um inimigo
     public virtual void OnAtaqueHit(GameObject inimigo) {
