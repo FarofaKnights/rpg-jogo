@@ -7,7 +7,7 @@ public enum TriggerMode {
 }
 
 public interface IAtacador {
-    void OnAtaqueHit(GameObject hit);
+    bool OnAtaqueHit(GameObject hit);
     AtacadorInfo GetInfo();
     void MoveWithAttack(float step, float progress);
 }

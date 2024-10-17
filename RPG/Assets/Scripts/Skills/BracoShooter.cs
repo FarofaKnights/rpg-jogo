@@ -11,21 +11,29 @@ public class BracoShooter : Braco {
     public float dano = 1;
     public float velocidade = 10;
 
+    public List<string> ignoreTags = new List<string>() { "Player", "Arma" };
+    public string triggerName = "Atirar";
+
     protected override void AtivarEfeito() {
-        // saida = Player.instance.meio.transform;
+        AtacadorInfo atacadorInfo = equipador.GetInfo();
+
         GameObject projetil = Instantiate(projetilPrefab, saida.position, saida.rotation);
-        Vector3 playerForward = Player.instance.transform.forward;
-        Vector3 aimDirection = GetAimDirection();
-        projetil.transform.forward = aimDirection;
+        Vector3 playerForward = atacadorInfo.gameObject.transform.forward;
+
+        if (atacadorInfo.gameObject == Player.instance.gameObject) {
+            Vector3 aimDirection = GetAimDirection();
+            projetil.transform.forward = aimDirection;
+        } else {
+            projetil.transform.forward = playerForward;
+        }
 
         Projetil p = projetil.GetComponent<Projetil>();
-        p.ignoreTags.Add("Player");
-        p.ignoreTags.Add("Arma");
+        p.ignoreTags = ignoreTags;
         p.tempoDeVida = tempoDeVida;
         p.dano = dano;
         p.velocidade = velocidade;
 
-        Player.instance.animator.SetTrigger("Atirar");
+        atacadorInfo.animator.SetTrigger(triggerName);
     }
 
     public Vector3 GetAimDirection() {

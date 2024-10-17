@@ -74,7 +74,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     string estado_atual = "nenhum";
     
 
-    void Awake() {
+    protected virtual void Awake() {
         vidaController = GetComponent<PossuiVida>();
 
         vidaController.onChange += (vida) => {
@@ -98,7 +98,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
         };
     }
 
-    void Start() {
+    protected virtual void Start() {
         stateMachine = new StateMachine<IEnemyState>();
         idleState = new EnemyIdleState(this);
         attackState = new EnemyAttackState(this);
@@ -120,10 +120,12 @@ public class Inimigo : MonoBehaviour, IAtacador {
         if (semStunTimer > 0) semStunTimer -= Time.fixedDeltaTime;
     }
 
-    public void OnAtaqueHit(GameObject other) {
+    public bool OnAtaqueHit(GameObject other) {
         if (other != null && other.CompareTag("Player")) {
             other.GetComponent<PossuiVida>().LevarDano(ataque.dano);
+            return true;
         }
+        return false;
     }
 
     public AtacadorInfo GetInfo() {
@@ -139,7 +141,10 @@ public class Inimigo : MonoBehaviour, IAtacador {
         return atacadorInfo;
     }
 
-    public void MoveWithAttack(float step, float progress) { /* Ainda não precisamos disso */ }
+    public void MoveWithAttack(float step, float progress) {
+        Vector3 move = transform.forward * step;
+        controller.Move(move);
+    }
 
 
     // draw gizmos
@@ -176,8 +181,12 @@ public class Inimigo : MonoBehaviour, IAtacador {
         Gizmos.matrix = oldMatrix;
     }
 
-    public void SpawnParticle()
-    {
+    public void SpawnParticle() {
+        if (!getHitParticles) {
+            Debug.LogWarning("Não foi definido um prefab de partículas para o inimigo " + gameObject.name);
+            return;
+        }
+
         GameObject particle = Instantiate(getHitParticles, attackHitboxHolder.transform.position, transform.rotation);
         particle.transform.SetParent(this.gameObject.transform);
     }

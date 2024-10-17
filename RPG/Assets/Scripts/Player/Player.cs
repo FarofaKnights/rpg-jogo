@@ -6,7 +6,7 @@ using Cinemachine;
 using Defective.JSON;
 
 [RequireComponent(typeof(PossuiVida))]
-public class Player : MonoBehaviour, Saveable {
+public class Player : MonoBehaviour, Saveable, IEquipador {
 
     // Singleton refs
     public static Player instance;
@@ -168,6 +168,7 @@ public class Player : MonoBehaviour, Saveable {
         if (GameManager.instance.IsPaused()) return;
         if (stateMachine.GetCurrentState() == attackState || stateMachine.GetCurrentState() == aimState) return;
         if (!canChangeStateThisFrame) return;
+        if (braco == null) return;
 
         if (braco.GetType() == typeof(BracoShooter)) {
             stateMachine.SetState(aimState);
@@ -291,10 +292,45 @@ public class Player : MonoBehaviour, Saveable {
 
     #endregion
 
+    public void Equipar(Equipamento equipamento) {
+        if (equipamento.GetType() == typeof(Arma)) {
+            inventario.EquiparArma((Arma) equipamento);
+        } else if (typeof(Braco).IsAssignableFrom(equipamento.GetType())) {
+            inventario.EquiparBraco((Braco) equipamento);
+        }
+    }
+
+    public void Desequipar(Equipamento equipamento) {
+        if (equipamento.GetType() == typeof(Arma)) {
+            inventario.DesequiparArma();
+        } else if (typeof(Braco).IsAssignableFrom(equipamento.GetType())) {
+            inventario.DesequiparBraco();
+        }
+    }
+
     // O Ataque pode ocorrer de mexer o player (isso acontece), e aqui nós tratamos o movimento
     public void MoveWithAttack(float step, float progress) {
         Vector3 move = transform.forward * step;
         characterController.Move(move);
+    }
+
+    public bool OnAtaqueHit(GameObject inimigo) {
+        if (!inimigo.CompareTag("Inimigo")) return false;
+
+        MeleeAtaqueInfo ataque = arma.ataque;
+        int ataqueIndex = arma.ataqueIndex;
+
+        atributos.calor.Add(10);
+        float adicional = stats.GetAdicionalForca(ataque.dano);
+        if (inimigo.GetComponent<Inimigo>() != null)
+            inimigo.GetComponent<Inimigo>().hittedDir = ataqueIndex;
+        
+        if (inimigo.GetComponent<PossuiVida>() != null)
+            inimigo.GetComponent<PossuiVida>().LevarDano(ataque.dano + adicional);
+        else if (inimigo.GetComponentInChildren<PossuiVida>() != null)
+            inimigo.GetComponentInChildren<PossuiVida>().LevarDano(ataque.dano + adicional);
+        
+        return true;
     }
 
     public bool IsGrounded() {
