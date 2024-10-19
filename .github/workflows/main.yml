@@ -1,6 +1,9 @@
 name: 😎 Buildar automáticamente
 
-on: push
+on:
+  push:
+    tags:
+      - 'v*' # v1.0.0, v1.0.1, ...
 
 jobs:
   build:
@@ -31,9 +34,35 @@ jobs:
         with:
           projectPath: "RPG"
           targetPlatform: StandaloneWindows64
+          buildName: "SangueFrio"
+          versioning: Tag
 
       # Output
       - uses: actions/upload-artifact@v4
         with:
-          name: Build
+          name: SangueFrio
           path: build
+  
+  release:
+    needs: [build]
+    name: 📦 Release build
+    runs-on: windows-latest
+    steps:
+      # Checkout
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      # Download
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: SangueFrio
+          path: build
+
+      # Release
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/SangueFrio
