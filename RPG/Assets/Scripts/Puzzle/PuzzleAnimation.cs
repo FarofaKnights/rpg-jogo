@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PuzzleAnimation : PuzzleResult
 {
-    public Animation anim;
+    public Animator animator;
+    public string triggerName;
     public override void Action()
     {
         Debug.Log("Animacao");
-        anim.Play();
+        animator.SetTrigger(triggerName);
     }
 }
