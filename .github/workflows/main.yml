@@ -41,11 +41,22 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: SangueFrio
-          path: build
+          path: ./build
+      
+      - uses: actions/download-artifact@v4
+        with:
+          path: ./release/
+      
+      - uses: vimtor/action-zip@v1.2
+        with:
+          files: ./release/*
+          dest: release.zip
+      
+      - name: Display structure of downloaded files
+        run: ls -R
 
       # Release
       - name: Create Release
-        run: ls -l
         uses: softprops/action-gh-release@v2
         with:
-          files: SangueFrio.zip
+          files: release.zip
