@@ -1,5 +1,7 @@
 name: 😎 Buildar automáticamente
 
+# Cria uma build para cada tag criada no formato v*.*.*
+# Recomendo olhar a doc para ver todos os possiveis eventos: https://docs.github.com/pt/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows
 on:
   push:
     tags:
@@ -17,6 +19,7 @@ jobs:
           lfs: true
 
       # Cache
+      # No github, meu projeto Unity está localizado na pasta RPG, por isso o caminho RPG/Library, RPG/Assets, RPG/Packages, RPG/ProjectSettings.
       - uses: actions/cache@v4
         with:
           path: RPG/Library
@@ -25,6 +28,7 @@ jobs:
             Library-
 
       # Build
+      # Aqui eu recomendo olhar a documentação do unity-builder para entender os parâmetros e como defini-los
       - name: Build project
         uses: game-ci/unity-builder@v4
         env:
@@ -37,26 +41,25 @@ jobs:
           buildName: "SangueFrio"
           versioning: Tag
 
-      # Output
+      # Dá upload da build para artifact (não é necessário, mas é bom caso dê merda nos outros passos)
+      # O unity-builder gera uma pasta para cada plataforma, só estamos usando a StandaloneWindows64
       - uses: actions/upload-artifact@v4
         with:
           name: SangueFrio
-          path: ./build
+          path: ./build/StandaloneWindows64/
       
-      - uses: actions/download-artifact@v4
-        with:
-          path: ./release/
-      
+      # Gera um zip da pasta da build e salva como SangueFrio.zip
       - uses: vimtor/action-zip@v1.2
         with:
-          files: ./release/
-          dest: release.zip
+          files: ./build/StandaloneWindows64/
+          dest: SangueFrio.zip
       
+      # Passo de debug, mostra como está a estrutura internamente do sistema (não do zip)
       - name: Display structure of downloaded files
         run: ls -R
 
-      # Release
+      # Gera a release no github
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: release.zip
+          files: SangueFrio.zip
