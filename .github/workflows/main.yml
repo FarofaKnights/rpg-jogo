@@ -48,11 +48,33 @@ jobs:
           name: SangueFrio
           path: ./build/SangueFrio/StandaloneWindows64/
       
-      # Gera um zip da pasta da build e salva como SangueFrio.zip
+      - uses: actions/download-artifact@v4
+        with:
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+          path: ./release/build.zip
+=======
+          path: ./release/
+      
       - uses: vimtor/action-zip@v1.2
         with:
-          files: ./build/SangueFrio/StandaloneWindows64/
-          dest: SangueFrio.zip
+          files: ./release/*
+          dest: release.zip
+      
+      - name: Display structure of downloaded files
+        run: ls -R
+>>>>>>> Stashed changes
+
+=======
+>>>>>>> Stashed changes
+          path: ./release/
+      
+      - uses: vimtor/action-zip@v1.2
+        with:
+          files: ./release/
+          dest: release.zip
       
       # Passo de debug, mostra como está a estrutura internamente do sistema (não do zip)
       - name: Display structure of downloaded files
@@ -62,4 +84,16 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: SangueFrio.zip
+<<<<<<< Updated upstream
+          files: release.zip
+=======
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+          files: ./release/build.zip
+=======
+          files: release.zip
+>>>>>>> origin/main
+=======
+          files: release.zip
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
