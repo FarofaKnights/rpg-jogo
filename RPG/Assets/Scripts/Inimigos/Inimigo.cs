@@ -32,7 +32,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     [Range(0.9f, 1f)] public float precisaoDaVisao = 0.99f; // Precisão da visão
     public float tempoAntesDoAtaque = 0.25f; // Tempo antes de atacar
     public float tomouDanoStun = 1f; // Tempo que fica parado ao tomar dano
-    public float empurradoAoSofrerHit = 0.75f;
+    public float empurradoAoSofrerHit = 0.1f;
     public TriggerMode modoDeTriggerDeAnimacao = TriggerMode.Trigger;
     public InimigoIADebug debug;
     public int descansoMaiorAposXAtaques = -1;

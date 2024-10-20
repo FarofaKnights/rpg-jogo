@@ -317,7 +317,7 @@ public class Player : MonoBehaviour, Saveable, IEquipador {
     public bool OnAtaqueHit(GameObject inimigo) {
         if (!inimigo.CompareTag("Inimigo")) return false;
 
-        MeleeAtaqueInfo ataque = arma.ataque;
+        AtaqueInfo ataque = arma.ataque;
         int ataqueIndex = arma.ataqueIndex;
 
         atributos.calor.Add(10);

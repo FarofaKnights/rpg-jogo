@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8549015092340484558}
   - component: {fileID: -1058621167096366500}
-  - component: {fileID: -600901639828455587}
+  - component: {fileID: -4554585851336042189}
   m_Layer: 0
   m_Name: Tijolo
   m_TagString: Untagged
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 78c2523b4766e2647917cfcac9c1870d, type: 2}
---- !u!114 &-600901639828455587
+--- !u!114 &-4554585851336042189
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,24 +56,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5095166220944883732}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fb8ab5c5151b274782f2ab412eedc08, type: 3}
+  m_Script: {fileID: 11500000, guid: cccadfbfbbf76514aa9a951c3bead257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animatorOverride: {fileID: 22100000, guid: b93080d79a056a145ab5c3cfd447ad22, type: 2}
-  calorNecessario: 0
-  saida: {fileID: 6782898221949501875}
-  projetilPrefab: {fileID: 2062232333919743564, guid: ebc483bd473bd854cbb456fd45342558,
-    type: 3}
-  ignoreProjectileMask:
-    serializedVersion: 2
-    m_Bits: 0
-  tempoDeVida: 2
-  dano: 10
-  velocidade: 10
-  ignoreTags:
-  - Inimigo
-  - Arma
-  triggerName: Attack
+  ps: {fileID: 0}
+  longPs: {fileID: 0}
+  ataque: {fileID: 11400000, guid: ddc22da98cb4ad7408e9fe855820d902, type: 2}
+  ataques:
+  - {fileID: 11400000, guid: ddc22da98cb4ad7408e9fe855820d902, type: 2}
+  ataqueIndex: 0
 --- !u!1001 &3983315211039586921
 PrefabInstance:
   m_ObjectHideFlags: 0
