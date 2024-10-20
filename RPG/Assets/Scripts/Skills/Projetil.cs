@@ -43,10 +43,11 @@ public class Projetil : MonoBehaviour {
         }
 
         else if (other.CompareTag(tagAlvo)) {
+            Inimigo inimigo = other.GetComponent<Inimigo>();
+            if (inimigo != null) inimigo.deathID = 3;
+
             PossuiVida vida = other.GetComponent<PossuiVida>();
-            if (vida != null) {
-                vida.LevarDano(dano);
-            }
+            if (vida != null) vida.LevarDano(dano);
         } else if(explosao != null) {
             Instantiate(explosao, transform.position, transform.rotation);
         }

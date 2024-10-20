@@ -8,8 +8,15 @@ public class ItemManager {
     // Save string format example: "Consumivel/PocaoCuraData"
 
     public ItemData GetItemData(string saveString) {
-        string tipo = saveString.Split('/')[0];
-        string name = saveString.Split('/')[1];
+        string[] split = saveString.Split('/');
+
+        if (split.Length != 2) {
+            Debug.LogError("Save string inválida: " + saveString);
+            return null;
+        }
+
+        string tipo = split[0];
+        string name = split[1];
 
         return GetItemData(name, tipo);
     }

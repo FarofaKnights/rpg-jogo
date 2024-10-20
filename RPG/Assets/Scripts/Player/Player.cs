@@ -87,20 +87,11 @@ public class Player : MonoBehaviour, Saveable, IEquipador {
             aimCam.Priority = 9;
         }
 
-        
-    }
-
-    void Start() {
         // Inicializa InventarioManager
         inventario = new InventarioManager();
-
-        // Inicializa AtributosController
         if (atributos == null) atributos = new AtributosController();
-        atributos.Initialize();
-
-        // Inicializa StatsController
         if (stats == null) stats = new StatsController(1, 1, 1, 1);
-        stats.TriggerChange();
+        
         
         // Inicializa StateMachine
         stateMachine = new StateMachine<IPlayerState>();
@@ -108,6 +99,11 @@ public class Player : MonoBehaviour, Saveable, IEquipador {
         attackState = new PlayerAttackState(this);
         aimState = new PlayerAimState(this);
         stateMachine.SetState(moveState);
+    }
+
+    void Start() {
+        atributos.Initialize();
+        stats.TriggerChange();
 
         // Define que ao morrer chama o GameOver
         vidaController.onDeath += () => { GameManager.instance.GameOver(); };
@@ -134,10 +130,6 @@ public class Player : MonoBehaviour, Saveable, IEquipador {
         GameManager.instance.controls.Player.Interact.performed += HandleInteractTriggered;
     }
 
-    public void HandleAttackTriggered(InputAction.CallbackContext ctx) {
-        HandleAttackTriggered();
-    }
-
     public AtacadorInfo GetInfo() {
         if (atacadorInfo != null) return atacadorInfo;
 
@@ -149,6 +141,10 @@ public class Player : MonoBehaviour, Saveable, IEquipador {
         atacadorInfo.triggerMode = TriggerMode.Trigger;
 
         return atacadorInfo;
+    }
+
+    public void HandleAttackTriggered(InputAction.CallbackContext ctx) {
+        HandleAttackTriggered();
     }
 
     public void HandleAttackTriggered() {
@@ -172,7 +168,7 @@ public class Player : MonoBehaviour, Saveable, IEquipador {
 
         if (braco.GetType() == typeof(BracoShooter)) {
             stateMachine.SetState(aimState);
-        } else if (braco != null) {
+        } else {
             braco.Ativar();
         }
     }
@@ -214,7 +210,7 @@ public class Player : MonoBehaviour, Saveable, IEquipador {
             velocity.y = informacoesMovimentacao.gravity;
         }
 
-        characterController.Move(velocity * Time.deltaTime);
+        characterController.Move(velocity * Time.fixedDeltaTime);
         animator.SetBool("IsGrounded", isGrounded);
     }
 
@@ -293,17 +289,21 @@ public class Player : MonoBehaviour, Saveable, IEquipador {
     #endregion
 
     public void Equipar(Equipamento equipamento) {
-        if (equipamento.GetType() == typeof(Arma)) {
+        System.Type type = equipamento.GetType();
+
+        if (type == typeof(Arma)) {
             inventario.EquiparArma((Arma) equipamento);
-        } else if (typeof(Braco).IsAssignableFrom(equipamento.GetType())) {
+        } else if (typeof(Braco).IsAssignableFrom(type)) {
             inventario.EquiparBraco((Braco) equipamento);
         }
     }
 
     public void Desequipar(Equipamento equipamento) {
-        if (equipamento.GetType() == typeof(Arma)) {
+        System.Type type = equipamento.GetType();
+
+        if (type == typeof(Arma)) {
             inventario.DesequiparArma();
-        } else if (typeof(Braco).IsAssignableFrom(equipamento.GetType())) {
+        } else if (typeof(Braco).IsAssignableFrom(type)) {
             inventario.DesequiparBraco();
         }
     }
@@ -322,13 +322,20 @@ public class Player : MonoBehaviour, Saveable, IEquipador {
 
         atributos.calor.Add(10);
         float adicional = stats.GetAdicionalForca(ataque.dano);
-        if (inimigo.GetComponent<Inimigo>() != null)
-            inimigo.GetComponent<Inimigo>().hittedDir = ataqueIndex;
+
+        // Informa a direção do ataque ao inimigo (para animações de hit específicas)
+        Inimigo inimigoScript = inimigo.GetComponent<Inimigo>();
+        if (inimigoScript != null) {
+            inimigoScript.hittedDir = ataqueIndex;
+            inimigoScript.deathID = arma.GetTipoID();
+        }
         
-        if (inimigo.GetComponent<PossuiVida>() != null)
-            inimigo.GetComponent<PossuiVida>().LevarDano(ataque.dano + adicional);
-        else if (inimigo.GetComponentInChildren<PossuiVida>() != null)
-            inimigo.GetComponentInChildren<PossuiVida>().LevarDano(ataque.dano + adicional);
+        PossuiVida vidaInimigo = inimigo.GetComponent<PossuiVida>();
+        if (inimigo.GetComponent<PossuiVida>() == null)
+            vidaInimigo = inimigo.GetComponentInChildren<PossuiVida>();
+        
+        if (vidaInimigo != null)
+            vidaInimigo.LevarDano(ataque.dano + adicional);
         
         return true;
     }

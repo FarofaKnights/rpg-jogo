@@ -44,6 +44,11 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public bool IsSemStun { get { return semStunTimer > 0; } }
     [HideInInspector] public int ataquesFeitos = 0;
 
+    [Header("Animação de morte")]
+    public bool possuiAnimacaoMorte = false;
+    public float tempoAteDissolver = 1f;
+    public float tempoDissolvendo = 1f;
+
 
     [Header("MISC")]
     public GameObject target;
@@ -67,8 +72,10 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public EnemyAttackState attackState;
     public EnemyWalkState walkState;
     public EnemyHittedState hittedState;
+    public EnemyDeathState deathState;
 
     public int hittedDir = 0;
+    public int deathID = 0;
 
     
     string estado_atual = "nenhum";
@@ -89,13 +96,18 @@ public class Inimigo : MonoBehaviour, IAtacador {
             }
             else {
                 stunHits++;
-                stateMachine.SetState(hittedState);
+
+                if (vida > 0 || !possuiAnimacaoMorte)
+                    stateMachine.SetState(hittedState);
             }
         };
 
         vidaController.onDeath += () => {
             Player.Atributos.pecas.Add(recompensaPecas);
+            Morrer();
         };
+
+        vidaController.SetDestroyOnDeath(false);
     }
 
     protected virtual void Start() {
@@ -104,6 +116,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
         attackState = new EnemyAttackState(this);
         walkState = new EnemyWalkState(this);
         hittedState = new EnemyHittedState(this);
+        deathState = new EnemyDeathState(this);
 
         stateMachine.OnStateChange += (state) => {
             estado_atual = state.ToString();
@@ -192,9 +205,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     }
 
     public void Morrer() {
-        AudioManager.instance.enemyDeath.Play();
-        SpawnParticle();
-        Destroy(gameObject);
+        stateMachine.SetState(deathState);
     }
 
     void OnDestroy() {

@@ -5,7 +5,6 @@ using UnityEngine;
 public class ItemDropadoNew : Drop {
     public Item item;
     public int quantidade = 1;
-    bool playerDentro = false;
     Informativo informativo;
 
     void Start() {
@@ -35,14 +34,12 @@ public class ItemDropadoNew : Drop {
 
     public void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
-            playerDentro = true;
             informativo.informativo.SetActive(true);
         }
     }
 
     public void OnTriggerExit(Collider other) {
         if (other.CompareTag("Player")) {
-            playerDentro = false;
             informativo.informativo.SetActive(false);
         }
     }

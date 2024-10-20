@@ -185,7 +185,12 @@ MonoBehaviour:
     attack_debug: 
   descansoMaiorAposXAtaques: -1
   multDescansoMaior: 2
+  maxStunHits: 3
+  semStunTime: 2.5
   ataquesFeitos: 0
+  possuiAnimacaoMorte: 1
+  tempoAteDissolver: 1
+  tempoDissolvendo: 1
   target: {fileID: 0}
   recompensaPecas: 10
   getHitParticles: {fileID: 4938373727297579305, guid: 2e6877b1152892342883c6741da4c817,
@@ -196,6 +201,7 @@ MonoBehaviour:
   ataque: {fileID: 11400000, guid: 5e764e62f220de449bb6e218248d343f, type: 2}
   attackHitboxHolder: {fileID: 8945656089081615526}
   hittedDir: 0
+  deathID: 0
 --- !u!114 &5635402309089890757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,6 +627,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1549600030918295646, guid: e5e7c2d70e0ad504d9074e16cc866a21,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3207c7cd87ccbb947878d5d2f74d66fa, type: 2}
     - target: {fileID: 919132149155446097, guid: e5e7c2d70e0ad504d9074e16cc866a21,
         type: 3}
       propertyPath: m_Name

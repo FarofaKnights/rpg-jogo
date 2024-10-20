@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
+public enum TipoArma {
+    Leve, Pesada
+}
+
 public class Arma : Equipamento, IAtacador {
+    public TipoArma tipo = TipoArma.Leve;
     public ParticleSystem ps, longPs;
     public AtaqueInfo ataque;
     public AtaqueInfo[] ataques;
@@ -43,5 +48,13 @@ public class Arma : Equipamento, IAtacador {
         bool res = equipador.OnAtaqueHit(inimigo);
         if (res) onAttackHit?.Invoke();
         return res;
+    }
+
+    public int GetTipoID() {
+        switch (tipo) {
+            case TipoArma.Leve: return 1;
+            case TipoArma.Pesada: return 2;
+            default: return 0;
+        }
     }
 }

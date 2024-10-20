@@ -33,7 +33,7 @@ public class SniperController : MonoBehaviour {
     public GameObject explosaoPrefab;
     
     bool mirando = false;
-    bool movendoController = false;
+    // bool movendoController = false;
 
     Vector3 exitVector;
 

@@ -139,6 +139,9 @@ MonoBehaviour:
   maxStunHits: 3
   semStunTime: 2.5
   ataquesFeitos: 0
+  possuiAnimacaoMorte: 1
+  tempoAteDissolver: 1
+  tempoDissolvendo: 1
   target: {fileID: 0}
   recompensaPecas: 10
   getHitParticles: {fileID: 0}
@@ -148,6 +151,7 @@ MonoBehaviour:
   ataque: {fileID: 11400000, guid: 6baa609f82e55de489a80cf4e56a290d, type: 2}
   attackHitboxHolder: {fileID: 9057365863998010139}
   hittedDir: 0
+  deathID: 0
   arma: {fileID: -4554585851336042189, guid: 85d1d3aab1f500845b12aec7767ca2fe, type: 3}
   braco: {fileID: 0}
   bracoCooldown: 1
@@ -297,6 +301,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 237e7c2fc41a6624e967a3ad7dbe92b9, type: 2}
+    - target: {fileID: 5936950883540326242, guid: 990eb20286262d04ba4f856ddfc42091,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: da990d2fcb39e7a4dbf8d139031585d7, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
