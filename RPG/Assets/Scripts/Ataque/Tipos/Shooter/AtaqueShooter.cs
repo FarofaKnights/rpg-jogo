@@ -45,8 +45,12 @@ public class AtaqueShooter: AttackBehaviour {
 
         if (inimigo != null && autoAim) {
             Transform target = inimigo.target.transform;
+
+            if (target == Player.instance.transform) {
+                target = Player.instance.meio.transform;
+            }
+
             forward = (target.position - saida.position).normalized;
-            forward.y = 0;
         }
 
         GameObject projetil = GameObject.Instantiate(projetilPrefab, saida.position, saida.rotation);
