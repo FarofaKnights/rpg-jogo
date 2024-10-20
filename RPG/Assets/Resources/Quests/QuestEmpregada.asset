@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: QuestEmpregada
   m_EditorClassIdentifier: 
   questId: QuestEmpregada
-  titulo: Empregada
+  titulo: Atravessar o rio
   descricao: "A rob\xF4 empregada me disse umas coisas"
   falasCarregadas:
   - nome: Fala2
@@ -126,11 +126,45 @@ MonoBehaviour:
           floatValue: 0
           stringValue: 
           boolValue: 0
-  - nome: Fala
+  - nome: 
     falas:
     - text: "Obvio que voc\xEA ia chegar tamb\xE9m, os poucos que restam, todos juntos
         pertos de um aquecedor, voc\xEAs me enojam. T\xE1 vendo aquele pr\xE9dio
         caido? Eu preciso discutir algo com voc\xEA, me encontre l\xE1"
+      autoNext: 0
+      acao:
+        acao: 0
+        parametros:
+          id: 
+          id2: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
+  - nome: Di
+    falas:
+    - text: "Preciso que voc\xEA consiga chegar do outro lado do rio, para assim
+        descobrir as coisas que est\xE3o acontecendo na ind\xFAstria."
+      autoNext: 0
+      acao:
+        acao: 0
+        parametros:
+          id: 
+          id2: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
+  - nome: F
+    falas: []
+  - nome: Dialogo
+    falas:
+    - text: "Preciso que voc\xEA chege do outro lado do rio para investigar sobre
+        a ind\xFAstria"
       autoNext: 0
       acao:
         acao: 0
@@ -148,158 +182,38 @@ MonoBehaviour:
     parametros:
       id: empregada_comeco
       id2: 
-      type: 4
+      type: 1
       isGlobal: 0
       intValue: 0
       floatValue: 0
       stringValue: 
       boolValue: 1
-      comparacaoValue: 1
+      comparacaoValue: 0
       dinamic: 1
   steps:
   - type: 1
     gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
       type: 3}
     parameter: trigger1;tri1
-    informativo: 
+    informativo: Fase1
     mostrandoConteudo: 1
     children:
     - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+      gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
         type: 3}
-      parameter: trigger_empregada_ponte;handle_trigger_empregada_ponte
-      informativo: Passe pela ponte
-      mostrandoConteudo: 1
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: 23788a0b99f9dc84d87936d3428a2218,
-        type: 3}
-      parameter: empregada_1
-      informativo: 
-      mostrandoConteudo: 1
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
-        type: 3}
-      parameter: empregada_2
+      parameter: Dialogo
       informativo: 
       mostrandoConteudo: 1
   - type: 1
     gameObject: {fileID: 0}
     parameter: 
-    informativo: 
+    informativo: Atravesse a ponte
     mostrandoConteudo: 1
     children:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
         type: 3}
-      parameter: trigger_2;
-      informativo: "Encontre a empregada pr\xF3xima aos pr\xE9dios"
+      parameter: trigger_comeco_prediocaido;
+      informativo: Atravesse o rio
       mostrandoConteudo: 1
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
-        type: 3}
-      parameter: trigger_empregada_prediocaido;handle_trigger_empregada_prediocaido
-      informativo: "Atravesse o pr\xE9dio ca\xEDdo"
-      mostrandoConteudo: 1
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: 23788a0b99f9dc84d87936d3428a2218,
-        type: 3}
-      parameter: empregada_2
-      informativo: 
-      mostrandoConteudo: 1
-  - type: 1
-    gameObject: {fileID: 0}
-    parameter: 
-    informativo: 
-    mostrandoConteudo: 1
-    children:
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
-        type: 3}
-      parameter: achou_bomba;handle_achou_bomba
-      informativo: Encontre a bomba
-      mostrandoConteudo: 1
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: a15d69b65074b5f439959bfe84b0ec77,
-        type: 3}
-      parameter: SE_TEM_ITEM;Quests/BombaData;INT;1;False;True
-      informativo: Ative a bomba
-      mostrandoConteudo: 1
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
-        type: 3}
-      parameter: REMOVER_ITEM;Quests/BombaData;INT;1;False
-      informativo: 
-      mostrandoConteudo: 1
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
-        type: 3}
-      parameter: empregada_3
-      informativo: 
-      mostrandoConteudo: 1
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: 23788a0b99f9dc84d87936d3428a2218,
-        type: 3}
-      parameter: parede
-      informativo: 
-      mostrandoConteudo: 0
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
-        type: 3}
-      parameter: mais_inimigos;
-      informativo: Converse com a empregada
-      mostrandoConteudo: 0
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: 23788a0b99f9dc84d87936d3428a2218,
-        type: 3}
-      parameter: pre_bomba
-      informativo: 
-      mostrandoConteudo: 0
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
-        type: 3}
-      parameter: pos_bomba
-      informativo: 
-      mostrandoConteudo: 0
-  - type: 1
-    gameObject: {fileID: 0}
-    parameter: 
-    informativo: 
-    mostrandoConteudo: 1
-    children:
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: f0119f286f0af424eacb87945ea00b30,
-        type: 3}
-      parameter: robo_grande_claudio;False
-      informativo: "Derrote o rob\xF4 grande"
-      mostrandoConteudo: 1
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: a15d69b65074b5f439959bfe84b0ec77,
-        type: 3}
-      parameter: SE_TEM_ITEM;Quests/BateriaData;INT;1;False;True
-      informativo: Pegue a bateria
-      mostrandoConteudo: 1
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: 23788a0b99f9dc84d87936d3428a2218,
-        type: 3}
-      parameter: empregada_3
-      informativo: 
-      mostrandoConteudo: 0
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
-        type: 3}
-      parameter: empregada_4
-      informativo: 
-      mostrandoConteudo: 0
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
-        type: 3}
-      parameter: ultima_conversa;
-      informativo: Entregue a bateria a empregada
-      mostrandoConteudo: 0
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
-        type: 3}
-      parameter: REMOVER_ITEM;Quests/BateriaData;INT;1;False
-      informativo: 
-      mostrandoConteudo: 0
   rewardsInfo: []

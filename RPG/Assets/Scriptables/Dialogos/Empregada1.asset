@@ -16,6 +16,7 @@ MonoBehaviour:
     condicao: 0
     parametros:
       id: 
+      id2: 
       type: 0
       isGlobal: 0
       intValue: 0
@@ -26,26 +27,28 @@ MonoBehaviour:
       dinamic: 0
   prioridade: 100
   falas:
-  - text: "Me lembro de voc\xEA, meu banco de dados indica que voc\xEA n\xE3o \xE9
-      uma amea\xE7a."
-    autoNext: 0
+  - text: "Eu estive pensando na jornada a frente. Atravessar a cidade, passar pelo
+      pr\xE9dio da PantheON e chegar na ind\xFAstria.\r."
+    autoNext: 1
     acao:
       acao: 0
       parametros:
         id: 
+        id2: 
         type: 0
         isGlobal: 0
         intValue: 0
         floatValue: 0
         stringValue: 
         boolValue: 0
-  - text: "Os escrit\xF3rios da ind\xFAstria machi-nax est\xE3o do outro lado do
-      rio, na avenida principal"
+  - text: "Eu recebi alguns sinais vindo daquele lugar  e foi logo antes de outros
+      rob\xF4s ficarem loucos, talvez tenha acontecido algo por l\xE1."
     autoNext: 0
     acao:
       acao: 0
       parametros:
-        id: 
+        id: QuestEmpregada
+        id2: 
         type: 0
         isGlobal: 0
         intValue: 0
@@ -53,14 +56,15 @@ MonoBehaviour:
         stringValue: 
         boolValue: 0
   - text: 
-    autoNext: 1
+    autoNext: 0
     acao:
       acao: 5
       parametros:
         id: QuestEmpregada
-        type: 3
+        id2: 
+        type: 0
         isGlobal: 0
-        intValue: 1
+        intValue: 0
         floatValue: 0
         stringValue: 
-        boolValue: 1
+        boolValue: 0
