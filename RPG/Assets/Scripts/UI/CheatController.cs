@@ -10,6 +10,7 @@ public class CheatController : MonoBehaviour {
     public Dropdown escopoDropdown, tipoDropdown;
     public InputField variavelInput, valorInput;
     public Text variablesText;
+    public Toggle fpsShowToggle;
 
      GameState oldState;
     bool storesState = false;
@@ -233,5 +234,9 @@ public class CheatController : MonoBehaviour {
         p.stats.SetForca(5);
         p.stats.SetVida(5);
         p.stats.SetCalor(5);
+    }
+
+    public void HandleShowFps(bool valor) {
+        UIController.HUD.fpsGO.SetActive(fpsShowToggle.isOn);
     }
 }

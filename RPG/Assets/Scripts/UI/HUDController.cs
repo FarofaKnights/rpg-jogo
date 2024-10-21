@@ -10,6 +10,7 @@ public class HUDController : MonoBehaviour {
     public Color normalAimColor, targetAimColor;
 
     public Slider bossVidaSlider;
+    public GameObject fpsGO;
 
     class Missao_Texto {
         public string texto;

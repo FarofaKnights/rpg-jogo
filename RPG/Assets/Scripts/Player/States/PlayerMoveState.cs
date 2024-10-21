@@ -86,24 +86,9 @@ public class PlayerMoveState : IPlayerState {
         if (!rolamento) {
             if (!Input.GetKey(KeyCode.S) && canMove && move != Vector3.zero)
             {
-                if (lockedTarget != null)
-                {
-                    Vector3 directionToTarget = (lockedTarget.position - player.transform.position).normalized;
-                    Quaternion targetRotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(directionToTarget, Vector3.up));
-                    float currentRotationSpeed = (moveZ < 0) ? info.backRotationSpeed : info.rotationSpeed;
-                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, currentRotationSpeed * Time.deltaTime);
-                }
-                else
-                {
-                    Quaternion targetRotation = Quaternion.LookRotation(cameraForward.normalized);
-                    float currentRotationSpeed = (moveZ < 0) ? info.backRotationSpeed : info.rotationSpeed;
-                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, currentRotationSpeed * Time.deltaTime);
-                }
-            }
-
-            if (Input.GetKeyDown(info.lockOnKey))
-            {
-               // LockOn();
+                Quaternion targetRotation = Quaternion.LookRotation(cameraForward.normalized);
+                float currentRotationSpeed = (moveZ < 0) ? info.backRotationSpeed : info.rotationSpeed;
+                player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, currentRotationSpeed * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -165,41 +150,4 @@ public class PlayerMoveState : IPlayerState {
     void SetInvulnerable(bool val) {
         vidaPlayer.SetInvulneravel(val);
     }
-
-    /*void LockOn()
-    {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, lockOnRadius);
-        float shortestDistance = Mathf.Infinity;
-        Transform nearestTarget = null;
-
-        foreach (Collider col in colliders)
-        {
-            if (col.CompareTag("Inimigo"))
-            {
-                Vector3 directionToTarget = (col.transform.position - transform.position).normalized;
-                RaycastHit hit;
-                if (Physics.Raycast(transform.position, directionToTarget, out hit, lockOnRadius, ~groundLayer))
-                {
-                    if (!hit.collider.CompareTag("Inimigo"))
-                        continue;
-                }
-                float distanceToTarget = Vector3.Distance(transform.position, col.transform.position);
-                if (distanceToTarget < shortestDistance)
-                {
-                    shortestDistance = distanceToTarget;
-                    nearestTarget = col.transform;
-                }
-            }
-        }
-
-        if (nearestTarget != null)
-        {
-            lockedTarget = nearestTarget;
-        }
-        else
-        {
-            lockedTarget = null;
-        }
-    }
-    */
 }
