@@ -15,13 +15,13 @@ MonoBehaviour:
   active: 1
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 0, y: 0.17213106, z: 1, w: 1}
+    m_Value: {x: 0.51422226, y: 0.65420943, z: 1, w: 1}
   midtones:
     m_OverrideState: 1
-    m_Value: {x: 0.7589012, y: 0.8417022, z: 1, w: 1}
+    m_Value: {x: 0.9401368, y: 0.9643481, z: 1, w: 0.11935098}
   highlights:
-    m_OverrideState: 1
-    m_Value: {x: 0.6913918, y: 0.79530144, z: 1, w: 0.3974348}
+    m_OverrideState: 0
+    m_Value: {x: 0.6090239, y: 0.49625742, z: 1, w: 0.1425101}
   shadowsStart:
     m_OverrideState: 0
     m_Value: 0
@@ -49,19 +49,19 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.15
   contrast:
     m_OverrideState: 1
-    m_Value: 27
+    m_Value: 23
   colorFilter:
     m_OverrideState: 1
     m_Value: {r: 1, g: 1, b: 1, a: 1}
   hueShift:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
   saturation:
     m_OverrideState: 1
-    m_Value: 8
+    m_Value: 1
 --- !u!114 &-3375835555752849377
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -106,7 +106,6 @@ MonoBehaviour:
   - {fileID: -7929994251846340845}
   - {fileID: 2350457769597536299}
   - {fileID: 6936095136370955382}
-  - {fileID: 8449965047241969793}
   - {fileID: -3375835555752849377}
 --- !u!114 &702032867690901389
 MonoBehaviour:
@@ -123,13 +122,13 @@ MonoBehaviour:
   active: 1
   lift:
     m_OverrideState: 1
-    m_Value: {x: 0.94468254, y: 0.95097613, z: 1, w: 0.02159819}
+    m_Value: {x: 0.94468254, y: 0.95097613, z: 1, w: -0.0015767801}
   gamma:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.9947656, z: 0.990024, w: -0.25917923}
+    m_Value: {x: 1, y: 0.9947656, z: 0.990024, w: -0.1896543}
   gain:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.6593934, z: 0.9797647, w: 0.08639311}
+    m_Value: {x: 1, y: 0.6593934, z: 0.9797647, w: -0.09900668}
 --- !u!114 &2350457769597536299
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -145,7 +144,7 @@ MonoBehaviour:
   active: 1
   temperature:
     m_OverrideState: 1
-    m_Value: -28
+    m_Value: -25
   tint:
     m_OverrideState: 1
     m_Value: 0
@@ -217,31 +216,3 @@ MonoBehaviour:
   balance:
     m_OverrideState: 1
     m_Value: 38
---- !u!114 &8449965047241969793
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
-  m_Name: Vignette
-  m_EditorClassIdentifier: 
-  active: 1
-  color:
-    m_OverrideState: 1
-    m_Value: {r: 1, g: 0.72458965, b: 0, a: 1}
-  center:
-    m_OverrideState: 0
-    m_Value: {x: 0.5, y: 0.5}
-  intensity:
-    m_OverrideState: 1
-    m_Value: 0.187
-  smoothness:
-    m_OverrideState: 1
-    m_Value: 1
-  rounded:
-    m_OverrideState: 0
-    m_Value: 0
