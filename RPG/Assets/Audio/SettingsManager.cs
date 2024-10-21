@@ -76,9 +76,6 @@ public class SettingsManager : MonoBehaviour, Saveable
     }
 
     public void RefreshUI() {
-        masterSlider.value = 0;
-        musicSlider.value = 0;
-        effectSlider.value = 0;
         masterSlider.value = masterVolume;
         musicSlider.value = musicVolume;
         effectSlider.value = effectVolume;
