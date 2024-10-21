@@ -14,6 +14,7 @@ public class CheatController : MonoBehaviour {
      GameState oldState;
     bool storesState = false;
 
+    public List<string> ignorarFases = new List<string> { "Creditos", "GameOver", "DemoOver" };
 
     void Start() {
         GerarDropdownItens();
@@ -84,7 +85,8 @@ public class CheatController : MonoBehaviour {
         int quantScenes = SceneManager.sceneCountInBuildSettings;
         for (int i = 0; i < quantScenes; i++) {
             string nome = System.IO.Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i));
-            opcoes.Add(nome);
+            if (!ignorarFases.Contains(nome))
+                opcoes.Add(nome);
         }
 
         fasesDropdown.ClearOptions();

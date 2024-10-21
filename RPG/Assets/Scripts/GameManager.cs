@@ -172,7 +172,7 @@ public class GameManager : MonoBehaviour {
 
     public IEnumerator LoadNewGameAsync(int slot = 0) {
         save.variables.SetVariable<int>("slot", slot);
-        yield return GoToSceneAsync(firstSceneName, firstPointName);
+        yield return GoToSceneAsync(firstSceneName, firstPointName, false);
         save.Save();
     }
 
@@ -189,12 +189,14 @@ public class GameManager : MonoBehaviour {
         StartCoroutine(GoToSceneAsync(scene, point));
     }
 
-    public IEnumerator GoToSceneAsync(string scene, string point = "") {
+    public IEnumerator GoToSceneAsync(string scene, string point = "", bool saveGame = true) {
         string currentSceneName = CurrentSceneName();
         if (onBeforeSceneChange != null) onBeforeSceneChange(currentSceneName);
 
-        JSONObject localData = null;
-        if (state != GameState.NotStarted) localData = save.LocalSave();
+        if (state != GameState.NotStarted) {
+            if (point != "") SaveLastSpawnpoint(point, scene);
+            if (saveGame) save.Save();
+        }   
 
         var asyncLoadLevel = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
 
@@ -204,9 +206,10 @@ public class GameManager : MonoBehaviour {
 
         if (onAfterSceneChange != null) onAfterSceneChange(scene);
 
-        if (!isLoading && localData != null) save.LocalLoad(localData);
+        if (!isLoading && saveGame) save.Load();
 
         if (point != "") {
+            SaveLastSpawnpoint(point);
             TeleportPlayerToPoint(point);
         }
     }
@@ -233,8 +236,12 @@ public class GameManager : MonoBehaviour {
     }
 
     public void SaveLastSpawnpoint(string point){
+        SaveLastSpawnpoint(point, CurrentSceneName());
+    }
+
+    public void SaveLastSpawnpoint(string point, string scene){
         save.variables.SetVariable<string>("lastSpawnpoint", point);
-        save.variables.SetVariable<string>("lastScene", CurrentSceneName());
+        save.variables.SetVariable<string>("lastScene", scene);
     }
 
     public string CurrentSceneName(){
@@ -266,7 +273,7 @@ public class GameManager : MonoBehaviour {
             customRespawnScene = "";
         }
 
-        yield return GoToSceneAsync(lastScene, lastSpawnpoint);
+        yield return GoToSceneAsync(lastScene, lastSpawnpoint, false);
         save.LoadPlayer(slot);
         isLoading = false;
     }
