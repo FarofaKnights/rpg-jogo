@@ -9,9 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7362654254912860039}
-  - component: {fileID: 4490169569857327415}
   - component: {fileID: 2127221860508063842}
-  - component: {fileID: 5089187961431300214}
+  - component: {fileID: 8375924664553199831}
   m_Layer: 8
   m_Name: ExplosaoObject
   m_TagString: Untagged
@@ -35,26 +34,6 @@ Transform:
   - {fileID: 7479344569706044801}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4490169569857327415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5574295336723188846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98b58527ea2b8a54090ba76e832e322b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocidade: 0
-  tempoDeVida: 1
-  dano: 15
-  explosao: {fileID: 0}
-  tagAlvo: Player
-  impulseForce: 1
-  ignoreList: []
-  ignoreTags: []
 --- !u!135 &2127221860508063842
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -76,27 +55,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &5089187961431300214
-Animator:
-  serializedVersion: 5
+--- !u!114 &8375924664553199831
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5574295336723188846}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a688b526f7b9f4b4cac6823e41bfd1f2, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff9ea207a59eb7a49ad3e0cf8210eafc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleFinal: 3
+  tempoDeVida: 0.5
+  dano: 15
+  tagAlvo: Player
 --- !u!1001 &4020575892994789076
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -455,6 +429,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.32
       objectReference: {fileID: 0}
+    - target: {fileID: 465890116579572915, guid: 9d10d958af9b6d946b60305db30a6059,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1869921393754632050, guid: 9d10d958af9b6d946b60305db30a6059,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -543,6 +522,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5792537434750684473, guid: 9d10d958af9b6d946b60305db30a6059, type: 3}
     - {fileID: -533069879679223049, guid: 9d10d958af9b6d946b60305db30a6059, type: 3}
+    - {fileID: 6807790331073739869, guid: 9d10d958af9b6d946b60305db30a6059, type: 3}
+    - {fileID: 6025625439545781973, guid: 9d10d958af9b6d946b60305db30a6059, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5741414201234459150, guid: 9d10d958af9b6d946b60305db30a6059, type: 3}
     - {fileID: 7153299814970484618, guid: 9d10d958af9b6d946b60305db30a6059, type: 3}
