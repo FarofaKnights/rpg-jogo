@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InimigoComArma : Inimigo, IEquipador {
+    [Header("Arma e configurações")]
     public Arma arma; // Sobreescreve o braço caso esteja definido
     public Braco braco;
     public float bracoCooldown = 1f;

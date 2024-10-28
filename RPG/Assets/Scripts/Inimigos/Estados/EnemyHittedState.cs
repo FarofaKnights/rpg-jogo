@@ -42,6 +42,7 @@ public class EnemyHittedState : IEnemyState {
 
         if (timer < 0) {
             timer = 0;
+            inimigo.target = Player.instance.gameObject;
             inimigo.stateMachine.SetState(inimigo.walkState);
         }
     }

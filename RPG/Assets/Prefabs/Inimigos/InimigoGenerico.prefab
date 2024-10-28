@@ -181,6 +181,12 @@ MonoBehaviour:
   detectado: 0
   ataque: {fileID: 11400000, guid: 6baa609f82e55de489a80cf4e56a290d, type: 2}
   attackHitboxHolder: {fileID: 7919597519189523942}
+  patrulha: 0
+  pontosPatrulha: []
+  tempoEsperaPatrulha: 2
+  velocidadePatrulha: 1
+  distanciaMinimaPatrulha: 0.1
+  tipoPatrulha: 0
   hittedDir: 0
   deathID: 0
   arma: {fileID: 1545246761593919329, guid: 743e5f68831a86f4f8a2009577a84c35, type: 3}
@@ -212,7 +218,7 @@ Transform:
   m_GameObject: {fileID: 7919597519189523942}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -229,17 +235,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 990eb20286262d04ba4f856ddfc42091,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 990eb20286262d04ba4f856ddfc42091,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 990eb20286262d04ba4f856ddfc42091,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 990eb20286262d04ba4f856ddfc42091,
         type: 3}
@@ -376,7 +382,7 @@ PrefabInstance:
     - target: {fileID: 7709236494760756981, guid: f5ad4247cf935e14d81804b5f71f470f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.25
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 7709236494760756981, guid: f5ad4247cf935e14d81804b5f71f470f,
         type: 3}

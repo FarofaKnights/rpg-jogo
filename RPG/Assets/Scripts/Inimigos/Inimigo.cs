@@ -65,7 +65,16 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public AtaqueInfo ataque;
     [SerializeField] GameObject attackHitboxHolder;
     AtacadorInfo atacadorInfo;
-    
+
+    [Header("Patrulhando")]
+    public bool patrulha = false;
+    public List<Transform> pontosPatrulha = new List<Transform>();
+    public float tempoEsperaPatrulha = 2f;
+    public float velocidadePatrulha = 1f;
+    public float distanciaMinimaPatrulha = 0.1f;
+
+    public enum TipoPatrulha { Ciclica, PingPong, Aleatoria }
+    public TipoPatrulha tipoPatrulha = TipoPatrulha.Ciclica;
 
     public StateMachine<IEnemyState> stateMachine;
     public EnemyIdleState idleState;
@@ -73,9 +82,10 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public EnemyWalkState walkState;
     public EnemyHittedState hittedState;
     public EnemyDeathState deathState;
+    public EnemyPatrolState patrolState;
 
-    public int hittedDir = 0;
-    public int deathID = 0;
+    [HideInInspector] public int hittedDir = 0;
+    [HideInInspector] public int deathID = 0;
 
     
     string estado_atual = "nenhum";
@@ -117,12 +127,14 @@ public class Inimigo : MonoBehaviour, IAtacador {
         walkState = new EnemyWalkState(this);
         hittedState = new EnemyHittedState(this);
         deathState = new EnemyDeathState(this);
+        patrolState = new EnemyPatrolState(this);
 
         stateMachine.OnStateChange += (state) => {
             estado_atual = state.ToString();
         };
 
-        stateMachine.SetState(idleState);
+        if (patrulha) stateMachine.SetState(patrolState);
+        else stateMachine.SetState(idleState);
     }
 
 
@@ -159,6 +171,19 @@ public class Inimigo : MonoBehaviour, IAtacador {
         controller.Move(move);
     }
 
+    public void CheckForPlayer() {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, rangeProcurando);
+        foreach (Collider collider in colliders) {
+            float yDist = Mathf.Abs(collider.transform.position.y - transform.position.y);
+            if (yDist > maxYProcurando) continue;
+
+            if (collider.CompareTag("Player")) {
+                target = collider.gameObject;
+                stateMachine.SetState(walkState);
+                return;
+            }
+        }
+    }
 
     // draw gizmos
     void OnDrawGizmosSelected() {
@@ -192,6 +217,21 @@ public class Inimigo : MonoBehaviour, IAtacador {
         }
       
         Gizmos.matrix = oldMatrix;
+
+
+        if (patrulha) {
+            Gizmos.color = Color.green;
+            for (int i = 0; i < pontosPatrulha.Count; i++) {
+                Gizmos.DrawWireSphere(pontosPatrulha[i].position, 0.25f);
+                if (tipoPatrulha != TipoPatrulha.Aleatoria && i < pontosPatrulha.Count - 1) {
+                    Gizmos.DrawLine(pontosPatrulha[i].position, pontosPatrulha[i + 1].position);
+                }
+            }
+
+            if (tipoPatrulha == TipoPatrulha.Ciclica) {
+                Gizmos.DrawLine(pontosPatrulha[pontosPatrulha.Count - 1].position, pontosPatrulha[0].position);
+            }
+        }
     }
 
     public void SpawnParticle() {
