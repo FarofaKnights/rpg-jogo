@@ -30,6 +30,7 @@ public class SniperController : MonoBehaviour {
 
 
     public float dano = 40f;
+    public float coronhadaDano = 10f;
     public GameObject explosaoPrefab;
     
     bool mirando = false;
@@ -221,14 +222,28 @@ public class SniperController : MonoBehaviour {
     public void StartCoronhada() {
         // return;
         hitboxInstantiated = GameObject.Instantiate(hitboxPrefab, hitboxHolder.transform);
+        hitboxInstantiated.AddComponent<OnTrigger>().onTriggerEnter += OnEnterHitbox;
 
         int layer = LayerMask.NameToLayer("Ataque");
         hitboxInstantiated.layer = layer;
     }
 
+    public void OnEnterHitbox(GameObject hit) {
+        if (hit.GetComponent<PossuiVida>() != null) {
+            hit.GetComponent<PossuiVida>().LevarDano(coronhadaDano);
+            if (hit.CompareTag("Player"))
+                GameManager.instance.StartCoroutine(SlowdownOnHit());
+        }
+    }
+    IEnumerator SlowdownOnHit() {
+        Time.timeScale = 0.1f;
+        yield return new WaitForSecondsRealtime(0.05f);
+        if (!GameManager.instance.IsPaused()) Time.timeScale = 1;
+        else Time.timeScale = 0;
+    }
+
 
     public void EndCoronhada() {
-        // return;
         Destroy(hitboxInstantiated);
     }
 }

@@ -91,12 +91,25 @@ MonoBehaviour:
         acao: 7
         parametros:
           id: AdrianBoss
-          id2: Atirando
-          type: 4
+          id2: Fase
+          type: 1
+          isGlobal: 0
+          intValue: 2
+          floatValue: 0
+          stringValue: Atirando
+          boolValue: 0
+    - text: 
+      autoNext: 1
+      acao:
+        acao: 6
+        parametros:
+          id: AdrianBoss
+          id2: 
+          type: 3
           isGlobal: 0
           intValue: 0
           floatValue: 0
-          stringValue: Atirando
+          stringValue: TrocouFase
           boolValue: 0
     - text: 
       autoNext: 1
@@ -237,7 +250,7 @@ MonoBehaviour:
     gameObject: {fileID: 0}
     parameter: 
     informativo: Fase 1
-    mostrandoConteudo: 1
+    mostrandoConteudo: 0
     children:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
@@ -261,7 +274,7 @@ MonoBehaviour:
     gameObject: {fileID: 0}
     parameter: 
     informativo: Fase 2
-    mostrandoConteudo: 0
+    mostrandoConteudo: 1
     children:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
@@ -274,7 +287,7 @@ MonoBehaviour:
         type: 3}
       parameter: fase2_comeco
       informativo: 
-      mostrandoConteudo: 0
+      mostrandoConteudo: 1
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
         type: 3}
@@ -286,7 +299,7 @@ MonoBehaviour:
         type: 3}
       parameter: TROCAR_CAMERA;entulhosCaidosCam;INT;1;False;
       informativo: 
-      mostrandoConteudo: 1
+      mostrandoConteudo: 0
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: e7c3c187bd710d9489c1a402d032ae66,
         type: 3}
@@ -298,7 +311,7 @@ MonoBehaviour:
         type: 3}
       parameter: fase2_meio
       informativo: 
-      mostrandoConteudo: 0
+      mostrandoConteudo: 1
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: e7c3c187bd710d9489c1a402d032ae66,
         type: 3}

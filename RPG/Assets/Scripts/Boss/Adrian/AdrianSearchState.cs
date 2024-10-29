@@ -50,6 +50,12 @@ public class AdrianSearchState : StateMachineBehaviour
 
         float distance = Vector3.Distance(player.position, animator.transform.position);
 
+        Vector3 lookPos = player.position - animator.transform.position;
+        lookPos.y = 0;
+        Quaternion rotation = Quaternion.LookRotation(lookPos);
+        animator.transform.rotation = Quaternion.Slerp(animator.transform.rotation, rotation, 20.0f * Time.deltaTime);
+
+
         if (distance >= longeRadius) {
             bracoCooldownTimer = 0;
             agent.enabled = false;
@@ -66,10 +72,19 @@ public class AdrianSearchState : StateMachineBehaviour
                 bracoCooldownTimer += Time.deltaTime;
             }
 
-            if (distance <= medioRadius && bracoCooldownTimer >= bracoCooldown) {
+            if (bracoCooldownTimer >= bracoCooldown) {
                 agent.enabled = false;
                 animator.SetTrigger("Braco");
             }
+        }
+
+        if (agent.enabled) {
+            Vector3 velocity = agent.velocity.normalized;
+            animator.SetFloat("Vertical", velocity.z);
+            animator.SetFloat("Horizontal", velocity.x);
+        } else {
+            animator.SetFloat("Vertical", 0);
+            animator.SetFloat("Horizontal", 0);
         }
         
     }
