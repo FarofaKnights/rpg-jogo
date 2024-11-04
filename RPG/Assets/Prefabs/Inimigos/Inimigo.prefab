@@ -57,15 +57,15 @@ MonoBehaviour:
   vidaText: {fileID: 5821691600190502900}
   meio: {fileID: 4956725987033806652}
   maxYProcurando: 1.5
-  rangeProcurando: 5
-  rangePerderTarget: 15
+  rangeProcurando: 10
+  rangePerderTarget: 12
   minRangeProximidade: 1.25
-  maxRangeProximidade: 0.75
+  maxRangeProximidade: 1.02
   precisaDeVisaoDireta: 1
-  precisaoDaVisao: 0.98
-  tempoAntesDoAtaque: 0.25
+  precisaoDaVisao: 0.987
+  tempoAntesDoAtaque: 0.03
   tomouDanoStun: 1
-  empurradoAoSofrerHit: 0.1
+  empurradoAoSofrerHit: 0.2
   modoDeTriggerDeAnimacao: 0
   debug:
     estado_atual: 
@@ -76,8 +76,11 @@ MonoBehaviour:
   descansoMaiorAposXAtaques: -1
   multDescansoMaior: 2
   maxStunHits: 3
-  semStunTime: 2.5
+  semStunTime: 3
   ataquesFeitos: 0
+  possuiAnimacaoMorte: 0
+  tempoAteDissolver: 1
+  tempoDissolvendo: 1
   target: {fileID: 0}
   recompensaPecas: 10
   getHitParticles: {fileID: 4938373727297579305, guid: 2e6877b1152892342883c6741da4c817,
@@ -87,7 +90,14 @@ MonoBehaviour:
   detectado: 0
   ataque: {fileID: 11400000, guid: 98cdf69b53649b64bbe859824daec676, type: 2}
   attackHitboxHolder: {fileID: 4956725987033806652}
+  patrulha: 0
+  pontosPatrulha: []
+  tempoEsperaPatrulha: 2
+  velocidadePatrulha: 1
+  distanciaMinimaPatrulha: 0.1
+  tipoPatrulha: 0
   hittedDir: 0
+  deathID: 0
 --- !u!114 &3659390629168933768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,8 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 009cd79c3cad4314b800f21d04c3324f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida: 200
-  vidaMax: 200
+  vida: 300
+  vidaMax: 300
   VFXBlood: {fileID: 0}
 --- !u!143 &2361325265758478374
 CharacterController:
