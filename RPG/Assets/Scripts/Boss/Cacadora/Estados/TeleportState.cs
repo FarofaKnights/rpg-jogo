@@ -4,21 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class TeleportState : IChainedState {
-    public StateMachine<IChainedState> stateMachine;
     public NavMeshAgent agent;
     public Vector3 target;
-
-    protected IChainedState _nextState;
-    public IChainedState nextState {
-        get { return _nextState; }
-        set { _nextState = value; }
-    }
-
-    protected System.Action _OnEnd;
-    public System.Action OnEnd {
-        get { return _OnEnd; }
-        set { _OnEnd = value; }
-    }
 
     public TeleportState(StateMachine<IChainedState> stateMachine, NavMeshAgent agent) {
         this.stateMachine = stateMachine;
@@ -31,7 +18,7 @@ public class TeleportState : IChainedState {
         this.target = target;
     }
 
-    public void Enter() {
+    public override void Enter() {
         agent.enabled = false;
         agent.transform.position = target;
         agent.enabled = true;
@@ -39,11 +26,9 @@ public class TeleportState : IChainedState {
         agent.ResetPath();
     }
 
-    public void Execute() {
-        OnEnd?.Invoke();
-        if (nextState != null)
-            stateMachine.SetState(nextState);
+    public override void Execute() {
+        Next();
     }
 
-    public void Exit() { }
+    public override void Exit() { }
 }

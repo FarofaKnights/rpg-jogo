@@ -3,29 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AndarState : IChainedState {
+public class SearchState : IChainedState {
     public Animator animator;
     public NavMeshAgent agent;
-    public Vector3 target;
+    public Transform target;
+    public float range;
 
-    public AndarState(StateMachine<IChainedState> stateMachine, Animator animator, NavMeshAgent agent) {
+    public SearchState(StateMachine<IChainedState> stateMachine, Animator animator, NavMeshAgent agent) {
         this.stateMachine = stateMachine;
         this.animator = animator;
         this.agent = agent;
+        this.range = agent.stoppingDistance;
     }
 
-    public AndarState(StateMachine<IChainedState> stateMachine, Animator animator, NavMeshAgent agent, Vector3 target) {
+    public SearchState(StateMachine<IChainedState> stateMachine, Animator animator, NavMeshAgent agent, Transform target, float range) {
         this.stateMachine = stateMachine;
         this.animator = animator;
         this.agent = agent;
         this.target = target;
+        this.range = range;
     }
 
     public override void Enter() {
-        agent.SetDestination(target);
+        agent.SetDestination(target.position);
     }
 
     public override void Execute() {
+        agent.SetDestination(target.position);
+
         Vector3 velocity = agent.velocity.normalized;
         float speed = agent.velocity.magnitude;
 
@@ -35,7 +40,9 @@ public class AndarState : IChainedState {
         animator.SetFloat("Vertical", vertical);
         animator.SetFloat("Horizontal", horizontal);
 
-        if (agent.remainingDistance <= agent.stoppingDistance) {
+        agent.transform.LookAt(target);
+
+        if (agent.remainingDistance <= range) {
             Next();
         }
     }

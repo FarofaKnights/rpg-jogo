@@ -33,6 +33,8 @@ Um passo possui o atributo `comportamento` que define qual vai ser seu comportam
 | [Ação/TRIGGAR_ANIMATOR](./comportamentos/Acao_TRIGGAR_ANIMATOR.md) | *Ação de Fala* que ativa um trigger em um animator |
 | [Ação/PARAMETRO_ANIMATOR](./comportamentos/Acao_PARAMETRO_ANIMATOR.md) | *Ação de Fala* que seta o valor de um parâmetro em um animator |
 | [Ação/TROCAR_CAMERA](./comportamentos/Acao_TROCAR_CAMERA.md) | *Ação de Fala* que troca a câmera ativa (ou retorna para a padrão) |
+| [Ação/RODA_FUNCAO](./comportamentos/Acao_RODA_FUNCAO.md) | *Ação de Fala* que roda uma função em um componente |
+| [Ação/TELEPORTA](./comportamentos/Acao_TELEPORTA.md) | *Ação de Fala* que teletransporta o jogador |
 
 
 ## 🤓 Comportamentos customizados

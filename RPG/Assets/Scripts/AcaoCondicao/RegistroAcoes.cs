@@ -12,6 +12,8 @@ public enum AcoesRegistradas {
     TRIGGAR_ANIMATOR,
     PARAMETRO_ANIMATOR,
     TROCAR_CAMERA,
+    RODA_FUNCAO,
+    TELEPORTA,
 }
 
 public class RegistroAcoes {
@@ -24,6 +26,8 @@ public class RegistroAcoes {
         { AcoesRegistradas.TRIGGAR_ANIMATOR, typeof(AcaoTriggaAnimator) },
         { AcoesRegistradas.PARAMETRO_ANIMATOR, typeof(AcaoParamsAnimator) },
         { AcoesRegistradas.TROCAR_CAMERA, typeof(AcaoChangeCam) },
+        { AcoesRegistradas.RODA_FUNCAO, typeof(AcaoRodaFuncao) },
+        { AcoesRegistradas.TELEPORTA, typeof(AcaoTeleporta) },
     };
 
 
