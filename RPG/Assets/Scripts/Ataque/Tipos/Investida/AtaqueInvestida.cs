@@ -70,6 +70,9 @@ public class AtaqueInvestida : HitboxAttackBehaviour {
 
     public override void OnEnd() {
         base.OnEnd();
+        NavMeshAgent agent = atacadorInfo.gameObject.GetComponent<NavMeshAgent>();
+        if (agent != null) agent.enabled = true;
+        
         animator.applyRootMotion = false;
     }
 }

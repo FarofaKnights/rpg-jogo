@@ -47,4 +47,8 @@ public class BracoShooter : Braco {
             return ray.direction;
         }
     }
+
+    public float GetMaxDistance() {
+        return tempoDeVida * velocidade;
+    }
 }

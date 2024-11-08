@@ -10,6 +10,8 @@ public class PlayerAimState : IPlayerState {
     CharacterController controller;
     bool aimingAtEnemy = false;
     bool firstRun = false;
+    float distanciaMaxTiro = 100f;
+    Vector3 screenCenter;
 
     public PlayerAimState(Player player) {
         this.player = player;
@@ -17,9 +19,11 @@ public class PlayerAimState : IPlayerState {
         controller = player.GetComponent<CharacterController>();
         aimLook = player.aimLook.transform;
         animator = player.animator;
+        screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
     }
 
     public void Enter() {
+        player.RotatePlayerToCamera();
         player.aimCam.Priority = 11;
         player.thirdPersonCam.Priority = 9;
         UIController.HUD.ShowAim(true);
@@ -27,6 +31,11 @@ public class PlayerAimState : IPlayerState {
         animator.SetBool("Correr", false);
         animator.SetFloat("inputX", 0);
         animator.SetFloat("inputZ", 0);
+
+        if (player.braco.GetType() == typeof(BracoShooter)) {
+            BracoShooter braco = (BracoShooter)player.braco;
+            distanciaMaxTiro = braco.GetMaxDistance();
+        }
 
         firstRun = true;
     }
@@ -53,29 +62,28 @@ public class PlayerAimState : IPlayerState {
         }
 
         controller.Move(move * info.walkSpeed * Time.fixedDeltaTime);
-    }
+        screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
 
-    public void Update() {
-        // Atirar no modo mira
-        if (Input.GetMouseButtonDown(0)) {
-            if (player.braco != null) {
-                player.braco.Ativar();
 
-                if (!player.braco.PodeAtivar()) CallExit();
-            }
-        }
-
-        // Sair do modo tiro
-        if (Input.GetMouseButtonDown(1) && !firstRun) {
-            CallExit();
-        }
-
-        // Get middle screen position
-        Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+        // Aiming at enemy
         Ray ray = Camera.main.ScreenPointToRay(screenCenter);
         RaycastHit hit;
         bool currentlyAimingAtEnemy = false;
-        if (Physics.Raycast(ray, out hit, 100, info.layerMask)) {
+
+        // O raio neste caso é calculado da câmera para o objeto observado, então para descobrir a distância maxima do tiro fazemos:
+        // - Um triangulo entre a câmera, o maximo e a origem do tiro
+
+        // Calculamos o angulo entre o player, a camera e o maximo, com a camera sendo o ponto de origem
+        Vector3 player2cam = Camera.main.transform.position - player.transform.position;
+        float camPlayerAngle = Vector3.Angle(player2cam.normalized, ray.direction);
+
+        
+        // Assim, a distancia maxima é a hipotenusa, portanto:
+        // hipotenusa = oposto / seno(angulo) => distancia = distanciaMaxTiro / seno(angulo)
+        // Estranhamente ainda não tá 100% certo, mas tá bem proximo
+        float distancia = distanciaMaxTiro / Mathf.Sin(camPlayerAngle * Mathf.Deg2Rad);
+
+        if (Physics.Raycast(ray, out hit, distancia, info.layerMask)) {
             Debug.DrawLine(ray.origin, hit.point, Color.red);
             currentlyAimingAtEnemy = true;
         }
@@ -83,6 +91,20 @@ public class PlayerAimState : IPlayerState {
         if (currentlyAimingAtEnemy != aimingAtEnemy) {
             aimingAtEnemy = currentlyAimingAtEnemy;
             UIController.HUD.AimHasTarget(aimingAtEnemy);
+        }
+    }
+
+    public void Update() {
+        // Atirar no modo mira
+        if (Input.GetMouseButtonDown(0)) {
+            if (player.braco != null) {
+                player.braco.Ativar();
+            }
+        }
+
+        // Sair do modo tiro
+        if (Input.GetMouseButtonDown(1) && !firstRun) {
+            CallExit();
         }
 
         firstRun = false;
@@ -99,7 +121,5 @@ public class PlayerAimState : IPlayerState {
         UIController.HUD.ShowAim(false);
         Vector3 aimCamRot = player.aimCam.transform.rotation.eulerAngles;
         player.thirdPersonCam.transform.rotation = Quaternion.Euler(0, aimCamRot.y, 0);
-
-        Debug.Log("exit");
     }
 }

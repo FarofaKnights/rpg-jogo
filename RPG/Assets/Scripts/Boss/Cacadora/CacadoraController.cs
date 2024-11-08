@@ -9,7 +9,8 @@ public class CacadoraController : MonoBehaviour, IAtacador {
 
     // Ataque
     [Header("Ataque")]
-    public AtaqueInfo ataque, investida;
+    public AtaqueInfo ataque;
+    public AtaqueInfo investida;
     [SerializeField] GameObject attackHitboxHolder;
     AtacadorInfo atacadorInfo;
     public TriggerMode modoDeTriggerDeAnimacao = TriggerMode.Trigger;
@@ -72,7 +73,6 @@ public class CacadoraController : MonoBehaviour, IAtacador {
     public void GerarNovaSequencia() {
         // Sequencia dash n ta funfando
         sequencia = Random.Range(0, 2) == 0 ? SequenciaBusca() : SequenciaDash();
-        sequencia = SequenciaBusca();
 
         agent.speed = speedNormal;
         

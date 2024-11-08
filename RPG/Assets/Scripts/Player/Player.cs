@@ -46,6 +46,7 @@ public class Player : MonoBehaviour, Saveable, IEquipador {
     public GameObject meio;
     public CinemachineFreeLook thirdPersonCam;
     public CinemachineVirtualCamera aimCam;
+    public CinemachineVirtualCamera lookDirectionAuxCam;
     public GameObject look, aimLook;
     PossuiVida vidaController;
 
@@ -346,6 +347,31 @@ public class Player : MonoBehaviour, Saveable, IEquipador {
 
     public void SetMovement(Vector3 move) {
         velocity = move;
+    }
+
+    public void LookForward() {
+        StartCoroutine(LookForwardCoroutine());
+    }
+
+    public IEnumerator LookForwardCoroutine() {
+        lookDirectionAuxCam.Priority = 100;
+        thirdPersonCam.transform.position = lookDirectionAuxCam.transform.position;
+        thirdPersonCam.transform.rotation = lookDirectionAuxCam.transform.rotation;
+        lookDirectionAuxCam.gameObject.SetActive(true);
+
+        yield return null;
+
+        lookDirectionAuxCam.gameObject.SetActive(false);
+        lookDirectionAuxCam.Priority = 0;
+    }
+
+    public void RotatePlayerToCamera() {
+        Vector3 camForward = Camera.main.transform.forward;
+        camForward.y = 0;
+        
+        characterController.enabled = false;
+        transform.rotation = Quaternion.LookRotation(camForward);
+        characterController.enabled = true;
     }
 
     void OnDestroy() {

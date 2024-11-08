@@ -124,6 +124,10 @@ public class DialogoController : MonoBehaviour {
     }
 
     public void SetCamera(CinemachineVirtualCamera cam) {
+        if (cam == null) {
+            Player.instance.LookForward();
+        }
+        
         if (currentCam != null) {
             currentCam.Priority = 0;
         }
@@ -131,5 +135,7 @@ public class DialogoController : MonoBehaviour {
         currentCam = cam;
         if (currentCam != null)
             currentCam.Priority = 20;
+        
+        
     }
 }
