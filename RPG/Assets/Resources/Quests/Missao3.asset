@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee36e9f26966264bb3dc6d4b55b7d5d, type: 3}
+  m_Name: Missao3
+  m_EditorClassIdentifier: 
+  questId: Missao3
+  titulo: 
+  descricao: "A Rob\xF4 empregada quer que voc\xEA mate uns rob\xF4s"
+  falasCarregadas:
+  - nome: FalaEmpregada1
+    falas:
+    - text: "Eae, quero ver se voc\xEA consegue lutar bem. Mate todos aqueles rob\xF4s
+        perto do carro destruido"
+      autoNext: 1
+      acao:
+        acao: 0
+        parametros:
+          id: 
+          id2: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
+  - nome: Empregada2
+    falas:
+    - text: Bom trabalho beep boop beep boop
+      autoNext: 1
+      acao:
+        acao: 0
+        parametros:
+          id: 
+          id2: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
+  requirementsInfo:
+    condicao: 0
+    parametros:
+      id: 
+      id2: 
+      type: 0
+      isGlobal: 0
+      intValue: 0
+      floatValue: 0
+      stringValue: 
+      boolValue: 0
+      comparacaoValue: 0
+      dinamic: 0
+  steps:
+  - type: 0
+    gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
+      type: 3}
+    parameter: FalaEmpregada1
+    informativo: 
+    mostrandoConteudo: 1
+    children: []
+  - type: 0
+    gameObject: {fileID: 1368148330828971028, guid: f0119f286f0af424eacb87945ea00b30,
+      type: 3}
+    parameter: InimigosEmpregada;True
+    informativo: Mate os inimigos perto do carro destruido
+    mostrandoConteudo: 1
+    children: []
+  - type: 0
+    gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+      type: 3}
+    parameter: TriggerEmpregada2;TriggerEmpregada2
+    informativo: "Volte para a rob\xF4 empregada"
+    mostrandoConteudo: 1
+    children: []
+  - type: 0
+    gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
+      type: 3}
+    parameter: Empregada2
+    informativo: 
+    mostrandoConteudo: 1
+    children: []
+  rewardsInfo: []
