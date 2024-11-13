@@ -6,7 +6,7 @@ using Cinemachine;
 using Defective.JSON;
 
 [RequireComponent(typeof(PossuiVida))]
-public class Player : MonoBehaviour, Saveable, IEquipador {
+public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
 
     // Singleton refs
     public static Player instance;
@@ -339,6 +339,10 @@ public class Player : MonoBehaviour, Saveable, IEquipador {
             vidaInimigo.LevarDano(ataque.dano + adicional);
         
         return true;
+    }
+
+    public void SentirTemperatura(float modTemperatura) {
+        atributos.calor.Add(modTemperatura);
     }
 
     public bool IsGrounded() {

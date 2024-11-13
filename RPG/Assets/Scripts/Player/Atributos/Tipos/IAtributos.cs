@@ -7,6 +7,7 @@ public interface IAtributo<T> {
 
     void Set(T valor);
     void SetMax(T valor);
+    void SetMin(T valor);
     void Add(T valor);
     void AddMax(T valor);
     void Sub(T valor);
@@ -14,5 +15,6 @@ public interface IAtributo<T> {
     void Reset();
     T Get();
     T GetMax();
+    T GetMin();
     T GetMaxBase();
 }

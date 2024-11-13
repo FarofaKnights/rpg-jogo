@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class HUDController : MonoBehaviour {
     public Slider vidaSlider, calorSlider;
+    public Color calorPositivoColor, calorNegativoColor;
+    public Image calorSliderFill;
+
     public Text pecasText, missaoText;
     public Image imagemArma, imagemSave, playerAim;
     public Color normalAimColor, targetAimColor;
@@ -35,7 +38,13 @@ public class HUDController : MonoBehaviour {
 
     public void UpdateCalor(float calor, float calorMax) {
         calorSlider.maxValue = calorMax;
-        calorSlider.value = calor;
+        calorSlider.value = Mathf.Abs(calor);
+
+        if (calor > 0) {
+            calorSliderFill.color = calorPositivoColor;
+        } else {
+            calorSliderFill.color = calorNegativoColor;
+        }
     }
 
     public void UpdatePecas(int pecas) {

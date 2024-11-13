@@ -29,6 +29,7 @@ public class CacadoraController : MonoBehaviour, IAtacador {
     public float speedNormal = 3.5f;
     public float speedInvestida = 10f;
     public float playerAttackRange = 1.5f;
+    public float playerInvestidaRange = 6f;
 
 
     bool comecou = false;
@@ -121,7 +122,7 @@ public class CacadoraController : MonoBehaviour, IAtacador {
     public IChainedState[] SequenciaDash() {
         IChainedState[] estados = new IChainedState[2];
 
-        estados[0] = new SearchState(stateMachine, animator, agent, Player.instance.transform, playerAttackRange);
+        estados[0] = new SearchState(stateMachine, animator, agent, Player.instance.transform, playerInvestidaRange);
         estados[1] = new AtaqueState(stateMachine, this, investida);
 
         estados[0].nextState = estados[1];

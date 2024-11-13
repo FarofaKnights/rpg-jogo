@@ -67,7 +67,8 @@ public class EnemyAttackState : IEnemyState {
     }
 
     void LeaveState() {
-        inimigo.stateMachine.SetState(inimigo.walkState);
+        if (inimigo.GetComponent<PossuiVida>().Vida > 0)
+            inimigo.stateMachine.SetState(inimigo.walkState);
     }
 
     public void Exit() {

@@ -7,13 +7,14 @@ public class AtributoInt: IAtributo<int> {
     public System.Action<int,int> OnChange { get; set; }
 
     public int valor;
-    public int valorMaximo;
+    public int valorMaximo, valorMinimo;
     public int valorMaximoBase;
     public bool hasMaximo = true;
 
-    public AtributoInt(int valor, int valorMaximo) {
+    public AtributoInt(int valor, int valorMaximo, int valorMinimo = 0) {
         this.valor = valor;
         this.valorMaximo = valorMaximo;
+        this.valorMinimo = valorMinimo;
         this.valorMaximoBase = valorMaximo;
     }
 
@@ -28,6 +29,10 @@ public class AtributoInt: IAtributo<int> {
 
     public int GetMax() {
         return valorMaximo;
+    }
+
+    public int GetMin() {
+        return valorMinimo;
     }
 
     public int GetMaxBase() {
@@ -45,7 +50,16 @@ public class AtributoInt: IAtributo<int> {
         OnChange?.Invoke(valor, valorMaximo);
     }
 
+    public void SetMin(int valor) {
+        this.valorMinimo = valor;
+    }
+
     public void Add(int valor) {
+        if (valor < 0) {
+            Sub(-valor);
+            return;
+        }
+
         int v = this.valor;
         v += valor;
         if (hasMaximo && v > this.valorMaximo) v = this.valorMaximo;
@@ -54,6 +68,11 @@ public class AtributoInt: IAtributo<int> {
     }
 
     public void AddMax(int valor) {
+        if (valor < 0) {
+            SubMax(-valor);
+            return;
+        }
+
         if (!hasMaximo) return;
 
         int v = this.valorMaximo;
@@ -63,19 +82,29 @@ public class AtributoInt: IAtributo<int> {
     }
 
     public void Sub(int valor) {
+        if (valor < 0) {
+            Add(-valor);
+            return;
+        }
+
         int v = this.valor;
         v -= valor;
-        if (v < 0) v = 0;
+        if (v < valorMinimo) v = valorMinimo;
         this.valor = v;
         OnChange?.Invoke(this.valor, this.valorMaximo);
     }
 
     public void SubMax(int valor) {
+        if (valor < 0) {
+            AddMax(-valor);
+            return;
+        }
+
         if (!hasMaximo) return;
 
         int v = this.valorMaximo;
         v -= valor;
-        if (v < 0) v = 0;
+        if (v < valorMinimo) v = valorMinimo;
         this.valorMaximo = v;
         OnChange?.Invoke(this.valor, this.valorMaximo);
     }

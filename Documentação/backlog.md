@@ -1,4 +1,4 @@
-﻿# 📚 Backlog
+# 📚 Backlog
 Arquivo reservado para listar tudo que precisamos arrumar eventualmente mas não é importante o suficiente, ou não qualifica, para entrar na **Planilha™**.
 
 Sempre que alguém lembrar de algo, seja erro, seja observação, é aconselhável que seja anotado e commitado neste arquivo. Assim que corrigido/implementado, podemos remover o campo da lista. 
@@ -20,11 +20,13 @@ Tem que ser implementado até o fim do projeto mas não precisa ser agora
 - Melhorar a tela de créditos (mais créditos para o nosso amigo lucas sabino pfv 🙏, gerente de produção de assets, diretor de animação, gerente de arte, personagens, texturas, mais bonito do grupo, melhores piadas, mais alto.)
 - Arrumar scroll do changelog
 - Armas jogáveis de inimigo, tipo o tijolo, desaparecer ao jogar
+- Fazer a tragetória do tijolo respeitar as leis da física de um lançamento
 - Jogador poder tomar stun de hit
 - Ocultar missões não disponíveis da lista de missões
 - Mudar como as informações são apresentadas no tutorial (UI) 
 - Tela de loading
 - Inimigos vão atrás do player quando levam dano
+- Modificar sistema de dinheiro para peças (contabilizam no inventário) e ajustar os preços da loja 
 
 ## 😌 Baixa
 Fará falta se não for implementado mas pode não ser
@@ -39,12 +41,11 @@ Fará falta se não for implementado mas pode não ser
 - Sistema de dialogo com escolha
 - Melhorar o indicador da missão (na UI)
 - Implementar o sangue do player (já existe)
+- Possiveis invencible frames (discutir com o grupo antes)  
 
 ## 🤠 Nenhuma
 Algo adicional que não fará falta se não for implementado, mas seria legal ter (como game juices e afins)
 
 - Mira do braço de tiro em formato quadrado quando houver um alvo no alcance (indicador melhor)
 - Armas e braços novos do player
-
-
-
+- Knockback de dano (no player e do player)
