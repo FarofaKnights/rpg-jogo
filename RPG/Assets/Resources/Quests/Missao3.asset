@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Missao3
   m_EditorClassIdentifier: 
   questId: Missao3
-  titulo: 
+  mostrarNaLista: 1
+  titulo: Empregando a morte
   descricao: "A Rob\xF4 empregada quer que voc\xEA mate uns rob\xF4s"
   falasCarregadas:
   - nome: FalaEmpregada1
@@ -32,6 +33,10 @@ MonoBehaviour:
           floatValue: 0
           stringValue: 
           boolValue: 0
+      escolhas:
+        tipoEscolhas: 0
+        idEscolhaDeSaidaDoMenu: -1
+        escolhas: []
   - nome: Empregada2
     falas:
     - text: Bom trabalho beep boop beep boop
@@ -47,6 +52,10 @@ MonoBehaviour:
           floatValue: 0
           stringValue: 
           boolValue: 0
+      escolhas:
+        tipoEscolhas: 0
+        idEscolhaDeSaidaDoMenu: -1
+        escolhas: []
   requirementsInfo:
     condicao: 0
     parametros:

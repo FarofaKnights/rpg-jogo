@@ -22,7 +22,6 @@ Tem que ser implementado até o fim do projeto mas não precisa ser agora
 - Armas jogáveis de inimigo, tipo o tijolo, desaparecer ao jogar
 - Fazer a tragetória do tijolo respeitar as leis da física de um lançamento
 - Jogador poder tomar stun de hit
-- Ocultar missões não disponíveis da lista de missões
 - Mudar como as informações são apresentadas no tutorial (UI) 
 - Tela de loading
 - Inimigos vão atrás do player quando levam dano
@@ -38,8 +37,6 @@ Fará falta se não for implementado mas pode não ser
 - Informações de comando na UI
 - Selecionar um consumível com hotkey
 - Indicador de localização no mapa
-- Sistema de dialogo com escolha
-- Melhorar o indicador da missão (na UI)
 - Implementar o sangue do player (já existe)
 - Possiveis invencible frames (discutir com o grupo antes)  
 

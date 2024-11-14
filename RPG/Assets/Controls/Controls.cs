@@ -548,6 +548,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Up"",
+                    ""type"": ""Button"",
+                    ""id"": ""b5286f85-c44e-41c3-8fea-85b28fe935c0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Down"",
+                    ""type"": ""Button"",
+                    ""id"": ""8c99d05c-0432-40cd-bf5e-5c17ee4957f7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -581,6 +599,50 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""30ada00a-5d12-4d5a-bf82-67af8777e373"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6df0dbe3-daa4-4c1f-b0f4-2950fa17a4ee"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c9c29de1-dd67-4e34-8f99-18fd90ed6235"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d8718b8e-7db7-47ce-9635-858b44a0556b"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Down"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -623,6 +685,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Dialog_Itens = m_Dialog.FindAction("Itens", throwIfNotFound: true);
         m_Dialog_Pause = m_Dialog.FindAction("Pause", throwIfNotFound: true);
         m_Dialog_Interact = m_Dialog.FindAction("Interact", throwIfNotFound: true);
+        m_Dialog_Up = m_Dialog.FindAction("Up", throwIfNotFound: true);
+        m_Dialog_Down = m_Dialog.FindAction("Down", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1029,6 +1093,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Dialog_Itens;
     private readonly InputAction m_Dialog_Pause;
     private readonly InputAction m_Dialog_Interact;
+    private readonly InputAction m_Dialog_Up;
+    private readonly InputAction m_Dialog_Down;
     public struct DialogActions
     {
         private @Controls m_Wrapper;
@@ -1036,6 +1102,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Itens => m_Wrapper.m_Dialog_Itens;
         public InputAction @Pause => m_Wrapper.m_Dialog_Pause;
         public InputAction @Interact => m_Wrapper.m_Dialog_Interact;
+        public InputAction @Up => m_Wrapper.m_Dialog_Up;
+        public InputAction @Down => m_Wrapper.m_Dialog_Down;
         public InputActionMap Get() { return m_Wrapper.m_Dialog; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1054,6 +1122,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Up.started += instance.OnUp;
+            @Up.performed += instance.OnUp;
+            @Up.canceled += instance.OnUp;
+            @Down.started += instance.OnDown;
+            @Down.performed += instance.OnDown;
+            @Down.canceled += instance.OnDown;
         }
 
         private void UnregisterCallbacks(IDialogActions instance)
@@ -1067,6 +1141,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Up.started -= instance.OnUp;
+            @Up.performed -= instance.OnUp;
+            @Up.canceled -= instance.OnUp;
+            @Down.started -= instance.OnDown;
+            @Down.performed -= instance.OnDown;
+            @Down.canceled -= instance.OnDown;
         }
 
         public void RemoveCallbacks(IDialogActions instance)
@@ -1123,5 +1203,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnItens(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnUp(InputAction.CallbackContext context);
+        void OnDown(InputAction.CallbackContext context);
     }
 }

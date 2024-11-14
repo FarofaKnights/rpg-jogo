@@ -32,6 +32,7 @@ public class QuestInfoEditor : Editor {
         public int direction; // 1 = down, -1 = up
     }
 
+    // Carrega os prefabs e monta uma lista deles
     public void OnEnable() {
         questInfo = (QuestInfo)target;
 
@@ -65,6 +66,8 @@ public class QuestInfoEditor : Editor {
 
         EditorGUILayout.LabelField("Descrição:");
         questInfo.descricao = EditorGUILayout.TextArea(questInfo.descricao, textAreaStyle, GUILayout.Height(60));
+
+        questInfo.mostrarNaLista = EditorGUILayout.Toggle("Mostrar na lista", questInfo.mostrarNaLista);
 
         DrawCondicao();
         GUILayout.Space(padding);

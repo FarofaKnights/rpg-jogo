@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23ac7c0c51ef894aa3b623a809dcc40, type: 3}
+  m_Name: TESTE_Hub
+  m_EditorClassIdentifier: 
+  condicao:
+    condicao: 0
+    parametros:
+      id: 
+      id2: 
+      type: 0
+      isGlobal: 0
+      intValue: 0
+      floatValue: 0
+      stringValue: 
+      boolValue: 0
+      comparacaoValue: 0
+      dinamic: 0
+  prioridade: 0
+  falas:
+  - text: "essa \xE9 uma fala de teste"
+    autoNext: 0
+    acao:
+      acao: 0
+      parametros:
+        id: 
+        id2: 
+        type: 0
+        isGlobal: 0
+        intValue: 0
+        floatValue: 0
+        stringValue: 
+        boolValue: 0
+    escolhas:
+      tipoEscolhas: 0
+      idEscolhaDeSaidaDoMenu: 0
+      escolhas: []
+  - text: "esse \xE9 o teste de auto next"
+    autoNext: 1
+    acao:
+      acao: 0
+      parametros:
+        id: 
+        id2: 
+        type: 0
+        isGlobal: 0
+        intValue: 0
+        floatValue: 0
+        stringValue: 
+        boolValue: 0
+    escolhas:
+      tipoEscolhas: 0
+      idEscolhaDeSaidaDoMenu: 0
+      escolhas: []
+  - text: opa! veio aqui.
+    autoNext: 0
+    acao:
+      acao: 0
+      parametros:
+        id: 
+        id2: 
+        type: 0
+        isGlobal: 0
+        intValue: 0
+        floatValue: 0
+        stringValue: 
+        boolValue: 0
+    escolhas:
+      tipoEscolhas: 0
+      idEscolhaDeSaidaDoMenu: 0
+      escolhas: []
+  - text: agora vamos estar escolhas
+    autoNext: 0
+    acao:
+      acao: 0
+      parametros:
+        id: 
+        id2: 
+        type: 0
+        isGlobal: 0
+        intValue: 0
+        floatValue: 0
+        stringValue: 
+        boolValue: 0
+    escolhas:
+      tipoEscolhas: 0
+      idEscolhaDeSaidaDoMenu: 0
+      escolhas: []
+  - text: sexo 4
+    autoNext: 0
+    acao:
+      acao: 0
+      parametros:
+        id: 
+        id2: 
+        type: 0
+        isGlobal: 0
+        intValue: 0
+        floatValue: 0
+        stringValue: 
+        boolValue: 0
+    escolhas:
+      tipoEscolhas: 1
+      idEscolhaDeSaidaDoMenu: 2
+      escolhas:
+      - escolha: Eu quero 1
+        tipoEscolha: 0
+        respostaFala:
+          text: "Eu n\xE3o tenho 1"
+          autoNext: 0
+          acao:
+            acao: 0
+            parametros:
+              id: 
+              id2: 
+              type: 0
+              isGlobal: 0
+              intValue: 0
+              floatValue: 0
+              stringValue: 
+              boolValue: 0
+        respostaDialogo: {fileID: 0}
+      - escolha: Eu quero 2
+        tipoEscolha: 0
+        respostaFala:
+          text: "Eu n\xE3o tenho 2"
+          autoNext: 0
+          acao:
+            acao: 0
+            parametros:
+              id: 
+              id2: 
+              type: 0
+              isGlobal: 0
+              intValue: 0
+              floatValue: 0
+              stringValue: 
+              boolValue: 0
+        respostaDialogo: {fileID: 0}
+      - escolha: "Eu n\xE3o quero mais nada"
+        tipoEscolha: 0
+        respostaFala:
+          text: "T\xE1?"
+          autoNext: 0
+          acao:
+            acao: 0
+            parametros:
+              id: 
+              id2: 
+              type: 0
+              isGlobal: 0
+              intValue: 0
+              floatValue: 0
+              stringValue: 
+              boolValue: 0
+        respostaDialogo: {fileID: 0}

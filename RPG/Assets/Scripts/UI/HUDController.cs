@@ -8,10 +8,15 @@ public class HUDController : MonoBehaviour {
     public Color calorPositivoColor, calorNegativoColor;
     public Image calorSliderFill;
 
-    public Text pecasText, missaoText;
+    public Text pecasText;
     public Image imagemArma, imagemSave, playerAim;
     public Color normalAimColor, targetAimColor;
 
+    [Header("Boss")]
+    public GameObject objetivoPrefab;
+    public GameObject objetivoHolder;
+
+    [Header("Outros")]
     public Slider bossVidaSlider;
     public GameObject fpsGO;
 
@@ -19,16 +24,44 @@ public class HUDController : MonoBehaviour {
         public string texto;
         public QuestInfo questInfo;
 
+        public GameObject instancia;
+        public Text tituloText, descricaoText;
+
         public Missao_Texto(QuestInfo questInfo, string texto) {
             this.questInfo = questInfo;
             this.texto = texto;
+            this.instancia = GameObject.Instantiate(UIController.HUD.objetivoPrefab, UIController.HUD.objetivoHolder.transform);
+
+            Text[] textos = instancia.GetComponentsInChildren<Text>();
+
+            foreach (Text textoEl in textos) {
+                if (textoEl.name == "Titulo") {
+                    this.tituloText = textoEl;
+                } else if (textoEl.name == "Descricao") {
+                    this.descricaoText = textoEl;
+                }
+            }
+
+            this.tituloText.text = questInfo.titulo;
+            this.descricaoText.text = texto;
+        }
+
+        public void Update(string texto) {
+            this.texto = texto;
+            this.descricaoText.text = texto;
+        }
+
+        public void Destroy() {
+            GameObject.Destroy(instancia);
         }
     }
 
     List<Missao_Texto> missoesTextos = new List<Missao_Texto>();
 
-    void Start() {
-        missaoText.text = "";
+    void Awake() {
+        foreach (Transform filho in objetivoHolder.transform) {
+            Destroy(filho.gameObject);
+        }
     }
 
     public void UpdateVida(float vida, float vidaMax) {
@@ -52,12 +85,11 @@ public class HUDController : MonoBehaviour {
     }
 
     
-
     public void UpdateMissaoText(QuestInfo quest, string texto) {
         bool achou = false;
         foreach (Missao_Texto mt in missoesTextos) {
             if (mt.questInfo == quest) {
-                mt.texto = texto;
+                mt.Update(texto);
                 achou = true;
                 break;
             }
@@ -67,22 +99,25 @@ public class HUDController : MonoBehaviour {
             missoesTextos.Add(new Missao_Texto(quest, texto));
         }
 
-        UpdateMissaoText();
+        for (int i = missoesTextos.Count - 1; i >= 0; i--) {
+            if (missoesTextos[i].texto == "" || QuestManager.instance.IsQuestFinished(missoesTextos[i].questInfo.questId)) {
+                missoesTextos[i].Destroy();
+                missoesTextos.RemoveAt(i);
+            }
+        }
     }
 
     public void UpdateMissaoText() {
         for (int i = missoesTextos.Count - 1; i >= 0; i--) {
-            if (missoesTextos[i].texto == "" || QuestManager.instance.IsQuestFinished(missoesTextos[i].questInfo.questId)) {
+            Missao_Texto mt = missoesTextos[i];
+            string texto = mt.texto;
+            mt.Update(texto);
+
+            if (texto == "" || QuestManager.instance.IsQuestFinished(mt.questInfo.questId)) {
+                mt.Destroy();
                 missoesTextos.RemoveAt(i);
             }
         }
-
-        string missao = "";
-        foreach (Missao_Texto mt in missoesTextos) {
-            missao += "- " + mt.texto + "\n";
-        }
-
-        missaoText.text = missao;
     }
 
     public void SetArmaEquipada(Arma arma) {

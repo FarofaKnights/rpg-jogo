@@ -214,11 +214,11 @@ public class Quest : Saveable {
         } else info.steps[currentStep].gameObject.GetComponent<QuestStep>();
 
         
-        if (atEndState != QuestState.CAN_START && (atEndState == QuestState.IN_PROGRESS || ultimoStep.IsEfeitoPersistente))
+        if (atEndState != QuestState.CAN_START && (atEndState == QuestState.IN_PROGRESS || (ultimoStep != null && ultimoStep.IsEfeitoPersistente)))
             QuestManager.instance.RunQuestStepOnLoad(info.questId);
         QuestManager.instance.ChangeQuestState(info.questId, atEndState);
-
-        UIController.HUD.UpdateMissaoText();
+        
+        UIController.HUD.UpdateMissaoText(info, CurrentMessage());
     }
 
     QuestStep CurrentStepObject() {

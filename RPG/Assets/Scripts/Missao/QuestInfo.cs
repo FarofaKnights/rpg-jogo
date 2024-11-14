@@ -43,6 +43,8 @@ public class QuestInfo : ScriptableObject {
     [Header("Quest Info")]
     public string questId;
     
+    public bool mostrarNaLista = true;
+    
     public string titulo;
     [TextArea(3, 10)] public string descricao;
     

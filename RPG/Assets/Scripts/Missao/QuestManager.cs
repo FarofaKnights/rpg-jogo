@@ -66,7 +66,6 @@ public class QuestManager : MonoBehaviour, Saveable {
             }
         }
         
-        UIController.HUD.UpdateMissaoText();
         OnQuestsLoaded?.Invoke();
     }
 

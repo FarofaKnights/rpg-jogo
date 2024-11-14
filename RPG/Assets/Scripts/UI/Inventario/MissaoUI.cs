@@ -33,6 +33,8 @@ public class MissaoUI : MonoBehaviour, UITab {
         }
 
         foreach (Quest quest in QuestManager.instance.quests.Values) {
+            if (quest.info.mostrarNaLista == false || quest.state == QuestState.WAITING_REQUIREMENTS || quest.state == QuestState.CAN_START) continue;
+
             GameObject btn = Instantiate(missaoBtnPrefab, missaoBtnHolder);
             btn.GetComponentInChildren<Text>().text = quest.info.titulo;
             btn.GetComponent<Button>().onClick.AddListener(() => {
@@ -90,6 +92,12 @@ public class MissaoUI : MonoBehaviour, UITab {
             }
             i++;
         }
-        
+
+        StartCoroutine(AtualizarTamanho());
+    }
+
+    IEnumerator AtualizarTamanho() {
+        yield return new WaitForEndOfFrame();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(missaoConteudoHolder.GetComponent<RectTransform>());
     }
 }
