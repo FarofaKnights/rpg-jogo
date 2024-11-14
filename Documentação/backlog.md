@@ -6,12 +6,13 @@ Sempre que alguém lembrar de algo, seja erro, seja observação, é aconselháv
 ## 🥵 Urgente
 Prioridade em implementação (mais que os itens da planilha)
 
-Não tem nada aqui UwU
+- Mudar como as informações são apresentadas no tutorial (UI) 
 
 ## 😥 Alta
 Deve ser implementado assim que possível 
 
- - Melhorar o ataque do jogador
+- Melhorar o ataque do jogador
+- Implementar o sangue do player e animação de dano (já existe)
 
 ## 😑 Média
 Tem que ser implementado até o fim do projeto mas não precisa ser agora
@@ -22,14 +23,14 @@ Tem que ser implementado até o fim do projeto mas não precisa ser agora
 - Armas jogáveis de inimigo, tipo o tijolo, desaparecer ao jogar
 - Fazer a tragetória do tijolo respeitar as leis da física de um lançamento
 - Jogador poder tomar stun de hit
-- Mudar como as informações são apresentadas no tutorial (UI) 
 - Tela de loading
 - Inimigos vão atrás do player quando levam dano
 - Modificar sistema de dinheiro para peças (contabilizam no inventário) e ajustar os preços da loja 
+- Resolver o item duplicado
 
 ## 😌 Baixa
 Fará falta se não for implementado mas pode não ser
-
+- Melhorar o inputs da camera de mira
 - Fazer configuração de gráficos (gama, etc)
 - Melhorar dash e permitir dash para trás
 - Atualizar o visual e posição dos Fs
@@ -37,7 +38,6 @@ Fará falta se não for implementado mas pode não ser
 - Informações de comando na UI
 - Selecionar um consumível com hotkey
 - Indicador de localização no mapa
-- Implementar o sangue do player (já existe)
 - Possiveis invencible frames (discutir com o grupo antes)  
 
 ## 🤠 Nenhuma
