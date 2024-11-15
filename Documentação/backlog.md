@@ -25,17 +25,14 @@ Tem que ser implementado até o fim do projeto mas não precisa ser agora
 - Jogador poder tomar stun de hit
 - Tela de loading
 - Inimigos vão atrás do player quando levam dano
-- Modificar sistema de dinheiro para peças (contabilizam no inventário) e ajustar os preços da loja 
-- Resolver o item duplicado
+- Modificar sistema de dinheiro para peças (contabilizam no inventário) e ajustar os preços da loja
 
 ## 😌 Baixa
 Fará falta se não for implementado mas pode não ser
-- Melhorar o inputs da camera de mira
 - Fazer configuração de gráficos (gama, etc)
 - Melhorar dash e permitir dash para trás
 - Atualizar o visual e posição dos Fs
 - Melhorar visualização da vida do inimigo
-- Informações de comando na UI
 - Selecionar um consumível com hotkey
 - Indicador de localização no mapa
 - Possiveis invencible frames (discutir com o grupo antes)  

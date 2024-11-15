@@ -9,10 +9,16 @@ public class HUDController : MonoBehaviour {
     public Image calorSliderFill;
 
     public Text pecasText;
-    public Image imagemArma, imagemSave, playerAim;
+    public Image imagemSave, playerAim;
     public Color normalAimColor, targetAimColor;
+    public IndicadorMiraUI[] indicadoresMira;
 
-    [Header("Boss")]
+    [Header("Indicadores de equipamento")]
+    public Image imagemArma;
+    public Image imagemBraco;
+    public GameObject principalHolder, secundariaHolder;
+
+    [Header("Missão")]
     public GameObject objetivoPrefab;
     public GameObject objetivoHolder;
 
@@ -120,24 +126,36 @@ public class HUDController : MonoBehaviour {
         }
     }
 
-    public void SetArmaEquipada(Arma arma) {
-        if (arma == null) {
-            imagemArma.sprite = null;
-            imagemArma.color = new Color(0, 0, 0, 0);
-            return;
-        }
-
-        Item item = arma.GetComponent<Item>();
+    void SetEquipamento(Image imagem, Item item) {
         if (item == null || item.data == null) {
-            Debug.LogError("Arma não tem componente Item ou Item não tem data!");
-            imagemArma.sprite = null;
-            imagemArma.color = new Color(0, 0, 0, 0);
+            imagem.sprite = null;
+            imagem.color = new Color(0, 0, 0, 0);
             return;
         }
 
         ItemData data = item.data;
-        imagemArma.sprite = data.sprite;
-        imagemArma.color = Color.white;
+        imagem.sprite = data.sprite;
+        imagem.color = Color.white;
+    }
+
+    public void SetArmaEquipada(Arma arma) {
+        if (arma == null) {
+            SetEquipamento(imagemArma, null);
+            return;
+        }
+
+        Item item = arma.GetComponent<Item>();
+        SetEquipamento(imagemArma, item);
+    }
+
+    public void SetBracoEquipado(Braco braco) {
+        if (braco == null) {
+            SetEquipamento(imagemBraco, null);
+            return;
+        }
+
+        Item item = braco.GetComponent<Item>();
+        SetEquipamento(imagemBraco, item);
     }
 
     public void PopUpSaveInfo() {
@@ -150,12 +168,39 @@ public class HUDController : MonoBehaviour {
         imagemSave.gameObject.SetActive(false);
     }
 
+    public void SetBracoMode(bool isBracoMode) {
+        if (isBracoMode) {
+            imagemBraco.transform.SetParent(principalHolder.transform);
+            imagemArma.transform.SetParent(secundariaHolder.transform);
+        } else {
+            imagemArma.transform.SetParent(principalHolder.transform);
+            imagemBraco.transform.SetParent(secundariaHolder.transform);
+        }
+
+        imagemArma.rectTransform.anchoredPosition = Vector2.zero;
+        imagemArma.rectTransform.offsetMin = Vector2.zero;
+        imagemArma.rectTransform.offsetMax = Vector2.zero;
+        imagemBraco.rectTransform.anchoredPosition = Vector2.zero;
+        imagemBraco.rectTransform.offsetMin = Vector2.zero;
+        imagemBraco.rectTransform.offsetMax = Vector2.zero;
+    }
+
     public void ShowAim(bool show) {
-        playerAim.gameObject.SetActive(show);
+        // playerAim.gameObject.SetActive(show);
+
+        foreach (IndicadorMiraUI indicador in indicadoresMira) {
+            indicador.gameObject.SetActive(show);
+            indicador.enabled = show;
+        }
     }
 
     public void AimHasTarget(bool hasTarget) {
-        playerAim.color = hasTarget ? targetAimColor : normalAimColor;
+        // playerAim.color = hasTarget ? targetAimColor : normalAimColor;
+
+        foreach (IndicadorMiraUI indicador in indicadoresMira) {
+            indicador.SetAim(hasTarget);
+            indicador.color = hasTarget ? targetAimColor : normalAimColor;
+        }
     }
 
     void OnValidate() {

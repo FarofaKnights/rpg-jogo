@@ -182,11 +182,13 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
         if (GameManager.instance.IsPaused()) return;
         if (stateMachine.GetCurrentState() == attackState || stateMachine.GetCurrentState() == aimState) return;
 
+        List<Drop> dropsPegos = new List<Drop>();
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, 3f);
         foreach (Collider hitCollider in hitColliders) {
             Drop drop = hitCollider.GetComponent<Drop>();
-            if (drop != null) {
+            if (drop != null && !dropsPegos.Contains(drop)) {
                 drop.OnCollect();
+                dropsPegos.Add(drop);
             }
         }
     }

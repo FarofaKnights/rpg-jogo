@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: QuestTest
   m_EditorClassIdentifier: 
   questId: QuestTest
+  mostrarNaLista: 1
   titulo: "Miss\xE3o de Teste"
   descricao: "Essa \xE9 s\xF3 uma miss\xE3o de testes, n\xE3o leve a s\xE9rio ou
     tente acha-la pelo mapa (ela est\xE1 no HUD_Testes)"
@@ -32,6 +33,10 @@ MonoBehaviour:
           floatValue: 0
           stringValue: 
           boolValue: 0
+      escolhas:
+        tipoEscolhas: 0
+        idEscolhaDeSaidaDoMenu: -1
+        escolhas: []
     - text: Eu vou abrir a porta aqui pra vc :)
       autoNext: 0
       acao:
@@ -45,6 +50,10 @@ MonoBehaviour:
           floatValue: 0
           stringValue: 
           boolValue: 0
+      escolhas:
+        tipoEscolhas: 0
+        idEscolhaDeSaidaDoMenu: -1
+        escolhas: []
   - nome: teste
     falas:
     - text: uma nova fala e tallss
@@ -60,6 +69,10 @@ MonoBehaviour:
           floatValue: 0
           stringValue: 
           boolValue: 0
+      escolhas:
+        tipoEscolhas: 0
+        idEscolhaDeSaidaDoMenu: -1
+        escolhas: []
   requirementsInfo:
     condicao: 2
     parametros:

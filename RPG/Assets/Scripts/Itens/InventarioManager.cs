@@ -81,6 +81,7 @@ public class InventarioManager : IInventario, Saveable {
         braco.transform.localRotation = Quaternion.identity;
 
         UIController.equipamentos.RefreshUI();
+        UIController.HUD.SetBracoEquipado(braco);
     }
 
     public void DesequiparBraco() {
@@ -90,6 +91,7 @@ public class InventarioManager : IInventario, Saveable {
         Player.instance.braco = null;
 
         UIController.equipamentos.RefreshUI();
+        UIController.HUD.SetBracoEquipado(null);
     }
 
     #region IInventario implementation

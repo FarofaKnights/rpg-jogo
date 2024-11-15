@@ -14,6 +14,9 @@ public class SettingsManager : MonoBehaviour, Saveable
     public float masterVolume, musicVolume, effectVolume;
     public Slider masterSlider, musicSlider, effectSlider, sensi;
     public AudioMixerGroup master, music, effect;
+
+    public System.Action<SettingsValues> OnSettingsChanged;
+    public SettingsValues settingsValues;
     
     GameObject cinemachineCamera;
     CinemachineFreeLook playerCamera;
@@ -152,12 +155,17 @@ public class SettingsManager : MonoBehaviour, Saveable
         sv.cameraInvertX = invertedX;
         sv.cameraInvertY = invertedY;
         sv.sense = sense;
+
+        settingsValues = sv;
+        OnSettingsChanged?.Invoke(sv);
+
         return sv.ToJson();
     }
 
     public void Load(JSONObject json)
     {
         SettingsValues loadValues = new SettingsValues(json);
+        settingsValues = loadValues;
 
         masterVolume = DenormalizeValues(loadValues.masterVolume);
         master.audioMixer.SetFloat("VolumeMaster", masterVolume);
@@ -177,6 +185,8 @@ public class SettingsManager : MonoBehaviour, Saveable
         sense = loadValues.sense;
         sensi.value = sense;
         LoadCam();
+        
+        OnSettingsChanged?.Invoke(loadValues);
     }
 
     public void LoadDefault()
@@ -292,6 +302,9 @@ public class SettingsValues
     public float sense;
     public bool cameraInvertX;
     public bool cameraInvertY;
+
+    public float senseX { get { return sense * 1000 + 100; } }
+    public float senseY { get { return sense * 5 + 1; } }
 
     public SettingsValues()
     {
