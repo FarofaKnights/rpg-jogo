@@ -61,6 +61,7 @@ public class EnemyDeathState : IEnemyState {
 
         if (estado == Estado.Animacao && timer <= 0) {
             estado = Estado.Dissolve;
+            maxTimer = inimigo.tempoDissolvendo;
             timer = inimigo.tempoDissolvendo;
         } else if (estado == Estado.Dissolve) {
             if (timer <= 0) {
