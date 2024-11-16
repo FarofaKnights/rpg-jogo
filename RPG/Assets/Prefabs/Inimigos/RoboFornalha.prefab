@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1350139370262767063}
   - component: {fileID: -9072679765509680982}
   - component: {fileID: -8429247748070395611}
+  - component: {fileID: 4034472971777377722}
   m_Layer: 7
   m_Name: RoboFornalha
   m_TagString: Inimigo
@@ -81,8 +82,8 @@ MonoBehaviour:
   semStunTime: 2.5
   ataquesFeitos: 0
   possuiAnimacaoMorte: 1
-  tempoAteDissolver: 1
-  tempoDissolvendo: 1
+  tempoAteDissolver: 0
+  tempoDissolvendo: 0.5
   target: {fileID: 0}
   recompensaPecas: 10
   getHitParticles: {fileID: 4938373727297579305, guid: 2e6877b1152892342883c6741da4c817,
@@ -357,6 +358,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4034472971777377722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993493289770186883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c62f847ddd04524686cfc6aa4201f96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropItem: {fileID: 4687073999520208603, guid: 7585680a5beac014a973c3459f10572a,
+    type: 3}
 --- !u!1 &2440540294165353468
 GameObject:
   m_ObjectHideFlags: 0
