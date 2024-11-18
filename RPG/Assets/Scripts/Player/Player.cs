@@ -351,7 +351,7 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
 
     public void OnBeingHit(float dano) {
         if (stateMachine.GetCurrentState() == hittedState) return;
-        // stateMachine.SetState(hittedState);
+        stateMachine.SetState(hittedState);
     }
 
     public void SentirTemperatura(float modTemperatura) {

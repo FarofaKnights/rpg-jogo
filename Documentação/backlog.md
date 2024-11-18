@@ -20,7 +20,6 @@ Tem que ser implementado até o fim do projeto mas não precisa ser agora
 - Melhorar a tela de créditos (mais créditos para o nosso amigo lucas sabino pfv 🙏, gerente de produção de assets, diretor de animação, gerente de arte, personagens, texturas, mais bonito do grupo, melhores piadas, mais alto.)
 - Armas jogáveis de inimigo, tipo o tijolo, desaparecer ao jogar
 - Fazer a tragetória do tijolo respeitar as leis da física de um lançamento
-- Jogador poder tomar stun de hit
 - Tela de loading
 - Inimigos vão atrás do player quando levam dano
 - Modificar sistema de dinheiro para peças (contabilizam no inventário) e ajustar os preços da loja
