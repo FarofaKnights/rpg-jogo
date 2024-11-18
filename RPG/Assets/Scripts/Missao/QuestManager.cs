@@ -16,6 +16,8 @@ public class QuestManager : MonoBehaviour, Saveable {
     Action _OnQuestsLoaded;
     bool loadingFromSave = false;
 
+    List<string> OnGoingQuests = new List<string>();
+
     public Action OnQuestsLoaded {
         get { return _OnQuestsLoaded; }
         set {
@@ -59,9 +61,10 @@ public class QuestManager : MonoBehaviour, Saveable {
             if (quest.info.requirementsInfo != null && quest.info.requirementsInfo.GetCondicao() != null) {
                 Condicao condicao = quest.info.requirementsInfo.GetCondicao();
                 condicao.Then(() => {
-                    ChangeQuestState(quest.info.questId, QuestState.CAN_START);
+                    if (quest.state == QuestState.WAITING_REQUIREMENTS)
+                        ChangeQuestState(quest.info.questId, QuestState.CAN_START);
                 });
-            } else {
+            } else if (quest.state == QuestState.WAITING_REQUIREMENTS){
                 ChangeQuestState(quest.info.questId, QuestState.CAN_START);
             }
         }
@@ -70,10 +73,14 @@ public class QuestManager : MonoBehaviour, Saveable {
     }
 
     public void StartQuest(string questId) {
+        if (OnGoingQuests.Contains(questId)) return;
+
         Quest quest = GetQuestById(questId);
 
         GameObject stepGO = quest.InstantiateStep(transform);
         stepGO.GetComponent<QuestStep>().Initialize(questId);
+
+        OnGoingQuests.Add(questId);
 
         ChangeQuestState(questId, QuestState.IN_PROGRESS);
     }

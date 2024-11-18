@@ -161,6 +161,10 @@ public class Quest : Saveable {
     public void Load(JSONObject obj) {
         QuestState oldState = state;
         QuestState atEndState = (QuestState)obj.GetField("state").intValue;
+
+        if (oldState == QuestState.IN_PROGRESS && (atEndState == QuestState.CAN_START || atEndState == QuestState.WAITING_REQUIREMENTS)) {
+            return;
+        }
         
         if (oldState == QuestState.WAITING_REQUIREMENTS && obj.GetField("state").intValue > 0) {
             Condicao condicao = info.requirementsInfo.GetCondicao();

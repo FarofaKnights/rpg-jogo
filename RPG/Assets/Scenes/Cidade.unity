@@ -31833,6 +31833,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SavePoint (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5218105667884775044, guid: cbae9c9e3d377224b9d96880b7f3e607,
+        type: 3}
+      propertyPath: pointName
+      value: LojaSpawnpoint
+      objectReference: {fileID: 0}
     - target: {fileID: 7017800455123393353, guid: cbae9c9e3d377224b9d96880b7f3e607,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -51732,7 +51737,7 @@ GameObject:
   - component: {fileID: 1684122122}
   - component: {fileID: 1684122125}
   - component: {fileID: 1684122124}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TriggerNextScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51824,7 +51829,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.99999994, y: 1.0000002, z: 1.0000002}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.5, z: 0}
 --- !u!114 &1684122124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51837,7 +51842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9390ce80f1ecdd4488b92d3af3120e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagFilter: 
+  tagFilter: Player
 --- !u!114 &1684122125
 MonoBehaviour:
   m_ObjectHideFlags: 0

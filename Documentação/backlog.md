@@ -12,14 +12,12 @@ Prioridade em implementação (mais que os itens da planilha)
 Deve ser implementado assim que possível 
 
 - Melhorar o ataque do jogador
-- Implementar o sangue do player e animação de dano (já existe)
 
 ## 😑 Média
 Tem que ser implementado até o fim do projeto mas não precisa ser agora
 
 - Melhorar câmera
 - Melhorar a tela de créditos (mais créditos para o nosso amigo lucas sabino pfv 🙏, gerente de produção de assets, diretor de animação, gerente de arte, personagens, texturas, mais bonito do grupo, melhores piadas, mais alto.)
-- Arrumar scroll do changelog
 - Armas jogáveis de inimigo, tipo o tijolo, desaparecer ao jogar
 - Fazer a tragetória do tijolo respeitar as leis da física de um lançamento
 - Jogador poder tomar stun de hit

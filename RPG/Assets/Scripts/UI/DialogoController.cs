@@ -169,7 +169,6 @@ public class DialogoController : MonoBehaviour {
         escolhasHolder.SetActive(false);
         dialogoHolder.SetActive(true);
 
-        Debug.Log("Mostrando texto: " + text);
         texto.text = text;
     }
 
