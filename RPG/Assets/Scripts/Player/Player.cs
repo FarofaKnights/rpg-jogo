@@ -29,6 +29,7 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
     [Header("Informações")]
     public PlayerMovementInfo informacoesMovimentacao;
     public PlayerAimInfo informacoesMira;
+    public float stunTime = 0.5f;
     Vector3 velocity;
     AtacadorInfo atacadorInfo;
 
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
     public PlayerMoveState moveState;
     public PlayerAttackState attackState;
     public PlayerAimState aimState;
+    public PlayerHittedState hittedState;
     [HideInInspector] public bool canChangeStateThisFrame = true;
 
     [Header("Referências")]
@@ -48,6 +50,8 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
     public CinemachineVirtualCamera aimCam;
     public CinemachineVirtualCamera lookDirectionAuxCam;
     public GameObject look, aimLook;
+    public Transform defaultBraco;
+    public Transform bracoHolderBase, bracoHolderMeio, bracoHolderMao;
     PossuiVida vidaController;
 
     void Awake() {
@@ -99,6 +103,7 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
         moveState = new PlayerMoveState(this);
         attackState = new PlayerAttackState(this);
         aimState = new PlayerAimState(this);
+        hittedState = new PlayerHittedState(this);
         stateMachine.SetState(moveState);
     }
 
@@ -108,6 +113,7 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
 
         // Define que ao morrer chama o GameOver
         vidaController.onDeath += () => { GameManager.instance.GameOver(); };
+        vidaController.onDamage += OnBeingHit;
 
         // Define chamada de evento do stats
         stats.OnChange += (string a, int b) => AplicarStats();
@@ -341,6 +347,11 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
             vidaInimigo.LevarDano(ataque.dano + adicional);
         
         return true;
+    }
+
+    public void OnBeingHit(float dano) {
+        if (stateMachine.GetCurrentState() == hittedState) return;
+        // stateMachine.SetState(hittedState);
     }
 
     public void SentirTemperatura(float modTemperatura) {

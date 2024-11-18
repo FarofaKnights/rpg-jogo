@@ -90,10 +90,12 @@ public class Dialogavel : MonoBehaviour, Saveable {
         JSONObject aguardandoJson = new JSONObject(JSONObject.Type.Array);
 
         foreach (Dialogo dialogo in concluidos) {
+            if (dialogo == null) continue;
             concluidosJson.Add(dialogo.name);
         }
 
         foreach (Dialogo dialogo in aguardando) {
+            if (dialogo == null) continue;
             aguardandoJson.Add(dialogo.name);
         }
 

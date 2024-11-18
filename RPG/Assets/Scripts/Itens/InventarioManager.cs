@@ -27,6 +27,7 @@ public class InventarioManager : IInventario, Saveable {
     IEnumerator SkipOneStartFrame() {
         yield return null;
         UIController.HUD.SetArmaEquipada(Player.instance.arma);
+        UIController.HUD.SetBracoEquipado(Player.instance.braco);
     }
 
     void HandleItemChange(ItemData item, int quantidade) {
@@ -80,6 +81,19 @@ public class InventarioManager : IInventario, Saveable {
         braco.transform.localPosition = Vector3.zero;
         braco.transform.localRotation = Quaternion.identity;
 
+        // Partes
+        braco.baseBraco.SetParent(Player.instance.bracoHolderBase);
+        braco.baseBraco.localPosition = Vector3.zero;
+        braco.baseBraco.localRotation = Quaternion.identity;
+
+        braco.meioBraco.SetParent(Player.instance.bracoHolderMeio);
+        braco.meioBraco.localPosition = Vector3.zero;
+        braco.meioBraco.localRotation = Quaternion.identity;
+
+        braco.maoBraco.SetParent(Player.instance.bracoHolderMao);
+        braco.maoBraco.localPosition = Vector3.zero;
+        braco.maoBraco.localRotation = Quaternion.identity;
+
         UIController.equipamentos.RefreshUI();
         UIController.HUD.SetBracoEquipado(braco);
     }
@@ -87,6 +101,9 @@ public class InventarioManager : IInventario, Saveable {
     public void DesequiparBraco() {
         if (Player.instance.braco == null) return;
 
+        GameObject.Destroy(Player.instance.braco.baseBraco.gameObject);
+        GameObject.Destroy(Player.instance.braco.meioBraco.gameObject);
+        GameObject.Destroy(Player.instance.braco.maoBraco.gameObject);
         GameObject.Destroy(Player.instance.braco.gameObject);
         Player.instance.braco = null;
 

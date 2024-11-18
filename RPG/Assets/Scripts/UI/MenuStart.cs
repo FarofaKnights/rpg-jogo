@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 
 [System.Serializable]
 public class ChangeLogRelation {
@@ -115,5 +116,13 @@ public class MenuStart : MonoBehaviour {
                 item.referenciaObjeto.SetActive(false);
             }
         }
+
+        StartCoroutine(RefreshChangeLog());
+    }
+
+    IEnumerator RefreshChangeLog() {
+        yield return new WaitForEndOfFrame();
+        changeLogScrollRect.verticalNormalizedPosition = 1;
+        LayoutRebuilder.ForceRebuildLayoutImmediate(changeLogScrollRect.GetComponent<RectTransform>());
     }
 }

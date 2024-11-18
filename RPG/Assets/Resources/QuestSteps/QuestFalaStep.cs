@@ -11,6 +11,7 @@ public class QuestFalaStep : QuestStep, IQuestInformations {
     public QuestInfo questInfo;
     public string falaName;
     bool alreadySet = false;
+    bool alreadyFinished = false;
 
     void Start() {
         Set();
@@ -23,9 +24,16 @@ public class QuestFalaStep : QuestStep, IQuestInformations {
         Fala[] falas = questInfo.GetFalas(falaName);
 
         if (falas != null && falas.Length > 0)
-            UIController.dialogo.StartDialogo(falas, FinishStep);
+            UIController.dialogo.StartDialogo(falas, JustFinish);
         else
-            FinishStep();
+            JustFinish();
+    }
+
+    void JustFinish() {
+        if (alreadyFinished) return;
+        alreadyFinished = true;
+
+        FinishStep();
     }
 
     public void HandleQuestInformations(QuestInfo questInfo, string parameter) {

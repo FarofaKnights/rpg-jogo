@@ -38,7 +38,6 @@ public class Projetil : MonoBehaviour {
         alreadyHit = true;
 
         if(other.CompareTag("PuzzleTarget")){
-            Debug.Log("Colisoa");
             other.GetComponent<PuzzleTarget>().AcaoDoPuzzle.Action();
         }
 
@@ -48,6 +47,10 @@ public class Projetil : MonoBehaviour {
 
             PossuiVida vida = other.GetComponent<PossuiVida>();
             if (vida != null) vida.LevarDano(dano);
+            else {
+                vida = other.GetComponentInChildren<PossuiVida>();
+                if (vida != null) vida.LevarDano(dano);
+            }
         } else if(explosao != null) {
             Instantiate(explosao, transform.position, transform.rotation);
         }

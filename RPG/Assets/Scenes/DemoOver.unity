@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.0916364, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.356017, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -182,7 +182,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 02e83e504084944449f94a768a90e8f5, type: 3}
+    m_Font: {fileID: 12800000, guid: 98583f40e68f4e64aa624c6450ff6408, type: 3}
     m_FontSize: 22
     m_FontStyle: 0
     m_BestFit: 0
@@ -379,7 +379,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 02e83e504084944449f94a768a90e8f5, type: 3}
+    m_Font: {fileID: 12800000, guid: 54e1f8878013807478fd6cd68bde0ee3, type: 3}
     m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
@@ -391,7 +391,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Muito Obrigado(a) por jogar a demo de Frostbite. Agradecemos aos nossos
+  m_Text: 'Muito Obrigado(a) por jogar a demo de Sangue Frio. Agradecemos aos nossos
     professores e aos nossos colegas de sala e de curso pelo apoio, ajuda e feedback
     durante o semestre.
 
@@ -460,7 +460,12 @@ MonoBehaviour:
   gameSceneName: Start
   uiConfig: {fileID: 0}
   settingsPanel: {fileID: 0}
-  controlsPanel: {fileID: 0}
+  jogarPanel: {fileID: 0}
+  changeLogPanel: {fileID: 0}
+  changeLogScrollRect: {fileID: 0}
+  selectChangeLogButtonPrefab: {fileID: 0}
+  changeLogSelectHolder: {fileID: 0}
+  changeLogItems: []
 --- !u!114 &518094575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -625,7 +630,12 @@ MonoBehaviour:
   gameSceneName: Creditos
   uiConfig: {fileID: 0}
   settingsPanel: {fileID: 0}
-  controlsPanel: {fileID: 0}
+  jogarPanel: {fileID: 0}
+  changeLogPanel: {fileID: 0}
+  changeLogScrollRect: {fileID: 0}
+  selectChangeLogButtonPrefab: {fileID: 0}
+  changeLogSelectHolder: {fileID: 0}
+  changeLogItems: []
 --- !u!114 &656725626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -852,15 +862,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Material: {fileID: 2100000, guid: 44c5a8a0fc003ff46a6d7030e42e91ff, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1032,7 +1042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.0916364, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.39724183, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1040,7 +1050,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 02e83e504084944449f94a768a90e8f5, type: 3}
+    m_Font: {fileID: 12800000, guid: 98583f40e68f4e64aa624c6450ff6408, type: 3}
     m_FontSize: 22
     m_FontStyle: 0
     m_BestFit: 0

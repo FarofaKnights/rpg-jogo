@@ -55,6 +55,7 @@ public class SniperController : MonoBehaviour {
 
         vidaController.onChange += (vida) => {
             if (canStun) {
+                canStun = false;
                 animator.SetTrigger("Hitted");
                 reloadStunTime = reloadStunTimer;
             }

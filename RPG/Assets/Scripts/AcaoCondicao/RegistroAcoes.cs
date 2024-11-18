@@ -14,6 +14,7 @@ public enum AcoesRegistradas {
     TROCAR_CAMERA,
     RODA_FUNCAO,
     TELEPORTA,
+    MUDA_CENA,
 }
 
 public class RegistroAcoes {
@@ -28,6 +29,7 @@ public class RegistroAcoes {
         { AcoesRegistradas.TROCAR_CAMERA, typeof(AcaoChangeCam) },
         { AcoesRegistradas.RODA_FUNCAO, typeof(AcaoRodaFuncao) },
         { AcoesRegistradas.TELEPORTA, typeof(AcaoTeleporta) },
+        { AcoesRegistradas.MUDA_CENA, typeof(AcaoMudaCena) },
     };
 
 

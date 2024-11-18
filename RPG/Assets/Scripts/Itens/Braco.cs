@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Braco : Equipamento {
     public AnimatorOverrideController animatorOverride;
     public int calorNecessario;
+    public Transform baseBraco, meioBraco, maoBraco;
 
     public void Ativar() {
         if (equipador.GetInfo().gameObject != Player.instance.gameObject) {

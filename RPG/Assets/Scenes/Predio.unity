@@ -3461,6 +3461,7 @@ GameObject:
   - component: {fileID: 183843770}
   - component: {fileID: 183843769}
   - component: {fileID: 183843768}
+  - component: {fileID: 183843773}
   - component: {fileID: 183843772}
   m_Layer: 0
   m_Name: Adrian
@@ -3586,12 +3587,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 183843766}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9af0e65d29bce6c4cbdd065436421619, type: 3}
+  m_Script: {fileID: 11500000, guid: b9390ce80f1ecdd4488b92d3af3120e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texturial: {fileID: 0}
-  sceneTransition: 1
-  nextScene: Boss_Adrian
+  tagFilter: Player
+--- !u!114 &183843773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183843766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7196a18ac26cd64e80383cb680ab64a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: Boss_Adrian
+  point: Inicio
+  onTrigger: 1
 --- !u!1001 &184848026
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30734,16 +30748,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3955939254151560440, guid: 99f896a820bc8044ab74db83384c5b90,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -67.17151
-      objectReference: {fileID: 0}
-    - target: {fileID: 3955939254151560440, guid: 99f896a820bc8044ab74db83384c5b90,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 30.627625
-      objectReference: {fileID: 0}
     - target: {fileID: 4336784548042497913, guid: 99f896a820bc8044ab74db83384c5b90,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -30783,6 +30787,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230047873322649933, guid: 99f896a820bc8044ab74db83384c5b90,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 33.799988
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230047873322649933, guid: 99f896a820bc8044ab74db83384c5b90,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 11.200012
       objectReference: {fileID: 0}
     - target: {fileID: 8069977999615602838, guid: 99f896a820bc8044ab74db83384c5b90,
         type: 3}
