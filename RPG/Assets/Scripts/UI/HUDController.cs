@@ -68,6 +68,8 @@ public class HUDController : MonoBehaviour {
         foreach (Transform filho in objetivoHolder.transform) {
             Destroy(filho.gameObject);
         }
+
+        ShowAim(false);
     }
 
     public void UpdateVida(float vida, float vidaMax) {
@@ -183,6 +185,8 @@ public class HUDController : MonoBehaviour {
         imagemBraco.rectTransform.anchoredPosition = Vector2.zero;
         imagemBraco.rectTransform.offsetMin = Vector2.zero;
         imagemBraco.rectTransform.offsetMax = Vector2.zero;
+
+        ShowAim(isBracoMode);
     }
 
     public void ShowAim(bool show) {
