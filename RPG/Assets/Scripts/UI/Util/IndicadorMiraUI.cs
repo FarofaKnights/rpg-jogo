@@ -15,6 +15,7 @@ public class IndicadorMiraUI : MonoBehaviour {
 
     void Awake() {
         image = GetComponent<Image>();
+        SetAim(false);
     }
 
     void FixedUpdate() {
