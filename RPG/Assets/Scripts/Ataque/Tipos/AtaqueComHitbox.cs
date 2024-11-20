@@ -33,6 +33,11 @@ public abstract class AtaqueComHitbox : HitListener {
     public abstract void OnLeaveHitbox(GameObject hit);
 
     protected void CreateHitbox() {
+        Transform hitboxParent = hitboxBehavior.atacador.GetInfo().attackHolder.transform;
+        foreach (Transform child in hitboxParent) {
+            Object.Destroy(child.gameObject);
+        }
+
         hitbox = hitboxBehavior.GetHitbox();
 
         // Trigger

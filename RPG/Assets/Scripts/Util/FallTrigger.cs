@@ -13,6 +13,8 @@ public class FallTrigger : MonoBehaviour {
 
     void OnTrigger(GameObject other) {
         if (other.CompareTag("Player")) {
+            Destroy(other);
+
             if (contarComoMorte) {
                 GameManager.instance.GameOver(customSpawnPoint);
             } else {

@@ -61,6 +61,7 @@ public class AreaEquipamentosUI : MonoBehaviour, UITab {
     }
 
     void HandleSlotFocus(ItemData itemData) {
+        if (focusedItem == itemData) HandleSlotClick(itemData);
         lastFocusedItem = focusedItem;
         focusedItem = itemData;
         UpdateFocusedItem();
