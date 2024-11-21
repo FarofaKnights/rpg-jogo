@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class PuzzleTarget : MonoBehaviour
 {
-    public PuzzleResult AcaoDoPuzzle;
+    public PuzzleResult[] AcoesDoPuzzle;
 }

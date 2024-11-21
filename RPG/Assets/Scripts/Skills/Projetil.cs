@@ -38,7 +38,11 @@ public class Projetil : MonoBehaviour {
         alreadyHit = true;
 
         if(other.CompareTag("PuzzleTarget")){
-            other.GetComponent<PuzzleTarget>().AcaoDoPuzzle.Action();
+            PuzzleResult [] pt = other.GetComponent<PuzzleTarget>().AcoesDoPuzzle;
+            foreach(PuzzleResult pr in pt)
+            {
+                pr.Action();
+            }
         }
 
         else if (other.CompareTag(tagAlvo)) {
