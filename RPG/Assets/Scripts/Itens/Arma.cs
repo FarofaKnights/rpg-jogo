@@ -57,4 +57,8 @@ public class Arma : Equipamento, IAtacador {
             default: return 0;
         }
     }
+
+    public virtual float GetDano() {
+        return ataque.dano;
+    }
 }

@@ -43,4 +43,24 @@ public class InimigoComArma : Inimigo, IEquipador {
         arma = null;
         Destroy(equipInstance);
     }
+
+    public override AtaqueInstance GetAtaque(out float waitBeforeLeaving) {
+        waitBeforeLeaving = 0;
+        
+        if (arma != null) return arma.Atacar();
+        else if (braco != null) {
+            braco.Ativar();
+            waitBeforeLeaving = bracoCooldown;
+            return null;
+        }
+
+        return base.GetAtaque(out waitBeforeLeaving);
+    }
+
+    public override float GetDano() {
+        if (arma != null) return arma.GetDano();
+        else if (braco != null) return braco.GetDano();
+
+        return base.GetDano();
+    }
 }

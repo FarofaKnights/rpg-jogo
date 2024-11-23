@@ -16,7 +16,6 @@ public class EnemyAttackState : IEnemyState {
     public void Enter() {
         inimigo.debug.estado_atual = "Attack";
         waitBeforeLeaving = 0;
-        // inimigo.attackSound.Play();
         GameManager.instance.StartCoroutine(Attack());
     }
 
@@ -28,16 +27,8 @@ public class EnemyAttackState : IEnemyState {
     void StartAttack() {
         if (inimigo == null) return;
 
-        if (inimigo.GetType() == typeof(InimigoComArma)) {
-            InimigoComArma inimigoComArma = (InimigoComArma)inimigo;
-            if (inimigoComArma.arma != null) ataqueInstance = inimigoComArma.arma.Atacar();
-            else if (inimigoComArma.braco != null) {
-                inimigoComArma.braco.Ativar();
-                waitBeforeLeaving = inimigoComArma.bracoCooldown;
-                return;
-            }
-        }
-        else ataqueInstance = inimigo.ataque.Atacar(inimigo);
+        ataqueInstance = inimigo.GetAtaque(out waitBeforeLeaving);
+        if (ataqueInstance == null) return; // Util para o ataque com braço!
 
         ataqueInstance.onEnd += LeaveState;
         ataqueInstance.onStateChange += (AtaqueInstance.Estado e) => {

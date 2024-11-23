@@ -63,6 +63,10 @@ public class Inimigo : MonoBehaviour, IAtacador {
 
     [Header("Configurações de Ataque")]
     public AtaqueInfo ataque;
+    public enum ComoAtaca { AtaqueUnico, AtaquesAleatorios, AtaquesEmSequencia }
+    protected int ataqueAtual = -1; // Utilizado apenas em AtaquesEmSequencia
+    public ComoAtaca comoAtaca = ComoAtaca.AtaqueUnico;
+    public AtaqueInfo[] ataques;
     [SerializeField] GameObject attackHitboxHolder;
     AtacadorInfo atacadorInfo;
 
@@ -147,7 +151,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
 
     public bool OnAtaqueHit(GameObject other) {
         if (other != null && other.CompareTag("Player")) {
-            other.GetComponent<PossuiVida>().LevarDano(ataque.dano);
+            other.GetComponent<PossuiVida>().LevarDano(GetDano());
             return true;
         }
         return false;
@@ -169,6 +173,29 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public void MoveWithAttack(float step, float progress) {
         Vector3 move = transform.forward * step;
         controller.Move(move);
+    }
+
+    public virtual AtaqueInstance GetAtaque(out float waitBeforeLeaving) {
+        waitBeforeLeaving = 0;
+
+        if (comoAtaca == ComoAtaca.AtaqueUnico) return ataque.Atacar(this);
+        else if (comoAtaca == ComoAtaca.AtaquesAleatorios) {
+            ataqueAtual = Random.Range(0, ataques.Length);
+            return ataques[ataqueAtual].Atacar(this);
+        }
+        else if (comoAtaca == ComoAtaca.AtaquesEmSequencia) {
+            ataqueAtual++;
+            if (ataqueAtual >= ataques.Length) ataqueAtual = 0;
+            return ataques[ataqueAtual].Atacar(this);
+        }
+        return ataque?.Atacar(this);
+    }
+
+    public virtual float GetDano() {
+        if (comoAtaca == ComoAtaca.AtaqueUnico) return ataque.dano;
+        else if (comoAtaca == ComoAtaca.AtaquesAleatorios) return ataques[ataqueAtual].dano;
+        else if (comoAtaca == ComoAtaca.AtaquesEmSequencia) return ataques[ataqueAtual].dano;
+        return ataque.dano;
     }
 
     public void CheckForPlayer() {

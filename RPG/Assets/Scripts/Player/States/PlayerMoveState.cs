@@ -6,15 +6,13 @@ public class PlayerMoveState : IPlayerState {
     public Player player;
 
     // Atributos
-    Vector3 velocity;
     bool isGrounded;
-    bool rolamento = false;
-    float rollTimer;
     bool canMove = true;
     Transform lockedTarget;
 
 
     // Referências
+    StateMachine<IPlayerState> stateMachine;
     PlayerMovementInfo info;
     CharacterController controller;
     Transform mainCameraTransform;
@@ -33,6 +31,7 @@ public class PlayerMoveState : IPlayerState {
 
         animator = player.animator;
         info = player.informacoesMovimentacao;
+        stateMachine = player.stateMachine;
         controller = player.GetComponent<CharacterController>();
         vidaPlayer = player.GetComponent<PossuiVida>();
         mainCameraTransform = Camera.main.transform;
@@ -43,9 +42,7 @@ public class PlayerMoveState : IPlayerState {
         MovementControl();
     }
 
-    public void Execute() {
-        if (rolamento) Roll();
-    }
+    public void Execute() { }
 
     public void Exit() {
         vidaPlayer.SetInvulneravel(false);
@@ -83,25 +80,18 @@ public class PlayerMoveState : IPlayerState {
         animator.SetFloat("inputX", moveX);
         animator.SetFloat("inputZ", moveZ);
 
-        if (!rolamento) {
-            if (!Input.GetKey(KeyCode.S) && canMove && move != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(cameraForward.normalized);
-                float currentRotationSpeed = (moveZ < 0) ? info.backRotationSpeed : info.rotationSpeed;
-                player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, currentRotationSpeed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                Walk(move);
-            }
-            else
-            {
-                Run(move);
-            }
-            if (Input.GetKeyDown(KeyCode.Space) && !rolamento)
-            {
-                StartRoll(move);
-            }
+        if (!Input.GetKey(KeyCode.S) && canMove && move != Vector3.zero) {
+            Quaternion targetRotation = Quaternion.LookRotation(cameraForward.normalized);
+            float currentRotationSpeed = (moveZ < 0) ? info.backRotationSpeed : info.rotationSpeed;
+            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, currentRotationSpeed * Time.deltaTime);
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift)) Walk(move);
+        else Run(move);
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            player.velocity = new Vector3(moveX, 0, moveZ);
+            stateMachine.SetState(player.dashState);
         }
     }
 
@@ -115,39 +105,5 @@ public class PlayerMoveState : IPlayerState {
         if (canMove)
             controller.Move(move * info.runSpeed * Time.deltaTime);
         animator.SetBool("Correr", true);
-    }
-
-    void StartRoll(Vector3 move) {
-        if (move.magnitude != 0) {
-            rolamento = true;
-            rollTimer = info.rollDuration;
-            Vector3 rollDirection = move.normalized;
-            controller.Move(rollDirection * info.rollSpeed * Time.deltaTime);
-        } else {
-            rolamento = true;
-            rollTimer = info.rollDuration;
-            Vector3 rollDirection = mainCameraTransform.forward.normalized;
-            controller.Move(rollDirection * info.rollSpeed * Time.deltaTime);
-        }
-
-        animator.SetBool("Rolamento", true);
-        SetInvulnerable(true);
-        canMove = false;
-    }
-
-    void Roll() {
-        if (rollTimer > 0) {
-            controller.Move(player.transform.forward * info.rollSpeed * Time.deltaTime);
-            rollTimer -= Time.deltaTime;
-        } else {
-            rolamento = false;
-            animator.SetBool("Rolamento", false);
-            SetInvulnerable(false);
-            canMove = true;
-        }
-    }
-
-    void SetInvulnerable(bool val) {
-        vidaPlayer.SetInvulneravel(val);
     }
 }

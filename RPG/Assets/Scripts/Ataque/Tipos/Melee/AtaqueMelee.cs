@@ -21,11 +21,15 @@ public class AtaqueMelee: HitboxAttackBehaviour {
         // Transform
         hitbox.transform.SetParent(atacador.GetInfo().attackHolder.transform);
         hitbox.transform.localPosition = infoMelee.hitboxOffset;
-        hitbox.transform.localScale = infoMelee.hitboxSize;
-        hitbox.transform.localEulerAngles = infoMelee.hitboxRotation;
 
-        // Trigger
-        hitbox.AddComponent<BoxCollider>();
+        if (infoMelee.tipoHitbox == MeleeAtaqueInfo.TipoHitbox.Sphere) {
+            hitbox.AddComponent<SphereCollider>().radius = infoMelee.hitboxRadius;
+        } else if (infoMelee.tipoHitbox == MeleeAtaqueInfo.TipoHitbox.Box) {
+            hitbox.AddComponent<BoxCollider>();
+            hitbox.transform.localScale = infoMelee.hitboxSize;
+            hitbox.transform.localEulerAngles = infoMelee.hitboxRotation;
+        }
+        
         return hitbox;
     }
 

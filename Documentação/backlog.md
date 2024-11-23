@@ -27,7 +27,6 @@ Tem que ser implementado até o fim do projeto mas não precisa ser agora
 ## 😌 Baixa
 Fará falta se não for implementado mas pode não ser
 - Fazer configuração de gráficos (gama, etc)
-- Melhorar dash e permitir dash para trás
 - Atualizar o visual e posição dos Fs
 - Melhorar visualização da vida do inimigo
 - Selecionar um consumível com hotkey

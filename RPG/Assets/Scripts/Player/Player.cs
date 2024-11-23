@@ -19,6 +19,7 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
     public StatsController stats;
     public AtributosController atributos;
 
+
     [Header("Inventario")]
     public InventarioManager inventario;
     public ItemData[] itensJaPossuidos;
@@ -26,20 +27,24 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
     [HideInInspector] public Braco braco;
     [HideInInspector] public ItemData consumivelSelecionado;
 
+
     [Header("Informações")]
     public PlayerMovementInfo informacoesMovimentacao;
     public PlayerAimInfo informacoesMira;
     public float stunTime = 0.5f;
-    Vector3 velocity;
+    public Vector3 velocity;
     AtacadorInfo atacadorInfo;
+
 
     // State Machine
     public StateMachine<IPlayerState> stateMachine;
     public PlayerMoveState moveState;
+    public PlayerDashState dashState;
     public PlayerAttackState attackState;
     public PlayerAimState aimState;
     public PlayerHittedState hittedState;
     [HideInInspector] public bool canChangeStateThisFrame = true;
+
 
     [Header("Referências")]
     public Animator animator;
@@ -65,7 +70,26 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
         vidaController = GetComponent<PossuiVida>();
         characterController = GetComponent<CharacterController>();
 
-        // Setup cameras (pois ninguém vai fazer por conta própria e ainda vai falar que "tá dando erro")
+        // Setup cameras
+        SetupCameras();
+
+        // Inicializa InventarioManager
+        inventario = new InventarioManager();
+        if (atributos == null) atributos = new AtributosController();
+        if (stats == null) stats = new StatsController(1, 1, 1, 1);
+        
+        
+        // Inicializa StateMachine
+        stateMachine = new StateMachine<IPlayerState>();
+        moveState = new PlayerMoveState(this);
+        dashState = new PlayerDashState(this);
+        attackState = new PlayerAttackState(this);
+        aimState = new PlayerAimState(this);
+        hittedState = new PlayerHittedState(this);
+        stateMachine.SetState(moveState);
+    }
+
+    void SetupCameras() {
         CinemachineFreeLook cinemachineFreeLook = GameObject.FindObjectOfType<CinemachineFreeLook>();
 
         if (cinemachineFreeLook != null) {
@@ -91,20 +115,6 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
             // aimCam.LookAt = aimLook.transform;
             aimCam.Priority = 9;
         }
-
-        // Inicializa InventarioManager
-        inventario = new InventarioManager();
-        if (atributos == null) atributos = new AtributosController();
-        if (stats == null) stats = new StatsController(1, 1, 1, 1);
-        
-        
-        // Inicializa StateMachine
-        stateMachine = new StateMachine<IPlayerState>();
-        moveState = new PlayerMoveState(this);
-        attackState = new PlayerAttackState(this);
-        aimState = new PlayerAimState(this);
-        hittedState = new PlayerHittedState(this);
-        stateMachine.SetState(moveState);
     }
 
     void Start() {
@@ -212,12 +222,7 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
 
         // Movement
         bool isGrounded = IsGrounded();
-
-        if (isGrounded) {
-            velocity.y = 0f;
-        } else {
-            velocity.y = informacoesMovimentacao.gravity;
-        }
+        velocity.y = isGrounded ? 0f : informacoesMovimentacao.gravity;
 
         characterController.Move(velocity * Time.fixedDeltaTime);
         animator.SetBool("IsGrounded", isGrounded);

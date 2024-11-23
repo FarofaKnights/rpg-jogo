@@ -116,18 +116,37 @@ public class AtaqueEditor : Editor {
         if (atacador != null) {
             Handles.color = new Color(1, 0, 0, 1);
             
-            Vector3 offset = ataque.hitboxOffset;
-            Vector3 scale = ataque.hitboxSize;
-            Vector3 rotation = ataque.hitboxRotation;
-
-            Vector3 rootPosition = atacador.GetInfo().attackHolder.transform.position;
-
-            Vector3 position = rootPosition + offset;
-            Quaternion rot = visualizer.transform.rotation * Quaternion.Euler(rotation);
-
-            Handles.DrawWireCube(position, scale);
+            if (ataque.tipoHitbox == MeleeAtaqueInfo.TipoHitbox.Box) {
+                DrawBox(sceneView);
+            } else if (ataque.tipoHitbox == MeleeAtaqueInfo.TipoHitbox.Sphere) {
+                DrawSphere(sceneView);
+            }
+            
         }
     }
 
+    void DrawBox(SceneView sceneView) {
+        Vector3 offset = ataque.hitboxOffset;
+        Vector3 scale = ataque.hitboxSize;
+        Vector3 rotation = ataque.hitboxRotation;
+
+        Vector3 rootPosition = atacador.GetInfo().attackHolder.transform.position;
+
+        Vector3 position = rootPosition + offset;
+        Quaternion rot = visualizer.transform.rotation * Quaternion.Euler(rotation);
+
+        Handles.DrawWireCube(position, scale);
+    }
+
+    void DrawSphere(SceneView sceneView) {
+        Vector3 offset = ataque.hitboxOffset;
+        float radius = ataque.hitboxRadius;
+
+        Vector3 rootPosition = atacador.GetInfo().attackHolder.transform.position;
+
+        Vector3 position = rootPosition + offset;
+
+        Handles.DrawWireDisc(position, Vector3.up, radius);
+    }
 
 }

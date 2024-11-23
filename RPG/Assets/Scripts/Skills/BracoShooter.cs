@@ -51,4 +51,8 @@ public class BracoShooter : Braco {
     public float GetMaxDistance() {
         return tempoDeVida * velocidade;
     }
+
+    public override float GetDano() {
+        return dano;
+    }
 }

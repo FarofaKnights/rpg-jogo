@@ -17,4 +17,8 @@ public class BracoArea : Braco {
         area.dano = dano;
         area.scaleFinal = scaleFinal;
     }
+
+    public override float GetDano() {
+        return dano;
+    }
 }
