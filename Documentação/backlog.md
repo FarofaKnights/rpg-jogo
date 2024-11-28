@@ -39,3 +39,35 @@ Algo adicional que não fará falta se não for implementado, mas seria legal te
 - Mira do braço de tiro em formato quadrado quando houver um alvo no alcance (indicador melhor)
 - Armas e braços novos do player
 - Knockback de dano (no player e do player)
+
+# Anotação de bugs 🐜
+Bugs que eu estou encontrando enquanto jogo o jogo, vou anotando eles aqui e usando o sistema de prioridade do Juan para indicar quais bugs são mais quebrados do que outros e afetam mais a experiencia do jogador.
+
+## 🤯 Urgente
+Bugs que afetam o progresso do jogador e o impedem de continuar o jogo, tem que ser corrigidos imediatamente.
+-Cano da cidade não cai
+-Os elevadores da fase do predio demoram pra funciomar
+
+## 😣 Alta
+Bugs que atrapalham o progresso, mas não necessariamente o impedem de jogar ou terminar o jogo.
+-No fim da fase da industria, logo antes do save point do boss, os alvos não ativam a animação de abrir o portão. Para que o jogador pelo possa progredir no jogo, coloquei uma função que faz o potão desaparecer, mas fica feio pra caramba.
+- O Ataque do robo forte causa dano assim que ele começa a animação, não quando ele de fato acerta o jogador, é impossivel desviar dos ataques dele.
+- Há uma chave no beco da missão da caçadora de ciborgues que não tem como coletar. Na cidade,
+- Refazer o bake no predio, pq os inimigos podem atravessar paredes
+- O tiro sempre mira pro chão, seria bom se a camera tivesse um limite do quanto pra baixo ela pode olhar
+
+## 🤔 Media
+Bugs que afetam a experiencia em geral ,mas fazem o jogo ser pior.
+- Na fase da industria, todos os colisões que se mexem não funcionam, isso inclue o balde no segundo cano puzzle, que deveria poder derrubar o jogador do cano e dificultar ele acertar os canos.
+- Na represa (antes de cruzar o rio) na fase da cidade, tem um carro com lod invertido, ele desaparece assim que chega perto e fica visivel de longe
+- Robo fornalha demora um tempo pra voltar pro estado de ataque, e fica uns frames esquisitão em t-pose dps q toma dano.
+
+## 😕 Baixa
+Similar ao medio, mas com prioridade menor.
+- Tem um robo tijolo na cidade (coordenada -79.23247, 7.14317, 76.2052) perto da caçadora de ciborgues que ficam afundando e subindo no chão o tempo todo, ele sobe quanto toma dano
+- Na fase cidade, as fogueiras tão com um bloom explosivo, ta muito brilhante. Mas esse bloom so aparece de um angulo
+
+
+## 🥱nenhuma
+Bugs que seriam melhor corrigidos, mas não atrapalham o jogo.
+- A espada grande usa o antigo VFX, seria bom ela ter o novo VFX
