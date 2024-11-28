@@ -78,6 +78,12 @@ public class FluxoDialogo {
             Fala fala = new Fala(currentEscolha.respostaFala);
             falas = new Fala[] { fala };
         }
+        else if (currentEscolha.tipoEscolha == Escolha.TipoEscolha.FALAS) {
+            falas = new Fala[currentEscolha.respostasFalas.Length];
+            for (int i = 0; i < falas.Length; i++) {
+                falas[i] = new Fala(currentEscolha.respostasFalas[i]);
+            }
+        }
         else if (currentEscolha.tipoEscolha == Escolha.TipoEscolha.DIALOGO) falas = currentEscolha.respostaDialogo.falas.ToArray();
         else {
             HandleSubfluxoEnd();

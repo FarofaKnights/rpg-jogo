@@ -15,6 +15,8 @@ public class AreaEquipamentosUI : MonoBehaviour, UITab {
     public Image focusedItemImage;
     public Text focusedItemName, focusedItemDescription;
 
+    float lastClickTime;
+
     void Start() {
         InventarioUI[] inventarios = new InventarioUI[] { armasInv, bracosInv, restoInv };
 
@@ -61,7 +63,11 @@ public class AreaEquipamentosUI : MonoBehaviour, UITab {
     }
 
     void HandleSlotFocus(ItemData itemData) {
-        if (focusedItem == itemData) HandleSlotClick(itemData);
+        if (Time.unscaledTime - lastClickTime < 0.2f) {
+            HandleSlotClick(itemData);
+        }
+
+        lastClickTime = Time.unscaledTime;
         lastFocusedItem = focusedItem;
         focusedItem = itemData;
         UpdateFocusedItem();

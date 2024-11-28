@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeForca : Consumivel {
+public class UpgradeStat : Consumivel {
     public override void Use() {
-        Player.instance.stats.AddForca(1);
+        UIController.statChoice.MostrarEscolha(1);
     }
 }

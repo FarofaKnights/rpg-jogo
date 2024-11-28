@@ -6,9 +6,10 @@ using UnityEngine;
 public class Escolha {
     public string escolha;
 
-    public enum TipoEscolha { FALA, DIALOGO }
+    public enum TipoEscolha { FALA, FALAS, DIALOGO }
     public TipoEscolha tipoEscolha;
     public FalaSemEscolha respostaFala;
+    public FalaSemEscolha[] respostasFalas;
     public Dialogo respostaDialogo;
 }
 

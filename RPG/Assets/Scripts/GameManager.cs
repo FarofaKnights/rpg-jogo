@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using Defective.JSON;
 
-public enum GameState { NotStarted, Playing, PauseMenu, Dialog, GameOver, CheatMode, Loja }
+public enum GameState { NotStarted, Playing, PauseMenu, Dialog, GameOver, CheatMode, Loja, StatChoice }
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour {
     public ItemManager itemManager;
 
     public System.Action<string> onBeforeSceneChange, onAfterSceneChange;
+    public System.Action onSaveLoaded;
     public bool IsLoading { get { return isLoading; } }
 
 
@@ -146,6 +147,9 @@ public class GameManager : MonoBehaviour {
                 controls.Player.Disable();
                 controls.Loja.Enable();
                 break;
+            case GameState.StatChoice:
+                controls.Player.Disable();
+                break;
         }
 
         _debugCurrentState = newState.ToString();
@@ -174,6 +178,7 @@ public class GameManager : MonoBehaviour {
         save.variables.SetVariable<int>("slot", slot);
         yield return GoToSceneAsync(firstSceneName, firstPointName, false);
         save.Save();
+        onSaveLoaded?.Invoke();
     }
 
     public void LoadGameFromMenu(int slot = 0) {
@@ -206,7 +211,10 @@ public class GameManager : MonoBehaviour {
 
         if (onAfterSceneChange != null) onAfterSceneChange(scene);
 
-        if (!isLoading && saveGame) save.Load();
+        if (!isLoading && saveGame) {
+            save.Load();
+            onSaveLoaded?.Invoke();
+        }
 
         if (point != "") {
             SaveLastSpawnpoint(point);
@@ -251,6 +259,7 @@ public class GameManager : MonoBehaviour {
     public void SaveGame(){
         if (UIController.instance != null) UIController.HUD.PopUpSaveInfo();
         save.Save();
+        onSaveLoaded?.Invoke();
     }
 
     public void LoadGame(int slot = 0){

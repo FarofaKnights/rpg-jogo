@@ -17,6 +17,7 @@ public class UIController : MonoBehaviour {
     public static SistemaUI sistema;
     public static MissaoUI missao;
     public static DialogoController dialogo;
+    public static StatChoiceController statChoice;
     public static CheatController cheat;
     public static ModalController modal;
     public GameObject menu;
@@ -49,6 +50,7 @@ public class UIController : MonoBehaviour {
         sistema = GetComponentInChildren<SistemaUI>(true);
         missao = GetComponentInChildren<MissaoUI>(true);
         dialogo = GetComponentInChildren<DialogoController>(true);
+        statChoice = GetComponentInChildren<StatChoiceController>(true);
         cheat = GetComponentInChildren<CheatController>(true);
         modal = GetComponentInChildren<ModalController>(true);
     }

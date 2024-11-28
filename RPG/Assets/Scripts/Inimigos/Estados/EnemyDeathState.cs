@@ -51,9 +51,8 @@ public class EnemyDeathState : IEnemyState {
     }
 
     public void Exit() {
-        Debug.Log("Ressucitou?? É um milagre!");
-        inimigo.GetComponent<NavMeshAgent>().enabled = true;
-        inimigo.controller.enabled = true;
+        Debug.Log("Ressucitou?? É um milagre! (mas sério, não deveria acontecer nunca)");
+        Object.Destroy(inimigo.gameObject);
     }
 
     public void Execute() {

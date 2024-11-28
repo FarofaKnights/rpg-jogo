@@ -272,6 +272,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     }
 
     public void Morrer() {
+        if (stateMachine.GetCurrentState() == deathState) return;
         stateMachine.SetState(deathState);
     }
 
