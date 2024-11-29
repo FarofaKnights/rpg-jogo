@@ -92,6 +92,8 @@ MonoBehaviour:
   attackSound: {fileID: -8429247748070395611}
   detectado: 0
   ataque: {fileID: 11400000, guid: d5da645b603414648b6e6909c82aa097, type: 2}
+  comoAtaca: 0
+  ataques: []
   attackHitboxHolder: {fileID: 2803775974780335940}
   patrulha: 0
   pontosPatrulha: []
@@ -274,7 +276,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: fae74c617b030cf4e9af6aafc04b375c, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.117
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -283,9 +285,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -318,7 +320,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
