@@ -26,7 +26,10 @@ public class PlayerAttackState : IPlayerState {
     }
 
     public void Execute() {
-        if (ataqueInstance == null) return;
+        if (ataqueInstance == null) {
+            player.stateMachine.SetState(player.moveState);
+            return;
+        }
 
         ataqueInstance.Update();
     }
@@ -41,11 +44,29 @@ public class PlayerAttackState : IPlayerState {
                 ataqueInstance.Cancelar();
             //} 
         }
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            player.animator.SetTrigger("Cancel");
+            player.stateMachine.SetState(player.moveState);
+
+            PlayerMoveState moveState = (PlayerMoveState)player.stateMachine.GetCurrentState();
+            moveState.Dash();
+        }
     }
 
     public void Exit() {
         if (player.arma != null)
             player.arma.Resetar();
+        
+        if (ataqueInstance != null) {
+            ataqueInstance.onEnd -= onAttackEnd;
+            ataqueInstance.Acabou();
+        }
+
+        Transform hitboxParent = player.GetInfo().attackHolder.transform;
+        foreach (Transform child in hitboxParent) {
+            GameObject.Destroy(child.gameObject);
+        }
     }
 
     public void ResetCombo() {
@@ -55,6 +76,9 @@ public class PlayerAttackState : IPlayerState {
     }
 
     void Atacar() {
+        Vector3 direcaoCamera = Camera.main.transform.forward;
+        player.transform.forward = new Vector3(direcaoCamera.x, 0, direcaoCamera.z);
+
         ataqueInstance = player.arma.Atacar();
         ataqueInstance.onEnd += onAttackEnd;
     }

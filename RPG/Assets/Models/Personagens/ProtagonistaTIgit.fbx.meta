@@ -34,19 +34,19 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: Event SetHit has a time (0.809069) outside the clip's
-      valid range (0.000000..0.750000). It will never be firedEvent SetEnd has a
-      time (0.873298) outside the clip's valid range (0.000000..0.750000). It will
-      never be firedEvent PodeCancelar has a time (0.900352) outside the clip's valid
-      range (0.000000..0.750000). It will never be firedEvent SetHit has a time (0.924020)
-      outside the clip's valid range (0.000000..0.750000). It will never be firedEvent
-      SetRecovery has a time (0.979299) outside the clip's valid range (0.000000..0.750000).
-      It will never be firedEvent PodeCancelar has a time (1.015302) outside the
-      clip's valid range (0.000000..0.750000). It will never be firedEvent SetRecovery
-      has a time (1.094250) outside the clip's valid range (0.000000..0.750000).
-      It will never be firedEvent SetEnd has a time (1.153346) outside the clip's
-      valid range (0.000000..0.750000). It will never be firedEvent SetEnd has a
-      time (1.268297) outside the clip's valid range (0.000000..0.750000). It will
+    animationImportWarnings: Event SetHit has a time (1.213603) outside the clip's
+      valid range (0.000000..1.125000). It will never be firedEvent SetEnd has a
+      time (1.309947) outside the clip's valid range (0.000000..1.125000). It will
+      never be firedEvent PodeCancelar has a time (1.350527) outside the clip's valid
+      range (0.000000..1.125000). It will never be firedEvent SetHit has a time (1.386029)
+      outside the clip's valid range (0.000000..1.125000). It will never be firedEvent
+      SetRecovery has a time (1.468948) outside the clip's valid range (0.000000..1.125000).
+      It will never be firedEvent PodeCancelar has a time (1.522954) outside the
+      clip's valid range (0.000000..1.125000). It will never be firedEvent SetRecovery
+      has a time (1.641375) outside the clip's valid range (0.000000..1.125000).
+      It will never be firedEvent SetEnd has a time (1.730019) outside the clip's
+      valid range (0.000000..1.125000). It will never be firedEvent SetEnd has a
+      time (1.902445) outside the clip's valid range (0.000000..1.125000). It will
       never be fired
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
@@ -181,7 +181,7 @@ ModelImporter:
       takeName: ProtagonistaRig|Ataque1
       internalID: 4104640217835557155
       firstFrame: 12
-      lastFrame: 30
+      lastFrame: 39
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -208,28 +208,28 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.5
+      - time: 0.45059288
         functionName: SetHit
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.62171054
+      - time: 0.5277712
         functionName: PodeCancelar
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.7269737
+      - time: 0.66966146
         functionName: SetRecovery
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9590362
+      - time: 0.9886804
         functionName: SetEnd
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -327,7 +327,42 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0
+        functionName: SetAntecipacao
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.12103176
+        functionName: SetHit
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.40476188
+        functionName: SetRecovery
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.8293651
+        functionName: SetEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.41865078
+        functionName: PodeCancelar
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -356,7 +391,49 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0
+        functionName: SetAntecipacao
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.11111107
+        functionName: StartMovement
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.34523812
+        functionName: SetHit
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.4700155
+        functionName: EndMovement
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.48015872
+        functionName: SetRecovery
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.69047624
+        functionName: SetEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

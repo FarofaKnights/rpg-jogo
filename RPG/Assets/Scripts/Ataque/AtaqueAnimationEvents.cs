@@ -45,5 +45,17 @@ public class AtaqueAnimationEvents : MonoBehaviour {
 
         ataqueInstance.TriggerAHit();
     }
+
+    public void StartMovement() {
+        if (ataqueInstance == null) return;
+
+        ataqueInstance.MoveWithAttack();
+    }
+
+    public void EndMovement() {
+        if (ataqueInstance == null) return;
+
+        ataqueInstance.EndMoveWithAttack();
+    }
     
 }

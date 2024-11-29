@@ -21,9 +21,12 @@ public abstract class AtaqueInfo : ScriptableObject {
 
     [Header("Movimento")]
     public bool moveDuranteAtaque = false;
+    public bool moveWithTiming = true;
     public int moveStartFrame;
     public int moveEndFrame;
     public float moveDistance;
+    public bool moveWithTrigger = false;
+    public float moveOnTriggerSpeed = 1;
 
     public abstract AtaqueInstance Atacar(IAtacador atacador);
     public abstract AttackBehaviour GetBehaviour(IAtacador atacador);

@@ -29,6 +29,7 @@ public class AtaqueInstance  {
     public System.Action<Estado> onStateChange;
 
     bool podeCancelar = false;
+    bool isMovingOnTrigger = false;
     int frameCounter = 0;
     int totalFrameCounter = 0;
 
@@ -134,8 +135,13 @@ public class AtaqueInstance  {
         frameCounter++;
         totalFrameCounter++;
 
-        if (info.moveDuranteAtaque && totalFrameCounter >= info.moveStartFrame && totalFrameCounter <= info.moveEndFrame) {
-            MoveWithAttack();
+        if (info.moveDuranteAtaque) {
+            if (info.moveWithTiming && totalFrameCounter >= info.moveStartFrame && totalFrameCounter <= info.moveEndFrame)
+                MoveWithAttack();
+            else if (info.moveWithTrigger && isMovingOnTrigger){
+                atacador.MoveWithAttack(info.moveOnTriggerSpeed, Time.fixedDeltaTime);
+            }
+
         }
 
         if (info.usarTiming) {
@@ -156,13 +162,23 @@ public class AtaqueInstance  {
     }
 
     public void MoveWithAttack() {
-        if (info.moveDuranteAtaque) {
+        if (!info.moveDuranteAtaque) return;
+
+        if (info.moveWithTiming) {
             float totalTime = info.moveEndFrame - info.moveStartFrame;
             float speed = info.moveDistance / totalTime;
             float progress = totalFrameCounter - info.moveStartFrame;
             float progressPercent = progress / totalTime;
 
             atacador.MoveWithAttack(speed, progressPercent);
+        } else if (info.moveWithTrigger) {
+            isMovingOnTrigger = true;
+        }
+    }
+
+    public void EndMoveWithAttack() {
+        if (isMovingOnTrigger) {
+            isMovingOnTrigger = false;
         }
     }
 
@@ -177,6 +193,11 @@ public class AtaqueInstance  {
         }
 
         return false;
+    }
+
+    // Força o fim do ataque, normalmente usado quando o ataque é interrompido por um evento externo
+    public void Acabou() {
+        OnStateChange(Estado.End);
     }
 
     public bool PodeCancelar() {

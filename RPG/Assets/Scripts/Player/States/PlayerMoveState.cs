@@ -62,7 +62,6 @@ public class PlayerMoveState : IPlayerState {
         if (moveX == 0 && moveZ == 0) {
             animator.SetFloat("inputX", 0);
             animator.SetFloat("inputZ", 0);
-            animator.SetBool("Correr", false);
             AudioManager.instance.playerFootsteps.Pause();
             return;
         }
@@ -90,8 +89,7 @@ public class PlayerMoveState : IPlayerState {
         else Run(move);
 
         if (Input.GetKeyDown(KeyCode.Space)) {
-            player.velocity = new Vector3(moveX, 0, moveZ);
-            stateMachine.SetState(player.dashState);
+            Dash();
         }
     }
 
@@ -105,5 +103,13 @@ public class PlayerMoveState : IPlayerState {
         if (canMove)
             controller.Move(move * info.runSpeed * Time.deltaTime);
         animator.SetBool("Correr", true);
+    }
+
+    public void Dash() {
+        float moveX = Input.GetAxis("Horizontal");
+        float moveZ = Input.GetAxis("Vertical");
+
+        player.velocity = new Vector3(moveX, 0, moveZ);
+        stateMachine.SetState(player.dashState);
     }
 }
