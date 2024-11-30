@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questId: Missao3
   mostrarNaLista: 1
-  titulo: Empregando a morte
+  titulo: Atravessando a cidade
   descricao: "A Rob\xF4 empregada quer que voc\xEA mate uns rob\xF4s"
   falasCarregadas:
   - nome: FalaEmpregada1
@@ -86,19 +86,31 @@ MonoBehaviour:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
         type: 3}
-      parameter: TROCAR_CAMERA;;INT;1;False;
+      parameter: TROCAR_CAMERA;CameraEmpregada1;INT;1;False;
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e7c3c187bd710d9489c1a402d032ae66,
+        type: 3}
+      parameter: 3
       informativo: 
       mostrandoConteudo: 1
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
         type: 3}
-      parameter: TROCAR_CAMERA;;INT;1;False;
+      parameter: TROCAR_CAMERA;CameraEmpregada2;INT;1;False;
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e7c3c187bd710d9489c1a402d032ae66,
+        type: 3}
+      parameter: 3
       informativo: 
       mostrandoConteudo: 1
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
         type: 3}
-      parameter: TROCAR_CAMERA;;INT;1;False;
+      parameter: TROCAR_CAMERA;CameraEmpregada3;INT;1;False;
       informativo: 
       mostrandoConteudo: 1
     - type: 0
@@ -110,7 +122,25 @@ MonoBehaviour:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
         type: 3}
-      parameter: TROCAR_CAMERA;;INT;1;False;
+      parameter: TROCAR_CAMERA;CameraEmpregada4;INT;1;False;
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e7c3c187bd710d9489c1a402d032ae66,
+        type: 3}
+      parameter: 3
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: TROCAR_CAMERA;CameraEmpregada5;INT;1;False;
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e7c3c187bd710d9489c1a402d032ae66,
+        type: 3}
+      parameter: 3
       informativo: 
       mostrandoConteudo: 1
     - type: 0
@@ -119,10 +149,11 @@ MonoBehaviour:
       parameter: TROCAR_CAMERA;;INT;1;False;
       informativo: 
       mostrandoConteudo: 1
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
-        type: 3}
-      parameter: TROCAR_CAMERA;;INT;1;False;
-      informativo: 
-      mostrandoConteudo: 1
+  - type: 0
+    gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+      type: 3}
+    parameter: Fase;Fase
+    informativo: "Chegue at\xE9 o pr\xE9dio"
+    mostrandoConteudo: 1
+    children: []
   rewardsInfo: []
