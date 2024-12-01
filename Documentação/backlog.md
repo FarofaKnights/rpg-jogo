@@ -50,6 +50,7 @@ Bugs que afetam o progresso do jogador e o impedem de continuar o jogo, tem que 
 
 - Cano da cidade não cai
 - Os elevadores da fase do predio demoram pra funciomar
+- Portas na fase do henri não abrem
 
 
 ## 😣 Alta
@@ -68,6 +69,7 @@ Bugs que afetam a experiencia em geral e fazem o jogo ser pior.
 - Na represa (antes de cruzar o rio) na fase da cidade, tem um carro com lod invertido, ele desaparece assim que chega perto e fica visivel de longe
 - Robo fornalha demora um tempo pra voltar pro estado de ataque, e fica uns frames esquisitão em t-pose dps q toma dano.
 - Jogar em pc q da baixo FPS causa uma porção de bug, se você morrer com baixo fps, você vai pra tela de "vc morreu :/"
+- Na fase da industria, um robo fica constantemente morrendo e dando dinheiro ao jogador
 
 
 ## 😕 Baixa
