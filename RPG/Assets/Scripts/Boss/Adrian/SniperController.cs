@@ -31,6 +31,7 @@ public class SniperController : MonoBehaviour {
 
     public float dano = 40f;
     public float coronhadaDano = 10f;
+    DamageInfo danoTiro, danoCoronhada;
     public GameObject explosaoPrefab;
     
     bool mirando = false;
@@ -49,6 +50,9 @@ public class SniperController : MonoBehaviour {
 
 
     void Awake() {
+        danoTiro = new DamageInfo { dano=dano, origem=gameObject, tipoDeDano=TipoDeDano.Projetil, formaDeDano=FormaDeDano.Ativo };
+        danoCoronhada = new DamageInfo { dano=coronhadaDano, origem=gameObject, tipoDeDano=TipoDeDano.Melee, formaDeDano=FormaDeDano.Ativo };
+
         vidaController = GetComponent<PossuiVida>();
 
         vidaController.SetDestroyOnDeath(false);
@@ -63,7 +67,7 @@ public class SniperController : MonoBehaviour {
             UIController.HUD.UpdateBossVida(vidaController.Vida, vidaController.VidaMax);
         };
 
-        vidaController.onDeath += () => {
+        vidaController.onDeath += (DamageInfo danoInfo) => {
             vidaController.CurarTotalmente();
 
             if (estadoFase == EstadoFase.FASE3){
@@ -167,7 +171,7 @@ public class SniperController : MonoBehaviour {
         if (hittedTarget == null) return;
 
         if (hittedTarget.GetComponent<PossuiVida>() != null) {
-            hittedTarget.GetComponent<PossuiVida>().LevarDano(dano);
+            hittedTarget.GetComponent<PossuiVida>().LevarDano(danoTiro);
         }
 
         if (explosaoPrefab != null)
@@ -231,7 +235,7 @@ public class SniperController : MonoBehaviour {
 
     public void OnEnterHitbox(GameObject hit) {
         if (hit.GetComponent<PossuiVida>() != null) {
-            hit.GetComponent<PossuiVida>().LevarDano(coronhadaDano);
+            hit.GetComponent<PossuiVida>().LevarDano(danoCoronhada);
             if (hit.CompareTag("Player"))
                 GameManager.instance.StartCoroutine(SlowdownOnHit());
         }

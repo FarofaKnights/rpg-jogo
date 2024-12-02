@@ -6,6 +6,7 @@ public class BracoArea : Braco {
     public GameObject areaPrefab;
     public float tempoDeVida = 1;
     public float dano = 1;
+    protected DamageInfo danoInfo;
     public float scaleFinal = 1;
 
     protected override void AtivarEfeito() {
@@ -16,9 +17,19 @@ public class BracoArea : Braco {
         area.tempoDeVida = tempoDeVida;
         area.dano = dano;
         area.scaleFinal = scaleFinal;
+        area.SetInfoFromOrigem(GetDano());
     }
 
-    public override float GetDano() {
-        return dano;
+    public override DamageInfo GetDano() {
+        if (danoInfo == null) {
+            danoInfo = new DamageInfo {
+                tipoDeDano = TipoDeDano.Area,
+                formaDeDano = FormaDeDano.Ativo,
+                dano = dano,
+                origem = equipador.GetInfo().gameObject
+            };
+        }
+
+        return danoInfo;
     }
 }

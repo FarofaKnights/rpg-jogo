@@ -14,13 +14,13 @@ public class Caixa : MonoBehaviour
         if (HP != null) HP.onDeath += Morreu;
     }
 
-    public void Morreu()
+    public void Morreu(DamageInfo dano)
     {
         Instantiate(dropItem, transform.position, Quaternion.identity);
     }
 
     public void OnPortaOpen()
     {
-        Morreu();
+        Morreu(new DamageInfo());
     }
 }

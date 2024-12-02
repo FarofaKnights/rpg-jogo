@@ -13,16 +13,28 @@ MonoBehaviour:
   m_Name: PA_Pesado3
   m_EditorClassIdentifier: 
   animatorOverride: {fileID: 22100000, guid: 052326c548ddaf743a57537712256c89, type: 2}
-  dano: 30
+  dano:
+    tipoDeDano: 1
+    formaDeDano: 1
+    dano: 30
+    danoAdicional: 0
+    origem: {fileID: 0}
+  tipoInfligirDano: 0
+  frequenciaDeDano: 0
   usarTiming: 1
   antecipacaoFrames: 8
   hitFrames: 10
   recoveryFrames: 8
   cancelFrames: 18
   moveDuranteAtaque: 1
+  moveWithTiming: 1
   moveStartFrame: 22
   moveEndFrame: 37
   moveDistance: 1
+  moveWithTrigger: 0
+  moveOnTriggerSpeed: 1
+  tipoHitbox: 0
   hitboxOffset: {x: -0.05, y: -0.3, z: 1.3}
   hitboxSize: {x: 1.3, y: 1.6, z: 1.67}
   hitboxRotation: {x: 0, y: 0, z: 0}
+  hitboxRadius: 1

@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: Investida
   m_EditorClassIdentifier: 
   animatorOverride: {fileID: 22100000, guid: 38374059be289f743b96fc6d0a795bfd, type: 2}
-  dano: 20
+  dano:
+    tipoDeDano: 1
+    formaDeDano: 1
+    dano: 20
+    danoAdicional: 0
+    origem: {fileID: 0}
   tipoInfligirDano: 1
   frequenciaDeDano: 0.5
   usarTiming: 1
@@ -22,9 +27,12 @@ MonoBehaviour:
   recoveryFrames: 30
   cancelFrames: -1
   moveDuranteAtaque: 0
+  moveWithTiming: 1
   moveStartFrame: 0
   moveEndFrame: 0
   moveDistance: 0
+  moveWithTrigger: 0
+  moveOnTriggerSpeed: 1
   velocidade: 15
   raio: 3
   pararAoAcertar: 0

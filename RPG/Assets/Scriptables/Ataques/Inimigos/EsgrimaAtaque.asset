@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: EsgrimaAtaque
   m_EditorClassIdentifier: 
   animatorOverride: {fileID: 0}
-  dano: 25
+  dano:
+    tipoDeDano: 2
+    formaDeDano: 1
+    dano: 25
+    danoAdicional: 0
+    origem: {fileID: 0}
   tipoInfligirDano: 0
   frequenciaDeDano: 0
   usarTiming: 1
@@ -22,9 +27,14 @@ MonoBehaviour:
   recoveryFrames: 20
   cancelFrames: -1
   moveDuranteAtaque: 0
+  moveWithTiming: 1
   moveStartFrame: 0
   moveEndFrame: 0
   moveDistance: 0
+  moveWithTrigger: 0
+  moveOnTriggerSpeed: 1
+  tipoHitbox: 0
   hitboxOffset: {x: 0, y: 0, z: 0.68}
   hitboxSize: {x: 0.75, y: 1.25, z: 1}
   hitboxRotation: {x: 0, y: 0, z: 0}
+  hitboxRadius: 1

@@ -57,7 +57,7 @@ public class InimigoComArma : Inimigo, IEquipador {
         return base.GetAtaque(out waitBeforeLeaving);
     }
 
-    public override float GetDano() {
+    public override DamageInfo GetDano() {
         if (arma != null) return arma.GetDano();
         else if (braco != null) return braco.GetDano();
 

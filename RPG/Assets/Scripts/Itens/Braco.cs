@@ -32,5 +32,5 @@ public abstract class Braco : Equipamento {
         return Player.Atributos.calor.Get() >= calorNecessario && IsEquipped();
     }
 
-    public abstract float GetDano();
+    public abstract DamageInfo GetDano();
 }

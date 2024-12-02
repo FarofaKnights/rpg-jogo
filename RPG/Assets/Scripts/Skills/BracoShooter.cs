@@ -9,6 +9,7 @@ public class BracoShooter : Braco {
 
     public float tempoDeVida = 2;
     public float dano = 1;
+    DamageInfo danoInfo;
     public float velocidade = 10;
 
     public List<string> ignoreTags = new List<string>() { "Player", "Arma" };
@@ -27,13 +28,14 @@ public class BracoShooter : Braco {
             projetil.transform.forward = playerForward;
         }
 
+        atacadorInfo.animator.SetTrigger(triggerName);
+
         Projetil p = projetil.GetComponent<Projetil>();
         p.ignoreTags = ignoreTags;
         p.tempoDeVida = tempoDeVida;
         p.dano = dano;
         p.velocidade = velocidade;
-
-        atacadorInfo.animator.SetTrigger(triggerName);
+        p.SetInfoFromOrigem(GetDano());
     }
 
     public Vector3 GetAimDirection() {
@@ -52,7 +54,15 @@ public class BracoShooter : Braco {
         return tempoDeVida * velocidade;
     }
 
-    public override float GetDano() {
-        return dano;
+    public override DamageInfo GetDano() {
+        if (danoInfo == null) {
+            danoInfo = new DamageInfo {
+                tipoDeDano = TipoDeDano.Projetil,
+                formaDeDano = FormaDeDano.Ativo,
+                dano = dano,
+                origem = equipador.GetInfo().gameObject
+            };
+        }
+        return danoInfo;
     }
 }

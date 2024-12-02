@@ -13,6 +13,7 @@ public class Arma : Equipamento, IAtacador {
     public AtaqueInfo ataque;
     public AtaqueInfo[] ataques;
     public int ataqueIndex = 0;
+    DamageInfo danoInfo;
 
     public System.Action onAttackHit, onAttackEnd;
     
@@ -58,7 +59,12 @@ public class Arma : Equipamento, IAtacador {
         }
     }
 
-    public virtual float GetDano() {
-        return ataque.dano;
+    public virtual DamageInfo GetDano() {
+        if (danoInfo == null) {
+            danoInfo = new DamageInfo(ataque.dano);
+            danoInfo.origem = equipador.GetInfo().gameObject;
+        }
+
+        return danoInfo;
     }
 }

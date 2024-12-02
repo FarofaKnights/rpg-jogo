@@ -52,7 +52,7 @@ public class CacadoraController : MonoBehaviour, IAtacador {
             UIController.HUD.UpdateBossVida(vidaController.Vida, vidaController.VidaMax);
         };
 
-        vidaController.onDeath += () => {
+        vidaController.onDeath += (DamageInfo info) => {
             UIController.HUD.ShowBossVida(false);
         };
     }

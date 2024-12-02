@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: ConstAtaq3
   m_EditorClassIdentifier: 
   animatorOverride: {fileID: 22100000, guid: 381b906129f6f2241bb68f2df2988a13, type: 2}
-  dano: 25
+  dano:
+    tipoDeDano: 2
+    formaDeDano: 1
+    dano: 25
+    danoAdicional: 0
+    origem: {fileID: 0}
   tipoInfligirDano: 1
   frequenciaDeDano: 0.5
   usarTiming: 0
@@ -22,9 +27,12 @@ MonoBehaviour:
   recoveryFrames: -1
   cancelFrames: -1
   moveDuranteAtaque: 0
+  moveWithTiming: 1
   moveStartFrame: 0
   moveEndFrame: 0
   moveDistance: 0
+  moveWithTrigger: 0
+  moveOnTriggerSpeed: 1
   tipoHitbox: 1
   hitboxOffset: {x: 0, y: -0.5, z: 0}
   hitboxSize: {x: 5, y: 2, z: 5}

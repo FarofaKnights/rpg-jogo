@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: ShooterFornalha
   m_EditorClassIdentifier: 
   animatorOverride: {fileID: 22100000, guid: f960b722d65a75247a8e1879468b68dd, type: 2}
-  dano: 50
+  dano:
+    tipoDeDano: 3
+    formaDeDano: 1
+    dano: 50
+    danoAdicional: 0
+    origem: {fileID: 0}
   tipoInfligirDano: 3
   frequenciaDeDano: 0
   usarTiming: 0
@@ -22,9 +27,12 @@ MonoBehaviour:
   recoveryFrames: 40
   cancelFrames: -1
   moveDuranteAtaque: 0
+  moveWithTiming: 1
   moveStartFrame: 0
   moveEndFrame: 0
   moveDistance: 0
+  moveWithTrigger: 0
+  moveOnTriggerSpeed: 1
   projetilPrefab: {fileID: 2075655749729690687, guid: 9d10d958af9b6d946b60305db30a6059,
     type: 3}
   tempoDeVida: 3

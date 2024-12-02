@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class AtaqueInvestida : HitboxAttackBehaviour {
     public float velocidade;
-    public int dano;
+    public DamageInfo dano;
     InvestidaAtaqueInfo infoInvestida;
     bool canWalk = true;
     AtacadorInfo atacadorInfo;

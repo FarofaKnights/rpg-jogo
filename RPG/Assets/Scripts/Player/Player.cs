@@ -122,7 +122,7 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
         stats.TriggerChange();
 
         // Define que ao morrer chama o GameOver
-        vidaController.onDeath += () => { GameManager.instance.GameOver(); };
+        vidaController.onDeath += (DamageInfo danoInfo) => { GameManager.instance.GameOver(); };
         vidaController.onDamage += OnBeingHit;
 
         // Define chamada de evento do stats
@@ -335,7 +335,8 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
         int ataqueIndex = arma.ataqueIndex;
 
         atributos.calor.Add(10);
-        float adicional = stats.GetAdicionalForca(ataque.dano);
+        float adicional = stats.GetAdicionalForca(ataque.dano.dano);
+        ataque.dano.danoAdicional += adicional;
 
         // Informa a direção do ataque ao inimigo (para animações de hit específicas)
         Inimigo inimigoScript = inimigo.GetComponent<Inimigo>();
@@ -349,13 +350,14 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
             vidaInimigo = inimigo.GetComponentInChildren<PossuiVida>();
         
         if (vidaInimigo != null)
-            vidaInimigo.LevarDano(ataque.dano + adicional);
+            vidaInimigo.LevarDano(ataque.dano);
         
         return true;
     }
 
-    public void OnBeingHit(float dano) {
+    public void OnBeingHit(DamageInfo dano) {
         if (stateMachine.GetCurrentState() == hittedState) return;
+        if (dano.formaDeDano == FormaDeDano.Passivo) return;
         stateMachine.SetState(hittedState);
     }
 

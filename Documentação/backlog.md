@@ -69,8 +69,6 @@ Bugs que afetam a experiencia em geral e fazem o jogo ser pior.
 - Na represa (antes de cruzar o rio) na fase da cidade, tem um carro com lod invertido, ele desaparece assim que chega perto e fica visivel de longe
 - Robo fornalha demora um tempo pra voltar pro estado de ataque, e fica uns frames esquisitão em t-pose dps q toma dano.
 - Jogar em pc q da baixo FPS causa uma porção de bug, se você morrer com baixo fps, você vai pra tela de "vc morreu :/"
-- Na fase da industria, um robo fica constantemente morrendo e dando dinheiro ao jogador
-
 
 ## 😕 Baixa
 Similar ao medio, mas com prioridade menor.
@@ -80,4 +78,5 @@ Similar ao medio, mas com prioridade menor.
 
 ## 🥱nenhuma
 Bugs que seriam melhor corrigidos, mas não atrapalham o jogo.
-- A espada grande usa o antigo VFX, seria bom ela ter o novo VFX
+
+Não tem nada aqui UwU

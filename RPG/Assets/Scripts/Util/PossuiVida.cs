@@ -53,7 +53,12 @@ public class VidaAtributo: IAtributo<float> {
     }
 
     public void Sub(float valor) {
-        vida.LevarDano(valor);
+        DamageInfo danoInfo = new DamageInfo {
+            dano = valor,
+            origem = vida.gameObject
+        };
+
+        vida.LevarDano(danoInfo);
     }
 
     public void SubMax(float valor) {
@@ -78,16 +83,21 @@ public class PossuiVida : MonoBehaviour {
     protected bool invulneravel = false;
     protected bool destroyOnDeath = true;
 
-    public System.Action<float> onChange, onHeal, onDamage;
-    public System.Action onDeath;
+    public System.Action<float> onChange, onHeal;
+    public System.Action<DamageInfo> onDamage, onDeath;
     public Func<float, float> modificadorDeDano;
 
     [SerializeField] private GameObject VFXBlood;
 
 
-    public void LevarDano(float dano) {
+    public void LevarDano(DamageInfo danoInfo) {
         if (invulneravel) return;
 
+        float dano = danoInfo.dano;
+        if (danoInfo.danoAdicional > 0) {
+            dano += danoInfo.danoAdicional;
+        }
+        
         float oldVida = vida;
 
         if (modificadorDeDano != null) {
@@ -107,16 +117,23 @@ public class PossuiVida : MonoBehaviour {
             Instantiate(VFXBlood, transform.position, Quaternion.identity);
         }
 
-        onDamage?.Invoke(dano);
+        onDamage?.Invoke(danoInfo);
         onChange?.Invoke(vida);
         
         if (vida <= 0) {
-            Morrer();
+            Morrer(danoInfo);
         }
     }
 
     public void Morrer() {
-        onDeath?.Invoke();
+        Debug.LogWarning("Pessoas morrem por motivos, por favor da próxima vez, deixe eu saber o motivo");
+        DamageInfo danoInfo = new DamageInfo();
+        danoInfo.origem = gameObject;
+        Morrer(danoInfo);
+    }
+
+    public void Morrer(DamageInfo danoInfo) {
+        onDeath?.Invoke(danoInfo);
 
         if (destroyOnDeath)
             Destroy(gameObject);

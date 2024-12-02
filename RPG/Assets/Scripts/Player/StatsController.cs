@@ -71,15 +71,15 @@ public class StatsController {
     }
 
     public float GetAdicionalVida(float vidaValue) {
-        return ((vida-1) * vidaPercent) * vidaValue;
+        return ((vida) * vidaPercent) * vidaValue;
     }
 
     public float GetAdicionalForca(float danoValue) {
-        return ((forca-1) * forcaPercent) * danoValue;
+        return ((forca) * forcaPercent) * danoValue;
     }
 
     public float GetAdicionalCalor(float calorValue) {
-        return ((calor-1) * calorPercent) * calorValue;
+        return ((calor) * calorPercent) * calorValue;
     }
 
     public void ForEach(System.Action<string, int> action) {

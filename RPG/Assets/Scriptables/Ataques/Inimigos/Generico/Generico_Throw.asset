@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: Generico_Throw
   m_EditorClassIdentifier: 
   animatorOverride: {fileID: 22100000, guid: b93080d79a056a145ab5c3cfd447ad22, type: 2}
-  dano: 10
+  dano:
+    tipoDeDano: 3
+    formaDeDano: 1
+    dano: 10
+    danoAdicional: 0
+    origem: {fileID: 0}
   tipoInfligirDano: 3
   frequenciaDeDano: 0
   usarTiming: 0
@@ -22,9 +27,12 @@ MonoBehaviour:
   recoveryFrames: 0
   cancelFrames: -1
   moveDuranteAtaque: 0
+  moveWithTiming: 1
   moveStartFrame: 0
   moveEndFrame: 0
   moveDistance: 0
+  moveWithTrigger: 0
+  moveOnTriggerSpeed: 1
   projetilPrefab: {fileID: 2062232333919743564, guid: ebc483bd473bd854cbb456fd45342558,
     type: 3}
   tempoDeVida: 2

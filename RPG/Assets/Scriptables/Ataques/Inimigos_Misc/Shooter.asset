@@ -13,11 +13,29 @@ MonoBehaviour:
   m_Name: Shooter
   m_EditorClassIdentifier: 
   animatorOverride: {fileID: 22100000, guid: 1316a9eebc244d64289204e13feb3f0e, type: 2}
-  dano: 10
+  dano:
+    tipoDeDano: 3
+    formaDeDano: 1
+    dano: 10
+    danoAdicional: 0
+    origem: {fileID: 0}
+  tipoInfligirDano: 0
+  frequenciaDeDano: 0
+  usarTiming: 1
   antecipacaoFrames: 10
   hitFrames: 10
   recoveryFrames: 40
+  cancelFrames: -1
+  moveDuranteAtaque: 0
+  moveWithTiming: 1
+  moveStartFrame: 0
+  moveEndFrame: 0
+  moveDistance: 0
+  moveWithTrigger: 0
+  moveOnTriggerSpeed: 1
   projetilPrefab: {fileID: 2062232333919743564, guid: 8ad3a150807a7f04ea9560b701d74365,
     type: 3}
   tempoDeVida: 2
   velocidade: 10
+  autoAim: 1
+  olharEnquantoCarrega: 1

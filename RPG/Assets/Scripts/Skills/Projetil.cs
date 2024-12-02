@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public class Projetil : MonoBehaviour {
+public class Projetil : MonoBehaviour, IDanoIndireto {
     public float velocidade = 10;
     public float tempoDeVida = 2;
     public float dano = 1;
     public GameObject explosao;
+    DamageInfo danoInfo;
 
 
     public string tagAlvo = "Player";
@@ -17,6 +18,20 @@ public class Projetil : MonoBehaviour {
     bool alreadyHit = false;
     public List<GameObject> ignoreList = new List<GameObject>();
     public List<string> ignoreTags = new List<string>();
+
+    public void SetInfoFromOrigem(DamageInfo infoOrigem) {
+        danoInfo = new DamageInfo(infoOrigem);
+    }
+
+    void Awake() {
+        if (danoInfo == null)
+            danoInfo = new DamageInfo {
+                tipoDeDano = TipoDeDano.Projetil,
+                formaDeDano = FormaDeDano.Ativo,
+                dano = dano,
+                origem = gameObject
+            };
+    }
 
     void Start() {
         impulseSource = GetComponent<Cinemachine.CinemachineImpulseSource>();
@@ -50,13 +65,17 @@ public class Projetil : MonoBehaviour {
             if (inimigo != null) inimigo.deathID = 3;
 
             PossuiVida vida = other.GetComponent<PossuiVida>();
-            if (vida != null) vida.LevarDano(dano);
+            if (vida != null) vida.LevarDano(danoInfo);
             else {
                 vida = other.GetComponentInChildren<PossuiVida>();
-                if (vida != null) vida.LevarDano(dano);
+                if (vida != null) vida.LevarDano(danoInfo);
             }
         } else if(explosao != null) {
-            Instantiate(explosao, transform.position, transform.rotation);
+            GameObject instancia = Instantiate(explosao, transform.position, transform.rotation);
+            SkillArea skillArea = instancia.GetComponent<SkillArea>();
+            if (skillArea != null) {
+                skillArea.SetInfoFromOrigem(danoInfo);
+            }
         }
 
 

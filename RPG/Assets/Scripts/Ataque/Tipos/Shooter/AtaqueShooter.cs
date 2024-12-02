@@ -5,7 +5,7 @@ public class AtaqueShooter: AttackBehaviour {
     public GameObject projetilPrefab;
     public float tempoDeVida;
     public float velocidade;
-    public int dano;
+    public DamageInfo dano;
     public bool olharEnquantoCarrega = true, autoAim = true;
     Inimigo inimigo;
 
@@ -59,7 +59,8 @@ public class AtaqueShooter: AttackBehaviour {
         Projetil p = projetil.GetComponent<Projetil>();
         if (p != null) {
             p.tempoDeVida = tempoDeVida;
-            p.dano = dano;
+            p.dano = dano.dano;
+            p.SetInfoFromOrigem(dano);
             p.velocidade = velocidade;
             p.ignoreList.Add(atacadorGO);
         }

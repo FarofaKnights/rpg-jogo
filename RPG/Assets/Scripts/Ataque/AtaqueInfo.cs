@@ -8,7 +8,7 @@ public abstract class AtaqueInfo : ScriptableObject {
     public AnimatorOverrideController animatorOverride;
 
     [Header("Configurações do Dano")]
-    public int dano;
+    public DamageInfo dano;
     public TipoInfligirDano tipoInfligirDano = TipoInfligirDano.Unico;
     public float frequenciaDeDano = 0;
     

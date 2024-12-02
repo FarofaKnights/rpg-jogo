@@ -7,12 +7,23 @@ public class DanoArea : MonoBehaviour {
     public float periodicidade = 1;
     public List<string> tagsAlvo = new List<string>();
 
+    DamageInfo danoInfo = new DamageInfo();
+
     struct Alvo {
         public PossuiVida vida;
         public float tempoDecorrido;
     }
 
     List<Alvo> alvos = new List<Alvo>();
+
+    void Awake() {
+        danoInfo = new DamageInfo {
+            dano = dano,
+            formaDeDano = FormaDeDano.Passivo,
+            origem = gameObject,
+            tipoDeDano = TipoDeDano.Area
+        };
+    }
 
     void FixedUpdate() {
         for (int i = 0; i < alvos.Count; i++) {
@@ -26,7 +37,7 @@ public class DanoArea : MonoBehaviour {
             alvo.tempoDecorrido += Time.fixedDeltaTime;
             if (alvo.tempoDecorrido >= periodicidade) {
                 alvo.tempoDecorrido = 0;
-                alvo.vida.LevarDano(dano);
+                alvo.vida.LevarDano(danoInfo);
             }
             alvos[i] = alvo;
         }

@@ -116,8 +116,10 @@ public class Inimigo : MonoBehaviour, IAtacador {
             }
         };
 
-        vidaController.onDeath += () => {
-            Player.Atributos.pecas.Add(recompensaPecas);
+        vidaController.onDeath += (DamageInfo danoInfo) => {
+            if (danoInfo.origem == Player.instance.gameObject)
+                Player.Atributos.pecas.Add(recompensaPecas);
+
             Morrer();
         };
 
@@ -191,7 +193,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
         return ataque?.Atacar(this);
     }
 
-    public virtual float GetDano() {
+    public virtual DamageInfo GetDano() {
         if (comoAtaca == ComoAtaca.AtaqueUnico) return ataque.dano;
         else if (comoAtaca == ComoAtaca.AtaquesAleatorios) return ataques[ataqueAtual].dano;
         else if (comoAtaca == ComoAtaca.AtaquesEmSequencia) return ataques[ataqueAtual].dano;

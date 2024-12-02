@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: Generico_Pesado
   m_EditorClassIdentifier: 
   animatorOverride: {fileID: 22100000, guid: a32d658aed3b48140b8fabb1985e9b62, type: 2}
-  dano: 25
+  dano:
+    tipoDeDano: 1
+    formaDeDano: 1
+    dano: 25
+    danoAdicional: 0
+    origem: {fileID: 0}
   tipoInfligirDano: 0
   frequenciaDeDano: 0
   usarTiming: 0
@@ -22,9 +27,14 @@ MonoBehaviour:
   recoveryFrames: -1
   cancelFrames: 15
   moveDuranteAtaque: 0
+  moveWithTiming: 1
   moveStartFrame: 20
   moveEndFrame: 46
   moveDistance: 1
+  moveWithTrigger: 0
+  moveOnTriggerSpeed: 1
+  tipoHitbox: 0
   hitboxOffset: {x: -0.1, y: -0.3, z: 1.2}
   hitboxSize: {x: 1.6, y: 1.6, z: 1.5}
   hitboxRotation: {x: 0, y: 0, z: 0}
+  hitboxRadius: 1
