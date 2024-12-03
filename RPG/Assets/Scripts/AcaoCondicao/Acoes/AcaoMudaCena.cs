@@ -26,7 +26,8 @@ public class AcaoMudaCena : Acao {
         if (naoEhFase) {
             SceneManager.LoadScene(nome);
         } else {
-            GameManager.instance.GoToScene(nome, point);
+            LevelInfo level = GameManager.instance.loading.GetLevelInfo(nome);
+            GameManager.instance.GoToScene(level);
         }
     }
 

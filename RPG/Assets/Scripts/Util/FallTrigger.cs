@@ -19,14 +19,15 @@ public class FallTrigger : MonoBehaviour {
                 GameManager.instance.GameOver(customSpawnPoint);
             } else {
                 if (customSpawnPoint != null && customSpawnPoint != "") {
-                    string scene = GameManager.instance.CurrentSceneName();
+                    LevelInfo scene = GameManager.instance.CurrentScene();
                     GameManager.instance.GoToScene(scene, customSpawnPoint);
                 } else {
                     string[] respawnInfo = GameManager.instance.GetLastSpawnpoint();
                     string scene = respawnInfo[0];
                     string spawnPoint = respawnInfo[1];
                     
-                    GameManager.instance.GoToScene(scene, spawnPoint);
+                    LevelInfo level = GameManager.instance.loading.GetLevelInfo(scene);
+                    GameManager.instance.GoToScene(level, spawnPoint);
                 }
             }
         } else if (other.CompareTag("Enemy") || other.CompareTag("Inimigo")) {

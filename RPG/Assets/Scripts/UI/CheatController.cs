@@ -166,7 +166,9 @@ public class CheatController : MonoBehaviour {
     public void TrocarFase() {
         int i = fasesDropdown.value;
         string nome = fasesDropdown.options[i].text;
-        GameManager.instance.GoToScene(nome);
+
+        LevelInfo level = GameManager.instance.loading.GetLevelInfo(nome);
+        GameManager.instance.GoToScene(level);
     }
 
     public void SetarVidaInfinita() {

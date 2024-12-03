@@ -23,12 +23,15 @@ public class GameManager : MonoBehaviour {
 
     public string gameOverSceneName { get { return "GameOver"; } }
     public string startSceneName = "Start", firstSceneName = "Introducao";
+    public LevelInfo firstSceneInfo;
     public string firstPointName = "TutorialStart";
     public string _debugCurrentState = "";
+    public LoadingUI loadingUI;
 
     public Controls controls;
     public SaveSystem save;
     public ItemManager itemManager;
+    public LoadingController loading;
 
     public System.Action<string> onBeforeSceneChange, onAfterSceneChange;
     public System.Action onSaveLoaded;
@@ -45,6 +48,7 @@ public class GameManager : MonoBehaviour {
         save = new SaveSystem();
         controls = new Controls();
         itemManager = new ItemManager();
+        loading = new LoadingController();
 
         transform.SetParent(null);
         DontDestroyOnLoad(gameObject);
@@ -176,7 +180,7 @@ public class GameManager : MonoBehaviour {
 
     public IEnumerator LoadNewGameAsync(int slot = 0) {
         save.variables.SetVariable<int>("slot", slot);
-        yield return GoToSceneAsync(firstSceneName, firstPointName, false);
+        yield return GoToSceneAsync(firstSceneInfo, "", false);
         save.Save();
         onSaveLoaded?.Invoke();
     }
@@ -190,41 +194,39 @@ public class GameManager : MonoBehaviour {
         if (save.HasSave(slot)) yield return LoadGameAsync(slot);
     }
 
-    public void GoToScene(string scene, string point = "") {
-        StartCoroutine(GoToSceneAsync(scene, point));
+    public void GoToScene(LevelInfo level, string customPoint = "") {
+        StartCoroutine(GoToSceneAsync(level, customPoint));
     }
 
-    public IEnumerator GoToSceneAsync(string scene, string point = "", bool saveGame = true) {
+    public IEnumerator GoToSceneAsync(LevelInfo level, string customPoint = "", bool saveGame = true) {
         string currentSceneName = CurrentSceneName();
         if (onBeforeSceneChange != null) onBeforeSceneChange(currentSceneName);
 
         if (state != GameState.NotStarted) {
-            if (point != "") SaveLastSpawnpoint(point, scene);
+            if (level.pontoInicial != "") SaveLastSpawnpoint(level.pontoInicial, level.nomeCena);
             if (saveGame) save.Save();
         }   
 
-        var asyncLoadLevel = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
+        yield return StartCoroutine(loading.LoadSceneAsync(level));
+        Debug.Log("Scene loaded: " + level.nomeCena);
 
-        while (!asyncLoadLevel.isDone){
-            yield return null;
-        }
-
-        if (onAfterSceneChange != null) onAfterSceneChange(scene);
+        if (onAfterSceneChange != null) onAfterSceneChange(level.nomeCena);
 
         if (!isLoading && saveGame) {
             save.Load();
             onSaveLoaded?.Invoke();
         }
 
-        if (point != "") {
-            SaveLastSpawnpoint(point);
-            TeleportPlayerToPoint(point);
+        string ponto = customPoint != "" ? customPoint : level.pontoInicial;
+
+        if (level.pontoInicial != "") {
+            SaveLastSpawnpoint(ponto);
+            TeleportPlayerToPoint(ponto);
         }
     }
 
     public IEnumerator RefreshScene(){
-        string currentSceneName = CurrentSceneName();
-        yield return GoToSceneAsync(currentSceneName);
+        yield return GoToSceneAsync(CurrentScene());
     }
 
     public void TeleportPlayerToPoint(string point){
@@ -256,6 +258,10 @@ public class GameManager : MonoBehaviour {
         return SceneManager.GetActiveScene().name;
     }
 
+    public LevelInfo CurrentScene() {
+        return loading.GetLevelInfo(CurrentSceneName());
+    }
+
     public void SaveGame(){
         if (UIController.instance != null) UIController.HUD.PopUpSaveInfo();
         save.Save();
@@ -282,7 +288,8 @@ public class GameManager : MonoBehaviour {
             customRespawnScene = "";
         }
 
-        yield return GoToSceneAsync(lastScene, lastSpawnpoint, false);
+        LevelInfo level = loading.GetLevelInfo(lastScene);
+        yield return GoToSceneAsync(level, lastSpawnpoint, false);
         save.LoadPlayer(slot);
         isLoading = false;
     }

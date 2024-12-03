@@ -20,7 +20,8 @@ public class QuestChangeScene : QuestStep, IQuestInformations {
         if (sceneChanged) return;
         sceneChanged = true;
 
-        GameManager.instance.GoToScene(sceneName, point);
+        LevelInfo level = GameManager.instance.loading.GetLevelInfo(sceneName);
+        GameManager.instance.GoToScene(level);
 
         // O mudar de cena é uma corrotina, portanto vai terminar o passo antes de mudar de cena
         FinishStep();

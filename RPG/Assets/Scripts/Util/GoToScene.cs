@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GoToScene : MonoBehaviour {
-    public string sceneName;
-    public string point;
+    public LevelInfo level;
     public bool onTrigger;
-    
-    void Start() {
+
+    void Awake() {
         OnTrigger trigger = GetComponent<OnTrigger>();
         if (trigger != null && onTrigger) {
             trigger.tagFilter = "Player";
@@ -20,6 +19,6 @@ public class GoToScene : MonoBehaviour {
     }
 
     public void Go() {
-        GameManager.instance.GoToScene(sceneName, point);
+        GameManager.instance.GoToScene(level);
     }
 }
