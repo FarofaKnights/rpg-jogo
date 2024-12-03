@@ -57,6 +57,8 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public GameObject getHitParticles;
     public AudioSource AlertSound;
     public AudioSource attackSound;
+    public Vector2 variacaoTom = new Vector2(1f,1f);
+    public bool interromperSom = true;
     public bool detectado = false;
     public System.Action OnDestroied; // Diferente do OnDeath, esse é chamado quando o inimigo é destruído, isso tbm conta destruição por integridade (foi morto em outro save e é destruido para não ser carregado)
 

@@ -197,6 +197,8 @@ MonoBehaviour:
     type: 3}
   AlertSound: {fileID: 3919981925198775942}
   attackSound: {fileID: 1534767820847776325}
+  variacaoTom: {x: 0.8, y: 1.2}
+  interromperSom: 0
   detectado: 0
   ataque: {fileID: 11400000, guid: 5e764e62f220de449bb6e218248d343f, type: 2}
   comoAtaca: 0
@@ -280,7 +282,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6056184616446207460}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -1012152100990287309, guid: f4647b7bf4c24094797257a29c926041,
     type: 2}
@@ -383,7 +385,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 55f77a35b31d0b54f8ead4421e7198ea, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -394,7 +396,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 30
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -427,7 +429,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

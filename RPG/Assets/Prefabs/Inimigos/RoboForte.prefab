@@ -88,6 +88,8 @@ MonoBehaviour:
     type: 3}
   AlertSound: {fileID: 5525813742074512053}
   attackSound: {fileID: 4215803294750387925}
+  variacaoTom: {x: 0.9, y: 1.1}
+  interromperSom: 1
   detectado: 0
   ataque: {fileID: 11400000, guid: bc294a40fbddaf1419e4ed89f9c8ddc9, type: 2}
   comoAtaca: 0
@@ -184,11 +186,11 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 30
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -221,7 +223,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -283,7 +285,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 30
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

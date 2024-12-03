@@ -36,12 +36,16 @@ public class EnemyAttackState : IEnemyState {
         };
 
         ataqueInstance.onAttack += () => {
-            if (inimigo.attackSound != null) inimigo.attackSound.Play();
+            if (inimigo.attackSound != null) 
+            {
+                inimigo.attackSound.pitch = Random.Range(inimigo.variacaoTom.x, inimigo.variacaoTom.y);
+                inimigo.attackSound.Play();
+            }
             else Debug.LogWarning("Inimigo " + inimigo.name + " não possui um som de ataque");
         };
 
         ataqueInstance.onRecovery += () => {
-            if (inimigo.attackSound != null) inimigo.attackSound.Stop();
+            if (inimigo.attackSound != null && inimigo.interromperSom) inimigo.attackSound.Stop();
 
             // Condição especial de descanso longo
             if (inimigo.descansoMaiorAposXAtaques > 0) {
