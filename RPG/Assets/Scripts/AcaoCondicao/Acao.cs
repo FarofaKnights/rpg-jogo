@@ -24,12 +24,13 @@ public class AcaoParams {
     public float floatValue;
     public string stringValue;
     public bool boolValue;
+    public PrimitiveOperations operacao;
 
     public AcaoParams() {
         type = Tipo.NULL;
     }
 
-    public AcaoParams(string id, string id2, Tipo type, bool isGlobal, int intValue, float floatValue, string stringValue, bool boolValue) {
+    public AcaoParams(string id, string id2, Tipo type, bool isGlobal, int intValue, float floatValue, string stringValue, bool boolValue, PrimitiveOperations operacao) {
         this.id = id;
         this.id2 = id2;
         this.type = type;
@@ -38,6 +39,7 @@ public class AcaoParams {
         this.floatValue = floatValue;
         this.stringValue = stringValue;
         this.boolValue = boolValue;
+        this.operacao = operacao;
     }
 
     public AcaoParams(AcaoParams parametros) {
@@ -49,6 +51,7 @@ public class AcaoParams {
         floatValue = parametros.floatValue;
         stringValue = parametros.stringValue;
         boolValue = parametros.boolValue;
+        operacao = parametros.operacao;
     }
 
     public object GetValue() {
@@ -69,8 +72,17 @@ public class AcaoParams {
         return (Tipo)System.Enum.Parse(typeof(Tipo), tipo);
     }
 
+    public static PrimitiveOperations GetOperacao(string operacao)  {
+        return (PrimitiveOperations)System.Enum.Parse(typeof(PrimitiveOperations), operacao);
+    }
+
     public string GetTipoString() {
         return type.ToString();
+    }
+
+    public string GetOperacaoString()
+    {
+        return operacao.ToString();
     }
 
     public void SetValue(string value) {
@@ -94,16 +106,18 @@ public class AcaoParams {
         type = GetTipo(tipo);
     }
 
-    public static AcaoParams Create(string id, string type, string val, string global){
-        return Create(id, "", type, val, global);
+    public static AcaoParams Create(string id, string type, string val, string global, string operacao)
+    {
+        return Create(id, "", type, val, global, operacao);
     }
 
-    public static AcaoParams Create(string id, string id2, string type, string val, string global) {
+    public static AcaoParams Create(string id, string id2, string type, string val, string global, string operacao) {
         AcaoParams acaoParams = new AcaoParams();
         acaoParams.id = id;
         acaoParams.id2 = id2;
         acaoParams.type = GetTipo(type);
         acaoParams.isGlobal = bool.Parse(global);
+        acaoParams.operacao = GetOperacao(operacao);
 
         switch (acaoParams.type) {
             case Tipo.INT:

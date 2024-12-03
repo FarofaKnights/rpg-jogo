@@ -86,8 +86,15 @@ public class AcaoInfoDrawer : PropertyDrawer {
     }
 
     void DrawParametro(SerializedProperty parametros, string parametro, string displayText, ref Rect pos) {
+        SerializedProperty prop;
+
         if (parametro == "value") {
             DrawValorParametro(parametros, parametro, displayText, ref pos);
+            return;
+        } else if (parametro == "operacao") {
+            prop = parametros.FindPropertyRelative(parametro);
+            NextLine(ref pos);
+            EditorGUI.PropertyField(pos, prop, new GUIContent("Operacao:"));
             return;
         } else {
             switch (parametro) {
@@ -106,7 +113,7 @@ public class AcaoInfoDrawer : PropertyDrawer {
             }
         }
 
-        SerializedProperty prop = parametros.FindPropertyRelative(parametro);
+        prop = parametros.FindPropertyRelative(parametro);
         NextLine(ref pos);
         EditorGUI.PropertyField(pos, prop, new GUIContent(displayText));
     }
@@ -115,7 +122,6 @@ public class AcaoInfoDrawer : PropertyDrawer {
         SerializedProperty prop = parametros.FindPropertyRelative("type");
         NextLine(ref pos);
         EditorGUI.PropertyField(pos, prop, new GUIContent("Tipo:"));
-
         AcaoParams.Tipo tipo = (AcaoParams.Tipo)prop.enumValueIndex;
         if (tipo == AcaoParams.Tipo.NULL) return;
 

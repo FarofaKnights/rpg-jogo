@@ -15,6 +15,7 @@ public enum AcoesRegistradas {
     RODA_FUNCAO,
     TELEPORTA,
     MUDA_CENA,
+    EDITAR_VARIAVEL,
 }
 
 public class RegistroAcoes {
@@ -30,6 +31,7 @@ public class RegistroAcoes {
         { AcoesRegistradas.RODA_FUNCAO, typeof(AcaoRodaFuncao) },
         { AcoesRegistradas.TELEPORTA, typeof(AcaoTeleporta) },
         { AcoesRegistradas.MUDA_CENA, typeof(AcaoMudaCena) },
+        { AcoesRegistradas.EDITAR_VARIAVEL, typeof(AcaoEditVariavel) },
     };
 
 

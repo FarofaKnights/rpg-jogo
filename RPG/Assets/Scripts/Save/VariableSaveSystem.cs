@@ -4,6 +4,8 @@ using UnityEngine;
 using Defective.JSON;
 
 public enum PrimitiveType { INT, FLOAT, STRING, BOOL }
+public enum PrimitiveOperations { NULL, IGUAL, SOMA, SUBTRACAO }
+public enum PrimitiveConditions { NULL, IGUAL, DIFERENTE, MAIOR, MENOR }
 
 public class PrimitiveVariable {
     public string name;
