@@ -73,6 +73,7 @@ public class AcaoParams {
     }
 
     public static PrimitiveOperations GetOperacao(string operacao)  {
+        if (operacao == "") return PrimitiveOperations.NULL;
         return (PrimitiveOperations)System.Enum.Parse(typeof(PrimitiveOperations), operacao);
     }
 
@@ -106,12 +107,16 @@ public class AcaoParams {
         type = GetTipo(tipo);
     }
 
-    public static AcaoParams Create(string id, string type, string val, string global, string operacao)
+    public void SetOperacao(string operacao) {
+        this.operacao = GetOperacao(operacao);
+    }
+
+    public static AcaoParams Create(string id, string type, string val, string global, string operacao = "")
     {
         return Create(id, "", type, val, global, operacao);
     }
 
-    public static AcaoParams Create(string id, string id2, string type, string val, string global, string operacao) {
+    public static AcaoParams Create(string id, string id2, string type, string val, string global, string operacao = "") {
         AcaoParams acaoParams = new AcaoParams();
         acaoParams.id = id;
         acaoParams.id2 = id2;

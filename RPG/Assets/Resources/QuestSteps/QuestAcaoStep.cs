@@ -40,8 +40,11 @@ public class QuestAcaoStep : QuestStep, IQuestInformations {
             }
         }
 
-        if (parameters.Length > 5) {
-            acao.parametros = AcaoParams.Create(parameters[1], parameters[5], parameters[2], parameters[3], parameters[4]);
+        
+        if (parameters.Length > 6) {
+            acao.parametros = AcaoParams.Create(parameters[1], parameters[5], parameters[2], parameters[3], parameters[4], parameters[6]);
+        } else if (parameters.Length > 5) {
+             acao.parametros = AcaoParams.Create(parameters[1], parameters[5], parameters[2], parameters[3], parameters[4]);
         }
 
         Set();
@@ -84,6 +87,9 @@ public class QuestAcaoStep : QuestStep, IQuestInformations {
                 p.SetValue(parameters[3]);
                 p.isGlobal = parameters[4] == "True";
                 p.id2 = parameters[5];
+
+                if (parameters.Length > 6)
+                    p.SetOperacao(parameters[6]);
             }
         }
 
@@ -97,19 +103,20 @@ public class QuestAcaoStep : QuestStep, IQuestInformations {
 
         string nomeDaAcao = RegistroAcoes.GetAcaoString(acao.acao);
 
-        string param_id = "", param_id2 = "", param_type = "", param_value = "", param_global = "";
+        string param_id = "", param_id2 = "", param_type = "", param_value = "", param_global = "", param_operacao = "";
         if (acao.parametros != null) {
             param_id = acao.parametros.id;
             param_id2 = acao.parametros.id2;
             param_type = acao.parametros.GetTipoString();
             param_value = "" + acao.parametros.GetValue();
             param_global = acao.parametros.isGlobal ? "True" : "False";
+            param_operacao = acao.parametros.GetOperacaoString();
         }
 
         this.acao = acaoOld;
         this.acao.parametros = oldParams;
 
-        return JoinParameters(new string[] { nomeDaAcao, param_id, param_type, param_value, param_global, param_id2 });
+        return JoinParameters(new string[] { nomeDaAcao, param_id, param_type, param_value, param_global, param_id2, param_operacao });
     }
     #endif
 }

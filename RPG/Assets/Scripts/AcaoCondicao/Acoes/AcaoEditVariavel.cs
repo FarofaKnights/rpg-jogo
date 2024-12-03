@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AcaoEditVariavel : Acao {
-    public string nomeVariavel, operacao;
+    public string nomeVariavel;
+    public PrimitiveOperations operacao;
     public bool isGlobal;
     public CondicaoParams.Tipo tipo;
     public object valor;
@@ -11,7 +12,7 @@ public class AcaoEditVariavel : Acao {
     public new static string[] GetParametrosUtilizados(){ return new string[] { "id", "operacao", "value", "isGlobal" }; }
     public new static string[] GetParametrosTraduzidos(){ return new string[] { "Variavel", "Operacao", "Variavel global" }; }
 
-    public AcaoEditVariavel(string nomeVariavel, string operacao, bool isGlobal, CondicaoParams.Tipo tipo, object valor) {
+    public AcaoEditVariavel(string nomeVariavel, PrimitiveOperations operacao, bool isGlobal, CondicaoParams.Tipo tipo, object valor) {
         this.nomeVariavel = nomeVariavel;
         this.operacao = operacao;
         this.isGlobal = isGlobal;
@@ -21,7 +22,7 @@ public class AcaoEditVariavel : Acao {
 
     public AcaoEditVariavel(AcaoParams parametros): base(parametros) {
         nomeVariavel = parametros.id;
-        operacao = parametros.id2;
+        operacao = parametros.operacao;
         isGlobal = parametros.isGlobal;
         tipo = parametros.type;
         valor = parametros.GetValue();
@@ -30,7 +31,9 @@ public class AcaoEditVariavel : Acao {
     public override void Realizar() {
         PrimitiveType primitiveType = GetPrimitiveType();
         string escopo = isGlobal ? "global" : "level";
-        SaveSystem.instance.variables.SetVariable(nomeVariavel, primitiveType, valor, escopo);
+
+        SaveEscopo escopoObj =  SaveSystem.instance.variables.GetEscopo(escopo);
+        escopoObj.Operacao(nomeVariavel, operacao, valor);
     }
 
     PrimitiveType GetPrimitiveType() {

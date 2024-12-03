@@ -50,6 +50,53 @@ public class PrimitiveVariable {
     public override string ToString() {
         return name + ": " + value.ToString();
     }
+
+    public void Operacao(PrimitiveOperations operacao, object valor) {
+        switch (operacao) {
+            case PrimitiveOperations.IGUAL:
+                value = valor;
+                break;
+            case PrimitiveOperations.SOMA:
+                Somar(valor);
+                break;
+            case PrimitiveOperations.SUBTRACAO:
+                Subtrair(valor);
+                break;
+        }
+    }
+
+    public void Somar(object valor) {
+        switch (type) {
+            case PrimitiveType.INT:
+                value = (int)value + (int)valor;
+                break;
+            case PrimitiveType.FLOAT:
+                value = (float)value + (float)valor;
+                break;
+            case PrimitiveType.STRING:
+                value = (string)value + (string)valor;
+                break;
+            case PrimitiveType.BOOL:
+                value = (bool)value || (bool)valor;
+                break;
+        }
+    }
+
+    public void Subtrair(object valor) {
+        switch (type) {
+            case PrimitiveType.INT:
+                value = (int)value - (int)valor;
+                break;
+            case PrimitiveType.FLOAT:
+                value = (float)value - (float)valor;
+                break;
+            case PrimitiveType.STRING:
+                throw new System.Exception("Can't subtract strings");
+            case PrimitiveType.BOOL:
+                value = (bool)value && !(bool)valor;
+                break;
+        }
+    }
 }
 
 public abstract class ISaveVariable<T> {
@@ -170,6 +217,24 @@ public class SaveEscopo {
     public T GetVariable<T>(string name) {
         PrimitiveVariable variable = variables[name];
         return (T)variable.value;
+    }
+
+    public void Operacao(string name, PrimitiveOperations operacao, object valor) {
+        if (variables.ContainsKey(name)) {
+            variables[name].Operacao(operacao, valor);
+        }
+    }
+
+    public void Somar(string name, object valor) {
+        if (variables.ContainsKey(name)) {
+            variables[name].Somar(valor);
+        }
+    }
+
+    public void Subtrair(string name, object valor) {
+        if (variables.ContainsKey(name)) {
+            variables[name].Subtrair(valor);
+        }
     }
 
     public void ForEach(System.Action<PrimitiveVariable> action) {
