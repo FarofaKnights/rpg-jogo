@@ -47,6 +47,21 @@ public class PrimitiveVariable {
         }
     }
 
+    public static object GetDefaultValue(PrimitiveType type) {
+        switch (type) {
+            case PrimitiveType.INT:
+                return 0;
+            case PrimitiveType.FLOAT:
+                return 0.0f;
+            case PrimitiveType.STRING:
+                return "";
+            case PrimitiveType.BOOL:
+                return false;
+            default:
+                throw new System.Exception("Unsupported type");
+        }
+    }
+
     public override string ToString() {
         return name + ": " + value.ToString();
     }

@@ -69,6 +69,7 @@ public class AcaoParams {
     }
 
     public static Tipo GetTipo(string tipo) {
+        if (tipo == "") return Tipo.NULL;
         return (Tipo)System.Enum.Parse(typeof(Tipo), tipo);
     }
 
@@ -111,12 +112,12 @@ public class AcaoParams {
         this.operacao = GetOperacao(operacao);
     }
 
-    public static AcaoParams Create(string id, string type, string val, string global, string operacao = "")
+    public static AcaoParams Create(string id, string type, string val, string global = "False", string operacao = "")
     {
         return Create(id, "", type, val, global, operacao);
     }
 
-    public static AcaoParams Create(string id, string id2, string type, string val, string global, string operacao = "") {
+    public static AcaoParams Create(string id, string id2, string type, string val, string global = "False", string operacao = "") {
         AcaoParams acaoParams = new AcaoParams();
         acaoParams.id = id;
         acaoParams.id2 = id2;

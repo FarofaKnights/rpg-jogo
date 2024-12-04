@@ -33,6 +33,11 @@ public class AcaoEditVariavel : Acao {
         string escopo = isGlobal ? "global" : "level";
 
         SaveEscopo escopoObj =  SaveSystem.instance.variables.GetEscopo(escopo);
+        if (!escopoObj.HasVariable(nomeVariavel)) {
+            object defaultValue = PrimitiveVariable.GetDefaultValue(primitiveType);
+            escopoObj.SetVariable(nomeVariavel, primitiveType, defaultValue);
+        }
+
         escopoObj.Operacao(nomeVariavel, operacao, valor);
     }
 
