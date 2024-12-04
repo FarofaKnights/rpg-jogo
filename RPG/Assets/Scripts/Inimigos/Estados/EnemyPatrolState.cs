@@ -138,7 +138,7 @@ public class EnemyPatrolState : IEnemyState {
         float yDist = Mathf.Abs(inimigo.transform.position.y - inimigo.target.transform.position.y);
         inimigo.debug.distancia_alvo = dist;
 
-        if (navMeshAgent.enabled) {
+        if (navMeshAgent.enabled && navMeshAgent.isOnNavMesh) {
             navMeshAgent.SetDestination(navMeshDest);
         }
 
