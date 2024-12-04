@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee36e9f26966264bb3dc6d4b55b7d5d, type: 3}
+  m_Name: MotoristaQuest
+  m_EditorClassIdentifier: 
+  questId: MotoristaQuest
+  mostrarNaLista: 1
+  titulo: 
+  descricao: Tire o Motorista de uma enrrascada daquelas!
+  falasCarregadas:
+  - nome: Pe
+    falas: []
+  - nome: HAHAHa
+    falas:
+    - text: Pega uns pneus por favorzinho?
+      autoNext: 0
+      acao:
+        acao: 0
+        parametros:
+          id: 
+          id2: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
+          operacao: 0
+      escolhas:
+        tipoEscolhas: 0
+        idEscolhaDeSaidaDoMenu: 0
+        escolhas: []
+  - nome: HHEHEHEH
+    falas:
+    - text: Valeu
+      autoNext: 0
+      acao:
+        acao: 0
+        parametros:
+          id: 
+          id2: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
+          operacao: 0
+      escolhas:
+        tipoEscolhas: 0
+        idEscolhaDeSaidaDoMenu: 0
+        escolhas: []
+  requirementsInfo:
+    condicao: 0
+    parametros:
+      id: 
+      id2: 
+      type: 0
+      isGlobal: 0
+      intValue: 0
+      floatValue: 0
+      stringValue: 
+      boolValue: 0
+      operacao: 0
+      comparacaoValue: 0
+      dinamic: 0
+  steps:
+  - type: 1
+    gameObject: {fileID: 1368148330828971028, guid: f0119f286f0af424eacb87945ea00b30,
+      type: 3}
+    parameter: ;True
+    informativo: 
+    mostrandoConteudo: 1
+    children:
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f0119f286f0af424eacb87945ea00b30,
+        type: 3}
+      parameter: ;True
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
+        type: 3}
+      parameter: HAHAHa
+      informativo: 
+      mostrandoConteudo: 1
+  - type: 1
+    gameObject: {fileID: 0}
+    parameter: 
+    informativo: 
+    mostrandoConteudo: 1
+    children:
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: a15d69b65074b5f439959bfe84b0ec77,
+        type: 3}
+      parameter: SE_TEM_ITEM;;INT;4;False;True;
+      informativo: "Encontre pneus para o Rob\xF4 motorista"
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+        type: 3}
+      parameter: ;
+      informativo: "Volte para o rob\xF4 motorista"
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
+        type: 3}
+      parameter: HHEHEHEH
+      informativo: 
+      mostrandoConteudo: 1
+  rewardsInfo: []
