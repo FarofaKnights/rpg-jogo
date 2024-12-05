@@ -56,29 +56,11 @@ MonoBehaviour:
       escolhas:
         tipoEscolhas: 2
         idEscolhaDeSaidaDoMenu: -1
-        escolhas: []
-    - text: AAAAA
-      autoNext: 0
-      acao:
-        acao: 0
-        parametros:
-          id: 
-          id2: 
-          type: 0
-          isGlobal: 0
-          intValue: 0
-          floatValue: 0
-          stringValue: 
-          boolValue: 0
-          operacao: 0
-      escolhas:
-        tipoEscolhas: 2
-        idEscolhaDeSaidaDoMenu: -1
         escolhas:
-        - escolha: ..
+        - escolha: Sim
           tipoEscolha: 0
           respostaFala:
-            text: Por que [Censurado]
+            text: "B\xE3o"
             autoNext: 0
             acao:
               acao: 0
@@ -92,26 +74,12 @@ MonoBehaviour:
                 stringValue: 
                 boolValue: 0
                 operacao: 0
-          respostasFalas:
-          - text: Mate mais Robos mais robos snague sangue sangue
-            autoNext: 0
-            acao:
-              acao: 0
-              parametros:
-                id: 
-                id2: 
-                type: 0
-                isGlobal: 0
-                intValue: 0
-                floatValue: 0
-                stringValue: 
-                boolValue: 0
-                operacao: 0
+          respostasFalas: []
           respostaDialogo: {fileID: 0}
-        - escolha: Rapaz...
+        - escolha: "N\xE3o"
           tipoEscolha: 0
           respostaFala:
-            text: Hahahahaha
+            text: Grrrr
             autoNext: 0
             acao:
               acao: 0
@@ -125,21 +93,7 @@ MonoBehaviour:
                 stringValue: 
                 boolValue: 0
                 operacao: 0
-          respostasFalas:
-          - text: Mate mais Robos mais robos snague sangue sangue
-            autoNext: 0
-            acao:
-              acao: 0
-              parametros:
-                id: 
-                id2: 
-                type: 0
-                isGlobal: 0
-                intValue: 0
-                floatValue: 0
-                stringValue: 
-                boolValue: 0
-                operacao: 0
+          respostasFalas: []
           respostaDialogo: {fileID: 0}
     - text: "Mate mais robos mais robos mais robos sangue desgra\xE7a sangue desgra\xE7a"
       autoNext: 1
@@ -407,6 +361,13 @@ MonoBehaviour:
     mostrandoConteudo: 0
     children: []
   - type: 0
+    gameObject: {fileID: 1368148330828971028, guid: f0119f286f0af424eacb87945ea00b30,
+      type: 3}
+    parameter: InimigosCacadora;True
+    informativo: "Extermine o grupo de rob\xF4s"
+    mostrandoConteudo: 1
+    children: []
+  - type: 0
     gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
       type: 3}
     parameter: Trigger2;Trigger2
@@ -418,7 +379,7 @@ MonoBehaviour:
       type: 3}
     parameter: Cacadora2
     informativo: Deiaiai
-    mostrandoConteudo: 1
+    mostrandoConteudo: 0
     children: []
   - type: 0
     gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
@@ -432,7 +393,7 @@ MonoBehaviour:
       type: 3}
     parameter: 5
     informativo: 
-    mostrandoConteudo: 1
+    mostrandoConteudo: 0
     children: []
   - type: 0
     gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
@@ -440,13 +401,6 @@ MonoBehaviour:
     parameter: TROCAR_CAMERA;;STRING;;False;;NULL
     informativo: 
     mostrandoConteudo: 0
-    children: []
-  - type: 0
-    gameObject: {fileID: 1368148330828971028, guid: f0119f286f0af424eacb87945ea00b30,
-      type: 3}
-    parameter: InimigosCacadora;True
-    informativo: "Extermine o grupo de rob\xF4s"
-    mostrandoConteudo: 1
     children: []
   - type: 0
     gameObject: {fileID: 1368148330828971028, guid: f0119f286f0af424eacb87945ea00b30,
@@ -460,13 +414,13 @@ MonoBehaviour:
       type: 3}
     parameter: Trigger3;Trigger3
     informativo: "Retorne para a Ca\xE7adora"
-    mostrandoConteudo: 1
+    mostrandoConteudo: 0
     children: []
   - type: 0
     gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
       type: 3}
     parameter: Fala3
     informativo: 
-    mostrandoConteudo: 1
+    mostrandoConteudo: 0
     children: []
   rewardsInfo: []
