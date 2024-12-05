@@ -73,6 +73,8 @@ public class Dialogavel : MonoBehaviour, Saveable {
     }
 
     public void OnPlayerInteract() {
+        if (dialogoAtual != null) return;
+        
         CheckAguardando();
         dialogoAtual = GetDialogo();
         if (dialogoAtual == null) return;

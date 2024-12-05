@@ -61,7 +61,7 @@ public class FluxoDialogo {
         }
         else {
             currentEscolhas = fala.escolhas;
-            UIController.dialogo.ShowEscolhas(fala.escolhas, HandleEscolha);
+            UIController.dialogo.ShowEscolhas(fala.escolhas, HandleEscolha, fala.text);
         }
     }
 
@@ -129,7 +129,7 @@ public class FluxoDialogo {
         }
 
         if (fala.autoNext) {
-            if (fala.text == "") ShowFala();
+            if (fala.text == "") Proximo();
             else {
                 autoNextCoroutine = AutoNext(fala);
                 GameManager.instance.StartCoroutine(autoNextCoroutine);
@@ -178,9 +178,11 @@ public class DialogoController : MonoBehaviour {
         texto.text = text;
     }
 
-    public void ShowEscolhas(Escolhas escolhas, System.Action<Escolha> CallbackEscolhida) {
-        dialogoHolder.SetActive(false);
+    public void ShowEscolhas(Escolhas escolhas, System.Action<Escolha> CallbackEscolhida, string text = "") {
         escolhasHolder.SetActive(true);
+
+        texto.text = text;
+        dialogoHolder.SetActive(text != "");
 
         foreach (Transform child in escolhasHolder.transform) {
             Destroy(child.gameObject);
