@@ -20,10 +20,32 @@ public class AudioManager : MonoBehaviour
 
 
     public AudioSource musica;
+
+    [HideInInspector] public Dictionary<string, AudioClip> clips = new Dictionary<string, AudioClip>();
+    public AudioSource reservadoAcaoFala;
     
     public void Awake()
     {
         instance = this;
+    }
+
+    public void PlayOnReservado(string path) {
+        if (clips.ContainsKey(path)) {
+            PlayOnReservado(clips[path]);
+        } else {
+            AudioClip clip = Resources.Load<AudioClip>(path);
+            if (clip == null) {
+                Debug.LogError("AudioClip não encontrado: " + path);
+                return;
+            }
+            clips[path] = clip;
+            PlayOnReservado(clip);
+        }
+    }
+
+    public void PlayOnReservado(AudioClip clip) {
+        reservadoAcaoFala.clip = clip;
+        reservadoAcaoFala.Play();
     }
 }
 

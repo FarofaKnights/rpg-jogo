@@ -73,38 +73,40 @@ public class UIController : MonoBehaviour {
         }
     }
 
-    public void FadeIn(){
-        StartCoroutine(BlackScreenFade());
+    public void FadeIn(float time = -1){
+        StartCoroutine(BlackScreenFade(true, time));
     }
 
-    public IEnumerator FadeInAsync(){
-        yield return StartCoroutine(BlackScreenFade());
+    public IEnumerator FadeInAsync(float time = -1){
+        yield return StartCoroutine(BlackScreenFade(true, time));
     }
 
-    public void FadeOut(){
-        StartCoroutine(BlackScreenFade(false));
+    public void FadeOut(float time = -1){
+        StartCoroutine(BlackScreenFade(false, time));
     }
 
-    public IEnumerator FadeOutAsync(){
-        yield return StartCoroutine(BlackScreenFade(false));
+    public IEnumerator FadeOutAsync(float time = -1){
+        yield return StartCoroutine(BlackScreenFade(false, time));
     }
 
-    IEnumerator BlackScreenFade(bool isFadeIn = true) {
+    IEnumerator BlackScreenFade(bool isFadeIn = true, float time = -1) {
         float currentAlpha = isFadeIn ? 0 : 1;
         float targetAlpha = isFadeIn ? 1 : 0;
         Image blackScreenImage = blackScreen.GetComponent<Image>();
 
+        float speed = time > 0 ? 1 / time : fadeSpeed;
+
         blackScreen.SetActive(true);
     
         while (currentAlpha != targetAlpha) {
-            currentAlpha = Mathf.MoveTowards(currentAlpha, targetAlpha, fadeSpeed * Time.deltaTime);
+            currentAlpha = Mathf.MoveTowards(currentAlpha, targetAlpha, speed * Time.deltaTime);
             blackScreenImage.color = new Color(0, 0, 0, currentAlpha);
             yield return null;
         }
 
         blackScreen.SetActive(isFadeIn);
     }
-
+    
     public void ShowConfiguracoes(InputAction.CallbackContext ctx) {
         ShowMenu();
         SetTab("Configuracoes");

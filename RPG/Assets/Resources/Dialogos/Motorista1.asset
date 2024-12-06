@@ -16,12 +16,14 @@ MonoBehaviour:
     condicao: 0
     parametros:
       id: 
+      id2: 
       type: 0
       isGlobal: 0
       intValue: 0
       floatValue: 0
       stringValue: 
       boolValue: 0
+      operacao: 0
       comparacaoValue: 0
       dinamic: 0
   prioridade: 0
@@ -33,45 +35,69 @@ MonoBehaviour:
       acao: 0
       parametros:
         id: 
+        id2: 
         type: 0
         isGlobal: 0
         intValue: 0
         floatValue: 0
         stringValue: 
         boolValue: 0
+        operacao: 0
+    escolhas:
+      tipoEscolhas: 0
+      idEscolhaDeSaidaDoMenu: -1
+      escolhas: []
   - text: Pode abrir a janela se quiser
     autoNext: 0
     acao:
       acao: 0
       parametros:
         id: 
+        id2: 
         type: 0
         isGlobal: 0
         intValue: 0
         floatValue: 0
         stringValue: 
         boolValue: 0
+        operacao: 0
+    escolhas:
+      tipoEscolhas: 0
+      idEscolhaDeSaidaDoMenu: -1
+      escolhas: []
   - text: "O transito est\xE1 de matar hoje"
     autoNext: 0
     acao:
       acao: 0
       parametros:
         id: Consumiveis/PocaoVidaData
+        id2: 
         type: 0
         isGlobal: 0
         intValue: 1
         floatValue: 0
         stringValue: 
         boolValue: 0
+        operacao: 0
+    escolhas:
+      tipoEscolhas: 0
+      idEscolhaDeSaidaDoMenu: -1
+      escolhas: []
   - text: Quer uma balinha?
     autoNext: 0
     acao:
       acao: 2
       parametros:
         id: Consumiveis/PocaoVidaData
-        type: 0
+        id2: 
+        type: 1
         isGlobal: 0
         intValue: 1
         floatValue: 0
         stringValue: 
         boolValue: 0
+        operacao: 0
+    escolhas:
+      tipoEscolhas: 0
+      idEscolhaDeSaidaDoMenu: -1
+      escolhas: []

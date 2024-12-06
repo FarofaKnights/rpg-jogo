@@ -398,6 +398,13 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
         characterController.enabled = true;
     }
 
+    public void SetarControle(bool controle) {
+        enabled = controle;
+
+        if (!controle)
+            animator.SetTrigger("Cancel");
+    }
+
     void OnDestroy() {
         if (GameManager.instance != null) {
             GameManager.instance.controls.Player.Attack.performed -= HandleAttackTriggered;

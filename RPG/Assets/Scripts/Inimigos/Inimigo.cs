@@ -58,6 +58,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
     public AudioSource AlertSound;
     public AudioSource attackSound;
     public Vector2 variacaoTom = new Vector2(1f,1f);
+    [HideInInspector] public bool podeSeguir = true;
     public bool interromperSom = true;
     public bool detectado = false;
     public System.Action OnDestroied; // Diferente do OnDeath, esse é chamado quando o inimigo é destruído, isso tbm conta destruição por integridade (foi morto em outro save e é destruido para não ser carregado)
@@ -203,6 +204,8 @@ public class Inimigo : MonoBehaviour, IAtacador {
     }
 
     public void CheckForPlayer() {
+        if (!podeSeguir) return;
+        
         Collider[] colliders = Physics.OverlapSphere(transform.position, rangeProcurando);
         foreach (Collider collider in colliders) {
             float yDist = Mathf.Abs(collider.transform.position.y - transform.position.y);
@@ -284,5 +287,24 @@ public class Inimigo : MonoBehaviour, IAtacador {
         if (Application.isPlaying) {
             OnDestroied?.Invoke();
         }
+    }
+    
+    public void PodeSeguir(bool pode) {
+        if (!pode) {
+            if (stateMachine == null) { // Isso não faz o menor sentido, ainda sim, alguns inimigos caem nessa situação ????
+                return;
+            }
+            target = null;
+            if (patrulha) stateMachine.SetState(patrolState);
+            else stateMachine.SetState(idleState);
+        }
+
+        podeSeguir = pode;
+    }
+
+    public void SetTarget(GameObject target) {
+        this.target = target;
+        if (stateMachine == null) return;
+        stateMachine.SetState(walkState);
     }
 }

@@ -43,6 +43,7 @@ public class EnemyPatrolState : IEnemyState {
     }
 */
     public float GetDistance(Transform point) {
+        if (navMeshAgent == null || !navMeshAgent.isOnNavMesh) return float.MaxValue;
         navMeshAgent.SetDestination(point.position);
         if (navMeshAgent.pathPending) return float.MaxValue;
         return navMeshAgent.remainingDistance;

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using Defective.JSON;
 
-public enum GameState { NotStarted, Playing, PauseMenu, Dialog, GameOver, CheatMode, Loja, StatChoice }
+public enum GameState { NotStarted, Playing, PauseMenu, Dialog, GameOver, CheatMode, Loja, StatChoice, Cutscene }
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour {
     public string firstPointName = "TutorialStart";
     public string _debugCurrentState = "";
     public LoadingUI loadingUI;
+
+    bool inimigosAtivos = true;
 
     public Controls controls;
     public SaveSystem save;
@@ -153,6 +155,12 @@ public class GameManager : MonoBehaviour {
                 break;
             case GameState.StatChoice:
                 controls.Player.Disable();
+                controls.Loja.Disable();
+                controls.Dialog.Disable();
+                break;
+            case GameState.Cutscene:
+                controls.Player.Disable();
+                controls.Loja.Disable();
                 break;
         }
 
@@ -315,5 +323,25 @@ public class GameManager : MonoBehaviour {
 
     public void SlowdownOnHit() {
         StartCoroutine(SlowdownOnHitCoroutine());
+    }
+
+    public void SetInimigosAtivos(bool ativos){
+        inimigosAtivos = ativos;
+        Inimigo[] inimigos = FindObjectsOfType<Inimigo>();
+        foreach (Inimigo inimigo in inimigos){
+            if (inimigo == null || inimigo.gameObject == null) continue;
+            inimigo.PodeSeguir(ativos);
+        }
+    }
+
+    public void SetCutsceneMode(bool ativo) {
+        UIController.HUD.gameObject.SetActive(!ativo);
+        Player.instance.SetarControle(!ativo);
+
+        if (ativo) {
+            SetIntermediaryState(GameState.Cutscene);
+        } else {
+            RestoreIntermediaryState();
+        }
     }
 }
