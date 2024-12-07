@@ -401,8 +401,12 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
     public void SetarControle(bool controle) {
         enabled = controle;
 
-        if (!controle)
+        if (!controle) {
             animator.SetTrigger("Cancel");
+            animator.SetFloat("inputX", 0);
+            animator.SetFloat("inputY", 0);
+            AudioManager.instance.playerFootsteps.Pause();
+        }
     }
 
     void OnDestroy() {

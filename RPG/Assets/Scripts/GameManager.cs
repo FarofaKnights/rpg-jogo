@@ -335,13 +335,13 @@ public class GameManager : MonoBehaviour {
     }
 
     public void SetCutsceneMode(bool ativo) {
-        UIController.HUD.gameObject.SetActive(!ativo);
-        Player.instance.SetarControle(!ativo);
-
         if (ativo) {
             SetIntermediaryState(GameState.Cutscene);
         } else {
             RestoreIntermediaryState();
         }
+
+        UIController.HUD.gameObject.SetActive(!ativo);
+        Player.instance.SetarControle(!ativo);
     }
 }

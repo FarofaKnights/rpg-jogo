@@ -21,6 +21,8 @@ public class AcaoTeleporta : Acao {
         foreach (RefObject refObj in refObjects) {
             if (refObj.id == idRef) {
                 Player.instance.TeleportTo(refObj.transform.position);
+                Vector3 refDir = refObj.transform.forward;
+                Player.instance.transform.forward = new Vector3(refDir.x, 0, refDir.z);
                 break;
             }
         }

@@ -8,8 +8,10 @@ public class Cutscene: MonoBehaviour {
     public PlayableDirector timeline;
     public bool playOnStart = false;
     public bool destruirAoFim = false;
+    public bool desativarAoFim = false;
     public GameObject[] ativarNaCutscene;
     public GameObject[] desativarNaCutscene;
+    public GameObject[] desativaImediatamente;
 
     public System.Action onEnd;
 
@@ -45,11 +47,24 @@ public class Cutscene: MonoBehaviour {
         UIController.dialogo.ShowFalaTexto(caption);
     }
 
+    public void HidePlayer() {
+        Player.instance.gameObject.SetActive(false);
+    }
+
+    public void ShowPlayer() {
+        Player.instance.gameObject.SetActive(true);
+    }
+
     public void Comecar() {
         StartCoroutine(ComecarCoroutine());
     }
 
     public IEnumerator ComecarCoroutine() {
+
+        foreach (GameObject obj in desativaImediatamente) {
+            obj.SetActive(false);
+        }
+
         yield return UIController.instance.FadeInAsync();
         
         UIController.dialogo.ShowFalaTexto("");
@@ -81,12 +96,12 @@ public class Cutscene: MonoBehaviour {
 
     public IEnumerator OnFimCoroutine() {
         Debug.Log("Fim da cutscene");
-/*
-        if (!chamouFadeInSemFadeOut) {
-           
-        }*/
 
         yield return UIController.instance.FadeOutAsync();
+
+        foreach (GameObject obj in desativaImediatamente) {
+            obj.SetActive(true);
+        }
 
         foreach (GameObject obj in ativarNaCutscene) {
             obj.SetActive(false);
@@ -102,6 +117,10 @@ public class Cutscene: MonoBehaviour {
 
         if (destruirAoFim) {
             Destroy(gameObject);
+        }
+
+        if (desativarAoFim) {
+            enabled = false;
         }
 
         onEnd?.Invoke();

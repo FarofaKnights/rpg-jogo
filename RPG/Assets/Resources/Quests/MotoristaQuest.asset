@@ -157,7 +157,7 @@ MonoBehaviour:
       type: 3}
     parameter: ;True
     informativo: 
-    mostrandoConteudo: 1
+    mostrandoConteudo: 0
     children:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: e5e331cf146ddad41a9dd6b38f83b350,
@@ -172,39 +172,213 @@ MonoBehaviour:
       informativo: "Derrote os rob\xF4s que pertubam o motorista"
       mostrandoConteudo: 1
     - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: TELEPORTA;motoristaPlayerTP;INT;1;False;;NULL
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
       gameObject: {fileID: 1368148330828971028, guid: 0426f2df2e3e9f648a99bee3004a495c,
         type: 3}
       parameter: motorista
       informativo: 
       mostrandoConteudo: 1
-    - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
-        type: 3}
-      parameter: HAHAHa
-      informativo: 
-      mostrandoConteudo: 0
   - type: 1
     gameObject: {fileID: 0}
     parameter: 
-    informativo: 
-    mostrandoConteudo: 0
+    informativo: O caso dos pneus
+    mostrandoConteudo: 1
     children:
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: TRIGGAR_ANIMATOR;motorista;STRING;Careca;False;;NULL
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 6c11cab1dbffbb347920ae96340b6c93,
+        type: 3}
+      parameter: InimigosEnabled;False
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
+        type: 3}
+      parameter: pneus_motorista
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: TROCAR_CAMERA;localPneus;INT;1;False;;NULL
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e7c3c187bd710d9489c1a402d032ae66,
+        type: 3}
+      parameter: 4
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: TROCAR_CAMERA;;INT;1;False;;NULL
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e7c3c187bd710d9489c1a402d032ae66,
+        type: 3}
+      parameter: 1
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 6c11cab1dbffbb347920ae96340b6c93,
+        type: 3}
+      parameter: InimigosEnabled;True
+      informativo: 
+      mostrandoConteudo: 0
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: a15d69b65074b5f439959bfe84b0ec77,
         type: 3}
-      parameter: SE_TEM_ITEM;;INT;4;False;True;
+      parameter: SE_TEM_ITEM;Quests/PneusData;INT;1;False;True;
       informativo: "Encontre pneus para o Rob\xF4 motorista"
       mostrandoConteudo: 0
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
         type: 3}
-      parameter: ;
+      parameter: pneusNovosTrigger;pneusNovos
       informativo: "Volte para o rob\xF4 motorista"
+      mostrandoConteudo: 0
+  - type: 1
+    gameObject: {fileID: 0}
+    parameter: 
+    informativo: 
+    mostrandoConteudo: 1
+    children:
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 6c11cab1dbffbb347920ae96340b6c93,
+        type: 3}
+      parameter: IsCutsceneMode;True
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: TRIGGAR_ANIMATOR;player;STRING;MegaIdle;False;;NULL
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 6c11cab1dbffbb347920ae96340b6c93,
+        type: 3}
+      parameter: InimigosEnabled;False
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: TROCAR_CAMERA;CameraEntregaPneus;INT;1;False;;NULL
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: RODA_FUNCAO;motoristaCutscene;STRING;FadeIn;False;;NULL
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e7c3c187bd710d9489c1a402d032ae66,
+        type: 3}
+      parameter: 2
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
+        type: 3}
+      parameter: LuzEntregaPneu
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: TELEPORTA;entregaPneus;INT;1;False;;NULL
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e7c3c187bd710d9489c1a402d032ae66,
+        type: 3}
+      parameter: 1
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: RODA_FUNCAO;motoristaCutscene;STRING;FadeOut;False;;NULL
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: TRIGGAR_ANIMATOR;motorista;STRING;PneusNovos;False;;NULL
+      informativo: 
       mostrandoConteudo: 1
     - type: 0
-      gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
+      gameObject: {fileID: 1368148330828971028, guid: e7c3c187bd710d9489c1a402d032ae66,
         type: 3}
-      parameter: HHEHEHEH
+      parameter: 0.1
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: TOCAR_SOM;Audio/Motorista_PneusNovos;INT;1;False;;NULL
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e7c3c187bd710d9489c1a402d032ae66,
+        type: 3}
+      parameter: 4
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: TROCAR_CAMERA;;INT;1;False;;NULL
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 6c11cab1dbffbb347920ae96340b6c93,
+        type: 3}
+      parameter: IsCutsceneMode;False
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 6c11cab1dbffbb347920ae96340b6c93,
+        type: 3}
+      parameter: InimigosEnabled;True
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
+        type: 3}
+      parameter: rodasCarro
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 23788a0b99f9dc84d87936d3428a2218,
+        type: 3}
+      parameter: LuzEntregaPneu
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: TRIGGAR_ANIMATOR;motorista;STRING;Assovio;False;;NULL
+      informativo: 
+      mostrandoConteudo: 0
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: TRIGGAR_ANIMATOR;player;STRING;OutMegaIdle;False;;NULL
       informativo: 
       mostrandoConteudo: 1
   rewardsInfo: []
