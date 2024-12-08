@@ -62,9 +62,7 @@ MonoBehaviour:
     falas:
     - text: "Tinha algu\xE9m aqui dentro. Um ciborgue igual a voc\xEA. Ele estava
         cheio comida, entretenimento, seguran\xE7a, tudo enquanto milhares morriam
-        l\xE1 fora. Voc\xEA entende o que estava dizendo desde o come\xE7o? Ningu\xE9m
-        que sobreviveu at\xE9 agora merece sair. Ent\xE3o me responde: O que voc\xEA
-        vai fazer?"
+        l\xE1 fora. "
       autoNext: 0
       acao:
         acao: 0
@@ -81,11 +79,51 @@ MonoBehaviour:
       escolhas:
         tipoEscolhas: 0
         idEscolhaDeSaidaDoMenu: 0
+        escolhas: []
+    - text: "Voc\xEA entende o que estava dizendo desde o come\xE7o? Ningu\xE9m que
+        sobreviveu at\xE9 agora merece sair. Ent\xE3o me responde: O que voc\xEA
+        vai fazer?"
+      autoNext: 0
+      acao:
+        acao: 0
+        parametros:
+          id: 
+          id2: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
+          operacao: 0
+      escolhas:
+        tipoEscolhas: 2
+        idEscolhaDeSaidaDoMenu: 0
         escolhas:
-        - escolha: 
+        - escolha: "Eu vou pra ind\xFAstria"
           tipoEscolha: 0
           respostaFala:
-            text: 
+            text: "\xD3timo. Eu j\xE1 te avisei o que vai acontecer se voc\xEA tentar
+              sair"
+            autoNext: 0
+            acao:
+              acao: 0
+              parametros:
+                id: 
+                id2: 
+                type: 0
+                isGlobal: 0
+                intValue: 0
+                floatValue: 0
+                stringValue: 
+                boolValue: 0
+                operacao: 0
+          respostasFalas: []
+          respostaDialogo: {fileID: 0}
+        - escolha: Eu vou sair da cidade
+          tipoEscolha: 0
+          respostaFala:
+            text: "N\xE3o enquanto eu estiver viva."
             autoNext: 0
             acao:
               acao: 0
