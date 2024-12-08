@@ -9,6 +9,7 @@ public class Cutscene: MonoBehaviour {
     public bool playOnStart = false;
     public bool destruirAoFim = false;
     public bool desativarAoFim = false;
+    public bool fadeOutAfterEnd = true;
     public GameObject[] ativarNaCutscene;
     public GameObject[] desativarNaCutscene;
     public GameObject[] desativaImediatamente;
@@ -97,7 +98,8 @@ public class Cutscene: MonoBehaviour {
     public IEnumerator OnFimCoroutine() {
         Debug.Log("Fim da cutscene");
 
-        yield return UIController.instance.FadeOutAsync();
+        if (fadeOutAfterEnd)
+            yield return UIController.instance.FadeOutAsync();
 
         foreach (GameObject obj in desativaImediatamente) {
             obj.SetActive(true);
