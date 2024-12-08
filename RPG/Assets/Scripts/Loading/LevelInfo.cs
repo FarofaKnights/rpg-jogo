@@ -14,4 +14,6 @@ public class LevelInfo : ScriptableObject {
     public string pontoInicial;
 
     public RelacaoPrefabELocal[] prefabsAInstanciar;
+    public string[] audioClipPaths;
+    public string[] videoClipPaths;
 }

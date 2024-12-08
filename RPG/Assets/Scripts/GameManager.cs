@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.Audio;
+using UnityEngine.Video;
 using Defective.JSON;
 
 public enum GameState { NotStarted, Playing, PauseMenu, Dialog, GameOver, CheatMode, Loja, StatChoice, Cutscene }
@@ -38,6 +40,10 @@ public class GameManager : MonoBehaviour {
     public System.Action<string> onBeforeSceneChange, onAfterSceneChange;
     public System.Action onSaveLoaded;
     public bool IsLoading { get { return isLoading; } }
+
+
+    [HideInInspector] public CacheLoader<AudioClip> loaded_audioClips = new CacheLoader<AudioClip>("Audio");
+    [HideInInspector] public CacheLoader<VideoClip> loaded_videoClips = new CacheLoader<VideoClip>("Video");
 
 
     void Awake() {

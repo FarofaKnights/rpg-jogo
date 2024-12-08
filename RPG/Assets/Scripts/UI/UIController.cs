@@ -20,6 +20,7 @@ public class UIController : MonoBehaviour {
     public static StatChoiceController statChoice;
     public static CheatController cheat;
     public static ModalController modal;
+    public static VideoController video;
     public GameObject menu;
 
     [Header("Black Screen")]
@@ -53,6 +54,7 @@ public class UIController : MonoBehaviour {
         statChoice = GetComponentInChildren<StatChoiceController>(true);
         cheat = GetComponentInChildren<CheatController>(true);
         modal = GetComponentInChildren<ModalController>(true);
+        video = GetComponentInChildren<VideoController>(true);
     }
 
     void Start() {

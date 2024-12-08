@@ -94,6 +94,13 @@ public class Quest : Saveable {
             return "";
         }
 
+        if (currentStepObject == null) {
+            currentStepObject = CurrentStepObject();
+            if (currentStepObject == null) {
+                return "";
+            }
+        }
+
         if (currentStep < info.steps.Length) {
             string message = info.steps[currentStep].informativo;
             if (isCurrentStepParent()) {
