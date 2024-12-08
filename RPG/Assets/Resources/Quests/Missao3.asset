@@ -19,8 +19,9 @@ MonoBehaviour:
   falasCarregadas:
   - nome: FalaEmpregada1
     falas:
-    - text: "Coe truta, tudo de boa na lagoa, par\xE7a? Ae, vamo colar no predio
-        ali men\xF3\nBeep boop Beep boop"
+    - text: "Oi, bom te ver mais uma vez! Eu estou indo em dire\xE7\xE3o \xE1 ind\xFAstria
+        onde eu nasci e/ou fui criada. Se voc\xEA quiser me ajudar, ou se quiser
+        sair da cidade, \xE9 s\xF3 ir por ali!"
       autoNext: 1
       acao:
         acao: 0
@@ -57,6 +58,64 @@ MonoBehaviour:
       escolhas:
         tipoEscolhas: 0
         idEscolhaDeSaidaDoMenu: -1
+        escolhas: []
+  - nome: Fala2 empregada
+    falas:
+    - text: "Agora \xE9 s\xF3 achar o caminho!"
+      autoNext: 0
+      acao:
+        acao: 0
+        parametros:
+          id: 
+          id2: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
+          operacao: 0
+      escolhas:
+        tipoEscolhas: 2
+        idEscolhaDeSaidaDoMenu: 0
+        escolhas:
+        - escolha: "Por que voc\xEA quer ir na ind\xFAstria?"
+          tipoEscolha: 0
+          respostaFala:
+            text: "Para descobrir porque os rob\xF4s est\xE1o agindo deste jeito
+              e eu n\xE3o"
+            autoNext: 0
+            acao:
+              acao: 0
+              parametros:
+                id: 
+                id2: 
+                type: 0
+                isGlobal: 0
+                intValue: 0
+                floatValue: 0
+                stringValue: 
+                boolValue: 0
+                operacao: 0
+          respostasFalas: []
+          respostaDialogo: {fileID: 0}
+    - text: "Vai ser perigoso, mas se voc\xEA puder me ajudar eu ficaria muito agradecida"
+      autoNext: 0
+      acao:
+        acao: 0
+        parametros:
+          id: 
+          id2: 
+          type: 0
+          isGlobal: 0
+          intValue: 0
+          floatValue: 0
+          stringValue: 
+          boolValue: 0
+          operacao: 0
+      escolhas:
+        tipoEscolhas: 0
+        idEscolhaDeSaidaDoMenu: 0
         escolhas: []
   requirementsInfo:
     condicao: 0
@@ -152,6 +211,13 @@ MonoBehaviour:
       parameter: TROCAR_CAMERA;;INT;1;False;;NULL
       informativo: 
       mostrandoConteudo: 1
+  - type: 0
+    gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
+      type: 3}
+    parameter: Fala2 empregada
+    informativo: 
+    mostrandoConteudo: 1
+    children: []
   - type: 0
     gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
       type: 3}
