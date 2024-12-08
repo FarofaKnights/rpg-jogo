@@ -7,11 +7,19 @@ public class HUDController : MonoBehaviour {
     public Slider vidaSlider, calorSlider;
     public Color calorPositivoColor, calorNegativoColor;
     public Image calorSliderFill;
-
+    public Transform[] activeOverlay;
+    public GameObject pecasInfoHolder;
     public Text pecasText;
+
     public Image imagemSave, playerAim;
     public Color normalAimColor, targetAimColor;
     public IndicadorMiraUI[] indicadoresMira;
+
+    [Header("Popup Itens")]
+    public GameObject popupItemInfoPrefab;
+    public GameObject popupItemInfoHolder;
+    Dictionary<ItemData, GameObject> popupItemInfo = new Dictionary<ItemData, GameObject>();
+
 
     [Header("Indicadores de equipamento")]
     public Image imagemArma;
@@ -72,6 +80,31 @@ public class HUDController : MonoBehaviour {
         ShowAim(false);
     }
 
+    void Start() {
+        Player.Inventario.OnChangeWithMod += OnInventarioChange;
+        Player.Inventario.OnChange += OnInventarioChangeForPecas;
+    }
+
+    public void SetOverlayStatus(bool status) {
+        foreach (Transform overlay in activeOverlay) {
+            overlay.gameObject.SetActive(status);
+        }
+    }
+
+    public void SetPecasShow(bool show) {
+        pecasInfoHolder.SetActive(show);
+    }
+
+    public void OnInventarioChangeForPecas(ItemData item, int quantidade) {
+        if (item == GameManager.instance.pecasItem) {
+            UpdatePecas(Player.Inventario.GetQuantidade(item));
+        }
+    }
+
+    public void UpdatePecas(int pecas) {
+        pecasText.text = pecas.ToString();
+    }
+
     public void UpdateVida(float vida, float vidaMax) {
         vidaSlider.maxValue = vidaMax;
         vidaSlider.value = vida;
@@ -88,10 +121,32 @@ public class HUDController : MonoBehaviour {
         }
     }
 
-    public void UpdatePecas(int pecas) {
-        pecasText.text = "" + pecas;
-    }
+    public void OnInventarioChange(ItemData item, int quantidade) {
+        if (Player.Inventario.isLoading) return;
 
+        if (quantidade == 0) {
+            if (popupItemInfo.ContainsKey(item)) {
+                if (popupItemInfo[item] != null)
+                    GameObject.Destroy(popupItemInfo[item]);
+                popupItemInfo.Remove(item);
+            }
+        } else {
+            if (popupItemInfo.ContainsKey(item)) {
+                if (popupItemInfo[item] != null) {
+                    popupItemInfo[item].GetComponent<PopupItem>().UpdateValue(quantidade);
+                    return;
+                }
+
+                popupItemInfo.Remove(item);
+            }
+            
+            GameObject instancia = GameObject.Instantiate(popupItemInfoPrefab, popupItemInfoHolder.transform);
+            PopupItem popup = instancia.GetComponent<PopupItem>();
+            popup.Set(item, quantidade);
+            popup.OnEnd += OnInventarioChange;
+            popupItemInfo.Add(item, instancia);
+        }
+    }
     
     public void UpdateMissaoText(QuestInfo quest, string texto) {
         bool achou = false;

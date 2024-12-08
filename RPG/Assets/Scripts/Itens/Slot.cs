@@ -38,4 +38,8 @@ public class Slot {
             if (OnDelete != null) OnDelete();
         }
     }
+
+    public virtual int GetQuantidade() {
+        return quantidade;
+    }
 }

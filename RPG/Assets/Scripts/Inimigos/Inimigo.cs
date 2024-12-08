@@ -52,7 +52,7 @@ public class Inimigo : MonoBehaviour, IAtacador {
 
     [Header("MISC")]
     public GameObject target;
-    public int recompensaPecas = 10;
+    public int recompensaPecas = 1;
     PossuiVida vidaController;
     public GameObject getHitParticles;
     public AudioSource AlertSound;

@@ -5,7 +5,8 @@ using Defective.JSON;
 
 public class InventarioManager : IInventario, Saveable {
     public Inventario armas, bracos, resto;
-    public System.Action<ItemData, int> OnChange;
+    public System.Action<ItemData, int> OnChange, OnChangeWithMod;
+    public bool isLoading = false;
 
     public InventarioManager() {
         armas = new Inventario();
@@ -21,6 +22,10 @@ public class InventarioManager : IInventario, Saveable {
         bracos.onItemChange += HandleItemChange;
         resto.onItemChange += HandleItemChange;
 
+        armas.onItemChangeWithMod += HandleItemChangeWithMod;
+        bracos.onItemChangeWithMod += HandleItemChangeWithMod;
+        resto.onItemChangeWithMod += HandleItemChangeWithMod;
+
         Player.instance.StartCoroutine(SkipOneStartFrame());
     }
 
@@ -33,6 +38,12 @@ public class InventarioManager : IInventario, Saveable {
     void HandleItemChange(ItemData item, int quantidade) {
         if (OnChange != null) {
             OnChange(item, quantidade);
+        }
+    }
+
+    void HandleItemChangeWithMod(ItemData item, int mod) {
+        if (OnChangeWithMod != null) {
+            OnChangeWithMod(item, mod);
         }
     }
 
@@ -112,6 +123,11 @@ public class InventarioManager : IInventario, Saveable {
     }
 
     #region IInventario implementation
+    public bool SetItem(ItemData item, int quantidade) {
+        if (item == null) return false;
+        Inventario inventario = GetInventario(item.tipo);
+        return inventario.SetItem(item, quantidade);
+    }
 
     public bool AddItem(ItemData item, int quantidade = 1) {
         if (item == null) return false;
@@ -194,6 +210,8 @@ public class InventarioManager : IInventario, Saveable {
     }
 
     public void Load(JSONObject obj) {
+        isLoading = true;
+
         JSONObject armasObj = obj.GetField("armas");
         JSONObject bracosObj = obj.GetField("bracos");
         JSONObject restoObj = obj.GetField("resto");
@@ -209,6 +227,8 @@ public class InventarioManager : IInventario, Saveable {
         if (restoObj != null) {
             resto.Load(restoObj);
         }
+
+        isLoading = false;
     }
 
     #endregion

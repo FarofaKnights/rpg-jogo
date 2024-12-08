@@ -1224,7 +1224,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3049342580036045924}
   - component: {fileID: 6925835136395916002}
-  - component: {fileID: 383912917794068393}
   - component: {fileID: 3434446195240613163}
   m_Layer: 0
   m_Name: TriggerInteragivel
@@ -1270,18 +1269,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2.53
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &383912917794068393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9009340879064797317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4896948f1eb3a44b8285aa0c7bffebc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3434446195240613163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1487,7 +1474,7 @@ PrefabInstance:
     - target: {fileID: 3556720709252561836, guid: 2625ef19420e12b499d934ea2a76c596,
         type: 3}
       propertyPath: slot.preco
-      value: 500
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4008172082678816344, guid: 2625ef19420e12b499d934ea2a76c596,
         type: 3}
@@ -1781,12 +1768,14 @@ MonoBehaviour:
     condicao: 2
     parametros:
       id: Armas/EspadaPesadaData
+      id2: 
       type: 1
       isGlobal: 0
       intValue: 1
       floatValue: 0
       stringValue: 
       boolValue: 0
+      operacao: 0
       comparacaoValue: 0
       dinamic: 1
 --- !u!4 &6613861144112484445 stripped
@@ -2109,7 +2098,7 @@ PrefabInstance:
     - target: {fileID: 3556720709252561836, guid: 2625ef19420e12b499d934ea2a76c596,
         type: 3}
       propertyPath: slot.preco
-      value: 500
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4718478268588051696, guid: 2625ef19420e12b499d934ea2a76c596,
         type: 3}
@@ -2348,12 +2337,14 @@ MonoBehaviour:
     condicao: 2
     parametros:
       id: Bracos/BracoArea Data
+      id2: 
       type: 1
       isGlobal: 0
       intValue: 1
       floatValue: 0
       stringValue: 
       boolValue: 0
+      operacao: 0
       comparacaoValue: 0
       dinamic: 1
 --- !u!4 &8924158794043198976 stripped
@@ -2688,7 +2679,7 @@ PrefabInstance:
     - target: {fileID: 3556720709252561836, guid: 2625ef19420e12b499d934ea2a76c596,
         type: 3}
       propertyPath: slot.preco
-      value: 200
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3556720709252561836, guid: 2625ef19420e12b499d934ea2a76c596,
         type: 3}
@@ -3128,7 +3119,7 @@ PrefabInstance:
     - target: {fileID: 3556720709252561836, guid: 2625ef19420e12b499d934ea2a76c596,
         type: 3}
       propertyPath: slot.preco
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3556720709252561836, guid: 2625ef19420e12b499d934ea2a76c596,
         type: 3}
@@ -3395,7 +3386,7 @@ PrefabInstance:
     - target: {fileID: 3556720709252561836, guid: 2625ef19420e12b499d934ea2a76c596,
         type: 3}
       propertyPath: slot.preco
-      value: 250
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5519774992739700435, guid: 2625ef19420e12b499d934ea2a76c596,
         type: 3}
@@ -3618,12 +3609,14 @@ MonoBehaviour:
     condicao: 2
     parametros:
       id: Quests/ChaveData
+      id2: 
       type: 1
       isGlobal: 0
       intValue: 1
       floatValue: 0
       stringValue: 
       boolValue: 0
+      operacao: 0
       comparacaoValue: 0
       dinamic: 1
 --- !u!114 &9201503178579880669 stripped
@@ -3769,7 +3762,7 @@ PrefabInstance:
     - target: {fileID: 3556720709252561836, guid: 2625ef19420e12b499d934ea2a76c596,
         type: 3}
       propertyPath: slot.preco
-      value: 50
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3556720709252561836, guid: 2625ef19420e12b499d934ea2a76c596,
         type: 3}

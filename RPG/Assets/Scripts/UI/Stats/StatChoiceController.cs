@@ -8,6 +8,8 @@ public class StatChoiceController : MonoBehaviour {
     public Text informaPontos;
     public DisableableButton confirmar;
 
+    public int maxPointsPer = 5;
+
     public int pontosDisponiveisInicialmente = 0;
     public int pontosRestantes = 0;
     Promise openPromise;
@@ -58,7 +60,7 @@ public class StatChoiceController : MonoBehaviour {
     }
 
     public void TentarConfirmarEscolha() {
-        if (pontosRestantes == 0) {
+        if (CanConfirm()) {
             ConfirmarEscolha();
         }
     }
@@ -92,11 +94,21 @@ public class StatChoiceController : MonoBehaviour {
     public void UpdateValues() {
         informaPontos.text = "Pontos restantes: " + pontosRestantes;
         confirmar.SetDisabled(pontosRestantes > 0);
-        confirmar.GetComponent<Button>().interactable = pontosRestantes == 0;
+        confirmar.GetComponent<Button>().interactable = CanConfirm();
 
         vida.Atualizar();
         forca.Atualizar();
         calor.Atualizar();
+    }
+
+    public bool CanConfirm() {
+        if (pontosRestantes == 0) return true;
+        if (vida.pontosFixos + vida.pontosExtras >= maxPointsPer &&
+            forca.pontosFixos + forca.pontosExtras >= maxPointsPer &&
+            calor.pontosFixos + calor.pontosExtras >= maxPointsPer) {
+            return true;
+        }
+        return false;
     }
 
     public void AdicionarPonto(StatChoicer stat) {

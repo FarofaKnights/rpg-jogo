@@ -6,7 +6,7 @@ using UnityEngine;
 public class AtributosController {
     public IAtributo<float> vida;
     public AtributoFloat calor;
-    public AtributoInt pecas;
+    public AtributoItem pecas;
     bool inicializado = false;
 
     public void Initialize() {
@@ -14,11 +14,11 @@ public class AtributosController {
         inicializado = true;
 
         if (calor == null) calor = new AtributoFloat(100, 100, -100);
-        if (pecas == null) pecas = new AtributoInt(100);
+        if (pecas == null) pecas = new AtributoItem();
         if (vida == null) vida = Player.instance.GetComponent<PossuiVida>().GetVidaAtributo();
 
         calor.OnChange += UIController.HUD.UpdateCalor;
-        pecas.OnChange += (valor, max) => UIController.HUD.UpdatePecas(valor);
+        // pecas.OnChange += (valor, max) => UIController.HUD.UpdatePecas(valor);
         vida.OnChange += UIController.HUD.UpdateVida;
 
         calor.OnChange += (valor, max) => {

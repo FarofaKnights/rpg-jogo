@@ -18,7 +18,7 @@ public class Inventario : Inventario<Slot> {
 
 public class Inventario<T> : IInventario, Saveable where T: Slot , new() {
     List<T> slots;
-    public Action<ItemData, int> onItemChange;
+    public Action<ItemData, int> onItemChange, onItemChangeWithMod;
 
     public Inventario() {
         slots = new List<T>();
@@ -30,9 +30,11 @@ public class Inventario<T> : IInventario, Saveable where T: Slot , new() {
         if (item.empilhavel) {
             slot = GetSlotWithItem(item);
             if (slot != null) {
+                int prevVal = slot.GetQuantidade();
                 slot.AddItem(item, quantidade);
                 
                 if (onItemChange != null)  onItemChange(item, slot.quantidade);
+                if (onItemChangeWithMod != null)  onItemChangeWithMod(item, slot.quantidade - prevVal);
 
                 return true;
             }
@@ -40,9 +42,11 @@ public class Inventario<T> : IInventario, Saveable where T: Slot , new() {
 
         slot = GetEmptySlot();
         if (slot != null) {
+            int prevVal = slot.GetQuantidade();
             slot.AddItem(item, quantidade);
 
             if (onItemChange != null)  onItemChange(item, slot.quantidade);
+            if (onItemChangeWithMod != null)  onItemChangeWithMod(item, slot.quantidade - prevVal);
 
             return true;
         }
@@ -53,13 +57,32 @@ public class Inventario<T> : IInventario, Saveable where T: Slot , new() {
     public bool RemoveItem(ItemData item, int quantidade = 1) {
         T slot = GetSlotWithItem(item);
         if (slot != null) {
+            int prevVal = slot.GetQuantidade();
             slot.RemoveItem(quantidade);
             
             if (onItemChange != null)  onItemChange(item, slot.quantidade);
+            if (onItemChangeWithMod != null)  onItemChangeWithMod(item, slot.quantidade - prevVal);
 
             return true;
         }
         return false;
+    }
+
+    public bool SetItem(ItemData item, int quantidade) {
+        T slot = GetSlotWithItem(item);
+        if (slot != null) {
+            if (slot.quantidade > quantidade) {
+                return RemoveItem(item, slot.quantidade - quantidade);
+            } else if (slot.quantidade < quantidade) {
+                return AddItem(item, quantidade - slot.quantidade);
+            }
+            
+            if (onItemChange != null)  onItemChange(item, slot.quantidade);
+
+            return true;
+        } else {
+            return AddItem(item, quantidade);
+        }
     }
 
     public int GetSlotIndex(ItemData item) {

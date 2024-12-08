@@ -56,6 +56,11 @@ public class LojaController : MonoBehaviour, Saveable {
 
         GameManager.instance.SetState(GameState.Loja);
         GameManager.instance.controls.Loja.Sair.performed += SaiuLoja;
+
+        UIController.HUD.SetPecasShow(true);
+        UIController.HUD.SetOverlayStatus(false);
+        Player.instance.SetarControle(false);
+        GameManager.instance.SetInimigosAtivos(false);
     }
 
     public void SaiuLoja(InputAction.CallbackContext ctx) {
@@ -71,6 +76,11 @@ public class LojaController : MonoBehaviour, Saveable {
 
         if (oldCam != null) oldCam.gameObject.SetActive(true);
         lojaCam.gameObject.SetActive(false);
+
+        UIController.HUD.SetPecasShow(false);
+        UIController.HUD.SetOverlayStatus(true);
+        Player.instance.SetarControle(true);
+        GameManager.instance.SetInimigosAtivos(true);
 
         dentro = false;
 

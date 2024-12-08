@@ -129,6 +129,8 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
         stats.OnChange += (string a, int b) => AplicarStats();
         AplicarStats();
 
+        inventario.isLoading = true;
+
         // Seta itens que o player começa com (não usamos isso, mas existe)
         if (itensJaPossuidos != null) {
             foreach (ItemData item in itensJaPossuidos) {
@@ -141,6 +143,7 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
             }
         }
 
+        inventario.isLoading = false;
 
         GameManager.instance.controls.Player.Attack.performed += HandleAttackTriggered;
         GameManager.instance.controls.Player.Arm.performed += HandleArmTriggered;
@@ -332,11 +335,12 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
         if (!inimigo.CompareTag("Inimigo")) return false;
 
         AtaqueInfo ataque = arma.ataque;
+        ataque.dano.origem = gameObject;
         int ataqueIndex = arma.ataqueIndex;
 
         atributos.calor.Add(10);
         float adicional = stats.GetAdicionalForca(ataque.dano.dano);
-        ataque.dano.danoAdicional += adicional;
+        ataque.dano.danoAdicional = adicional;
 
         // Informa a direção do ataque ao inimigo (para animações de hit específicas)
         Inimigo inimigoScript = inimigo.GetComponent<Inimigo>();

@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour {
     public System.Action onSaveLoaded;
     public bool IsLoading { get { return isLoading; } }
 
+    public ItemData pecasItem;
+
 
     [HideInInspector] public CacheLoader<AudioClip> loaded_audioClips = new CacheLoader<AudioClip>("Audio");
     [HideInInspector] public CacheLoader<VideoClip> loaded_videoClips = new CacheLoader<VideoClip>("Video");
