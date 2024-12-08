@@ -19,7 +19,7 @@ MonoBehaviour:
   falasCarregadas:
   - nome: FalaEmpregada1
     falas:
-    - text: "Oi, bom te ver mais uma vez! Eu estou indo em dire\xE7\xE3o \xE1 ind\xFAstria
+    - text: "Oi, bom te ver mais uma vez! Eu estou indo em dire\xE7\xE3o a ind\xFAstria
         onde eu nasci e/ou fui criada. Se voc\xEA quiser me ajudar, ou se quiser
         sair da cidade, \xE9 s\xF3 ir por ali!"
       autoNext: 1
@@ -82,8 +82,7 @@ MonoBehaviour:
         - escolha: "Por que voc\xEA quer ir na ind\xFAstria?"
           tipoEscolha: 0
           respostaFala:
-            text: "Para descobrir porque os rob\xF4s est\xE1o agindo deste jeito
-              e eu n\xE3o"
+            text: "Para descobrir porque eu estou agindo diferente dos outros rob\xF4s"
             autoNext: 0
             acao:
               acao: 0
@@ -152,6 +151,12 @@ MonoBehaviour:
       informativo: 
       mostrandoConteudo: 1
     - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 6c11cab1dbffbb347920ae96340b6c93,
+        type: 3}
+      parameter: PlayerControlsEnabled;False
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
       gameObject: {fileID: 1368148330828971028, guid: e7c3c187bd710d9489c1a402d032ae66,
         type: 3}
       parameter: 3
@@ -209,6 +214,12 @@ MonoBehaviour:
       gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
         type: 3}
       parameter: TROCAR_CAMERA;;INT;1;False;;NULL
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 6c11cab1dbffbb347920ae96340b6c93,
+        type: 3}
+      parameter: PlayerControlsEnabled;True
       informativo: 
       mostrandoConteudo: 1
   - type: 0
