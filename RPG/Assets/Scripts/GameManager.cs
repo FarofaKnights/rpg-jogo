@@ -159,6 +159,8 @@ public class GameManager : MonoBehaviour {
                 UIController.cheat.Entrar(oldState);
                 break;
             case GameState.Loja:
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 controls.Player.Disable();
                 controls.Loja.Enable();
                 break;

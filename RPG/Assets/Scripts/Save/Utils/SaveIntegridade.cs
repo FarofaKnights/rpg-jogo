@@ -10,7 +10,7 @@ public class SaveIntegridade : MonoBehaviour {
 
     void Start() {
         if (this.id == "" ) {
-            Debug.LogWarning("SalvarIntegridade sem id, geramos um automaticamente para você, mas é recomendado que você defina um id único para cada objeto com este componente.");
+            // Debug.LogWarning("SalvarIntegridade sem id, geramos um automaticamente para você, mas é recomendado que você defina um id único para cada objeto com este componente.");
             AutoId<SaveIntegridade>(this, gameObject.name);
         }
 
