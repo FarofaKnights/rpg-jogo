@@ -63,11 +63,11 @@ public class LoadingController {
             steps += level.prefabsAInstanciar.Length;
         }
 
-        if (level.audioClipPaths.Length > 0) {
+        if (level.audioClipPaths != null && level.audioClipPaths.Length > 0) {
             steps += level.audioClipPaths.Length;
         }
 
-        if (level.videoClipPaths.Length > 0) {
+        if (level.videoClipPaths != null && level.videoClipPaths.Length > 0) {
             steps += level.videoClipPaths.Length;
         }
 
@@ -139,7 +139,7 @@ public class LoadingController {
         }
 
         // Se tiver algum audio pra carregar
-        if (level.audioClipPaths.Length > 0) {
+        if (level.audioClipPaths != null && level.audioClipPaths.Length > 0) {
             foreach (string path in level.audioClipPaths) {
                 yield return GameManager.instance.loaded_audioClips.LoadAsync(path);
 
@@ -148,7 +148,7 @@ public class LoadingController {
         }
 
         // Se tiver algum video pra carregar
-        if (level.videoClipPaths.Length > 0) {
+        if (level.videoClipPaths != null && level.videoClipPaths.Length > 0) {
             foreach (string path in level.videoClipPaths) {
                 yield return GameManager.instance.loaded_videoClips.LoadAsync(path);
 

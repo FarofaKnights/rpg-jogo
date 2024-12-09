@@ -166,6 +166,7 @@ public class GameManager : MonoBehaviour {
                 controls.Player.Disable();
                 controls.Loja.Disable();
                 controls.Dialog.Disable();
+                controls.UI.Disable();
                 break;
             case GameState.Cutscene:
                 controls.Player.Disable();
