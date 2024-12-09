@@ -12,12 +12,8 @@ public class DisableableButton : MonoBehaviour {
     public Color onBackgroundColor, offBackgroundColor;
     public Color onTextColor, offTextColor;
 
-    Button button;
+    public Button button;
     bool settedOnce = false;
-
-    void Awake() {
-        button = GetComponent<Button>();
-    }
 
     void Start() {
         if (!settedOnce)
