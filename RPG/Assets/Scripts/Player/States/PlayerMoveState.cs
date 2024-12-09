@@ -42,7 +42,11 @@ public class PlayerMoveState : IPlayerState {
         MovementControl();
     }
 
-    public void Execute() { }
+    public void Execute() {
+        if (Time.timeScale == 0 && AudioManager.instance.playerFootsteps.isPlaying) {
+            AudioManager.instance.playerFootsteps.Pause();
+        }
+    }
 
     public void Exit() {
         vidaPlayer.SetInvulneravel(false);
@@ -85,7 +89,7 @@ public class PlayerMoveState : IPlayerState {
             player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, currentRotationSpeed * Time.deltaTime);
         }
 
-        if (Input.GetKey(KeyCode.LeftShift)) Walk(move);
+        if (Input.GetKey(KeyCode.LeftShift) || player.GetDanoFrioValue() > 0) Walk(move);
         else Run(move);
 
         if (Input.GetKeyDown(KeyCode.Space)) {

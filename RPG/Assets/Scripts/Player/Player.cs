@@ -34,6 +34,8 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
     public float stunTime = 0.5f;
     public Vector3 velocity;
     AtacadorInfo atacadorInfo;
+    public float danoFrioTime = 1f;
+    float danoFrioTimer = 0f;
 
 
     // State Machine
@@ -229,6 +231,16 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
 
         characterController.Move(velocity * Time.fixedDeltaTime);
         animator.SetBool("IsGrounded", isGrounded);
+
+        float danoFrio = GetDanoFrioValue();
+        if (danoFrio > 0) {
+            danoFrioTimer += Time.fixedDeltaTime;
+            if (danoFrioTimer >= danoFrioTime) {
+                DamageInfo dano = new DamageInfo(TipoDeDano.Temperatura, FormaDeDano.Passivo, danoFrio, gameObject);
+                vidaController.LevarDano(dano);
+                danoFrioTimer = 0f;
+            }
+        }
     }
 
     // Atualiza os atributos baseado no valor dos Stats
@@ -367,6 +379,13 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
 
     public void SentirTemperatura(float modTemperatura) {
         atributos.calor.Add(modTemperatura);
+    }
+
+    public int GetDanoFrioValue() {
+        float temp = atributos.calor.Get();
+        if (temp > -70) return 0;
+        if (temp <= -90) return 2;
+        return 4;
     }
 
     public bool IsGrounded() {
