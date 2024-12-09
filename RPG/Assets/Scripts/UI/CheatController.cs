@@ -83,9 +83,10 @@ public class CheatController : MonoBehaviour {
 
     void GerarDropdownFases() {
         List<string> opcoes = new List<string>();
-        int quantScenes = SceneManager.sceneCountInBuildSettings;
-        for (int i = 0; i < quantScenes; i++) {
-            string nome = System.IO.Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i));
+        LevelInfo[] levels = GameManager.instance.loading.GetLevels();
+
+        foreach (LevelInfo level in levels) {
+            string nome = level.name;
             if (!ignorarFases.Contains(nome))
                 opcoes.Add(nome);
         }
@@ -167,7 +168,7 @@ public class CheatController : MonoBehaviour {
         int i = fasesDropdown.value;
         string nome = fasesDropdown.options[i].text;
 
-        LevelInfo level = GameManager.instance.loading.GetLevelInfo(nome);
+        LevelInfo level = GameManager.instance.loading.GetLevelInfoByName(nome);
         GameManager.instance.GoToScene(level);
     }
 

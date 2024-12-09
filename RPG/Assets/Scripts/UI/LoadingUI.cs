@@ -4,8 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class LoadingUI : MonoBehaviour {
+    public GameObject conteudo;
     public Image blackScreen;
     public Text percentageText;
+
+    public float transicaoTempo = 0.5f;
 
     void Start() {
         GameManager.instance.loading.onProgress += UpdateProgress;
@@ -16,18 +19,26 @@ public class LoadingUI : MonoBehaviour {
     }
 
     public void StartLoading() {
+        StartCoroutine(StartLoadingAsync());
+    }
+
+    public IEnumerator StartLoadingAsync() {
+        conteudo.SetActive(false);
         gameObject.SetActive(true);
-        StartCoroutine(AnimacaoTelaPreta(false, 0.5f));
+        yield return AnimacaoTelaPreta(true, transicaoTempo);
+        conteudo.SetActive(true);
+        UpdateProgress(0.0f);
+        yield return AnimacaoTelaPreta(false, transicaoTempo);
     }
 
     IEnumerator AnimacaoTelaPreta(bool fadeIn, float duration) {
         float alpha = fadeIn ? 0 : 1;
         float step = fadeIn ? 1 : -1;
-        float startTime = Time.time;
+        float startTime = Time.unscaledTime;
         float endTime = startTime + duration;
         blackScreen.color = new Color(0, 0, 0, alpha);
 
-        while (Time.time < endTime) {
+        while (Time.unscaledTime < endTime) {
             alpha += step * Time.unscaledDeltaTime / duration;
             blackScreen.color = new Color(0, 0, 0, alpha);
             yield return null;
@@ -37,7 +48,13 @@ public class LoadingUI : MonoBehaviour {
     }
 
     public void LoadingEnded() {
+        StartCoroutine(LoadingEndedAsync());
+    }
+
+    public IEnumerator LoadingEndedAsync() {
+        yield return AnimacaoTelaPreta(true, transicaoTempo);
+        conteudo.SetActive(false);
+        yield return AnimacaoTelaPreta(false, transicaoTempo);
         gameObject.SetActive(false);
-        StartCoroutine(AnimacaoTelaPreta(true, 0.5f));
     }
 }

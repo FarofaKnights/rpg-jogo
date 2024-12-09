@@ -11,33 +11,27 @@ Prioridade em implementação (mais que os itens da planilha)
 ## 😥 Alta
 Deve ser implementado assim que possível 
 
-- Melhorar o ataque do jogador
+Não tem nada aqui UwU
 
 ## 😑 Média
 Tem que ser implementado até o fim do projeto mas não precisa ser agora
 
-- Melhorar câmera
 - Melhorar a tela de créditos (mais créditos para o nosso amigo lucas sabino pfv 🙏, gerente de produção de assets, diretor de animação, gerente de arte, personagens, texturas, mais bonito do grupo, melhores piadas, mais alto.)
-- Armas jogáveis de inimigo, tipo o tijolo, desaparecer ao jogar
 - Fazer a tragetória do tijolo respeitar as leis da física de um lançamento
 - Inimigos vão atrás do player quando levam dano
-- Modificar sistema de dinheiro para peças (contabilizam no inventário) e ajustar os preços da loja
-- Colocar itens secretos na industria
+- Colocar itens secretos na industria (?)
 
 ## 😌 Baixa
 Fará falta se não for implementado mas pode não ser
 - Fazer configuração de gráficos (gama, etc)
-- Atualizar o visual e posição dos Fs
 - Melhorar visualização da vida do inimigo
 - Selecionar um consumível com hotkey
 - Indicador de localização no mapa
-- Possiveis invencible frames (discutir com o grupo antes)  
 
 
 ## 🤠 Nenhuma
 Algo adicional que não fará falta se não for implementado, mas seria legal ter (como game juices e afins)
 
-- Mira do braço de tiro em formato quadrado quando houver um alvo no alcance (indicador melhor)
 - Armas e braços novos do player
 - Knockback de dano (no player e do player)
 
@@ -47,7 +41,6 @@ Bugs que eu estou encontrando enquanto jogo o jogo, vou anotando eles aqui e usa
 ## 🤯 Urgente
 Bugs que afetam o progresso do jogador e o impedem de continuar o jogo, tem que ser corrigidos imediatamente.
 
-- Cano da cidade não cai
 - Os elevadores da fase do predio demoram pra funciomar
 - Portas na fase do henri não abrem
 
@@ -57,8 +50,6 @@ Bugs que atrapalham o progresso, mas não necessariamente o impedem de jogar ou 
 
 - Não tem como coletar os itens de chave e força, fora do tutorial
 - No fim da fase da industria, logo antes do save point do boss, os alvos não ativam a animação de abrir o portão. Para que o jogador pelo possa progredir no jogo, coloquei uma função que faz o potão desaparecer, mas fica feio pra caramba.
-- O Ataque do robo forte causa dano assim que ele começa a animação, não quando ele de fato acerta o jogador, é impossivel desviar dos ataques dele.
-- Há uma chave no beco da missão da caçadora de ciborgues que não tem como coletar. Na cidade,
 - Refazer o bake no predio, pq os inimigos podem atravessar paredes
 - O tiro sempre mira pro chão, seria bom se a camera tivesse um limite do quanto pra baixo ela pode olhar
 
@@ -67,7 +58,6 @@ Bugs que afetam a experiencia em geral e fazem o jogo ser pior.
 - Na fase da industria, todos os colisões que se mexem não funcionam, isso inclue o balde no segundo cano puzzle, que deveria poder derrubar o jogador do cano e dificultar ele acertar os canos.
 - Na represa (antes de cruzar o rio) na fase da cidade, tem um carro com lod invertido, ele desaparece assim que chega perto e fica visivel de longe
 - Robo fornalha demora um tempo pra voltar pro estado de ataque, e fica uns frames esquisitão em t-pose dps q toma dano.
-- Jogar em pc q da baixo FPS causa uma porção de bug, se você morrer com baixo fps, você vai pra tela de "vc morreu :/"
 
 ## 😕 Baixa
 Similar ao medio, mas com prioridade menor.

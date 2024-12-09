@@ -150,6 +150,7 @@ public class FluxoDialogo {
 }
 
 public class DialogoController : MonoBehaviour {
+    public Text skipInfoText;
     public Text texto;
     public System.Action OnDialogoEnd;
     public float autoNextDelay = 5f;
@@ -176,10 +177,15 @@ public class DialogoController : MonoBehaviour {
         dialogoHolder.SetActive(true);
 
         texto.text = text;
+
+        if (text != "") skipInfoText.gameObject.SetActive(playerLocked);
+        else skipInfoText.gameObject.SetActive(false);
     }
 
     public void ShowEscolhas(Escolhas escolhas, System.Action<Escolha> CallbackEscolhida, string text = "") {
         escolhasHolder.SetActive(true);
+        skipInfoText.gameObject.SetActive(playerLocked);
+        skipInfoText.text = "Pressione [F] para escolher";
 
         texto.text = text;
         dialogoHolder.SetActive(text != "");
@@ -238,6 +244,8 @@ public class DialogoController : MonoBehaviour {
     public void EscolhaSelect(InputAction.CallbackContext ctx) {
         escolhasHolder.SetActive(false);
         dialogoHolder.SetActive(true);
+        skipInfoText.gameObject.SetActive(false);
+        skipInfoText.text = "Pressione [F] para continuar";
 
         Escolha escolha = escolhasAtual.escolhas[currentEscolhaIndex];
 
@@ -275,6 +283,8 @@ public class DialogoController : MonoBehaviour {
             GameManager.instance.controls.UI.Interact.performed += Proximo;
         }
 
+        UIController.HUD.SetMochilaShow(!playerLocked);
+
         this.OnDialogoEnd += OnDialogoEnd;
         fluxoAtual.OnEnd += HandleDialogoEnd;
         Proximo();
@@ -292,6 +302,8 @@ public class DialogoController : MonoBehaviour {
 
     void HandleDialogoEnd() {
         texto.text = "";
+        skipInfoText.gameObject.SetActive(false);
+        UIController.HUD.SetMochilaShow(true);
 
         if (playerLocked) {
             GameManager.instance.controls.Dialog.Interact.performed -= Proximo;

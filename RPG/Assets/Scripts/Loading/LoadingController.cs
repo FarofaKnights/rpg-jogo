@@ -25,12 +25,24 @@ public class LoadingController {
         levels = Resources.LoadAll<LevelInfo>("Levels");
     }
 
+    public LevelInfo[] GetLevels() {
+        if (levels == null) {
+            LoadLevelsInfo();
+        }
+
+        return levels;
+    }
+
     protected Coroutine StartCoroutine(IEnumerator routine) {
         return GameManager.instance.StartCoroutine(routine);
     }
 
     public LevelInfo GetLevelInfo(string levelName) {
         return System.Array.Find(levels, level => level.nomeCena == levelName);
+    }
+
+    public LevelInfo GetLevelInfoByName(string levelName) {
+        return System.Array.Find(levels, level => level.name == levelName);
     }
 
     public void LoadScene(string sceneName) {
@@ -88,7 +100,7 @@ public class LoadingController {
     public IEnumerator LoadSceneAsync(LevelInfo level) {
         cenaCarregada = false;
         isLoading = true;
-        GameManager.instance.loadingUI.StartLoading();
+        yield return GameManager.instance.loadingUI.StartLoadingAsync();
 
         maxSteps = CalculateSteps(level);
         steps = 0;
@@ -159,7 +171,7 @@ public class LoadingController {
         SetPercentage(1.0f);
 
         isLoading = false;
-        GameManager.instance.loadingUI.LoadingEnded();
+        yield return GameManager.instance.loadingUI.LoadingEndedAsync();
         
         onLoaded?.Invoke();
     }

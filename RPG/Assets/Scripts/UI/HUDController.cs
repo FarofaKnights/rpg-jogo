@@ -14,6 +14,7 @@ public class HUDController : MonoBehaviour {
     public Image imagemSave, playerAim;
     public Color normalAimColor, targetAimColor;
     public IndicadorMiraUI[] indicadoresMira;
+    public GameObject indicadorMochila;
 
     [Header("Popup Itens")]
     public GameObject popupItemInfoPrefab;
@@ -89,6 +90,10 @@ public class HUDController : MonoBehaviour {
         foreach (Transform overlay in activeOverlay) {
             overlay.gameObject.SetActive(status);
         }
+    }
+
+    public void SetMochilaShow(bool show) {
+        indicadorMochila.SetActive(show);
     }
 
     public void SetPecasShow(bool show) {

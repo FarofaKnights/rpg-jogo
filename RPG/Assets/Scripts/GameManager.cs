@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public string gameOverSceneName { get { return "GameOver"; } }
     public string startSceneName = "Start", firstSceneName = "Introducao";
     public string endSceneName = "End";
     public LevelInfo firstSceneInfo;
@@ -99,10 +98,13 @@ public class GameManager : MonoBehaviour {
             if (save.HasSave(slot)){
                 LoadGame(slot);
                 return;
+            } else {
+                GoToScene(firstSceneInfo, "");
             }
+        } else {
+            save.variables.SetVariable<int>("slot", 0);
+            GoToScene(firstSceneInfo, "");
         }
-        
-        SceneManager.LoadScene(gameOverSceneName);
     }
 
     public void GameStart(){
