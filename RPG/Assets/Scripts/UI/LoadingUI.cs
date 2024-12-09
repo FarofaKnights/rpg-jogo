@@ -5,6 +5,15 @@ using UnityEngine.UI;
 
 public class LoadingUI : MonoBehaviour {
     public Image blackScreen;
+    public Text percentageText;
+
+    void Start() {
+        GameManager.instance.loading.onProgress += UpdateProgress;
+    }
+
+    void UpdateProgress(float progress) {
+        percentageText.text = Mathf.RoundToInt(progress * 100) + "%";
+    }
 
     public void StartLoading() {
         gameObject.SetActive(true);

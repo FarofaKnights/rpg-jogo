@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour {
 
     public string gameOverSceneName { get { return "GameOver"; } }
     public string startSceneName = "Start", firstSceneName = "Introducao";
+    public string endSceneName = "End";
     public LevelInfo firstSceneInfo;
     public string firstPointName = "TutorialStart";
     public string _debugCurrentState = "";
