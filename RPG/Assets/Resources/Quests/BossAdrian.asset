@@ -16,6 +16,7 @@ MonoBehaviour:
   mostrarNaLista: 1
   titulo: "Interven\xE7\xE3o"
   descricao: "Adrian est\xE1 interessado no que John Frostbite conseguiu no cofre"
+  level: {fileID: 11400000, guid: 8d799e2a2ccce8e49aa21f83aff57bc5, type: 2}
   falasCarregadas:
   - nome: inicio
     falas:
@@ -333,7 +334,7 @@ MonoBehaviour:
     gameObject: {fileID: 0}
     parameter: 
     informativo: Fase 1
-    mostrandoConteudo: 1
+    mostrandoConteudo: 0
     children:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
@@ -357,7 +358,7 @@ MonoBehaviour:
     gameObject: {fileID: 0}
     parameter: 
     informativo: Fase 2
-    mostrandoConteudo: 1
+    mostrandoConteudo: 0
     children:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
@@ -417,7 +418,7 @@ MonoBehaviour:
     gameObject: {fileID: 0}
     parameter: 
     informativo: Fase 3
-    mostrandoConteudo: 1
+    mostrandoConteudo: 0
     children:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
@@ -459,7 +460,7 @@ MonoBehaviour:
     gameObject: {fileID: 0}
     parameter: 
     informativo: 
-    mostrandoConteudo: 1
+    mostrandoConteudo: 0
     children:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
@@ -483,7 +484,7 @@ MonoBehaviour:
     gameObject: {fileID: 0}
     parameter: 
     informativo: Mudar de fase
-    mostrandoConteudo: 0
+    mostrandoConteudo: 1
     children:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: e7c3c187bd710d9489c1a402d032ae66,
@@ -494,7 +495,13 @@ MonoBehaviour:
     - type: 0
       gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
         type: 3}
-      parameter: MUDA_CENA;DemoOver;BOOL;True;False;;NULL
+      parameter: COMECAR_MISSAO;escolha_IrIndustria;INT;1;False;;NULL
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: COMECAR_MISSAO;escolha_naoIrIndustria;INT;1;False;;NULL
       informativo: 
       mostrandoConteudo: 1
   rewardsInfo: []

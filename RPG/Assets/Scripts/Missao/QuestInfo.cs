@@ -47,6 +47,7 @@ public class QuestInfo : ScriptableObject {
     
     public string titulo;
     [TextArea(3, 10)] public string descricao;
+    public LevelInfo level;
     
     public FalaCarregada[] falasCarregadas;
 

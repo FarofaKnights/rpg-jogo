@@ -16,6 +16,7 @@ MonoBehaviour:
   mostrarNaLista: 1
   titulo: Atravessando a cidade
   descricao: "A Rob\xF4 empregada quer que voc\xEA mate uns rob\xF4s"
+  level: {fileID: 11400000, guid: 3d40f800ad3467240bca76225dcaf1a6, type: 2}
   falasCarregadas:
   - nome: FalaEmpregada1
     falas:
@@ -132,6 +133,13 @@ MonoBehaviour:
       dinamic: 0
   steps:
   - type: 0
+    gameObject: {fileID: 1368148330828971028, guid: 6c11cab1dbffbb347920ae96340b6c93,
+      type: 3}
+    parameter: InimigosEnabled;False
+    informativo: 
+    mostrandoConteudo: 1
+    children: []
+  - type: 0
     gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
       type: 3}
     parameter: FalaEmpregada1
@@ -230,10 +238,17 @@ MonoBehaviour:
     mostrandoConteudo: 1
     children: []
   - type: 0
+    gameObject: {fileID: 1368148330828971028, guid: 6c11cab1dbffbb347920ae96340b6c93,
+      type: 3}
+    parameter: InimigosEnabled;True
+    informativo: 
+    mostrandoConteudo: 1
+    children: []
+  - type: 0
     gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
       type: 3}
     parameter: Fase;Fase
-    informativo: "Chegue at\xE9 o pr\xE9dio"
+    informativo: "Chegue at\xE9 o pr\xE9dio que brilha em verde"
     mostrandoConteudo: 1
     children: []
   rewardsInfo: []

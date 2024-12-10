@@ -67,6 +67,10 @@ public class QuestInfoEditor : Editor {
         EditorGUILayout.LabelField("Descrição:");
         questInfo.descricao = EditorGUILayout.TextArea(questInfo.descricao, textAreaStyle, GUILayout.Height(60));
 
+        EditorGUILayout.LabelField("Level:");
+        questInfo.level = (LevelInfo)EditorGUILayout.ObjectField(questInfo.level, typeof(LevelInfo), false);
+
+
         questInfo.mostrarNaLista = EditorGUILayout.Toggle("Mostrar na lista", questInfo.mostrarNaLista);
 
         DrawCondicao();

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questId: PredioEmpregada
   mostrarNaLista: 1
-  titulo: 
+  titulo: "A busca de uma rob\xF4"
   descricao: "Converse com a Rob\xF4 empregada"
+  level: {fileID: 11400000, guid: 87bfad21896d36d459128cc9ea1cb4dc, type: 2}
   falasCarregadas:
   - nome: FalaEmpregadaPredio
     falas:
@@ -100,16 +101,16 @@ MonoBehaviour:
             text: "Obrigada! Eu vou tentar chegar l\xE1 o mais r\xE1pido possivel"
             autoNext: 0
             acao:
-              acao: 0
+              acao: 1
               parametros:
-                id: 
+                id: ir_industria
                 id2: 
-                type: 0
-                isGlobal: 0
+                type: 4
+                isGlobal: 1
                 intValue: 0
                 floatValue: 0
                 stringValue: 
-                boolValue: 0
+                boolValue: 1
                 operacao: 0
           respostasFalas: []
           respostaDialogo: {fileID: 0}
@@ -119,12 +120,12 @@ MonoBehaviour:
             text: Ah... Tudo bem, eu- eu entendo
             autoNext: 0
             acao:
-              acao: 0
+              acao: 1
               parametros:
-                id: 
+                id: ir_industria
                 id2: 
-                type: 0
-                isGlobal: 0
+                type: 4
+                isGlobal: 1
                 intValue: 0
                 floatValue: 0
                 stringValue: 
@@ -155,10 +156,24 @@ MonoBehaviour:
     mostrandoConteudo: 1
     children: []
   - type: 0
+    gameObject: {fileID: 1368148330828971028, guid: 6c11cab1dbffbb347920ae96340b6c93,
+      type: 3}
+    parameter: InimigosEnabled;False
+    informativo: 
+    mostrandoConteudo: 1
+    children: []
+  - type: 0
     gameObject: {fileID: 1368148330828971028, guid: f0e3cf3aaa73dac4aaf219b3a0c5f38b,
       type: 3}
     parameter: FalaEmpregadaPredio
-    informativo: "Converse com a Rob\xF4 empregada"
+    informativo: 
+    mostrandoConteudo: 1
+    children: []
+  - type: 0
+    gameObject: {fileID: 1368148330828971028, guid: 6c11cab1dbffbb347920ae96340b6c93,
+      type: 3}
+    parameter: InimigosEnabled;True
+    informativo: 
     mostrandoConteudo: 1
     children: []
   rewardsInfo: []
