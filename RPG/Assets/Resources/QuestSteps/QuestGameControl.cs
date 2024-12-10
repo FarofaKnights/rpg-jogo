@@ -39,7 +39,8 @@ public class QuestGameControl : QuestStep, IQuestInformations {
                 UIController.HUD.gameObject.SetActive(controlValue);
                 break;
             case GameControlOptions.PlayerControlsEnabled:
-                Player.instance.SetarControle(controlValue);
+                if (Player.instance != null && Player.instance.gameObject != null)
+                    Player.instance.SetarControle(controlValue);
                 break;
             case GameControlOptions.InimigosEnabled:
                 GameManager.instance.SetInimigosAtivos(controlValue);

@@ -32,6 +32,10 @@ public class AtaqueShooter: AttackBehaviour {
 
     public override void OnUpdate(AtaqueInstance.Estado estado) {
         if (olharEnquantoCarrega && estado == AtaqueInstance.Estado.Antecipacao && inimigo != null) {
+            if (inimigo.target == null || inimigo.target.transform == null || atacadorGO == null) {
+                return;
+            }
+
             Vector3 target = inimigo.target.transform.position;
             target.y = atacadorGO.transform.position.y;
             atacadorGO.transform.LookAt(target);

@@ -14,6 +14,7 @@ public class SetInteractiveShaderEffects : MonoBehaviour
 
     private void Update()
     {
+        if (target == null || target.transform == null) return;
         transform.position = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
         Shader.SetGlobalVector("_Position", transform.position);
     }
