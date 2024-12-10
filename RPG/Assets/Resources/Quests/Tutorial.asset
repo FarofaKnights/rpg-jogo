@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee36e9f26966264bb3dc6d4b55b7d5d, type: 3}
+  m_Name: Tutorial
+  m_EditorClassIdentifier: 
+  questId: 
+  mostrarNaLista: 1
+  titulo: Tutorial
+  descricao: 
+  level: {fileID: 11400000, guid: 384e928bcaab955419d843f19925d7a8, type: 2}
+  falasCarregadas: []
+  requirementsInfo:
+    condicao: 0
+    parametros:
+      id: 
+      id2: 
+      type: 0
+      isGlobal: 0
+      intValue: 0
+      floatValue: 0
+      stringValue: 
+      boolValue: 0
+      operacao: 0
+      comparacaoValue: 0
+      dinamic: 0
+  steps:
+  - type: 1
+    gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+      type: 3}
+    parameter: Trigger1;Trigger1
+    informativo: 
+    mostrandoConteudo: 1
+    children:
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e7c3c187bd710d9489c1a402d032ae66,
+        type: 3}
+      parameter: 1
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+        type: 3}
+      parameter: Trigger0;Trigger0
+      informativo: Use WASD para se mover
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+        type: 3}
+      parameter: TriggerMeio;TriggerMeio
+      informativo: Use SPACE para usar o Dash
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+        type: 3}
+      parameter: Trigger1;Trigger1
+      informativo: Destrua as caixas (Mouse esquerdo)
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f0119f286f0af424eacb87945ea00b30,
+        type: 3}
+      parameter: GrupoInimigo;True
+      informativo: Mate o inimigo
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+        type: 3}
+      parameter: Trigger2;Trigger2
+      informativo: Mire (Mouse direito) e atire (Mouse esquerdo)
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+        type: 3}
+      parameter: Trigger3;Trigger3
+      informativo: Atirar consome calor (Barra laranja)
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f0119f286f0af424eacb87945ea00b30,
+        type: 3}
+      parameter: GrupoInimigos2;True
+      informativo: Mate os inimigos
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+        type: 3}
+      parameter: Trigger4;Trigger4
+      informativo: "ESC para abrir o invent\xE1rio e usar itens"
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: f8cfc3b58eb0ae84b8bd8d2b171cd14b,
+        type: 3}
+      parameter: Trigger5;Trigger5
+      informativo: "V\xE1 at\xE9 o final da fase"
+      mostrandoConteudo: 1
+  rewardsInfo: []
