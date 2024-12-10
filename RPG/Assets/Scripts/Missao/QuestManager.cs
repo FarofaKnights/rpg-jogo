@@ -18,6 +18,10 @@ public class QuestManager : MonoBehaviour, Saveable {
 
     List<string> OnGoingQuests = new List<string>();
 
+    public bool IsLoadingFromSave() {
+        return loadingFromSave;
+    }
+
     public Action OnQuestsLoaded {
         get { return _OnQuestsLoaded; }
         set {

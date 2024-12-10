@@ -23,6 +23,9 @@ public class AcaoMudaCena : Acao {
     }
 
     public override void Realizar() {
+        if (GameManager.instance.IsLoading || QuestManager.instance.IsLoadingFromSave()) return;
+
+
         if (naoEhFase) {
             SceneManager.LoadScene(nome);
         } else {
