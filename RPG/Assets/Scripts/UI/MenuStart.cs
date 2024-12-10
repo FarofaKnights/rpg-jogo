@@ -16,6 +16,7 @@ public class MenuStart : MonoBehaviour {
 
     public GameObject settingsPanel;
     public GameObject jogarPanel;
+    public string itchURL = "https://farofa-knights.itch.io/sangue-frio";
 
 
     [Header("Changelog")]
@@ -31,6 +32,10 @@ public class MenuStart : MonoBehaviour {
         Time.timeScale = 1;
 
         GameManager.instance.SetState(GameState.NotStarted);
+    }
+
+    public void OpenItch() {
+        Application.OpenURL(itchURL);
     }
 
     public void ShowPlayOptions() {

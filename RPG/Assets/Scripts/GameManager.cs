@@ -149,6 +149,7 @@ public class GameManager : MonoBehaviour {
                 break;
             case GameState.Dialog:
                 controls.Dialog.Enable();
+                controls.Player.Disable();
                 break;
             case GameState.GameOver:
                 GameOver();

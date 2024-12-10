@@ -70,6 +70,8 @@ public class QuestManager : MonoBehaviour, Saveable {
         }
         
         OnQuestsLoaded?.Invoke();
+
+        CheckIfInLevel();
     }
 
     public void StartQuest(string questId) {
@@ -108,13 +110,14 @@ public class QuestManager : MonoBehaviour, Saveable {
         UIController.HUD.UpdateMissaoText(quest.info, "");
     }
 
-    void ClaimReward(Quest quest) {
-        /*
-        GameManager.instance.AddXP(quest.info.xpReward);
-        GameManager.instance.AddCoins(quest.info.goldReward);
-        */
-        Debug.Log("ClaimReward não implementado");
+    public void SetFalhaQuest(string questId) {
+        Quest quest = GetQuestById(questId);
+        quest.SetFalha();
+        ChangeQuestState(questId, QuestState.FINISHED);
+        UIController.HUD.UpdateMissaoText(quest.info, "");
     }
+
+    void ClaimReward(Quest quest) { /* Nunca existiu, nunca existirá */ }
 
     public void ChangeQuestState(string questId, QuestState state) {
         Quest quest = GetQuestById(questId);
@@ -235,6 +238,9 @@ public class QuestManager : MonoBehaviour, Saveable {
                 quest.Load(questObj);
             }
         }
+
+        CheckIfInLevel();
+
         loadingFromSave = false;
     }
 
@@ -243,6 +249,18 @@ public class QuestManager : MonoBehaviour, Saveable {
         if (quest.state == QuestState.IN_PROGRESS) {
             GameObject stepGO = quest.InstantiateStep(transform);
             stepGO.GetComponent<QuestStep>().Initialize(questId);
+        }
+    }
+
+    public void CheckIfInLevel(){
+        LevelInfo currentLevel = GameManager.instance.CurrentScene();
+
+        foreach (Quest quest in quests.Values) {
+            if (quest.state == QuestState.IN_PROGRESS || quest.state == QuestState.CAN_FINISH) {
+                if (quest.info.level != currentLevel) {
+                    SetFalhaQuest(quest.info.questId);
+                }
+            }
         }
     }
 }

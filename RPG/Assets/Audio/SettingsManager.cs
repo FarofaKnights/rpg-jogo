@@ -9,7 +9,7 @@ using Defective.JSON;
 public class SettingsManager : MonoBehaviour, Saveable
 {
     public static SettingsManager instance;
-    public const float minVolume = -60, maxVolume = 10;
+    public const float minVolume = -60, maxVolume = 5;
     [Range(minVolume, maxVolume)]
     public float masterVolume, musicVolume, effectVolume;
     public Slider masterSlider, musicSlider, effectSlider, sensi;

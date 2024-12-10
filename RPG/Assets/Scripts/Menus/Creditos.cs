@@ -14,16 +14,15 @@ public class Creditos : MonoBehaviour
         currentSpeed = scrollSpeed;
     }
 
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.Space))
-        {
+    void Update() {
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) {
             currentSpeed = acceleratedSpeed;
-        }
-        else
-        {
+        } else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) {
+            currentSpeed = -acceleratedSpeed;
+        } else {
             currentSpeed = scrollSpeed;
-        }   
+        }
+
         Vector2 newPosition = creditsText.rectTransform.anchoredPosition;
         newPosition.y += currentSpeed * Time.deltaTime;
         creditsText.rectTransform.anchoredPosition = newPosition;

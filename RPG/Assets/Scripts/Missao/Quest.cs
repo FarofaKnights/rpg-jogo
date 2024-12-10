@@ -17,6 +17,7 @@ public class Quest : Saveable {
     int currentStep = 0;
     int internalStep = 0; // Para steps que são pais
     QuestStep currentStepObject;
+    bool falha = false;
 
     public Quest(QuestInfo info) {
         this.info = info;
@@ -44,6 +45,10 @@ public class Quest : Saveable {
         }
 
         return false;
+    }
+
+    public void SetFalha() {
+        falha = true;
     }
 
     public GameObject InstantiateStep(Transform parent) {
@@ -162,12 +167,19 @@ public class Quest : Saveable {
             obj.AddField("currentStep", currentStep);
             obj.AddField("internalStep", internalStep);
         }
+        obj.AddField("falha", falha);
         return obj;
     }
 
     public void Load(JSONObject obj) {
         QuestState oldState = state;
         QuestState atEndState = (QuestState)obj.GetField("state").intValue;
+
+        if (obj.GetField("falha") != null && obj.GetField("falha").boolValue) {
+            falha = true;
+            QuestManager.instance.ChangeQuestState(info.questId, QuestState.FINISHED);
+            return;
+        }
 
         if (oldState == QuestState.IN_PROGRESS && (atEndState == QuestState.CAN_START || atEndState == QuestState.WAITING_REQUIREMENTS)) {
             return;
