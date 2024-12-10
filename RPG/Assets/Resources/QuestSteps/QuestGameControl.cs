@@ -18,7 +18,7 @@ public class QuestGameControl : QuestStep, IQuestInformations {
         SetControl();
     }
 
-    public override bool IsEfeitoPersistente { get { return true; } }
+    public override bool IsEfeitoPersistente { get { return false; } }
 
     public void SetControl() {
         if (happened) {

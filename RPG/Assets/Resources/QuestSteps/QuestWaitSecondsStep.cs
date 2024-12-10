@@ -30,7 +30,13 @@ public class QuestWaitSecondsStep : QuestStep, IQuestInformations {
     public void HandleQuestInformations(QuestInfo questInfo, string parameter) {
         this.questInfo = questInfo;
         this.questId = questInfo.questId;
-        this.seconds = float.Parse(parameter);
+
+        try {
+            this.seconds = float.Parse(parameter);
+        } catch {
+            Debug.LogError("Erro ao converter parâmetro para float: " + parameter);
+            this.seconds = 0;
+        }
 
         Set();
     }

@@ -87,6 +87,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 689970241969275035}
+    - targetCorrespondingSourceObject: {fileID: 6103424983134547526, guid: 9d488e400c8166c49b7b58a6328dbd26,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3990700995808178425}
   m_SourcePrefab: {fileID: 100100000, guid: 9d488e400c8166c49b7b58a6328dbd26, type: 3}
 --- !u!1 &8944627688426315228 stripped
 GameObject:
@@ -106,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a01b5ebce833e742af2b3edcc59acae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  posicaoIndicador: {x: 0, y: 0, z: 0}
   item: {fileID: 7235714674719205307, guid: 9d488e400c8166c49b7b58a6328dbd26, type: 3}
   quantidade: 1
 --- !u!65 &689970241969275035
@@ -129,3 +134,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-3990700995808178425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8944627688426315228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb142773d34ac954b81ef47336cfed4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: keycardVermelho
