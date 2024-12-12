@@ -21,7 +21,6 @@ public class KeepSound : MonoBehaviour
 
     private void OnLevelWasLoaded(int level)
     {
-        Debug.Log(SceneManager.GetActiveScene().name);
         if(!CheckScene())
         {
             Destroy(this.gameObject);

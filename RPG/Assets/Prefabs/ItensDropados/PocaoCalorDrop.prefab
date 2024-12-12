@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5829574982828318022}
   - component: {fileID: 793348373300731196}
   - component: {fileID: 7039907990550985611}
+  - component: {fileID: -5922035428642745256}
   m_Layer: 0
   m_Name: PocaoCalorDrop
   m_TagString: Item
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a01b5ebce833e742af2b3edcc59acae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  posicaoIndicador: {x: 0, y: 0, z: 0}
   item: {fileID: 5422347172669451845, guid: 42e378060fa499c4dbd8317756c19a76, type: 3}
   quantidade: 1
 --- !u!65 &7039907990550985611
@@ -70,6 +72,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 1.25, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-5922035428642745256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5236101948881920896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb142773d34ac954b81ef47336cfed4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
 --- !u!1 &5831947172742491463
 GameObject:
   m_ObjectHideFlags: 0

@@ -202,6 +202,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public IEnumerator LoadNewGameAsync(int slot = 0) {
+        save.variables.Clear();
         save.variables.SetVariable<int>("slot", slot);
         yield return GoToSceneAsync(firstSceneInfo, "", false);
         save.Save();
@@ -221,6 +222,16 @@ public class GameManager : MonoBehaviour {
         StartCoroutine(GoToSceneAsync(level, customPoint));
     }
 
+    void LoadSaveAfterGoToSceneAsync() {
+        save.Load();
+        onSaveLoaded?.Invoke();
+    }
+
+    void TeleportPlayerToPointAfterGoToSceneAsync(string point) {
+        SaveLastSpawnpoint(point);
+        TeleportPlayerToPoint(point);
+    }
+
     public IEnumerator GoToSceneAsync(LevelInfo level, string customPoint = "", bool saveGame = true) {
         string currentSceneName = CurrentSceneName();
         if (onBeforeSceneChange != null) onBeforeSceneChange(currentSceneName);
@@ -228,24 +239,26 @@ public class GameManager : MonoBehaviour {
         if (state != GameState.NotStarted) {
             if (level.pontoInicial != "") SaveLastSpawnpoint(level.pontoInicial, level.nomeCena);
             if (saveGame) save.Save();
-        }   
+        }
 
-        yield return StartCoroutine(loading.LoadSceneAsync(level));
-        Debug.Log("Scene loaded: " + level.nomeCena);
+        List<System.Action> onLoaded = new List<System.Action>();
 
-        if (onAfterSceneChange != null) onAfterSceneChange(level.nomeCena);
+        if (onAfterSceneChange != null) onLoaded.Add(() => onAfterSceneChange(level.nomeCena));
 
         if (!isLoading && saveGame) {
-            save.Load();
-            onSaveLoaded?.Invoke();
+            onLoaded.Add(LoadSaveAfterGoToSceneAsync);
         }
+
 
         string ponto = customPoint != "" ? customPoint : level.pontoInicial;
 
-        if (level.pontoInicial != "") {
-            SaveLastSpawnpoint(ponto);
-            TeleportPlayerToPoint(ponto);
+        if (ponto != "") {
+            onLoaded.Add(() => TeleportPlayerToPointAfterGoToSceneAsync(ponto));
         }
+
+        yield return StartCoroutine(loading.LoadSceneAsync(level, onLoaded.ToArray()));
+        Debug.Log("Scene loaded: " + level.nomeCena);
+
     }
 
     public IEnumerator RefreshScene(){

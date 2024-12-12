@@ -68,7 +68,7 @@ public class LoadingController {
         return null;
     }
 
-    public int CalculateSteps(LevelInfo level) {
+    public int CalculateSteps(LevelInfo level, System.Action[] onLoaded = null) {
         int steps = 0;
 
         if (level.prefabsAInstanciar != null) {
@@ -81,6 +81,10 @@ public class LoadingController {
 
         if (level.videoClipPaths != null && level.videoClipPaths.Length > 0) {
             steps += level.videoClipPaths.Length;
+        }
+
+        if (onLoaded != null) {
+            steps += onLoaded.Length;
         }
 
         return steps;
@@ -97,12 +101,12 @@ public class LoadingController {
     }
 
     
-    public IEnumerator LoadSceneAsync(LevelInfo level) {
+    public IEnumerator LoadSceneAsync(LevelInfo level, System.Action[] onBeforeFinish = null) {
         cenaCarregada = false;
         isLoading = true;
         yield return GameManager.instance.loadingUI.StartLoadingAsync();
 
-        maxSteps = CalculateSteps(level);
+        maxSteps = CalculateSteps(level, onBeforeFinish);
         steps = 0;
         
         var asyncLoadLevel = SceneManager.LoadSceneAsync(level.nomeCena, LoadSceneMode.Single);
@@ -164,6 +168,14 @@ public class LoadingController {
             foreach (string path in level.videoClipPaths) {
                 yield return GameManager.instance.loaded_videoClips.LoadAsync(path);
 
+                IncrementStep();
+            }
+        }
+
+        // Se tiver alguma ação pra executar
+        if (onBeforeFinish != null) {
+            foreach (System.Action action in onBeforeFinish) {
+                action?.Invoke();
                 IncrementStep();
             }
         }

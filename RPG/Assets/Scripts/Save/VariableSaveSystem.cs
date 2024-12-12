@@ -341,7 +341,7 @@ public class VariableSaveSystem: Saveable {
         }
     }
 
-    void Clear() {
+    public void Clear() {
         global = new SaveEscopo();
         escopos.Clear();
     }

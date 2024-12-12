@@ -47,7 +47,6 @@ public class Elevator : MonoBehaviour
             rb.AddForce(Vector3.up * speed, ForceMode.Impulse);
             pressable = false;
             informativo.SetActive(false);
-            Debug.Log(this.transform.position);
             yield return new WaitForSeconds(5f);
             rb.AddForce(Vector3.down * speed, ForceMode.Impulse);
             pressable = true;
