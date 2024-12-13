@@ -7,20 +7,20 @@ public class VideoController : MonoBehaviour {
     public VideoPlayer videoPlayer;
     public GameObject screen;
 
-    public void Play(string path) {
-        StartCoroutine(PlayAsync(path));
+    public void Play(string path, bool fadeOut = true) {
+        StartCoroutine(PlayAsync(path, fadeOut));
     }
 
-    public void Play(VideoClip clip) {
-        StartCoroutine(PlayAsync(clip));
+    public void Play(VideoClip clip, bool fadeOut = true) {
+        StartCoroutine(PlayAsync(clip, fadeOut));
     }
 
-    public IEnumerator PlayAsync(string path) {
+    public IEnumerator PlayAsync(string path, bool fadeOut = true) {
         VideoClip clip = GameManager.instance.loaded_videoClips.Get(path);
-        yield return PlayAsync(clip);
+        yield return PlayAsync(clip, fadeOut);
     }
 
-    public IEnumerator PlayAsync(VideoClip clip) {
+    public IEnumerator PlayAsync(VideoClip clip, bool fadeOut = true) {
         yield return UIController.instance.FadeInAsync();
         
         UIController.dialogo.ShowFalaTexto("");
@@ -38,6 +38,8 @@ public class VideoController : MonoBehaviour {
         while (videoPlayer.isPlaying) {
             yield return null;
         }
+
+        yield return UIController.instance.FadeInAsync();
 
         screen.SetActive(false);
 

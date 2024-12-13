@@ -4,4 +4,5 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour {
     public string pointName;
+    public bool showOnCheats = true;
 }

@@ -1024,6 +1024,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 278934721}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &426450324
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 426450326}
+  - component: {fileID: 426450325}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!182 &426450325
+WindZone:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426450324}
+  m_Enabled: 1
+  m_Mode: 0
+  m_Radius: 20
+  m_WindMain: 2
+  m_WindTurbulence: 2
+  m_WindPulseMagnitude: 0.5
+  m_WindPulseFrequency: 0.01
+--- !u!4 &426450326
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426450324}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -558.6, y: 8.32, z: -68.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &488807062
 GameObject:
   m_ObjectHideFlags: 0
@@ -2427,7 +2473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60854759f92b9e44e87d3d76303574b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  temperatura: -2.2
+  temperatura: -2.5
 --- !u!1001 &1032151670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3053,6 +3099,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Neve
+      objectReference: {fileID: 0}
+    - target: {fileID: 3335955791120847662, guid: eb4d7a4c3916cf341a79ea15605337a0,
+        type: 3}
+      propertyPath: simulationSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3335955791120847662, guid: eb4d7a4c3916cf341a79ea15605337a0,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 650
+      objectReference: {fileID: 0}
+    - target: {fileID: 3335955791120847662, guid: eb4d7a4c3916cf341a79ea15605337a0,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3335955791120847662, guid: eb4d7a4c3916cf341a79ea15605337a0,
+        type: 3}
+      propertyPath: ExternalForcesModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3335955791120847662, guid: eb4d7a4c3916cf341a79ea15605337a0,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3335955791120847662, guid: eb4d7a4c3916cf341a79ea15605337a0,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3335955791120847662, guid: eb4d7a4c3916cf341a79ea15605337a0,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4489973847599149696, guid: eb4d7a4c3916cf341a79ea15605337a0,
         type: 3}
@@ -3882,6 +3963,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 1.316
       objectReference: {fileID: 0}
+    - target: {fileID: 820158193263695236, guid: f5ddc318c9634954b8f74bf1b26e6211,
+        type: 3}
+      propertyPath: temperatura
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739314761747412988, guid: f5ddc318c9634954b8f74bf1b26e6211,
+        type: 3}
+      propertyPath: temperatura
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1852054440436671099, guid: f5ddc318c9634954b8f74bf1b26e6211,
+        type: 3}
+      propertyPath: temperatura
+      value: 4.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2031848475375471581, guid: f5ddc318c9634954b8f74bf1b26e6211,
         type: 3}
       propertyPath: m_Range
@@ -3891,6 +3987,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Intensity
       value: 4.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2370254672790161261, guid: f5ddc318c9634954b8f74bf1b26e6211,
+        type: 3}
+      propertyPath: temperatura
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2459100816451919203, guid: f5ddc318c9634954b8f74bf1b26e6211,
+        type: 3}
+      propertyPath: temperatura
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844272213186102926, guid: f5ddc318c9634954b8f74bf1b26e6211,
+        type: 3}
+      propertyPath: temperatura
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3447350029715575894, guid: f5ddc318c9634954b8f74bf1b26e6211,
+        type: 3}
+      propertyPath: temperatura
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 4274783404690696967, guid: f5ddc318c9634954b8f74bf1b26e6211,
         type: 3}
@@ -3957,6 +4073,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5541165560112961538, guid: f5ddc318c9634954b8f74bf1b26e6211,
+        type: 3}
+      propertyPath: temperatura
+      value: 4.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5622830949418367450, guid: f5ddc318c9634954b8f74bf1b26e6211,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3972,10 +4093,20 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0
       objectReference: {fileID: 0}
+    - target: {fileID: 6304774113095886477, guid: f5ddc318c9634954b8f74bf1b26e6211,
+        type: 3}
+      propertyPath: temperatura
+      value: 4.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6608318129927751259, guid: f5ddc318c9634954b8f74bf1b26e6211,
         type: 3}
       propertyPath: m_Intensity
       value: 5.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698977379501382056, guid: f5ddc318c9634954b8f74bf1b26e6211,
+        type: 3}
+      propertyPath: temperatura
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 6722412934388030370, guid: f5ddc318c9634954b8f74bf1b26e6211,
         type: 3}
@@ -7522,6 +7653,7 @@ SceneRoots:
   - {fileID: 18033993}
   - {fileID: 1795672003}
   - {fileID: 1792961541}
+  - {fileID: 426450326}
   - {fileID: 1222825135}
   - {fileID: 630316743}
   - {fileID: 1658425942}

@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee36e9f26966264bb3dc6d4b55b7d5d, type: 3}
+  m_Name: escolha_naoIrIndustria
+  m_EditorClassIdentifier: 
+  questId: escolha_naoIrIndustria
+  mostrarNaLista: 0
+  titulo: "n\xE3o ir industria"
+  descricao: 
+  level: {fileID: 11400000, guid: a6265bc293ef1b444a00cc76a09138f3, type: 2}
+  falasCarregadas: []
+  requirementsInfo:
+    condicao: 1
+    parametros:
+      id: ir_industria
+      id2: 
+      type: 4
+      isGlobal: 1
+      intValue: 0
+      floatValue: 0
+      stringValue: 
+      boolValue: 0
+      operacao: 0
+      comparacaoValue: 1
+      dinamic: 1
+  steps:
+  - type: 1
+    gameObject: {fileID: 0}
+    parameter: 
+    informativo: 
+    mostrandoConteudo: 1
+    children:
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: MUDA_CENA;Avenida;BOOL;False;False;;NULL
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 35a78fc2a5d9c144c8597a53d142adb3,
+        type: 3}
+      parameter: 
+      informativo: 
+      mostrandoConteudo: 1
+  rewardsInfo: []

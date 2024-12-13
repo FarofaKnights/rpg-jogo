@@ -162,6 +162,12 @@ public class QuestManager : MonoBehaviour, Saveable {
 
         foreach (QuestInfo questInfo in questInfos) {
             Quest quest = new Quest(questInfo);
+            
+            if (quests.ContainsKey(questInfo.questId)) {
+                Debug.LogError("Quest with ID " + questInfo.questId + " already exists");
+                continue;
+            }
+
             quests.Add(questInfo.questId, quest);
         }
 
@@ -175,6 +181,15 @@ public class QuestManager : MonoBehaviour, Saveable {
         }
 
         return null;
+    }
+
+    public void LoadQuest(QuestInfo questInfo) {
+        if (quests.ContainsKey(questInfo.questId)) {
+            return;
+        }
+
+        Quest quest = new Quest(questInfo);
+        quests.Add(questInfo.questId, quest);
     }
 
     Quest_Trigger GetQuestTrigger(string questId, string triggerName) {

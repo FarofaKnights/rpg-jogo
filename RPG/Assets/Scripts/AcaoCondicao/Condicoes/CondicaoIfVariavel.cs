@@ -70,7 +70,14 @@ public class CondicaoIfVariavel : Condicao {
     }
 
     public override bool CheckCondicao() {
-        if (!SaveSystem.instance.variables.HasVariable(nomeVariavel, (isGlobal? "global": "level"))) return false;
+        // Se não existe
+        if (!SaveSystem.instance.variables.HasVariable(nomeVariavel, (isGlobal? "global": "level"))) {
+            if (tipo == CondicaoParams.Tipo.NULL || valor == null) {
+                return comparacao == CondicaoParams.Comparacao.IGUAL;
+            }
+
+            return false;
+        }
         
         switch (tipo) {
             case CondicaoParams.Tipo.INT:

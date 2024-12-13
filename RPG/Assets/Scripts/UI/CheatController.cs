@@ -74,7 +74,8 @@ public class CheatController : MonoBehaviour {
 
         foreach (SpawnPoint spawnPoint in spawnPoints) {
             string nome = spawnPoint.pointName;
-            opcoes.Add(nome);
+            if (spawnPoint.showOnCheats)
+                opcoes.Add(nome);
         }
 
         teletransporteDropdown.ClearOptions();

@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee36e9f26966264bb3dc6d4b55b7d5d, type: 3}
+  m_Name: CE_Cacadora
+  m_EditorClassIdentifier: 
+  questId: CutsceneCacadora
+  mostrarNaLista: 0
+  titulo: 'Confronto '
+  descricao: "Cutscene da tela de Extras no menu, n\xE3o usar no jogo"
+  level: {fileID: 11400000, guid: 3d40f800ad3467240bca76225dcaf1a6, type: 2}
+  falasCarregadas: []
+  requirementsInfo:
+    condicao: 0
+    parametros:
+      id: 
+      id2: 
+      type: 0
+      isGlobal: 0
+      intValue: 0
+      floatValue: 0
+      stringValue: 
+      boolValue: 0
+      operacao: 0
+      comparacaoValue: 0
+      dinamic: 0
+  steps:
+  - type: 1
+    gameObject: {fileID: 0}
+    parameter: 
+    informativo: 
+    mostrandoConteudo: 1
+    children:
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: e9308d4df975ba140964933ace058698,
+        type: 3}
+      parameter: TELEPORTA;cacadoraCutPlayerPos;INT;1;False;;NULL
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 0426f2df2e3e9f648a99bee3004a495c,
+        type: 3}
+      parameter: cacadoraTimeline
+      informativo: 
+      mostrandoConteudo: 1
+    - type: 0
+      gameObject: {fileID: 1368148330828971028, guid: 14ecfa91add0f4b4ba92550b03cd23fe,
+        type: 3}
+      parameter: 
+      informativo: 
+      mostrandoConteudo: 1
+  rewardsInfo: []

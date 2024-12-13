@@ -19,6 +19,11 @@ public class MenuStart : MonoBehaviour {
     public string itchURL = "https://farofa-knights.itch.io/sangue-frio";
     public Text versionText;
 
+    [Header("Extras")]
+    public GameObject extrasPanel;
+    public ScrollRect extrasScrollRect;
+    public RectTransform cutscenesHolder;
+
 
     [Header("Changelog")]
     public Transform changeLogPanel;
@@ -62,6 +67,7 @@ public class MenuStart : MonoBehaviour {
     }
 
     public void ShowCreditos(){
+        GameManager.instance.isInMenuShowingCreditos = true;
         SceneManager.LoadScene("Creditos");
     }
 
@@ -132,5 +138,29 @@ public class MenuStart : MonoBehaviour {
         yield return new WaitForEndOfFrame();
         changeLogScrollRect.verticalNormalizedPosition = 1;
         LayoutRebuilder.ForceRebuildLayoutImmediate(changeLogScrollRect.GetComponent<RectTransform>());
+    }
+
+    // Extras
+    public void OpenExtras() {
+        extrasPanel.SetActive(true);
+    }
+
+    public void CloseExtras() {
+        extrasPanel.SetActive(false);
+    }
+
+    public void OpenExtrasCutscenes() {
+        extrasScrollRect.content = cutscenesHolder;
+        extrasPanel.SetActive(true);
+        cutscenesHolder.gameObject.SetActive(true);
+    }
+
+    public void ReturnFromCreditos() {
+        if (GameManager.instance.isInMenuShowingCreditos) {
+            GameManager.instance.isInMenuShowingCreditos = false;
+            GameManager.instance.ReturnToCutscenesScreen();
+        } else {
+            TelaInicial();
+        }
     }
 }

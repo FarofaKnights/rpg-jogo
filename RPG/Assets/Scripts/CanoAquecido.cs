@@ -23,15 +23,11 @@ public class CanoAquecido : MonoBehaviour
 
     void OnColisionEnter(Collider other)
     {
-        Debug.Log("Coisinha coisada");
         if (Morte == true)
         {
 
-            Debug.Log("Coisa");
-
             if (other.CompareTag("Player"))
             {
-                Debug.Log("Playyeyey");
                 Destroy(other.gameObject);
                 GameManager.instance.GameOver();
             }
@@ -47,7 +43,6 @@ public class CanoAquecido : MonoBehaviour
 
     void DangerState()
     {
-        Debug.Log("DangerState");
         StartCoroutine(ChangeColor(_renderer.material.color, orange,.005f));
         Vapor.SetActive(true);
         StartCoroutine(DeathCountdown());
@@ -59,7 +54,6 @@ public class CanoAquecido : MonoBehaviour
     }
     void DeathState()
     {
-        Debug.Log("DeathState");
         Vapor.SetActive(false);
         StartCoroutine(ChangeColor(_renderer.material.color, Color.red,.005f));
         Fogo.SetActive(true);
@@ -73,7 +67,6 @@ public class CanoAquecido : MonoBehaviour
     }
     void SafeState()
     {
-        Debug.Log("SafeState");
         Morte = false;
         Fogo.SetActive(false);
         StartCoroutine(ChangeColor(_renderer.material.color,brown,.005f));

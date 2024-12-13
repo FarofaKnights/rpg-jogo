@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour {
     public bool IsLoading { get { return isLoading; } }
 
     public ItemData pecasItem;
+    public bool isInMenuShowingCreditos = false;
 
 
     [HideInInspector] public CacheLoader<AudioClip> loaded_audioClips = new CacheLoader<AudioClip>("Audio");
@@ -232,7 +233,7 @@ public class GameManager : MonoBehaviour {
         TeleportPlayerToPoint(point);
     }
 
-    public IEnumerator GoToSceneAsync(LevelInfo level, string customPoint = "", bool saveGame = true) {
+    public IEnumerator GoToSceneAsync(LevelInfo level, string customPoint = "", bool saveGame = true, List<System.Action> onBeforeEndLoad = null) {
         string currentSceneName = CurrentSceneName();
         if (onBeforeSceneChange != null) onBeforeSceneChange(currentSceneName);
 
@@ -249,12 +250,13 @@ public class GameManager : MonoBehaviour {
             onLoaded.Add(LoadSaveAfterGoToSceneAsync);
         }
 
-
         string ponto = customPoint != "" ? customPoint : level.pontoInicial;
 
         if (ponto != "") {
             onLoaded.Add(() => TeleportPlayerToPointAfterGoToSceneAsync(ponto));
         }
+
+        if (onBeforeEndLoad != null) onLoaded.AddRange(onBeforeEndLoad);
 
         yield return StartCoroutine(loading.LoadSceneAsync(level, onLoaded.ToArray()));
         Debug.Log("Scene loaded: " + level.nomeCena);
@@ -371,5 +373,39 @@ public class GameManager : MonoBehaviour {
 
         UIController.HUD.gameObject.SetActive(!ativo);
         Player.instance.SetarControle(!ativo);
+    }
+
+    public void ReturnToCutscenesScreen() {
+        StartCoroutine(ReturnToCutscenesScreenAsync());
+    }
+
+    public void OpenCutscenesScreen() {
+        MenuStart menuStart = FindObjectOfType<MenuStart>();
+        if (menuStart != null) {
+            menuStart.OpenExtras();
+            menuStart.OpenExtrasCutscenes();
+        }
+    }
+
+    IEnumerator ReturnToCutscenesScreenAsync() {
+        yield return SceneManager.LoadSceneAsync(startSceneName);
+        OpenCutscenesScreen();
+    }
+
+    public void PlayCutsceneFromExtras(QuestInfo questInfo) {
+        StartCoroutine(PlayCutsceneFromExtrasAsync(questInfo));
+    }
+
+    IEnumerator PlayCutsceneFromExtrasAsync(QuestInfo questInfo) {
+        LevelInfo level = questInfo.level;
+        string cutscenePoint = "CutsceneHolder";
+
+        List<System.Action> onLoaded = new List<System.Action>();
+        onLoaded.Add(() => {
+            QuestManager.instance.LoadQuest(questInfo);
+            QuestManager.instance.StartQuest(questInfo.questId);
+        });
+
+        yield return GoToSceneAsync(questInfo.level, cutscenePoint, false, onLoaded);
     }
 }
