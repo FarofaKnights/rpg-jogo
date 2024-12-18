@@ -16,6 +16,8 @@ public class PlayerAttackState : IPlayerState {
 
     public void Enter() {
         // Debug.Log("call of enter");
+        player.animator.SetBool("OutAttack", false);
+
         if (player.arma == null) {
             player.stateMachine.SetState(player.moveState);
             return;
@@ -67,6 +69,8 @@ public class PlayerAttackState : IPlayerState {
         foreach (Transform child in hitboxParent) {
             GameObject.Destroy(child.gameObject);
         }
+
+        player.animator.SetBool("OutAttack", true);
     }
 
     public void ResetCombo() {

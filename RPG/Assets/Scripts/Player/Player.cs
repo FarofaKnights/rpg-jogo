@@ -61,6 +61,10 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
     public Transform bracoHolderBase, bracoHolderMeio, bracoHolderMao;
     PossuiVida vidaController;
 
+    #if UNITY_EDITOR
+    public string _debugCurrentState;
+    #endif
+
     void Awake() {
         // Singleton
         if (instance == null) instance = this;
@@ -215,7 +219,13 @@ public class Player : MonoBehaviour, Saveable, IEquipador, Sentidor {
     }
 
     void Update() {
+        #if UNITY_EDITOR
+        _debugCurrentState = stateMachine.GetCurrentState().ToString();
+        #endif
+
         if (GameManager.instance.IsPaused()) return;
+
+        if (Input.GetKeyDown(KeyCode.P)) LookForward();
         
         stateMachine.GetCurrentState().Update();
         canChangeStateThisFrame = true;

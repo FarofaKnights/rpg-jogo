@@ -7,6 +7,7 @@ public class SaveIntegridade : MonoBehaviour {
     LocalVariable<bool> vivo;
 
     bool autoDestroy = false;
+    bool isWatching = false;
 
     void Start() {
         if (this.id == "" ) {
@@ -18,6 +19,23 @@ public class SaveIntegridade : MonoBehaviour {
         if (!vivo.value) {
             autoDestroy = true;
             Destroy(gameObject);
+        } else if (vivo.isDefault) {
+            isWatching = true;
+            vivo.OnChange(ReConferir);
+        }
+    }
+
+    void ReConferir(object value) {
+        if (gameObject == null) return;
+
+        if ((bool) value) {
+            autoDestroy = true;
+            Destroy(gameObject);
+
+            if (isWatching) {
+                vivo.Unwatch(ReConferir);
+                isWatching = false;
+            }
         }
     }
 
@@ -25,6 +43,8 @@ public class SaveIntegridade : MonoBehaviour {
         if (!autoDestroy && gameObject.scene.isLoaded) {
             vivo.value = false;
         }
+
+        if (isWatching) vivo.Unwatch(ReConferir);
     }
 
     public static void AutoId<T>(T obj, string identificadorComum) where T : SaveIntegridade {

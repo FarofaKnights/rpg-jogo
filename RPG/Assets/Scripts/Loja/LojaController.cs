@@ -14,8 +14,10 @@ public class LojaController : MonoBehaviour, Saveable {
     public Camera lojaCam;
     Camera oldCam;
     public string animatorTriggerName;
+    public string exitTriggerName;
     public Animator animator;
     bool dentro = false;
+    public bool triggarAnimacao = true;
     
     void Awake() {
         instance = this;
@@ -50,7 +52,9 @@ public class LojaController : MonoBehaviour, Saveable {
         oldCam = Camera.main;
         oldCam.gameObject.SetActive(false);
         lojaCam.gameObject.SetActive(true);
-        animator.SetTrigger(animatorTriggerName);
+
+        if (triggarAnimacao)
+            animator.SetTrigger(animatorTriggerName);
 
         dentro = true;
 
@@ -69,6 +73,9 @@ public class LojaController : MonoBehaviour, Saveable {
 
     public void SaiuLoja() {
         Player.instance.gameObject.SetActive(true);
+
+        if (triggarAnimacao && exitTriggerName != "")
+            animator.SetTrigger(exitTriggerName);
 
         // Disable cursor
         Cursor.lockState = CursorLockMode.Locked;

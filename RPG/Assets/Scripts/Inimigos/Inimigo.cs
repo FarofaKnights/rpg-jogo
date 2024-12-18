@@ -307,4 +307,11 @@ public class Inimigo : MonoBehaviour, IAtacador {
         if (stateMachine == null) return;
         stateMachine.SetState(walkState);
     }
+
+    [ContextMenu("Desativar mas manter")]
+    void DesativarEManter() {
+        GameObject obj = GameObject.Find("InimigosDesativados_Juan");
+        transform.SetParent(obj.transform);
+        gameObject.SetActive(false);
+    }
 }

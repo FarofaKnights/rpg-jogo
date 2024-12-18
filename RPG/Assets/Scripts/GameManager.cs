@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour {
 
     public ItemData pecasItem;
     public bool isInMenuShowingCreditos = false;
+    bool isLoadFromMenu = false;
 
 
     [HideInInspector] public CacheLoader<AudioClip> loaded_audioClips = new CacheLoader<AudioClip>("Audio");
@@ -211,12 +212,11 @@ public class GameManager : MonoBehaviour {
     }
 
     public void LoadGameFromMenu(int slot = 0) {
-        StartCoroutine(LoadGameFromMenuAsync(slot));
-    }
-
-    public IEnumerator LoadGameFromMenuAsync(int slot = 0) {
         save.variables.SetVariable<int>("slot", slot);
-        if (save.HasSave(slot)) yield return LoadGameAsync(slot);
+        if (save.HasSave(slot)) {
+            isLoadFromMenu = true;
+            LoadGame(slot);
+        }
     }
 
     public void GoToScene(LevelInfo level, string customPoint = "") {
@@ -328,6 +328,12 @@ public class GameManager : MonoBehaviour {
 
         LevelInfo level = loading.GetLevelInfo(lastScene);
         yield return GoToSceneAsync(level, lastSpawnpoint, false);
+/*
+        if (isLoadFromMenu) {
+            isLoadFromMenu = false;
+            save.Load(slot);
+        }
+*/
         save.LoadPlayer(slot);
         isLoading = false;
     }

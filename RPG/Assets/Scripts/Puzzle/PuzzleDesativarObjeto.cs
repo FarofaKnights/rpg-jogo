@@ -8,6 +8,10 @@ public class PuzzleDesativarObjeto : PuzzleResult
     public override void Action()
     {
         Debug.Log("DesativarObjeto");
+
+        OcclusionPortal occlusion = desativar.GetComponent<OcclusionPortal>();
+        if (occlusion != null) occlusion.open = true;
+
         desativar.SetActive(false);
     }
 }

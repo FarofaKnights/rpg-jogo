@@ -43,7 +43,7 @@ public class QuestPlayVideoStep : QuestStep, IQuestInformations {
         Set();
     }
 
-    public virtual bool IsEfeitoPersistente { get { return false; } }
+    public override bool IsEfeitoPersistente { get { return false; } }
 
     #if UNITY_EDITOR
     public override string GetEditorName() { return "AÇÃO: Tocar Video"; }

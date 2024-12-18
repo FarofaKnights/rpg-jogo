@@ -116,6 +116,7 @@ public class PrimitiveVariable {
 
 public abstract class ISaveVariable<T> {
     public string name;
+    public bool isDefault;
     public T value {
         get {
             return GetValue();
@@ -137,7 +138,10 @@ public abstract class ISaveVariable<T> {
 public class GlobalVariable<T>: ISaveVariable<T> {
     public GlobalVariable(string name, T defaultValue) {
         this.name = name;
-        if (!Exists()) SetValue(defaultValue);
+        if (!Exists()) {
+            SetValue(defaultValue);
+            isDefault = true;
+        }
     }
 
     public GlobalVariable(string name) {
@@ -147,6 +151,7 @@ public class GlobalVariable<T>: ISaveVariable<T> {
     public override void SetValue(T value) {
         VariableSaveSystem sys = GameManager.instance.save.variables;
         PrimitiveType type = PrimitiveVariable.GetVariableType<T>();
+        isDefault = false;
         sys.SetVariable(name, type, value);
     }
 
@@ -172,9 +177,14 @@ public class GlobalVariable<T>: ISaveVariable<T> {
 }
 
 public class LocalVariable<T>: ISaveVariable<T> {
+    public bool isDefault;
+
     public LocalVariable(string name, T defaultValue) {
         this.name = name;
-        if (!Exists()) SetValue(defaultValue);
+        if (!Exists()) {
+            SetValue(defaultValue);
+            isDefault = true;
+        }
     }
 
     public LocalVariable(string name) {
@@ -184,6 +194,7 @@ public class LocalVariable<T>: ISaveVariable<T> {
     public override void SetValue(T value) {
         VariableSaveSystem sys = GameManager.instance.save.variables;
         PrimitiveType type = PrimitiveVariable.GetVariableType<T>();
+        isDefault = false;
         sys.SetVariable(name, type, value, "level");
     }
 
@@ -219,8 +230,12 @@ public class SaveEscopo {
             variables.Add(name, new PrimitiveVariable(name, type, value));
         }
 
-        if (watchers.ContainsKey(name)) {
+        string currentLevel = GameManager.instance.CurrentSceneName();
+
+        if (watchers.ContainsKey(name) && watchers[name] != null) {
             watchers[name](value);
+        } else if (currentLevel == name && watchers.ContainsKey("level") && watchers["level"] != null) {
+            watchers["level"](value);
         }
     }
 

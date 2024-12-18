@@ -11,7 +11,6 @@ public class LoadingController {
     int steps = 0;
     int maxSteps = 0;
     float pesoCena = 0.6f;
-    bool cenaCarregada = false;
 
     public bool IsLoading { get { return isLoading; } }
     public LevelInfo[] levels = null;
@@ -102,20 +101,18 @@ public class LoadingController {
 
     
     public IEnumerator LoadSceneAsync(LevelInfo level, System.Action[] onBeforeFinish = null) {
-        cenaCarregada = false;
         isLoading = true;
         yield return GameManager.instance.loadingUI.StartLoadingAsync();
 
         maxSteps = CalculateSteps(level, onBeforeFinish);
         steps = 0;
-        
+
         var asyncLoadLevel = SceneManager.LoadSceneAsync(level.nomeCena, LoadSceneMode.Single);
         while (!asyncLoadLevel.isDone){
             SetPercentage(asyncLoadLevel.progress * pesoCena);
             yield return null;
         }
 
-        cenaCarregada = true;
         SetPercentage(pesoCena);
         
         // Se tiver algum prefab pra instanciar
